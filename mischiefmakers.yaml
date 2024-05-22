@@ -26,29 +26,29 @@ segments:
       - [0x01050, c, boot]
       - [0x023D0, c, music]
       - [0x04F80, c, sprite]
-      - [0x05510, c,decodeA] #may be decompression/decryption func
+      - [0x05510, c, decodeA] #may be decompression/decryption func
       - [0x05A70, c, GameSave]
-      - [0x0A540, c,render]
+      - [0x0A540, c, render]
       - [0x11820, c]
-      - [0x12DD0, c,PlayerActor]
+      - [0x12DD0, c, PlayerActor]
       - [0x134E0, c]
-      - [0x13850, c,gameover] 
+      - [0x13850, c, gameover] 
       - [0x156F0, c]
       - [0x17A70, c]
-      - [0x1E7A0, c,ActorInit]
+      - [0x1E7A0, c, ActorInit]
       - [0x1F1E0, c]
-      - [0x22290, c,Letterbox]
-      - [0x23070, c,Lifebar]
-      - [0x23910, c,GameInit]
-      - [0x241E0, c,Scenes]
-      - [0x26A00, c,RomCopy]
-      - [0x27F70, c,text]
+      - [0x22290, c, Letterbox]
+      - [0x23070, c, Lifebar]
+      - [0x23910, c, GameInit]
+      - [0x241E0, c, Scenes]
+      - [0x26A00, c, RomCopy]
+      - [0x27F70, c, text]
       - [0x28EF0, c]
       - [0x438E0, c]
-      - [0x44F90, c,StaticGem]
+      - [0x44F90, c, StaticGem]
       - [0x46100, c]
       - [0x48A30, c]
-      - [0x49200, c,ActorMarina]
+      - [0x49200, c, ActorMarina]
       - [0x4FEB0, c]
       - [0x59EA0, c]
       - [0x5D120, c]
@@ -60,13 +60,13 @@ segments:
       - [0x805E0, c]
       - [0x80D90, c]
       - [0x82920, c]
-      - [0x82DB0, c,MarinaGraphics]
+      - [0x82DB0, c, MarinaGraphics]
       - [0x82F80, c] # likey deals with text defined in Alphabet.h
       - [0x844E0, c, DebugText]
       - [0x84BB0, c]
       - [0x8D0A0, c]
       - [0x8F080, c]
-      - [0x97770, c,LevelClear] # Level clear sequence
+      - [0x97770, c, LevelClear] # Level clear sequence
       - [0x99750, c] # A single function which decompresses (?) Marina's sprite data to some address?
       #libultra
       - [0x999f0, asm, io/viblack]
@@ -227,59 +227,59 @@ segments:
       - [0xBB6B0, bin, gspboot]
       - [0xBCAB0, bin, aspboot]
       #.data (note: sections commented out below have been problematic.)
-      - [0xBD8D0, .data,cosineTable]
-      - [0xBE8D0, .data,floatTable]      
+      - [0xBD8D0, .data, cosineTable]
+      - [0xBE8D0, .data, floatTable]      
       - [0xBF0D0, bin] # general globals
       - [0xBF350, bin] # BGM/instrument name lists
       #- [0xBF5E4, bin] # BGM instrument settings
       #- [0xC192C, bin] # SFX names? might be for base sounds. also seqp_bank indecies.
       #- [0xC32DC, bin] # more music.c data
       #- [0xC4508, bin] # sprite.c data
-      - [0xC5AE0, .data,decodeA] # decompress keys(?)
+      - [0xC5AE0, .data, decodeA] # decompress keys(?)
       - [0xC5B20, bin] # gamesave.c data
       - [0xC5FC0, bin] # misc. to discern later.
-      - [0xC88D0,.data,134E0] #a function table
-      - [0xC8910,bin,gameover]
-      - [0xC8B20,bin,156F0]
-      - [0xC8BE0,bin,17A70]
-      - [0xCCA20,data,Lifebar] #16-bit color references
-      - [0xCCB40,bin]
+      - [0xC88D0, .data, 134E0] #a function table
+      - [0xC8910, bin, gameover]
+      - [0xC8B20, bin, 156F0]
+      - [0xC8BE0, bin, 17A70]
+      - [0xCCA20, data, Lifebar] #16-bit color references
+      - [0xCCB40, bin]
 
 
       #libultra 
-      - [0xEA370, bin,osDATA]
-      #- [0xEA370, .data,os/initalize]
-      #- [0xEA390, .data,os/vimgr]
-      #- [0xEA3B0, .data,io/vitbl]
-      #- [0xEB0D0, .data,os/pimgr]
-      #- [0xEB100, .data,rmon/rmonmain]
-      #- [0xEB110, .data,io/controller]
-      #- [0xEB120, .data,audio/si]
-      #- [0xEB130, .data,audio/setnextbuf]
-      #- [0xEB140, .data,sp/sprite]
-      #- [0xEB150, .data,gu/rotate]
-      #- [0xEB160, .data,error/kmcprint]
-      #- [0xEB170, .data,io/vi]
-      #- [0xEB1E0, .data,os/exceptasm]
-      #- [0xEB200, .data,os/thread]
-      #- [0xEB220, .data,os/timerintr]
-      #- [0xEB230, .data,io/piacs]
-      #- [0xEB240, .data,host/rdbsend]
-      #- [0xEB250, .data,audio/drvrNew]
-      #- [0xEB3F0, .data,audio/env]
-      #- [0xEB530, .data,libc/xprintf]
-      #- [0xEB580, .data,io/vi]
-      #- [0xEB670, .data,os/error]
-      #- [0xEB690, .data,os/kdebugserver]
-      #- [0xEB6A0, .data,host/readhost]
-      #- [0xEB6B0, .data,rmon/rmoncmds]
+      - [0xEA370, bin, osDATA]
+      #- [0xEA370, .data, os/initalize]
+      #- [0xEA390, .data, os/vimgr]
+      #- [0xEA3B0, .data, io/vitbl]
+      #- [0xEB0D0, .data, os/pimgr]
+      #- [0xEB100, .data, rmon/rmonmain]
+      #- [0xEB110, .data, io/controller]
+      #- [0xEB120, .data, audio/si]
+      #- [0xEB130, .data, audio/setnextbuf]
+      #- [0xEB140, .data, sp/sprite]
+      #- [0xEB150, .data, gu/rotate]
+      #- [0xEB160, .data, error/kmcprint]
+      #- [0xEB170, .data, io/vi]
+      #- [0xEB1E0, .data, os/exceptasm]
+      #- [0xEB200, .data, os/thread]
+      #- [0xEB220, .data, os/timerintr]
+      #- [0xEB230, .data, io/piacs]
+      #- [0xEB240, .data, host/rdbsend]
+      #- [0xEB250, .data, audio/drvrNew]
+      #- [0xEB3F0, .data, audio/env]
+      #- [0xEB530, .data, libc/xprintf]
+      #- [0xEB580, .data, io/vi]
+      #- [0xEB670, .data, os/error]
+      #- [0xEB690, .data, os/kdebugserver]
+      #- [0xEB6A0, .data, host/readhost]
+      #- [0xEB6B0, .data, rmon/rmoncmds]
       #- [0xEB788, data]
-      #- [0xEB7B0, .data,libc/xstdio]
-      #- [0xEB7E0, .data,logger/ultralog]
+      #- [0xEB7B0, .data, libc/xstdio]
+      #- [0xEB7E0, .data, logger/ultralog]
       #.rodata
       - [0xEB7E8, .rodata, boot] # end at 0xEB824
       - [0xEB830, rodata]
-      #- [0xEB830, rodata,music] # includes sfx/bgm/instrument names.
+      #- [0xEB830, rodata, music] # includes sfx/bgm/instrument names.
       - [0xEBB10, .rodata, GameSave]
       - [0xEBBC0, .rodata, render]
       - [0xEBBE0, .rodata, 11820]
@@ -294,7 +294,7 @@ segments:
       - [0xEDCC0, bin, Debugtext] #doubles (why not part of rodata?)
       - [0xEDCE0, bin]
       - [0xEE100, .rodata, LevelClear]
-      - [0xEE200, bin,osRODATA]
+      - [0xEE200, bin, osRODATA]
       # libultra (not going into asms?)
       #- [0xEE200, .rodata, io/viswapbuf]
       #- [0xEE230, .rodata, os/visetmode]
@@ -339,29 +339,29 @@ segments:
     vram: 0x80388000
     overlay: true
     subsegments:
-      - [0xF00D0,c,noop] # a few NOOPs the game SHOULD load in. some are the Unknown Gamestate ticks.
-  - [0xF0100,bin] # romcopied in the same func as above.
-  - [0xF01C0,bin]
-  - [0x1E6900,bin] # loaded by func_80025E00
-  - [0x214B40,bin] # loaded by func_80025E6C
-  - [0x248F40,bin]
-  - [0x3fab30,bin] # loaded by func_800197A0
-  - [0x40AC70,bin] # blank.
-  - [0x40AC80,bin] # start of data refernced in table below (marina graphics?) (TODO: split all the entries.)
-  - [0x4A0910,bin] # ROM adresses load 2 at a time by MarinaGraphics_Load (-0x04BF5380)
+      - [0xF00D0, c, noop] # a few NOOPs the game SHOULD load in. some are the Unknown Gamestate ticks.
+  - [0xF0100, bin] # romcopied in the same func as above.
+  - [0xF01C0, bin]
+  - [0x1E6900, bin] # loaded by func_80025E00
+  - [0x214B40, bin] # loaded by func_80025E6C
+  - [0x248F40, bin]
+  - [0x3fab30, bin] # loaded by func_800197A0
+  - [0x40AC70, bin] # blank.
+  - [0x40AC80, bin] # start of data refernced in table below (marina graphics?) (TODO: split all the entries.)
+  - [0x4A0910, bin] # ROM adresses load 2 at a time by MarinaGraphics_Load (-0x04BF5380)
   #actor properties for Intermission scenes
-  - [0x4A15A0,bin]
-  - [0x4A15B0,bin]
-  - [0x4A15CC,bin]
-  - [0x4A15DC,bin]
-  - [0x4A162C,bin] #"freefall" for some reason.
-  - [0x4A1F84,bin]
-  - [0x4A1FB8,bin] #default - no actors
-  - [0x4A1FBC,bin] 
+  - [0x4A15A0, bin]
+  - [0x4A15B0, bin]
+  - [0x4A15CC, bin]
+  - [0x4A15DC, bin]
+  - [0x4A162C, bin] #"freefall" for some reason.
+  - [0x4A1F84, bin]
+  - [0x4A1FB8, bin] #default - no actors
+  - [0x4A1FBC, bin] 
   #more romcopied bits. looks to be compressed data
-  - [0x4A1FC0,bin]
-  - [0x4B9990,bin] #AlSoundBankFile
-  - [0x4CB120,bin]
+  - [0x4A1FC0, bin]
+  - [0x4B9990, bin] #AlSoundBankFile
+  - [0x4CB120, bin]
 #call lists and code segments loaded per scene by RomCopy_Funcs
   - type: code 
     start: 0x67DBA0
@@ -374,9 +374,9 @@ segments:
     vram: 0x80192100
     overlay: true
     subsegments:
-      - [0x67DC20, c,ActorFuncs1/MigenBrawl]
-      - [0x686BB0,bin,ActorFuncs1/MigenBrawl]
-      - [0x689880,.rodata,ActorFuncs1/MigenBrawl]
+      - [0x67DC20, c, ActorFuncs1/MigenBrawl]
+      - [0x686BB0, bin, ActorFuncs1/MigenBrawl]
+      - [0x689880, .rodata, ActorFuncs1/MigenBrawl]
   - type: code 
     start: 0x68A090
     vram: 0x80192000
@@ -388,9 +388,9 @@ segments:
     vram: 0x80192100
     overlay: true
     subsegments:
-      - [0x68A100, c,ActorFuncs1/CerberusAlpha]
-      - [0x69BD30,bin,ActorFuncs1/CerberusAlpha] 
-      - [0x69F550,.rodata,ActorFuncs1/CerberusAlpha] 
+      - [0x68A100, c, ActorFuncs1/CerberusAlpha]
+      - [0x69BD30, bin, ActorFuncs1/CerberusAlpha] 
+      - [0x69F550, .rodata, ActorFuncs1/CerberusAlpha] 
   - type: code 
     start: 0x6A00C0
     vram: 0x80192000
@@ -402,9 +402,9 @@ segments:
     vram: 0x80192100
     overlay: true
     subsegments:
-      - [0x6A0100, c,ActorFuncs1/SasquatchBeta]
-      - [0x6A7C00,bin,ActorFuncs1/SasquatchBeta]
-      - [0x6AA570,.rodata,ActorFuncs1/SasquatchBeta]
+      - [0x6A0100, c, ActorFuncs1/SasquatchBeta]
+      - [0x6A7C00, bin, ActorFuncs1/SasquatchBeta]
+      - [0x6AA570, .rodata, ActorFuncs1/SasquatchBeta]
   - type: code 
     start: 0x6AAA80
     vram: 0x80192000
@@ -416,9 +416,9 @@ segments:
     vram: 0x80192100
     overlay: true
     subsegments:
-      - [0x6AAAF0, c,ActorFuncs1/PhoenixGamma]
-      - [0x6B9AB0,bin,ActorFuncs1/PhoenixGamma]
-      - [0x6BC890,.rodata,ActorFuncs1/PhoenixGamma]
+      - [0x6AAAF0, c, ActorFuncs1/PhoenixGamma]
+      - [0x6B9AB0, bin, ActorFuncs1/PhoenixGamma]
+      - [0x6BC890, .rodata, ActorFuncs1/PhoenixGamma]
   - type: code
     start: 0x6BCD80
     vram: 0x80192000
@@ -430,9 +430,9 @@ segments:
     vram: 0x80192100
     overlay: true
     subsegments:
-      - [0x6BCDD0, c,ActorFuncs1/FinalBattle]
-      - [0x6CBC50,bin,ActorFuncs1/FinalBattle]
-      #- [0x6D15E0,.rodata,ActorFuncs1/FinalBattle]
+      - [0x6BCDD0, c, ActorFuncs1/FinalBattle]
+      - [0x6CBC50, bin, ActorFuncs1/FinalBattle]
+      #- [0x6D15E0, .rodata, ActorFuncs1/FinalBattle]
   - type: code
     start: 0x6D1BF0
     vram: 0x80192000
@@ -444,8 +444,8 @@ segments:
     vram: 0x80192100
     overlay: true
     subsegments:
-      - [0x6D1C00, c,ActorFuncs1/MeetMarina]
-      - [0x6D2710,.rodata,ActorFuncs1/MeetMarina]
+      - [0x6D1C00, c, ActorFuncs1/MeetMarina]
+      - [0x6D2710, .rodata, ActorFuncs1/MeetMarina]
   - type: code
     start: 0x6D2750
     vram: 0x80192000
@@ -457,9 +457,9 @@ segments:
     vram: 0x80192100
     overlay: true
     subsegments:
-      - [0x6D2780, c,ActorFuncs1/intro]
-      - [0x6D9460,bin,ActorFuncs1/intro]
-      #- [0x6D9B00,.rodata,ActorFuncs1/intro]
+      - [0x6D2780, c, ActorFuncs1/intro]
+      - [0x6D9460, bin, ActorFuncs1/intro]
+      #- [0x6D9B00, .rodata, ActorFuncs1/intro]
   - type: code
     start: 0x6D9FB0
     vram: 0x80192000
@@ -471,8 +471,8 @@ segments:
     vram: 0x80192100
     overlay: true
     subsegments:
-      - [0x6DA010, c,ActorFuncs1/DemoWorld1]
-      - [0x6E22E0,bin,ActorFuncs1/DemoWorld1]
+      - [0x6DA010, c, ActorFuncs1/DemoWorld1]
+      - [0x6E22E0, bin, ActorFuncs1/DemoWorld1]
   - type: code
     start: 0x6E2AE0
     vram: 0x80192000
@@ -484,8 +484,8 @@ segments:
     vram: 0x80192100
     overlay: true
     subsegments:
-      - [0x6E2B20, c,ActorFuncs1/DemoWorld3]
-      - [0x6EDBB0,bin,ActorFuncs1/DemoWorld3]
+      - [0x6E2B20, c, ActorFuncs1/DemoWorld3]
+      - [0x6EDBB0, bin, ActorFuncs1/DemoWorld3]
   - type: code
     start: 0x6EE550
     vram: 0x80192000
@@ -497,8 +497,8 @@ segments:
     vram: 0x80192100
     overlay: true
     subsegments:
-      - [0x6EE580, c,ActorFuncs1/DemoWorld4]
-      - [0x6F38C0,bin,ActorFuncs1/DemoWorld4]
+      - [0x6EE580, c, ActorFuncs1/DemoWorld4]
+      - [0x6F38C0, bin, ActorFuncs1/DemoWorld4]
   - type: code
     start: 0x6F3DA0
     vram: 0x80192000
@@ -510,8 +510,8 @@ segments:
     vram: 0x80192100
     overlay: true
     subsegments:
-      - [0x6F3DD0, c,ActorFuncs1/DemoWorld5]
-      - [0x6F7800,bin,ActorFuncs1/DemoWorld5]
+      - [0x6F3DD0, c, ActorFuncs1/DemoWorld5]
+      - [0x6F7800, bin, ActorFuncs1/DemoWorld5]
   - type: code
     start: 0x6F7B20
     vram: 0x80192000
@@ -523,8 +523,8 @@ segments:
     vram: 0x80192100
     overlay: true
     subsegments:
-      - [0x6F7B30, c,ActorFuncs1/DemoFinal]
-      - [0x6F91F0,bin,ActorFuncs1/DemoFinal]
+      - [0x6F7B30, c, ActorFuncs1/DemoFinal]
+      - [0x6F91F0, bin, ActorFuncs1/DemoFinal]
   - type: code
     start: 0x6F9330
     vram: 0x80192000
@@ -536,9 +536,9 @@ segments:
     vram: 0x80192100
     overlay: true
     subsegments:
-      - [0x6F9390, c,ActorFuncs1/Ending]
-      - [0x711300,bin,ActorFuncs1/Ending]
-      #- [0x7129A0,.rodata,ActorFuncs1/Ending]
+      - [0x6F9390, c, ActorFuncs1/Ending]
+      - [0x711300, bin, ActorFuncs1/Ending]
+      #- [0x7129A0, .rodata, ActorFuncs1/Ending]
   - type: code
     start: 0x713600
     vram: 0x80192000
@@ -550,9 +550,9 @@ segments:
     vram: 0x80192100
     overlay: true
     subsegments:
-      - [0x713630, c,ActorFuncs1/General]
-      - [0x719150,bin,ActorFuncs1/General]
-      - [0x719200,.rodata,ActorFuncs1/General]
+      - [0x713630, c, ActorFuncs1/General]
+      - [0x719150, bin, ActorFuncs1/General]
+      - [0x719200, .rodata, ActorFuncs1/General]
 
 #call lists and code segments loaded per scene by RomCopy_Funcs2
   - type: code
@@ -566,9 +566,9 @@ segments:
     vram: 0x8019b100
     overlay: true
     subsegments:
-      - [0x719720, c,ActorFuncs2/Merco]
-      - [0x721E40,bin,ActorFuncs2/Merco]
-     # - [0x7228D0,.rodata,ActorFuncs2/Merco]
+      - [0x719720, c, ActorFuncs2/Merco]
+      - [0x721E40, bin, ActorFuncs2/Merco]
+     # - [0x7228D0, .rodata, ActorFuncs2/Merco]
   - type: code
     start: 0x722A30
     vram: 0x8019b000
@@ -580,9 +580,9 @@ segments:
     vram: 0x8019b100
     overlay: true
     subsegments:
-      - [0x722A50, c,ActorFuncs2/Lunar]
-      - [0x72AA70,bin,ActorFuncs2/Lunar]
-      #- [0x72AE00,.rodata,ActorFuncs2/Lunar]
+      - [0x722A50, c, ActorFuncs2/Lunar]
+      - [0x72AA70, bin, ActorFuncs2/Lunar]
+      #- [0x72AE00, .rodata, ActorFuncs2/Lunar]
   - type: code
     start: 0x72B120
     vram: 0x8019b000
@@ -594,9 +594,9 @@ segments:
     vram: 0x8019b100
     overlay: true
     subsegments:
-      - [0x72B140, c,ActorFuncs2/Taurus]
-      - [0x731860,bin,ActorFuncs2/Taurus]
-    #  - [0x731C10,.rodata,ActorFuncs2/Taurus]
+      - [0x72B140, c, ActorFuncs2/Taurus]
+      - [0x731860, bin, ActorFuncs2/Taurus]
+    #  - [0x731C10, .rodata, ActorFuncs2/Taurus]
   - type: code
     start: 0x731DD0
     vram: 0x8019b000
@@ -608,8 +608,8 @@ segments:
     vram: 0x8019b100
     overlay: true
     subsegments:
-      - [0x731E60, c,ActorFuncs2/General]
-      - [0x73B4D0,bin,ActorFuncs2/General]
+      - [0x731E60, c, ActorFuncs2/General]
+      - [0x73B4D0, bin, ActorFuncs2/General]
   - type: code
     start: 0x73D070
     vram: 0x8019b000
@@ -621,9 +621,9 @@ segments:
     vram: 0x8019b100
     overlay: true
     subsegments:
-      - [0x73D090, c,ActorFuncs2/WorminUp]
-      - [0x742870,bin,ActorFuncs2/WorminUp]
-    #  - [0x742A10,.rodata,ActorFuncs2/WorminUp]
+      - [0x73D090, c, ActorFuncs2/WorminUp]
+      - [0x742870, bin, ActorFuncs2/WorminUp]
+    #  - [0x742A10, .rodata, ActorFuncs2/WorminUp]
   - type: code
     start: 0x742CA0
     vram: 0x8019b000
@@ -635,9 +635,9 @@ segments:
     vram: 0x8019b100
     overlay: true
     subsegments:
-      - [0x742CB0, c,ActorFuncs2/Flambee]
-      - [0x748AB0,bin,ActorFuncs2/Flambee]
-    #  - [0x7496D0,.rodata,ActorFuncs2/Flambee]
+      - [0x742CB0, c, ActorFuncs2/Flambee]
+      - [0x748AB0, bin, ActorFuncs2/Flambee]
+    #  - [0x7496D0, .rodata, ActorFuncs2/Flambee]
   - type: code
     start: 0x749C90
     vram: 0x8019b000
@@ -649,9 +649,9 @@ segments:
     vram: 0x8019b100
     overlay: true
     subsegments:
-      - [0x749CB0, c,ActorFuncs2/ChillyDog]
-      - [0x751950,bin,ActorFuncs2/ChillyDog]      
-      #- [0x753420,.rodata,ActorFuncs2/ChillyDog]      
+      - [0x749CB0, c, ActorFuncs2/ChillyDog]
+      - [0x751950, bin, ActorFuncs2/ChillyDog]      
+      #- [0x753420, .rodata, ActorFuncs2/ChillyDog]      
   - type: code
     start: 0x753860
     vram: 0x8019b000
@@ -663,9 +663,9 @@ segments:
     vram: 0x8019b100
     overlay: true
     subsegments:
-      - [0x753880, c,ActorFuncs2/Festival]
-      - [0x753FD0,bin,ActorFuncs2/Festival]
-      #- [0x7544E0,.rodata,ActorFuncs2/Festival]
+      - [0x753880, c, ActorFuncs2/Festival]
+      - [0x753FD0, bin, ActorFuncs2/Festival]
+      #- [0x7544E0, .rodata, ActorFuncs2/Festival]
   - type: code
     start: 0x754570
     vram: 0x8019b000
@@ -677,9 +677,9 @@ segments:
     vram: 0x8019b100
     overlay: true
     subsegments:
-      - [0x7545A0, c,ActorFuncs2/ToadlyRaw]
-      - [0x75C6F0,bin,ActorFuncs2/ToadlyRaw]
-      #- [0x75D290,.rodata,ActorFuncs2/ToadlyRaw]
+      - [0x7545A0, c, ActorFuncs2/ToadlyRaw]
+      - [0x75C6F0, bin, ActorFuncs2/ToadlyRaw]
+      #- [0x75D290, .rodata, ActorFuncs2/ToadlyRaw]
   - type: code
     start: 0x75D630
     vram: 0x8019b000
@@ -691,9 +691,9 @@ segments:
     vram: 0x8019b100
     overlay: true
     subsegments:
-      - [0x75D660, c,ActorFuncs2/MoleyCow]
-      - [0x763EA0,bin,ActorFuncs2/MoleyCow]
-      #- [0x765B20,.rodata,ActorFuncs2/MoleyCow]
+      - [0x75D660, c, ActorFuncs2/MoleyCow]
+      - [0x763EA0, bin, ActorFuncs2/MoleyCow]
+      #- [0x765B20, .rodata, ActorFuncs2/MoleyCow]
 
 #call lists and code segments loaded per scene by RomCopy_ActorFuncs3
   - type: code
@@ -707,7 +707,7 @@ segments:
     vram: 0x801A6900
     overlay: true
     subsegments:
-      - [0x766110, c,ActorFuncs3/World1]
+      - [0x766110, c, ActorFuncs3/World1]
       - [0x76EC30, bin, ActorFuncs3/World1]
       - [0x76F150, .rodata, ActorFuncs3/World1]
   - type: code
@@ -721,8 +721,8 @@ segments:
     vram: 0x801A6900
     overlay: true
     subsegments:
-      - [0x76F3A0, c,ActorFuncs3/World2]
-      - [0x76FD40, bin,ActorFuncs3/World2]
+      - [0x76F3A0, c, ActorFuncs3/World2]
+      - [0x76FD40, bin, ActorFuncs3/World2]
   - type: code
     start: 0x76FD60
     vram: 0x801A6800
@@ -734,8 +734,8 @@ segments:
     vram: 0x801A6900
     overlay: true
     subsegments:
-      - [0x76FDD0, c,ActorFuncs3/World3]
-      - [0x774520, bin,ActorFuncs3/World3]
+      - [0x76FDD0, c, ActorFuncs3/World3]
+      - [0x774520, bin, ActorFuncs3/World3]
   - type: code
     start: 0x775460
     vram: 0x801A6800
@@ -747,8 +747,8 @@ segments:
     vram: 0x801A6900
     overlay: true
     subsegments:
-      - [0x7754F0, c,ActorFuncs3/World4]
-      - [0x77EA60,bin,ActorFuncs3/World4]
+      - [0x7754F0, c, ActorFuncs3/World4]
+      - [0x77EA60, bin, ActorFuncs3/World4]
   - type: code
     start: 0x77F240
     vram: 0x801A6800
@@ -760,7 +760,7 @@ segments:
     vram: 0x801A6900
     overlay: true
     subsegments:
-      - [0x77F260, c,ActorFuncs3/World4B] 
+      - [0x77F260, c, ActorFuncs3/World4B] 
       - [0x784710, bin, ActorFuncs3/World4B]
   - type: code
     start: 0x7854B0
@@ -773,7 +773,7 @@ segments:
     vram: 0x801A6900
     overlay: true
     subsegments:
-      - [0x7854D0, c,ActorFuncs3/World5]
+      - [0x7854D0, c, ActorFuncs3/World5]
       - [0x789D70, bin, ActorFuncs3/World5]
   - type: code
     start: 0x78B430
@@ -786,8 +786,8 @@ segments:
     vram: 0x801A6900
     overlay: true
     subsegments:
-      - [0x78B440, c,ActorFuncs3/World5B]
-      - [0x78C9E0, bin,ActorFuncs3/World5B]
+      - [0x78B440, c, ActorFuncs3/World5B]
+      - [0x78C9E0, bin, ActorFuncs3/World5B]
   - type: code
     start: 0x78CB60
     vram: 0x801A6800
@@ -799,7 +799,7 @@ segments:
     vram: 0x801A6900
     overlay: true
     subsegments:
-      - [0x78CBF0, c,ActorFuncs3/Festival]
+      - [0x78CBF0, c, ActorFuncs3/Festival]
       - [0x7958C0, bin, ActorFuncs3/Festival]
       - [0x7963E0, .rodata, ActorFuncs3/Festival]
 #call lists and code segments loaded per scene by romcopy_actorFuncs4
@@ -814,7 +814,7 @@ segments:
     vram: 0x801B0900
     overlay: true
     subsegments:
-      - [0x7969D0, c,ActorFuncs4/World1]
+      - [0x7969D0, c, ActorFuncs4/World1]
       - [0x7984C0, bin, ActorFuncs4/World1]
   - type: code
     start: 0x7986D0
@@ -827,7 +827,7 @@ segments:
     vram: 0x801B0900
     overlay: true
     subsegments:
-      - [0x798740, c,ActorFuncs4/World2]
+      - [0x798740, c, ActorFuncs4/World2]
       - [0x79DC30, bin, ActorFuncs4/World2]
   - type: code
     start: 0x7A13D0
@@ -840,7 +840,7 @@ segments:
     vram: 0x801B0900
     overlay: true
     subsegments:
-      - [0x7A1410, c,ActorFuncs4/World3]
+      - [0x7A1410, c, ActorFuncs4/World3]
       - [0x7A69A0, bin, ActorFuncs4/World3]
   - type: code
     start: 0x7A6E60
@@ -853,7 +853,7 @@ segments:
     vram: 0x801B0900
     overlay: true
     subsegments:
-      - [0x7A6E80, c,ActorFuncs4/Festival]
+      - [0x7A6E80, c, ActorFuncs4/Festival]
       - [0x7AB410, bin, ActorFuncs4/Festival]
       - [0x7ABFE0, .rodata, ActorFuncs4/Festival]
   - type: code
@@ -867,7 +867,7 @@ segments:
     vram: 0x801B0900
     overlay: true
     subsegments:
-      - [0x7AC820, c,ActorFuncs4/Festival2]
+      - [0x7AC820, c, ActorFuncs4/Festival2]
       - [0x7B3240, bin, ActorFuncs4/Festival2]
       - [0x7B38B0, .rodata, ActorFuncs4/Festival2]
   - type: code
@@ -881,7 +881,7 @@ segments:
     vram: 0x801B0900
     overlay: true
     subsegments:
-      - [0x7B3FE0, c,ActorFuncs4/Festival3]
+      - [0x7B3FE0, c, ActorFuncs4/Festival3]
       - [0x7B79F0, bin, ActorFuncs4/Festival3]
       - [0x7B8150, .rodata, ActorFuncs4/Festival3]
   - type: code
@@ -895,7 +895,7 @@ segments:
     vram: 0x801B0900
     overlay: true
     subsegments:
-      - [0x7B87B0, c,ActorFuncs4/World4]
+      - [0x7B87B0, c, ActorFuncs4/World4]
       - [0x7BC2B0, bin, ActorFuncs4/World4]
       #- [0x7BC6A0, rodata, ActorFuncs4/World4]
   - type: code
@@ -909,7 +909,7 @@ segments:
     vram: 0x801B0900
     overlay: true
     subsegments:
-      - [0x7BC850, c,ActorFuncs4/Festival4]
+      - [0x7BC850, c, ActorFuncs4/Festival4]
       - [0x7C0640, bin, ActorFuncs4/Festival4]
   - type: code
     start: 0x7C0AB0
@@ -922,7 +922,7 @@ segments:
     vram: 0x801B0900
     overlay: true
     subsegments:
-      - [0x7C0B20, c,ActorFuncs4/World5]
+      - [0x7C0B20, c, ActorFuncs4/World5]
       - [0x7C67A0, bin, ActorFuncs4/World5]
 #call lists and code segments loaded per scene by romcopy_actorFuncs5      
   - type: code
@@ -936,9 +936,9 @@ segments:
     vram: 0x801B9900
     overlay: true
     subsegments:
-     - [0x7C6AE0, c,ActorFuncs5/World1]
-     - [0x7C9800, bin,ActorFuncs5/World1]
-     - [0x7CDDD0, .rodata,ActorFuncs5/World1]
+     - [0x7C6AE0, c, ActorFuncs5/World1]
+     - [0x7C9800, bin, ActorFuncs5/World1]
+     - [0x7CDDD0, .rodata, ActorFuncs5/World1]
   - type: code
     start: 0x7CE060
     vram: 0x801B9800
@@ -950,9 +950,9 @@ segments:
     vram: 0x801B9900
     overlay: true
     subsegments:
-     - [0x7CE090, c,ActorFuncs5/World2]
-     - [0x7D0390, bin,ActorFuncs5/World2]
-     - [0x7D3F60, .rodata,ActorFuncs5/World2]
+     - [0x7CE090, c, ActorFuncs5/World2]
+     - [0x7D0390, bin, ActorFuncs5/World2]
+     - [0x7D3F60, .rodata, ActorFuncs5/World2]
   - type: code
     start: 0x7D40C0
     vram: 0x801B9800
@@ -964,8 +964,8 @@ segments:
     vram: 0x801B9900
     overlay: true
     subsegments:
-     - [0x7D40F0, c,ActorFuncs5/World3]
-     - [0x7D6930, bin,ActorFuncs5/World3]
+     - [0x7D40F0, c, ActorFuncs5/World3]
+     - [0x7D6930, bin, ActorFuncs5/World3]
   - type: code
     start: 0x7DAAA0
     vram: 0x801B9800
@@ -977,9 +977,9 @@ segments:
     vram: 0x801B9900
     overlay: true
     subsegments:
-     - [0x7DAB00, c,ActorFuncs5/Festival]
-     - [0x7DC230, bin,ActorFuncs5/Festival]
-     - [0x7DC6E0, .rodata,ActorFuncs5/Festival]
+     - [0x7DAB00, c, ActorFuncs5/Festival]
+     - [0x7DC230, bin, ActorFuncs5/Festival]
+     - [0x7DC6E0, .rodata, ActorFuncs5/Festival]
   - type: code
     start: 0x7DC7A0
     vram: 0x801B9800
@@ -991,8 +991,8 @@ segments:
     vram: 0x801B9900
     overlay: true
     subsegments:
-     - [0x7DC7D0, c,ActorFuncs5/7DC7D0]
-     - [0x7DF850, bin,ActorFuncs5/7DC7D0]
+     - [0x7DC7D0, c, ActorFuncs5/7DC7D0]
+     - [0x7DF850, bin, ActorFuncs5/7DC7D0]
   - type: code
     start: 0x7E2A30
     vram: 0x801B9800
@@ -1004,9 +1004,9 @@ segments:
     vram: 0x801B9900
     overlay: true
     subsegments:
-     - [0x7E2A60, c,ActorFuncs5/7E2A60]
-     - [0x7E5010, bin,ActorFuncs5/7E2A60]
-     - [0x7E67A0, .rodata,ActorFuncs5/7E2A60]
+     - [0x7E2A60, c, ActorFuncs5/7E2A60]
+     - [0x7E5010, bin, ActorFuncs5/7E2A60]
+     - [0x7E67A0, .rodata, ActorFuncs5/7E2A60]
   - type: code
     start: 0x7E6A20
     vram: 0x801B9800
@@ -1018,8 +1018,8 @@ segments:
     vram: 0x801B9900
     overlay: true
     subsegments:
-     - [0x7E6A50, c,ActorFuncs5/7E6A50]
-     - [0x7E7690, bin,ActorFuncs5/7E6A50]
+     - [0x7E6A50, c, ActorFuncs5/7E6A50]
+     - [0x7E7690, bin, ActorFuncs5/7E6A50]
   - type: code
     start: 0x7E7EB0
     vram: 0x801B9800
@@ -1031,8 +1031,8 @@ segments:
     vram: 0x801B9900
     overlay: true
     subsegments:
-     - [0x7E7ED0, c,ActorFuncs5/7E7ED0]
-     - [0x7E95A0, bin,ActorFuncs5/7E7ED0]
+     - [0x7E7ED0, c, ActorFuncs5/7E7ED0]
+     - [0x7E95A0, bin, ActorFuncs5/7E7ED0]
   - type: code
     start: 0x7EA3C0
     vram: 0x801B9800
@@ -1044,8 +1044,8 @@ segments:
     vram: 0x801B9900
     overlay: true
     subsegments:
-     - [0x7EA3D0, c,ActorFuncs5/7EA3D0]
-     - [0x7EA690, bin,ActorFuncs5/7EA3D0]
+     - [0x7EA3D0, c, ActorFuncs5/7EA3D0]
+     - [0x7EA690, bin, ActorFuncs5/7EA3D0]
   - type: code
     start: 0x7EA710
     vram: 0x801B9800
@@ -1057,8 +1057,8 @@ segments:
     vram: 0x801B9900
     overlay: true
     subsegments:
-    - [0x7EA730, c,ActorFuncs5/World4]
-    - [0x7EADE0, bin,ActorFuncs5/World4]
-    - [0x7EAFA0, .rodata,ActorFuncs5/World4]
+    - [0x7EA730, c, ActorFuncs5/World4]
+    - [0x7EADE0, bin, ActorFuncs5/World4]
+    - [0x7EAFA0, .rodata, ActorFuncs5/World4]
   - [0x7EAFD0, bin, trailer] # 0xff to end
   - [0x800000]
