@@ -1,1 +1,4 @@
+#!/usr/bin/python3
+
 tools/asm-differ/diff.py
+

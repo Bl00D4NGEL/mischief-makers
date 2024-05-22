@@ -5,6 +5,7 @@
 
 undefined_funcs_auto.txt
 undefined_syms_auto.txt
+symbol_addrs.txt
 
 asm/
 assets/
@@ -13,8 +14,7 @@ expected/
 nonmatchings/
 __pycache__/
 expected/
-
-.vscode
+.vscode/
 
 tools/n64crc
 
@@ -22,3 +22,6 @@ ctx_includes.c
 ctx.c
 
 progress.csv
+
+build.ninja
+.ninja*

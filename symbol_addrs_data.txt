@@ -1,0 +1,38 @@
+gCurrentFramebufferIndex = 0x800BE700; // size:0x2
+
+gDramStack = 0x8011D970; // size:0x400
+gYeildData = 0x8011DDF0; // size:0xDA0
+
+gBootStack = 0x80123670; // size:0x1000
+gIdleStack = 0x80125670; // size:0x1000
+gMainStack = 0x80127670; // size:0x1000
+gRmonStack = 0x80128670; // size:0x1000
+sIdleThread = 0x8012A698; // size:0x1E8
+sMainThread = 0x8012A848; // size:0x1E8
+sRmonThread = 0x8012A9F8; // size:0x1E8
+
+// boot.c ?
+gOSViMode = 0x8012AD10; // size:0x50
+gOSViModep = 0x8012AD08; // size:0x4
+gGFXTaskp = 0x8012AC84; // size:0x4
+gGFXTasks = 0x8012AC88;
+gDListTail = 0x8012ADC0;
+gDListHead = 0x8012A670;
+
+sDMAMesgQ = 0x8012ABA8;
+
+// input.c ?
+gButtonHold = 0x800BE4F8; // size:0x2
+gButtonPress = 0x800BE4FC; // size:0x2
+gButtonLast = 0x800BE538; // size:0x2
+gJoyX = 0x800BE53C; // size:0x1
+gJoyY = 0x800BE540; // size:0x1
+
+gContpadArrayA = 0x8012AD70; // size:0x6
+gContpadArrayB = 0x8012AD88; // size:0x6
+gContMesgQ = 0x8012ADA0;
+gPlayerControllerIndex = 0x801370C0; // size:0x4
+gButtonCurrent = 0x801370C4; // size:0x2
+
+
+

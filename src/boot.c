@@ -1,220 +1,451 @@
 #include "common.h"
+#include "thread.h"
+#include "input.h"
 
+// forward declarations
+
+void func_80000450(void);
+void boot(s32 unused);
+void Thread_IdleProc(void* arg0);
+void func_800008E0(void);
+void Thread_MainProc(void* arg0);
+
+// data
+
+extern Gfx D_800E38B0[];
+extern Gfx D_800E3930[];
+
+extern OSMesgQueue sDMAMesgQ;
+extern OSMesgQueue D_8012ABC0;
+extern OSMesgQueue D_8012ABD8;
+extern OSMesgQueue D_8012ABF0;
+extern OSMesgQueue D_8012AC08; // might be in input.c
+
+extern OSMesg D_8012AC68;
+extern OSMesg D_8012AC6C;
+extern OSMesg D_8012AC70;
+extern OSMesg D_8012AC74;
+extern OSMesg D_8012AC80;
+
+// text
+// needs loop rerolling
 #ifdef NON_MATCHING
-/* I have no idea how this regalloc is produced
- * It stores 0 in a bunch of registers, and uses about 10 at a time to write to the cfb
- * However, obviously this should get get optimized to use $r0
- * And that is what we see in this current code
- */
-void Framebuffer_Clear(void) {
-    uint32_t* cfb;
-    int32_t index;
-    int32_t t8;
-    int32_t t7;
-    int32_t t6;
-    int32_t t4;
-    int32_t t2;
-    int32_t t0;
+typedef struct {
+    /* 0x000 */ u32 unk_0x00;
+    /* 0x004 */ u32 unk_0x04;
+    /* 0x008 */ u32 unk_0x08;
+    /* 0x00C */ u32 unk_0x0C;
+    /* 0x010 */ u32 unk_0x10;
+    /* 0x014 */ u32 unk_0x14;
+    /* 0x018 */ u32 unk_0x18;
+    /* 0x01C */ u32 unk_0x1C;
+    /* 0x020 */ u32 unk_0x20;
+    /* 0x024 */ u32 unk_0x24;
+    /* 0x028 */ u32 unk_0x28;
+    /* 0x02C */ u32 unk_0x2C;
+    /* 0x030 */ u32 unk_0x30;
+    /* 0x034 */ u32 unk_0x34;
+    /* 0x038 */ u32 unk_0x38;
+    /* 0x03C */ u32 unk_0x3C;
+    /* 0x040 */ u32 unk_0x40;
+    /* 0x044 */ u32 unk_0x44;
+    /* 0x048 */ u32 unk_0x48;
+    /* 0x04C */ u32 unk_0x4C;
+    /* 0x050 */ u32 unk_0x50;
+    /* 0x054 */ u32 unk_0x54;
+    /* 0x058 */ u32 unk_0x58;
+    /* 0x05C */ u32 unk_0x5C;
+    /* 0x060 */ u32 unk_0x60;
+    /* 0x064 */ u32 unk_0x64;
+    /* 0x068 */ u32 unk_0x68;
+    /* 0x06C */ u32 unk_0x6C;
+    /* 0x070 */ u32 unk_0x70;
+    /* 0x074 */ u32 unk_0x74;
+    /* 0x078 */ u32 unk_0x78;
+    /* 0x07C */ u32 unk_0x7C;
+    /* 0x080 */ u32 unk_0x80;
+    /* 0x084 */ u32 unk_0x84;
+    /* 0x088 */ u32 unk_0x88;
+    /* 0x08C */ u32 unk_0x8C;
+    /* 0x090 */ u32 unk_0x90;
+    /* 0x094 */ u32 unk_0x94;
+    /* 0x098 */ u32 unk_0x98;
+    /* 0x09C */ u32 unk_0x9C;
+    /* 0x0A0 */ u32 unk_0xA0;
+    /* 0x0A4 */ u32 unk_0xA4;
+    /* 0x0A8 */ u32 unk_0xA8;
+    /* 0x0AC */ u32 unk_0xAC;
+    /* 0x0B0 */ u32 unk_0xB0;
+    /* 0x0B4 */ u32 unk_0xB4;
+    /* 0x0B8 */ u32 unk_0xB8;
+    /* 0x0BC */ u32 unk_0xBC;
+    /* 0x0C0 */ u32 unk_0xC0;
+    /* 0x0C4 */ u32 unk_0xC4;
+    /* 0x0C8 */ u32 unk_0xC8;
+    /* 0x0CC */ u32 unk_0xCC;
+    /* 0x0D0 */ u32 unk_0xD0;
+    /* 0x0D4 */ u32 unk_0xD4;
+    /* 0x0D8 */ u32 unk_0xD8;
+    /* 0x0DC */ u32 unk_0xDC;
+    /* 0x0E0 */ u32 unk_0xE0;
+    /* 0x0E4 */ u32 unk_0xE4;
+    /* 0x0E8 */ u32 unk_0xE8;
+    /* 0x0EC */ u32 unk_0xEC;
+    /* 0x0F0 */ u32 unk_0xF0;
+    /* 0x0F4 */ u32 unk_0xF4;
+    /* 0x0F8 */ u32 unk_0xF8;
+    /* 0x0FC */ u32 unk_0xFC;
+    /* 0x100 */ u32 unk_0x100;
+    /* 0x104 */ u32 unk_0x104;
+    /* 0x108 */ u32 unk_0x108;
+    /* 0x10C */ u32 unk_0x10C;
+    /* 0x110 */ u32 unk_0x110;
+    /* 0x114 */ u32 unk_0x114;
+    /* 0x118 */ u32 unk_0x118;
+    /* 0x11C */ u32 unk_0x11C;
+    /* 0x120 */ u32 unk_0x120;
+    /* 0x124 */ u32 unk_0x124;
+    /* 0x128 */ u32 unk_0x128;
+    /* 0x12C */ u32 unk_0x12C;
+    /* 0x130 */ u32 unk_0x130;
+    /* 0x134 */ u32 unk_0x134;
+    /* 0x138 */ u32 unk_0x138;
+    /* 0x13C */ u32 unk_0x13C;
+    /* 0x140 */ u32 unk_0x140;
+    /* 0x144 */ u32 unk_0x144;
+    /* 0x148 */ u32 unk_0x148;
+    /* 0x14C */ u32 unk_0x14C;
+    /* 0x150 */ u32 unk_0x150;
+    /* 0x154 */ u32 unk_0x154;
+    /* 0x158 */ u32 unk_0x158;
+    /* 0x15C */ u32 unk_0x15C;
+    /* 0x160 */ u32 unk_0x160;
+    /* 0x164 */ u32 unk_0x164;
+    /* 0x168 */ u32 unk_0x168;
+    /* 0x16C */ u32 unk_0x16C;
+    /* 0x170 */ u32 unk_0x170;
+    /* 0x174 */ u32 unk_0x174;
+    /* 0x178 */ u32 unk_0x178;
+    /* 0x17C */ u32 unk_0x17C;
+    /* 0x180 */ u32 unk_0x180;
+    /* 0x184 */ u32 unk_0x184;
+    /* 0x188 */ u32 unk_0x188;
+    /* 0x18C */ u32 unk_0x18C;
+    /* 0x190 */ u32 unk_0x190;
+    /* 0x194 */ u32 unk_0x194;
+    /* 0x198 */ u32 unk_0x198;
+    /* 0x19C */ u32 unk_0x19C;
+    /* 0x1A0 */ u32 unk_0x1A0;
+    /* 0x1A4 */ u32 unk_0x1A4;
+    /* 0x1A8 */ u32 unk_0x1A8;
+    /* 0x1AC */ u32 unk_0x1AC;
+    /* 0x1B0 */ u32 unk_0x1B0;
+    /* 0x1B4 */ u32 unk_0x1B4;
+    /* 0x1B8 */ u32 unk_0x1B8;
+    /* 0x1BC */ u32 unk_0x1BC;
+    /* 0x1C0 */ u32 unk_0x1C0;
+    /* 0x1C4 */ u32 unk_0x1C4;
+    /* 0x1C8 */ u32 unk_0x1C8;
+    /* 0x1CC */ u32 unk_0x1CC;
+    /* 0x1D0 */ u32 unk_0x1D0;
+    /* 0x1D4 */ u32 unk_0x1D4;
+    /* 0x1D8 */ u32 unk_0x1D8;
+    /* 0x1DC */ u32 unk_0x1DC;
+    /* 0x1E0 */ u32 unk_0x1E0;
+    /* 0x1E4 */ u32 unk_0x1E4;
+    /* 0x1E8 */ u32 unk_0x1E8;
+    /* 0x1EC */ u32 unk_0x1EC;
+    /* 0x1F0 */ u32 unk_0x1F0;
+    /* 0x1F4 */ u32 unk_0x1F4;
+    /* 0x1F8 */ u32 unk_0x1F8;
+    /* 0x1FC */ u32 unk_0x1FC;
+} unk_func_80000450; /* sizeof = 0x200 */
+
+void func_80000450(void) {
+    s32 var_v1; // register v1
+    unk_func_80000450* var_v0; // register v0
+    u32 t0; // register t0
+    u32 t2; // register t2
+    u32 t4; // register t4
+    u32 t6; // register t6
+    u32 t7; // register t7
+    u32 t8; // register t8
 
     osViBlack(1);
-    do {
-        index = 0;
-        cfb = (uint32_t*)0x803DA800;
-    } while (0);
-    do {
-        t7 = 0x00010001;
-        t6 = 0;
-        t8 = 0;
-        t0 = 0;
-        t2 = 0;
-        t4 = 0;
 
-        index += 4;
-        cfb[0x38] = t4;
-        cfb[0x2e] = t4;
-        cfb[0x24] = t4;
-        cfb[0x5a] = t4;
-        cfb[0x50] = t4;
-        cfb[0x46] = t4;
-        cfb[0x7c] = t4;
-        cfb[0x72] = t4;
-        cfb[0x68] = t4;
-        cfb[0x3a] = t2;
-        cfb[0x30] = t2;
-        cfb[0x26] = t2;
-        cfb[0x5c] = t2;
-        cfb[0x52] = t2;
-        cfb[0x48] = t2;
-        cfb[0x7e] = t2;
-        cfb[0x74] = t2;
-        cfb[0x6a] = t2;
-        cfb[0x60] = t2;
-        cfb[0x3c] = t0;
-        cfb[0x32] = t0;
-        cfb[0x28] = t0;
-        cfb[0x5e] = t0;
-        cfb[0x54] = t0;
-        cfb[0x4a] = t0;
-        cfb[0x40] = t0;
-        cfb[0x76] = t0;
-        cfb[0x6c] = t0;
-        cfb[0x62] = t0;
-        cfb[0x3e] = t8;
-        cfb[0x34] = t8;
-        cfb[0x2a] = t8;
-        cfb[0x20] = t8;
-        cfb[0x56] = t8;
-        cfb[0x4c] = t8;
-        cfb[0x42] = t8;
-        cfb[0x78] = t8;
-        cfb[0x6e] = t8;
-        cfb[100] = t8;
-        cfb[0x36] = t6;
-        cfb[0x2c] = t6;
-        cfb[0x22] = t6;
-        cfb[0x58] = t6;
-        cfb[0x4e] = t6;
-        cfb[0x44] = t6;
-        cfb[0x7a] = t6;
-        cfb[0x70] = t6;
-        cfb[0x66] = t6;
-        cfb[0x3f] = t7;
-        cfb[0x3d] = t7;
-        cfb[0x3b] = t7;
-        cfb[0x39] = t7;
-        cfb[0x37] = t7;
-        cfb[0x35] = t7;
-        cfb[0x33] = t7;
-        cfb[0x31] = t7;
-        cfb[0x2f] = t7;
-        cfb[0x2d] = t7;
-        cfb[0x2b] = t7;
-        cfb[0x29] = t7;
-        cfb[0x27] = t7;
-        cfb[0x25] = t7;
-        cfb[0x23] = t7;
-        cfb[0x21] = t7;
-        cfb[0x5f] = t7;
-        cfb[0x5d] = t7;
-        cfb[0x5b] = t7;
-        cfb[0x59] = t7;
-        cfb[0x57] = t7;
-        cfb[0x55] = t7;
-        cfb[0x53] = t7;
-        cfb[0x51] = t7;
-        cfb[0x4f] = t7;
-        cfb[0x4d] = t7;
-        cfb[0x4b] = t7;
-        cfb[0x49] = t7;
-        cfb[0x47] = t7;
-        cfb[0x45] = t7;
-        cfb[0x43] = t7;
-        cfb[0x41] = t7;
-        cfb[0x7f] = t7;
-        cfb[0x7d] = t7;
-        cfb[0x7b] = t7;
-        cfb[0x79] = t7;
-        cfb[0x77] = t7;
-        cfb[0x75] = t7;
-        cfb[0x73] = t7;
-        cfb[0x71] = t7;
-        cfb[0x6f] = t7;
-        cfb[0x6d] = t7;
-        cfb[0x6b] = t7;
-        cfb[0x69] = t7;
-        cfb[0x67] = t7;
-        cfb[0x65] = t7;
-        cfb[99] = t7;
-        cfb[0x61] = t7;
-        cfb[0x16] = 0;
-        cfb[0xc] = 0;
-        cfb[2] = 0;
-        cfb[0x18] = 0;
-        cfb[0xe] = 0;
-        cfb[4] = 0;
-        cfb[0x1a] = 0;
-        cfb[0x10] = 0;
-        cfb[6] = 0;
-        cfb[0x1c] = 0;
-        cfb[0x12] = 0;
-        cfb[8] = 0;
-        cfb[0x1e] = 0;
-        cfb[0x14] = 0;
-        cfb[10] = 0;
-        cfb[0] = 0;
-        cfb[0x1f] = t7;
-        cfb[0x1d] = t7;
-        cfb[0x1b] = t7;
-        cfb[0x19] = t7;
-        cfb[0x17] = t7;
-        cfb[0x15] = t7;
-        cfb[0x13] = t7;
-        cfb[0x11] = t7;
-        cfb[0xf] = t7;
-        cfb[0xd] = t7;
-        cfb[0xb] = t7;
-        cfb[9] = t7;
-        cfb[7] = t7;
-        cfb[5] = t7;
-        cfb[3] = t7;
-        cfb += 0x80;
-    } while (index != 0x4B0);
+    var_v0 = 0x803DA800; // framebuffer
 
-    cfb[1] = t7;
-    osViSwapBuffer((void*)0x803DA800);
-    osViBlack((uint8_t)0U);
+    // 0x4B0 / 4 = 300
+    // (0x4B0 / 4) * 0x200 = 0x25800
+    // 320 x 240 * 2 = 0x25800
+    for (var_v1 = 0; var_v1 != 0x4B0; var_v1 += 4) {
+        t7 = 0x10001; // used on non-8-byte-aligned offsets
+        t0 = 0; // these are li'd
+        t2 = 0; // these are li'd
+        t4 = 0; // these are li'd
+        t6 = 0; // these are li'd
+        t8 = 0; // these are li'd
+
+        // 9
+        var_v0->unk_0xE0 = t4; // all groups uses -0x28
+        var_v0->unk_0xB8 = t4;
+        var_v0->unk_0x90 = t4;
+
+        // and are + 0x88 apart
+        var_v0->unk_0x168 = t4;
+        var_v0->unk_0x140 = t4;
+        var_v0->unk_0x118 = t4;
+
+        var_v0->unk_0x1F0 = t4;
+        var_v0->unk_0x1C8 = t4;
+        var_v0->unk_0x1A0 = t4;
+
+        // 10
+        var_v0->unk_0xE8 = t2;
+        var_v0->unk_0xC0 = t2;
+        var_v0->unk_0x98 = t2;
+
+        var_v0->unk_0x170 = t2;
+        var_v0->unk_0x148 = t2;
+        var_v0->unk_0x120 = t2;
+
+        var_v0->unk_0x1F8 = t2;
+        var_v0->unk_0x1D0 = t2;
+        var_v0->unk_0x1A8 = t2;
+        var_v0->unk_0x180 = t2;
+
+        // 10
+        var_v0->unk_0xF0 = t0;
+        var_v0->unk_0xC8 = t0;
+        var_v0->unk_0xA0 = t0;
+
+        var_v0->unk_0x178 = t0;
+        var_v0->unk_0x150 = t0;
+        var_v0->unk_0x128 = t0;
+        var_v0->unk_0x100 = t0;
+
+        var_v0->unk_0x1D8 = t0;
+        var_v0->unk_0x1B0 = t0;
+        var_v0->unk_0x188 = t0;
+
+        // 10
+        var_v0->unk_0xF8 = t8;
+        var_v0->unk_0xD0 = t8;
+        var_v0->unk_0xA8 = t8;
+        var_v0->unk_0x80 = t8;
+
+        var_v0->unk_0x158 = t8;
+        var_v0->unk_0x130 = t8;
+        var_v0->unk_0x108 = t8;
+
+        var_v0->unk_0x1E0 = t8;
+        var_v0->unk_0x1B8 = t8;
+        var_v0->unk_0x190 = t8;
+
+        // 9
+        var_v0->unk_0xD8 = t6;
+        var_v0->unk_0xB0 = t6;
+        var_v0->unk_0x88 = t6;
+
+        var_v0->unk_0x160 = t6;
+        var_v0->unk_0x138 = t6;
+        var_v0->unk_0x110 = t6;
+
+        var_v0->unk_0x1E8 = t6;
+        var_v0->unk_0x1C0 = t6;
+        var_v0->unk_0x198 = t6;
+
+        // 9 + 10 + 10 + 10 + 9 = 48
+        var_v0->unk_0xFC = t7;
+        var_v0->unk_0xF4 = t7;
+
+        var_v0->unk_0xEC = t7;
+        var_v0->unk_0xE4 = t7;
+
+        var_v0->unk_0xDC = t7;
+        var_v0->unk_0xD4 = t7;
+
+        var_v0->unk_0xCC = t7;
+        var_v0->unk_0xC4 = t7;
+
+        var_v0->unk_0xBC = t7;
+        var_v0->unk_0xB4 = t7;
+
+        var_v0->unk_0xAC = t7;
+        var_v0->unk_0xA4 = t7;
+
+        var_v0->unk_0x9C = t7;
+        var_v0->unk_0x94 = t7;
+
+        var_v0->unk_0x8C = t7;
+        var_v0->unk_0x84 = t7;
+
+        var_v0->unk_0x17C = t7;
+        var_v0->unk_0x174 = t7;
+
+        var_v0->unk_0x16C = t7;
+        var_v0->unk_0x164 = t7;
+
+        var_v0->unk_0x15C = t7;
+        var_v0->unk_0x154 = t7;
+
+        var_v0->unk_0x14C = t7;
+        var_v0->unk_0x144 = t7;
+
+        var_v0->unk_0x13C = t7;
+        var_v0->unk_0x134 = t7;
+
+        var_v0->unk_0x12C = t7;
+        var_v0->unk_0x124 = t7;
+
+        var_v0->unk_0x11C = t7;
+        var_v0->unk_0x114 = t7;
+
+        var_v0->unk_0x10C = t7;
+        var_v0->unk_0x104 = t7;
+
+        var_v0->unk_0x1FC = t7;
+        var_v0->unk_0x1F4 = t7;
+
+        var_v0->unk_0x1EC = t7;
+        var_v0->unk_0x1E4 = t7;
+
+        var_v0->unk_0x1DC = t7;
+        var_v0->unk_0x1D4 = t7;
+
+        var_v0->unk_0x1CC = t7;
+        var_v0->unk_0x1C4 = t7;
+
+        var_v0->unk_0x1BC = t7;
+        var_v0->unk_0x1B4 = t7;
+
+        var_v0->unk_0x1AC = t7;
+        var_v0->unk_0x1A4 = t7;
+
+        var_v0->unk_0x19C = t7;
+        var_v0->unk_0x194 = t7;
+
+        var_v0->unk_0x18C = t7;
+        var_v0->unk_0x184 = t7;
+
+        // + 0x200?
+        var_v0++;
+
+        // 3
+        var_v0[-1].unk_0x58 = t4; // -0x1A8
+        var_v0[-1].unk_0x30 = t4; // -0x1D0
+        var_v0[-1].unk_0x08 = t4; // -0x1F8
+
+        // 3
+        var_v0[-1].unk_0x60 = t2; // -0x1A0
+        var_v0[-1].unk_0x38 = t2; // -0x1C8
+        var_v0[-1].unk_0x10 = t2; // -0x1F0
+
+        // 3
+        var_v0[-1].unk_0x68 = t0; // -0x198
+        var_v0[-1].unk_0x40 = t0; // -0x1C0
+        var_v0[-1].unk_0x18 = t0; // -0x1E8
+
+        // 3
+        var_v0[-1].unk_0x70 = t8; // -0x190
+        var_v0[-1].unk_0x48 = t8; // -0x1B8
+        var_v0[-1].unk_0x20 = t8; // -0x1E0
+
+        // 4
+        var_v0[-1].unk_0x78 = t6; // -0x188
+        var_v0[-1].unk_0x50 = t6; // -0x1B0
+        var_v0[-1].unk_0x28 = t6; // -0x1D8
+        var_v0[-1].unk_0x00 = t6; // -0x200
+
+        // 3 + 3 + 3 + 3 + 4 = 16
+        var_v0[-1].unk_0x7C = t7; // -0x184
+        var_v0[-1].unk_0x74 = t7; // -0x18C
+        var_v0[-1].unk_0x6C = t7; // -0x194
+        var_v0[-1].unk_0x64 = t7; // -0x19C
+        var_v0[-1].unk_0x5C = t7; // -0x1A4
+        var_v0[-1].unk_0x54 = t7; // -0x1AC
+        var_v0[-1].unk_0x4C = t7; // -0x1B4
+        var_v0[-1].unk_0x44 = t7; // -0x1BC
+        var_v0[-1].unk_0x3C = t7; // -0x1C4
+        var_v0[-1].unk_0x34 = t7; // -0x1CC
+        var_v0[-1].unk_0x2C = t7; // -0x1D4
+        var_v0[-1].unk_0x24 = t7; // -0x1DC
+        var_v0[-1].unk_0x1C = t7; // -0x1E4
+        var_v0[-1].unk_0x14 = t7; // -0x1EC
+        var_v0[-1].unk_0x0C = t7; // -0x1F4
+        var_v0[-1].unk_0x04 = t7; // -0x1FC
+    }
+
+    osViSwapBuffer(0x803DA800);
+    osViBlack(0);
 }
 #else
-#pragma GLOBAL_ASM("asm/nonmatchings/boot/Framebuffer_Clear.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/boot/func_80000450.s")
 #endif
 
-void mainproc(int32_t arg0) {
+void boot(s32 unused) {
     osInitialize();
-    osCreateThread(&idleThread, 1, Thread_IdleProc, NULL, &D_80126670, 0xA);
-    osStartThread(&idleThread);
+    osCreateThread(&sIdleThread, 1, Thread_IdleProc, NULLPTR, __gIdleStackEnd, 10);
+    osStartThread(&sIdleThread);
 }
 
 void Thread_IdleProc(void* arg0) {
     osCreateViManager(OS_PRIORITY_VIMGR);
     if (osTvType == OS_TV_MPAL) {
         osViSetMode(&osViModeTable[OS_VI_MPAL_LAN1]);
-        Framebuffer_Clear();
+        func_80000450();
         gOSViMode = osViModeTable[OS_VI_MPAL_LAN1];
         gOSViModep = &osViModeTable[OS_VI_MPAL_LAN1];
     }
     else {
         osViSetMode(&osViModeTable[OS_VI_NTSC_LAN1]);
-        Framebuffer_Clear();
+        func_80000450();
         gOSViMode = osViModeTable[OS_VI_NTSC_LAN1];
         gOSViModep = &osViModeTable[OS_VI_NTSC_LAN1];
     }
 
     osCreatePiManager(OS_PRIORITY_PIMGR, &D_8012AC38, &D_8012A678, 8);
-    osCreateThread(&rmonThread, 0, rmonMain, NULL, &D_80129670, OS_PRIORITY_RMON);
-    osStartThread(&rmonThread);
-    osCreateThread(&mainThread, 3, Thread_MainProc, arg0, &D_80128670, 10);
-    osStartThread(&mainThread);
+    osCreateThread(&sRmonThread, 0, rmonMain, NULL, __gRmonStackEnd, OS_PRIORITY_RMON);
+    osStartThread(&sRmonThread);
+    osCreateThread(&sMainThread, 3, Thread_MainProc, arg0, __gMainStackEnd, 10);
+    osStartThread(&sMainThread);
     osSetThreadPri(0, 0);
 
     while (1) {}
 }
-//set gOSViModep->comRegs.hStart and  gOSViModep->feildregs[].vScale
-#pragma GLOBAL_ASM("asm/nonmatchings/boot/func_800008E0.s")
+
+void func_800008E0(void) {
+    u32 vStart0;
+    u32 vStart1;
+    
+    // TODO: cleanup fakematch
+
+    vStart0 = gOSViMode.comRegs.hStart;
+    gOSViModep->comRegs.hStart = ((((((((s32)vStart0) >> 0x10) & 0xFFFF) + 0xA)) % 0xFFFF) << 0x10)
+                            | (((s32) ((vStart0 & 0xFFFF) + 0xA)) % 0xFFFF);
+    if (1) {
+        vStart0 = gOSViMode.fldRegs[0].vStart;
+        gOSViModep->fldRegs[0].vStart = ((((((((s32) gOSViMode.fldRegs[0].vStart) >> 0x10) & 0xFFFF) + 8)) % 0xFFFF) << 0x10)
+                                    | (((s32) ((vStart0 & 0xFFFF) + 8)) % 0xFFFF);
+    }
+    vStart1 = gOSViMode.fldRegs[1].vStart;
+    gOSViModep->fldRegs[1].vStart = ((((((((s32) vStart1) >> 0x10) & 0xFFFF) + 8)) % 0xFFFF) << 0x10)
+                                | (((s32) ((vStart1 & 0xFFFF) + 8)) % 0xFFFF);
+}
 
 // main update setup
-void func_80000A84(uint16_t buffer_index) {
-    uint16_t* framebuffer;
+void func_80000A84(u16 buffer_index) {
+    u16* framebuffer;
 
     gGFXTaskp = &gGFXTasks[buffer_index];
     D_800EF4F4 = gDListTail[buffer_index].unk_0x00;
     gDListHead = D_800EF4F4 + 48;
 
-    // that's right, these were hardcoded
     if (buffer_index) {
-        framebuffer = 0x801DA800; // framebuffer = gFramebuffer0;
+        framebuffer = FRAMEBUFFER0;
     }
     else {
-        framebuffer = 0x803DA800; // framebuffer = gFramebuffer1;
+        framebuffer = FRAMEBUFFER1;
     }
 
     gSPSegment(gDListHead++, 0, 0);
@@ -230,18 +461,18 @@ void func_80000A84(uint16_t buffer_index) {
     gSPEndDisplayList(gDListHead++);
 }
 
-void Thread_MainProc(int32_t arg0) {
-    uint16_t* framebuffer;
+void Thread_MainProc(void* arg0) {
+    u16* framebuffer;
 
     Sound_InitPlayers();
-    osCreateMesgQueue(&gDMAMsgQ, &D_8012AC68, 1);
+    osCreateMesgQueue(&sDMAMesgQ, &D_8012AC68, 1);
     osCreateMesgQueue(&D_8012ABD8, &D_8012AC70, 1);
     osSetEventMesg(OS_EVENT_SP, &D_8012ABD8, D_8012AC80);
     Sound_SetEventMesg();
     osCreateMesgQueue(&D_8012ABF0, &D_8012AC74, 1);
     osSetEventMesg(OS_EVENT_DP, &D_8012ABF0, D_8012AC80);
     osCreateMesgQueue(&D_8012ABC0, &D_8012AC6C, 1);
-    osViSetSpecialFeatures(OS_VI_GAMMA_OFF|OS_VI_GAMMA_DITHER_OFF);
+    osViSetSpecialFeatures(OS_VI_GAMMA_OFF | OS_VI_GAMMA_DITHER_OFF);
     osViSetEvent(&D_8012ABC0, D_8012AC80, 1);
 
     func_800008E0();
@@ -250,37 +481,37 @@ void Thread_MainProc(int32_t arg0) {
 
     gPlayerControllerIndex = Input_GetFirstController();
 
-    framebuffer = 0x803DA800; // framebuffer = gFramebuffer1;
+    framebuffer = FRAMEBUFFER1;
 
     while (1) {
-        osContStartReadData(&gContMesgq);
-        osRecvMesg(&gContMesgq, NULL, 1);
-        osContGetReadData(gConpadArrayB);
+        osContStartReadData(&gContMesgQ);
+        osRecvMesg(&gContMesgQ, NULL, 1);
+        osContGetReadData(gContpadArrayB);
         if (gPlayerControllerIndex != -1) {
             osContStartReadData(&D_8012AC08);
         }
 
         gGFXTaskp->t.type = M_GFXTASK;
         gGFXTaskp->t.flags = 0;
-        gGFXTaskp->t.ucode_boot = (uint64_t*)rspbootTextStart;
-        gGFXTaskp->t.ucode_boot_size = (uint32_t)rspbootTextEnd - (uint32_t)rspbootTextStart;
-        gGFXTaskp->t.ucode = (uint64_t*)gspFast3DTextStart;
-        gGFXTaskp->t.ucode_data = (uint64_t*)gspFast3DDataStart;
+        gGFXTaskp->t.ucode_boot = (u64*)rspbootTextStart;
+        gGFXTaskp->t.ucode_boot_size = (u32)rspbootTextEnd - (u32)rspbootTextStart;
+        gGFXTaskp->t.ucode = (u64*)gspFast3DTextStart;
+        gGFXTaskp->t.ucode_data = (u64*)gspFast3DDataStart;
         gGFXTaskp->t.output_buff = NULL;
         gGFXTaskp->t.output_buff_size = NULL;
         gGFXTaskp->t.ucode_size = 0x1000;
         gGFXTaskp->t.ucode_data_size = 0x800;
-        gGFXTaskp->t.dram_stack = D_8011D970;
-        gGFXTaskp->t.dram_stack_size = sizeof(D_8011D970);
+        gGFXTaskp->t.dram_stack = gDramStack;
+        gGFXTaskp->t.dram_stack_size = sizeof(gDramStack);
         gGFXTaskp->t.data_ptr = gDListTail[gCurrentFramebufferIndex].dlist;
-        gGFXTaskp->t.data_size = (uint32_t)((gDListHead - gDListTail[gCurrentFramebufferIndex].dlist) * sizeof(Gfx));
-        gGFXTaskp->t.yield_data_ptr = D_8011DDF0;
-        gGFXTaskp->t.yield_data_size = sizeof(D_8011DDF0);
+        gGFXTaskp->t.data_size = (u32)((gDListHead - gDListTail[gCurrentFramebufferIndex].dlist) * sizeof(Gfx));
+        gGFXTaskp->t.yield_data_ptr = gYeildData;
+        gGFXTaskp->t.yield_data_size = sizeof(gYeildData);
 
         osWritebackDCacheAll();
         osSpTaskLoad(gGFXTaskp);
         osSpTaskStartGo(gGFXTaskp);
-        Sound_Tick();
+        Sound_Update();
         Sound_NextBuffer();
 
         gCurrentFramebufferIndex = 1 - gCurrentFramebufferIndex;
@@ -289,11 +520,11 @@ void Thread_MainProc(int32_t arg0) {
         osRecvMesg(&D_8012ABF0, NULL, 1);
         Sound_StartTask();
         osViSwapBuffer(framebuffer);
-        lookAt_Tick();
+        LookAt_Update();
 
         // D_8012ABC0 is probably the retrace/vsync queue
         if (MQ_IS_FULL(&D_8012ABC0)) {
-            Sound_Tick();
+            Sound_Update();
             Sound_NextBuffer();
             osRecvMesg(&D_8012ABC0, &D_8012AC80, 1);
             Sound_StartTask();
@@ -302,261 +533,14 @@ void Thread_MainProc(int32_t arg0) {
         osRecvMesg(&D_8012ABC0, &D_8012AC80, 1);
 
         if (gCurrentFramebufferIndex) {
-            framebuffer = 0x801DA800; // framebuffer = gFramebuffer0;
+            framebuffer = FRAMEBUFFER0; // framebuffer = gFramebuffer0;
         }
         else {
-            framebuffer = 0x803DA800; // framebuffer = gFramebuffer1;
+            framebuffer = FRAMEBUFFER1; // framebuffer = gFramebuffer1;
         }
 
         Input_Update();
     }
-    Sound_Tick();
+    Sound_Update();
 }
 
-void Input_Update(void) {
-    osContGetReadData(gConpadArrayB);
-    if (!gConpadArrayA[gPlayerControllerIndex].errno) {}
-
-    osContGetReadData(gConpadArrayA);
-
-    if (gConpadArrayA[gPlayerControllerIndex].errno == 0) {
-        gButtonCur = gConpadArrayA[gPlayerControllerIndex].button;
-        gJoyX = gConpadArrayA[gPlayerControllerIndex].stick_x;
-        gJoyY = gConpadArrayA[gPlayerControllerIndex].stick_y;
-    }
-    else
-        gButtonCur = 0U;
-
-    gButtonPress = (gButtonCur ^ D_800BE538) & gButtonCur;
-    gButtonHold = gButtonCur;
-    D_800BE538 = gButtonCur;
-}
-#ifdef NON_MATCHING
-int32_t Input_GetFirstController(void) {
-    int32_t sVar1;
-    byte abStack5[5];
-
-    osCreateMesgQueue(&D_8012AC20, &D_8012AC7C, 1);
-    osSetEventMesg(OS_EVENT_SI, &D_8012AC20, (OSMesg)0x1);
-    osContInit(&D_8012AC20, abStack5, contStatArray);
-    osCreateMesgQueue(&D_8012AC08, &OSMesg_8012ac78, 1);
-    osSetEventMesg(OS_EVENT_SI, &D_8012AC08, (OSMesg)0x0);
-    osCreateMesgQueue(&gContMesgq, &OSMesg_8012adb8, 2);
-    osSetEventMesg(OS_EVENT_SI, &gContMesgq, (OSMesg)0x2);
-    if (((abStack5[0] & 1) == 0) || ((contStatArray[0].errno & CONT_NO_RESPONSE_ERROR))) {
-        if (((abStack5[0] & 2) == 0) || ((contStatArray[1].errno & CONT_NO_RESPONSE_ERROR))) {
-            if (((abStack5[0] & 4) == 0) || ((contStatArray[2].errno & CONT_NO_RESPONSE_ERROR))) {
-                if ((abStack5[0] & 8) == 0)
-                    sVar1 = -1;
-                else {
-                    sVar1 = -1;
-                    if ((contStatArray[3].errno & CONT_NO_RESPONSE_ERROR) == 0) {
-                        sVar1 = 3;
-                    }
-                }
-                else sVar1 = 2;
-            }
-            else
-                sVar1 = 1;
-        }
-        else
-            sVar1 = 0;
-        return sVar1;
-    }
-}
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/boot/Input_GetFirstController.s")
-#endif
-
-int32_t RomCopy_A(uint32_t devaddr, void* vaddr, uint32_t nbytes) {
-    OSIoMesg mb;
-    OSMesg mesg;
-    osInvalDCache(vaddr, nbytes);
-    osPiStartDma(&mb, 0, 0, devaddr, vaddr, nbytes, &gDMAMsgQ);
-    return osRecvMesg(&gDMAMsgQ, &mesg, 1);
-}
-
-int32_t RomCopy_RecvMesg(void) {
-    OSMesg mesg;
-    return osRecvMesg(&gDMAMsgQ, &mesg, 1);
-}
-
-// same as above, no osRecvMesg. used once.
-int32_t RomCopy_B(int32_t devaddr, void* vaddr, uint32_t nbytes) {
-    OSIoMesg mb;
-    osInvalDCache(vaddr, nbytes);
-    return osPiStartDma(&mb, 0, 0, devaddr, vaddr, nbytes, &gDMAMsgQ);
-}
-
-void func_800012F0(void) {
-    if (gGameState == GAMESTATE_GAMEPLAY) {
-        if ((gDebugBitfeild & 0x200) && gGamePaused == 0) {
-            gGamePaused = 1;
-        }
-
-        if (gGamePaused && gGameSubState == 0x10) {
-            if ((gButtonPress & gButton_Start) || (gButtonPress & gButton_A)) {
-                // if this is true, you can pause while not drawing the pause screen (it still processes though?)
-                if ((gDebugBitfeild & 0x100)) {
-                    PauseGame_RestoreVolume();
-                    PauseGame_Unpause();
-                }
-                else {
-                    gGameSubState = 0x20;
-                }
-            }
-        }
-        else if ((gButtonPress & gButton_Start) && (uint16_t)D_800BE4EC == 0 && gGameSubState == 0) {
-            if (gActors->health >= 0) {
-                gGamePaused = 1;
-                gDebugBitfeild &=~0x10;
-                if (gDebugBitfeild & 0x100) {
-                    gGameSubState = 0x10;
-                }
-                else {
-                    gGameSubState = 0;
-                }
-            }
-        }
-        if (gGamePaused == 0) {
-            DebugText_Reset();
-        }
-    }
-    else {
-        DebugText_Reset();
-    }
-}
-
-
-// main update
-void func_8000147C(void) {
-    gSceneFramesReal += 1;
-    if (gPlayTime < 518399999) {
-        gPlayTime++;
-    }
-
-    func_800012F0();
-    GameState_Tick();
-    MarinaGraphics_Load();
-    func_80009940();
-    func_80082F10();
-    Gfx_DrawActors(&D_80171B30);
-
-    if (D_800BE674 != 0) {
-        func_80082CFC();
-        func_8000DD6C();
-        Gfx_DrawActors(&D_80171D30);
-        func_80082E04();
-    }
-    else {
-        func_80082E04();
-        Gfx_DrawActors(&D_80171C30);
-        func_80082CFC();
-        Gfx_DrawActors(&D_80171D30);
-        func_8000DD6C();
-    }
-
-    if (D_8013747C != 0) {
-        Gfx_DrawPortraits();
-        Gfx_DrawActors(&D_80171F10);
-    }
-    else {
-        Gfx_DrawActors(&D_80171F10);
-        Gfx_DrawPortraits();
-    }
-
-    Rand(); // update rng
-    MarinaGraphics_Decrypt();
-    Gfx_DrawLetterbox();
-    Gfx_DrawLifeBar();
-    func_80009BE0();
-
-    if ((gDebugBitfeild & 1)) {
-        func_8002167C();
-    }
-
-    if ((gDebugBitfeild & 0x8000)) {
-        func_8001FF28();
-    }
-
-    if ((gDebugBitfeild & 0x40)) {
-        func_80021658();
-    }
-
-    if ((gDebugBitfeild & 0x1020) == 0x1000) {
-        func_80021660();
-    }
-
-    DebugText_BorW();
-    DebugText_Tick();
-}
-
-void GameState_Tick(void) {
-    switch (gGameState) {
-        case GAMESTATE_SOFTRESET: {
-            start_game(); // soft reset
-            break;
-        }
-        case GAMESTATE_INTRO: {
-            Intro_Tick(); // intro
-            break;
-        }
-        case GAMESTATE_TITLESCREEN: {
-            TitleScreen_Tick(); // titlescreen
-            break;
-        }
-        case GAMESTATE_DEBUG_SOUNDTEST: {
-            SoundTest_Tick(); // sound test
-            break;
-        }
-        case GAMESTATE_DEBUG_STAGESELECT: {
-            StageSelect_Tick(); // debug level select
-            break;
-        }
-        case GAMESTATE_LOADING: {
-            GamePlay_Load(); // loading stage
-            break;
-        }
-        case GAMESTATE_GAMEPLAY: {
-            GamePlay_Tick(); // stage update
-            break;
-        }
-        case GAMESTATE_CONTINUE: {
-            GamePlay_Tick_Continue(); // game over
-            break;
-        }
-        case GAMESTATE_UNKNOWN0: {
-            Gamestate8_Tick(); // supposed to be dma'd in from rom:0xf00D0
-            break;
-        }
-        case GAMESTATE_UNKNOWN1: {
-            Gamestate9_Tick(); // same as above. NOOPs.
-            break;
-        }
-        case GAMESTATE_ATTRACT: {
-            AttractMode_Tick(); // demo mode
-            break;
-        }
-        case GAMESTATE_FILESELECT: {
-            FileSelect_Tick(); // fileselect
-            break;
-        }
-        case GAMESTATE_TRANSITION: {
-            Worldmap_Tick(); // transition
-            break;
-        }
-        case GAMESTATE_UNKNOWN2: {
-            func_8001D654(); // level select (best times?)
-            break;
-        }
-        default: {
-            break; // applies for case 13?
-        }
-    }
-}
-
-// this is a linear congruential algorithm for prng
-uint16_t Rand(void) {
-    gRNGSeed = (gRNGSeed * 0x85) + 1;
-    return gRNGSeed / 0x100;
-}

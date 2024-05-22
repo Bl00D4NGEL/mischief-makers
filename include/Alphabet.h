@@ -62,8 +62,6 @@
 
 // there is a second alphabet using a slimmer font.
 // The top is used for titles and names, the bottom, everything else.
-
-
 #define ALPHA_THIN_LOWER_A 0x0075
 #define ALPHA_THIN_LOWER_B 0x0076
 #define ALPHA_THIN_LOWER_C 0x0077
@@ -118,11 +116,9 @@
 #define ALPHA_THIN_UPPER_Y 0x0073
 #define ALPHA_THIN_UPPER_Z 0x0074
 
-//And a third alphabet with a bolder font.
-//used for the "FIGHT" and "Go to next area" prompts
-//numbering suggests this is the oringinal english alphabet.
-
-
+// And a third alphabet with a bolder font.
+// used for the "FIGHT" and "Go to next area" prompts
+// numbering suggests this is the oringinal english alphabet.
 #define ALPHA_BOLD_UPPER_A 0x000A
 #define ALPHA_BOLD_UPPER_B 0x000B
 #define ALPHA_BOLD_UPPER_C 0x000C
@@ -198,7 +194,6 @@
 #define ALPHA_BOLD_BRACKETRIGHT 0x0050
 #define ALPHA_BOLD_SPACE 0xC000
 
-
 #define ALPHA_0 0x00A1
 #define ALPHA_1 0x00A2
 #define ALPHA_2 0x00A3
@@ -228,46 +223,41 @@
 #define ALPHA_GAMMA        0x00D0
 #define ALPHA_APOSTROPHE_S 0x00D1
 
-//leftover japanese. Speech bubble text is dummied out, but still in data.
-//compiler does not like unicode.
-#ifdef UNICODE
-#define ALPHA_あ 0x0051
-#define ALPHA_い 0x0052
-#define ALPHA_う 0x0053
-#define ALPHA_え 0x0054
-#define ALPHA_お 0x0055
-#define ALPHA_か 0x0056
-#define ALPHA_き 0x0057
-#define ALPHA_く 0x0058
-#define ALPHA_け 0x0059
-#define ALPHA_こ 0x005A
-#define ALPHA_さ 0x005B
-#define ALPHA_し 0x005C
-#define ALPHA_す 0x005D
-#define ALPHA_せ 0x005E
-#define ALPHA_そ 0x005F
-#define ALPHA_た 0x0060
-#define ALPHA_ち 0x0061
-#define ALPHA_っ 0x0062
-#define ALPHA_て 0x0063
-#define ALPHA_と 0x0064
-#define ALPHA_に 0x0065
-#define ALPHA_ぬ 0x0066
-#define ALPHA_の 0x0067
-#define ALPHA_は 0x0068
-#define ALPHA_ひ 0x0069
-#define ALPHA_ふ 0x006A
-#define ALPHA_へ 0x006B
-#define ALPHA_ほ 0x006C
-#define ALPHA_ま 0x006D
-#define ALPHA_み 0x006E
-#define ALPHA_む 0x006F
-#define ALPHA_め 0x0070
-#define ALPHA_も 0x0071
-#define ALPHA_ゃ 0x0072
-#define ALPHA_め 0x0073
-
-#endif
+#define ALPHA_JP_AH     0x0051 // あ
+#define ALPHA_JP_I      0x0052 // い
+#define ALPHA_JP_U      0x0053 // う
+#define ALPHA_JP_E      0x0054 // え
+#define ALPHA_JP_O      0x0055 // お
+#define ALPHA_JP_KA     0x0056 // か
+#define ALPHA_JP_KI     0x0057 // き
+#define ALPHA_JP_KU     0x0058 // く
+#define ALPHA_JP_KE     0x0059 // け
+#define ALPHA_JP_KO     0x005A // こ
+#define ALPHA_JP_SA     0x005B // さ
+#define ALPHA_JP_SHI    0x005C // し
+#define ALPHA_JP_SU     0x005D // す
+#define ALPHA_JP_SE     0x005E // せ
+#define ALPHA_JP_SO     0x005F // そ
+#define ALPHA_JP_TA     0x0060 // た
+#define ALPHA_JP_CHI    0x0061 // ち
+#define ALPHA_JP_TSU    0x0062 // っ
+#define ALPHA_JP_TE     0x0063 // て
+#define ALPHA_JP_TO     0x0064 // と
+#define ALPHA_JP_NI     0x0065 // に
+#define ALPHA_JP_NU     0x0066 // ぬ
+#define ALPHA_JP_NO     0x0067 // の
+#define ALPHA_JP_HA     0x0068 // は
+#define ALPHA_JP_HI     0x0069 // ひ
+#define ALPHA_JP_FU     0x006A // ふ
+#define ALPHA_JP_HE     0x006B // へ
+#define ALPHA_JP_HO     0x006C // ほ
+#define ALPHA_JP_MA     0x006D // ま
+#define ALPHA_JP_MI     0x006E // み
+#define ALPHA_JP_MU     0x006F // む
+#define ALPHA_JP_ME     0x0070 // め
+#define ALPHA_JP_MO     0x0071 // も
+#define ALPHA_JP_A      0x0072 // ゃ
+#define ALPHA_JP_ME2    0x0073 // め
 
 #define ALPHA_NULL 0x8FFF
 

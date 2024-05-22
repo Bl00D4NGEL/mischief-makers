@@ -1,28 +1,37 @@
 #ifndef COMMON_INCLUDE_H
 #define COMMON_INCLUDE_H
-//all common header files in one #include
-#include "Alphabet.h"
-#include "SFX.h"
-#include "Scene.h"
+
+#include <PR/ultratypes.h>
+#include <ultra64.h>
 #include "inttypes.h"
-#include "data_symbols.h"
+#include "common_structs.h"
+#include "linker.h"
 #include "function_symbols.h"
-#include "actor.h"
+#include "data_symbols.h"
 
-//macros for common func patterns. save on typing.
-#define MODi(x,y,z) x=ModInRange_i(x,y,z)
-#define MODf(x,y,z) x=ModInRange_f(x,y,z)
-#define ACTORINIT(i,t)\
-        gActors[i].actorType=t;\
-        Actor_Spawn(i)
-#define thisActor gActors[index]
-#define ALPHAINDEX(x) x*2+0x2d2 //get the letter's graphic index.
-#define RNG(x) Rand()&x //common RNG func
+#define FRAMEBUFFER0 (0x801DA800)
+#define FRAMEBUFFER1 (0x803DA800)
 
-//in case we want to change the cosine table.
-#define COSLEN (sizeof(gCosineLookup)/sizeof(float))-1
-#define COSPiOver2 (sizeof(gCosineLookup)/sizeof(float))/4
-#define COS(x) gCosineLookup[x&COSLEN]
-#define SIN(x) gCosineLookup[x-COSPiOver2&COSLEN] //cos(x-pi/2)=sin(x)
-#define NEGSIN(x) gCosineLookup[x+COSPiOver2&COSLEN]//cos(x+pi/2)=-sin(x)
+#ifndef osInitialize
+#define osInitialize __osInitialize_common
+#endif
+
+enum {
+    GAMESTATE_SOFTRESET,
+    GAMESTATE_INTRO,
+    GAMESTATE_TITLESCREEN,
+    GAMESTATE_DEBUG_SOUNDTEST,
+    GAMESTATE_DEBUG_STAGESELECT,
+    GAMESTATE_LOADING,
+    GAMESTATE_GAMEPLAY,
+    GAMESTATE_CONTINUE, // game over
+    GAMESTATE_UNKNOWN0,
+    GAMESTATE_UNKNOWN1,
+    GAMESTATE_ATTRACT,
+    GAMESTATE_FILESELECT,
+    GAMESTATE_TRANSITION,
+    GAMESTATE_NONE,
+    GAMESTATE_UNKNOWN2 // level select (best times?)
+};
+
 #endif

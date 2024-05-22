@@ -1,0 +1,32 @@
+////////////////////////
+// functions
+////////////////////////
+osViSwapBuffer = 0x80098E70; // type:func
+osViBlack = 0x80098DF0; // type:func
+__osInitialize_common = 0x80098F50; // type:func
+osCreateThread = 0x80099470; // type:func
+osStartThread = 0x80099620; // type:func
+osCreateViManager = 0x800997C0; // type:func
+osSetThreadPri = 0x8009A460; // type:func
+osViSetMode = 0x80099C20; // type:func
+osCreatePiManager = 0x80099CF0; // type:func
+rmonMain = 0x8009A2B8; // type:func
+osVirtualToPhysical = 0x8009A590; // type:func
+osCreateMesgQueue = 0x8009A650; // type:func
+osSetEventMesg = 0x8009A6F0; // type:func
+osViSetSpecialFeatures = 0x8009A790; // type:func
+osViSetEvent = 0x8009A9B0; // type:func
+osContStartReadData = 0x8009AA80; // type:func
+osContGetReadData = 0x8009AB58; // type:func
+osRecvMesg = 0x8009AD10; // type:func
+osWritebackDCacheAll = 0x8009AEA0; // type:func
+osSpTaskLoad = 0x8009B014; // type:func
+osSpTaskStartGo = 0x8009B294; // type:func
+osContInit = 0x8009B2E0; // type:func
+
+////////////////////////
+// data
+////////////////////////
+osTvType = 0x80000300; // size:0x4
+osViModeTable = 0x800E97B0; // size:0xD20
+

@@ -1,0 +1,13 @@
+boot = 0x800006BC; // type:func
+Thread_IdleProc = 0x80000718; // type:func
+Thread_MainProc = 0x80000C20; // type:func
+Input_Update = 0x80000FE0; // type:func
+Input_GetFirstController = 0x80001098; // type:func
+Sound_InitPlayers = 0x80001B38; // type:func
+Sound_SetEventMesg = 0x800020BC; // type:func
+Sound_Update = 0x80002114; // type:func
+Sound_NextBuffer = 0x800028D0; // type:func
+Sound_StartTask = 0x800029EC; // type:func
+
+LookAt_Update = 0x80010898; // type:func
+
