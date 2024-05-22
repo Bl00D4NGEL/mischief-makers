@@ -1,5 +1,6 @@
 #include "common.h"
 #include "input.h"
+#include "thread.h"
 
 void Input_Update(void) {
     osContGetReadData(gContpadArrayB);
@@ -22,15 +23,6 @@ void Input_Update(void) {
     gButtonHold = gButtonCurrent;
     gButtonLast = gButtonCurrent;
 }
-
-extern OSMesgQueue D_8012AC08;
-extern OSMesgQueue D_8012AC20;
-
-extern OSContStatus D_8012AD60;
-
-extern OSMesg D_8012AC78;
-extern OSMesg D_8012AC7C;
-extern OSMesg D_8012ADB8;
 
 #ifdef NON_MATCHING
 u32 Input_GetFirstController(void) {

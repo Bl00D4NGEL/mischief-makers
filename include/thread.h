@@ -3,6 +3,7 @@
 
 #include <ultra64.h>
 #include "inttypes.h"
+#include "thread2.h"
 
 extern OSThread sIdleThread;
 extern OSThread sMainThread;
@@ -17,7 +18,6 @@ extern u64 gDramStack[DRAM_STACK_SIZE / sizeof(u64)];
 extern u64 gYeildData[YEILD_DATA_SIZE / sizeof(u64)];
 extern u64 gBootStack[STACK_SIZE / sizeof(u64)]; // 80123670->80124670
 extern u64 gIdleStack[STACK_SIZE / sizeof(u64)]; // 80125670->80126670
-extern u64 gUnkStack_80127670[STACK_SIZE / sizeof(u64)]; // 80126670->80127670
 extern u64 gMainStack[STACK_SIZE / sizeof(u64)]; // 80127670->80128670
 extern u64 gRmonStack[STACK_SIZE / sizeof(u64)]; // 80128670->80129670
 

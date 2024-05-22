@@ -5,3 +5,4 @@ def apply(config, args):
     config['myimg'] = f'build/mischiefmakers.z64'
     config['baseimg'] = f'baserom.z64'
     config['source_directories'] = ['src', 'include', 'asm']
+    config["expected_dir"] = f"expected/"

@@ -8,26 +8,126 @@ void func_80000450(void);
 void boot(s32 unused);
 void Thread_IdleProc(void* arg0);
 void func_800008E0(void);
+void func_80000A84(u16 buffer_index);
 void Thread_MainProc(void* arg0);
 
-// data
+#ifdef NON_MATCHING_DATA
+Vp D_800E38A0 = {
+    {
+        640, 480, 511, 0,
+        640, 480, 511, 0
+    },
+};
 
-extern Gfx D_800E38B0[];
+Gfx D_800E38B0[32]  = {
+    gsSPSegment(0x00, 0x00000000),
+    gsDPPipeSync(),
+    gsDPSetScissor(G_SC_NON_INTERLACE, 0, 0, 320, 240),
+    gsDPSetAlphaCompare(G_AC_THRESHOLD),
+    gsDPSetBlendColor(0x00, 0x00, 0x00, 0x01),
+    gsDPSetRenderMode(G_RM_XLU_SURF, G_RM_XLU_SURF2),
+    gsDPSetCombineMode(G_CC_DECALRGBA, G_CC_DECALRGBA),
+    gsDPSetCombineKey(G_CK_NONE),
+    gsDPSetTextureConvert(G_TC_FILT),
+    gsDPSetTextureFilter(G_TF_POINT),
+    gsDPSetTextureLUT(G_TT_NONE),
+    gsDPSetTextureDetail(G_TD_CLAMP),
+    gsDPSetTextureLOD(G_TL_TILE),
+    gsDPSetTexturePersp(G_TP_NONE),
+    gsSPTexture(0, 0, 0, G_TX_RENDERTILE, G_OFF),
+    gsSPEndDisplayList(),
+};
+
+Gfx D_800E3930[18] = {
+    gsSPViewport(&D_800E38A0),
+    gsSPClipRatio(FRUSTRATIO_2),
+    gsSPClearGeometryMode(G_ZBUFFER | G_TEXTURE_ENABLE | G_SHADE | G_CULL_BOTH | G_FOG | G_LIGHTING | G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR | G_LOD | G_SHADING_SMOOTH | G_CLIPPING | 0xFF60CDF8),
+    gsSPSetGeometryMode(G_TEXTURE_GEN_LINEAR),
+    gsSPTexture(0, 0, 0, G_TX_RENDERTILE, G_OFF),
+    gsSPEndDisplayList(),
+};
+
+Gfx D_800E3978[4] = {
+    gsDPPipeSync(),
+    gsDPSetCycleType(G_CYC_FILL),
+    gsDPSetRenderMode(G_RM_NOOP, G_RM_NOOP2),
+    gsSPEndDisplayList(),
+};
+
+Gfx D_800E3998[5] = {
+    gsDPPipeSync(),
+    gsDPSetCycleType(G_CYC_COPY),
+    gsDPSetTexturePersp(G_TP_NONE),
+    gsDPSetRenderMode(G_RM_NOOP, G_RM_NOOP2),
+    gsSPEndDisplayList(),
+};
+
+Gfx D_800E39C0[14] = {
+    gsDPPipeSync(),
+    gsDPSetCycleType(G_CYC_1CYCLE),
+    gsSPClearGeometryMode(G_CULL_BOTH),
+    gsSPSetGeometryMode(G_ZBUFFER | G_SHADE | G_SHADING_SMOOTH),
+    gsDPSetTextureLUT(G_TT_RGBA16),
+    gsDPSetTextureDetail(G_TD_CLAMP),
+    gsDPSetTextureFilter(G_TF_POINT),
+    gsDPSetTexturePersp(G_TP_PERSP),
+    gsDPSetRenderMode(G_RM_XLU_SURF, G_RM_XLU_SURF2),
+    gsDPSetFogColor(0xFF, 0xFF, 0xFF, 0xFF),
+    gsDPSetEnvColor(0xFF, 0xFF, 0xFF, 0xFF),
+    gsSPTexture(0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON),
+    gsDPPipelineMode(G_PM_1PRIMITIVE),
+    gsSPEndDisplayList(),
+};
+
+Gfx D_800E3A30[4] = {
+    gsDPPipeSync(),
+    gsDPSetCycleType(G_CYC_1CYCLE),
+    gsDPSetRenderMode(G_RM_XLU_SURF, G_RM_XLU_SURF2),
+    gsSPEndDisplayList(),
+};
+
+Gfx D_800E3A50[] = {
+    gsDPPipeSync(),
+    gsDPSetCycleType(G_CYC_1CYCLE),
+    gsSPClearGeometryMode(G_CULL_BOTH),
+    gsSPSetGeometryMode(G_ZBUFFER | G_SHADE | G_SHADING_SMOOTH),
+    gsDPSetRenderMode(G_RM_XLU_SURF, G_RM_XLU_SURF2),
+    gsSPTexture(0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON),
+    gsSPEndDisplayList(),
+};
+
+Gfx D_800E3A88[] = {
+    gsDPPipeSync(),
+    gsDPSetCycleType(G_CYC_1CYCLE),
+    gsDPSetTexturePersp(G_TP_PERSP),
+    gsDPSetRenderMode(G_RM_XLU_SURF, G_RM_XLU_SURF2),
+    gsSPEndDisplayList(),
+};
+
+Lights1 D_800E3AB0 = gdSPDefLights1(
+    0x80, 0x80, 0x80, /* ambient */
+    0xFF, 0xFF, 0xFF, /* col 1 */
+    0x7F, 0x7F, 0xC0  /* dir 1 */
+);
+
+Gfx D_800E3AC8[] = {
+    gsDPPipeSync(),
+    gsDPSetCycleType(G_CYC_2CYCLE),
+    gsSPSetGeometryMode(G_SHADE | G_CULL_BACK | G_LIGHTING | G_SHADING_SMOOTH),
+    gsDPSetRenderMode(G_RM_OPA_SURF, G_RM_OPA_SURF2),
+    gsDPSetCombineMode(G_CC_TRILERP, G_CC_MODULATEIA2),
+    gsDPSetTextureFilter(G_TF_BILERP),
+    gsSPSetLights1(D_800E3AB0),
+    gsSPEndDisplayList(),
+};
+
+#else
 extern Gfx D_800E3930[];
-
-extern OSMesgQueue sDMAMesgQ;
-extern OSMesgQueue D_8012ABC0;
-extern OSMesgQueue D_8012ABD8;
-extern OSMesgQueue D_8012ABF0;
-extern OSMesgQueue D_8012AC08; // might be in input.c
-
-extern OSMesg D_8012AC68;
-extern OSMesg D_8012AC6C;
-extern OSMesg D_8012AC70;
-extern OSMesg D_8012AC74;
-extern OSMesg D_8012AC80;
+extern Gfx D_800E38B0[];
+#endif
 
 // text
+
 // needs loop rerolling
 #ifdef NON_MATCHING
 typedef struct {

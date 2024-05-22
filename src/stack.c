@@ -1,0 +1,11 @@
+#include "thread.h"
+
+// likely all actually in boot
+
+u64 gBootStack[STACK_SIZE / sizeof(u64)]; // 80123670->80124670
+u64 D_80124670[STACK_SIZE / sizeof(u64)]; // 80124670->80125670
+u64 gIdleStack[STACK_SIZE / sizeof(u64)]; // 80125670->80126670
+u64 D_80126670[STACK_SIZE / sizeof(u64)]; // 80126670->80127670
+u64 gMainStack[STACK_SIZE / sizeof(u64)]; // 80127670->80128670
+u64 gRmonStack[STACK_SIZE / sizeof(u64)]; // 80128670->80129670
+u64 D_80129670[STACK_SIZE / sizeof(u64)]; // 80129670->8012A670

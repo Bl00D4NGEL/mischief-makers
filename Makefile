@@ -5,8 +5,8 @@ ASM_DIR   = asm
 BIN_DIR	  = assets
 SRC_DIR   = src
 
-ASM_DIRS  = $(ASM_DIR) $(SRC_DIR)/$(ASM_DIR) $(ASM_DIR)/data $(ASM_DIR)/data/ultralib $(ASM_DIR)/ultralib
-BIN_DIRS  = $(BIN_DIR)
+ASM_DIRS  = $(ASM_DIR) $(SRC_DIR)/$(ASM_DIR) $(ASM_DIR)/data $(ASM_DIR)/data/ultralib $(ASM_DIR)/ultralib $(ASM_DIR)/rsp $(ASM_DIR)/data/rsp $(ASM_DIR)/overlay_F00D0
+BIN_DIRS  = $(BIN_DIR) $(BIN_DIR)/rsp
 SRC_DIRS  = $(SRC_DIR)
 
 TOOLS_DIR := tools
@@ -49,11 +49,11 @@ GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) </dev/null 2>/dev/nu
 GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
 
 CFLAGS := -G0 -Xfullwarn -Xcpluscomm -signed -nostdinc -non_shared -Wab,-r4300_mul
-CFLAGS += -D_LANGUAGE_C -D_FINALROM -DF3DEX_GBI -DWIN32
+CFLAGS += -D_LANGUAGE_C -D_FINALROM -DF3DEX_GBI
 # ignore compiler warnings about anonymous structs
 CFLAGS += -woff 649,838
 CFLAGS += $(INCLUDE_CFLAGS)
-CC_CHECK := gcc -fsyntax-only -fsigned-char -m32 -std=gnu90 -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wno-main -DAVOID_UB -D_LANGUAGE_C -D_FINALROM -DF3DEX_GBI -DWIN32 $(INCLUDE_CFLAGS)
+CC_CHECK := gcc -fsyntax-only -fsigned-char -m32 -std=gnu90 -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wno-main -Wno-unused-parameter -DAVOID_UB -D_LANGUAGE_C -D_FINALROM -DF3DEX_GBI $(INCLUDE_CFLAGS)
 
 LDFLAGS = -T $(LD_SCRIPT) -Map $(TARGET).map -T undefined_syms_auto.txt -T undefined_funcs_auto.txt -T undefined_funcs.txt -T undefined_syms.txt --no-check-sections
 
