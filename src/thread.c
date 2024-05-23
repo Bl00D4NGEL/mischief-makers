@@ -32,17 +32,13 @@ OSTask gGFXTasks[2];
 OSViMode* gOSViModep;
 OSViMode gOSViMode;
 
-OSContStatus D_8012AD60[3];
-u8 D_8012AD63[4];
-u8 D_8012AD67[4];
-u8 D_8012AD6B[4];
-u8 D_8012AD6F;
+OSContStatus D_8012AD60[4];
 
 OSContPad gContpadArrayA[4];
 OSContPad gContpadArrayB[4];
 OSMesgQueue gContMesgQ;
 
-OSMesg D_8012ADB8; // [2]?
+OSMesg D_8012ADB8;
 
 GfxData gDListTail[2];
 

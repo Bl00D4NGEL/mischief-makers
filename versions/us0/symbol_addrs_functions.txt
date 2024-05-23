@@ -1,0 +1,5 @@
+boot = 0x800006BC;
+Thread_IdleProc = 0x80000714;
+Thread_MainProc = 0x80000BA0;
+Input_Update = 0x80000F60;
+Input_GetFirstController = 0x80001014;

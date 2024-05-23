@@ -1,0 +1,52 @@
+name: Trouble Makers (Japanese)
+sha1: 039a75636c34d219d489d0a84a671d00dc23e7c4
+options:
+  basename: mischiefmakers
+  elf_path: build/mischiefmakers.elf
+  find_file_boundaries: True
+  compiler: IDO
+  platform: n64
+  base_path: .
+  asm_path: ../../asm
+  src_path: ../../src
+  asset_path: ../../assets
+  build_path: ../../build
+  target_path: ../../baserom.jp.z64
+  ld_script_path: mischiefmakers.ld
+  ld_dependencies: True
+  symbol_name_format: $VRAM_$ROM
+  header_encoding: ASCII
+  use_legacy_include_asm: False
+  asm_function_macro: glabel
+  asm_jtbl_label_macro: jlabel
+  asm_data_macro: dlabel
+  asm_emit_size_directive: True
+  rodata_string_guesser_level: 2
+  data_string_guesser_level: 2
+  #libultra_symbols: True
+  #hardware_regs: True
+segments:
+  - name: header
+    type: header
+    start: 0x0
+  - name: boot
+    type: bin
+    start: 0x40
+    vram: 0xA4000040
+    subsegments:
+      - [0x0040, hasm, boot]
+  - name: main
+    type: code
+    start: 0x1000
+    vram: 0x80000400
+    bss_size: 0x9BF10
+    symbol_name_format: $VRAM
+    subsegments:
+      - [0x1000, hasm, ../src/asm/entrypoint]
+      - [0x1050, asm]
+      - [0xB9510, data] # aspMain is around here
+      - { start: 0xED5B0, type: bss, vram: 0x800EC9B0 }
+  - type: bin
+    start: 0xED5B0
+    follows_vram: main
+  - [0x800000]

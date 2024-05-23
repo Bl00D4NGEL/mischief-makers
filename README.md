@@ -4,7 +4,7 @@
 
 A in-progress decompilation of Mischief Makers (or Yuke-Yuke!! Trouble Makers, ゆけゆけ!!トラブルメーカーズ, Yuke Yuke!! Toraburu Mēkāzu in Japanese.)
 
-This project currently supports the 1.1 release of the US version.
+This project currently supports the 1.1 release of the US version, with very minor support for the other versions of the game.
 
 ## Building (Linux)
 
@@ -33,7 +33,7 @@ git submodule init
 Navigate to `tools/splat/` and run `pip3 install -r requirements.txt`
 
 ### Prepare the base rom
-Copy over your copy of Mischief Makers 1.1 US into the root folder of this repository. Rename the rom to baserom.z64.
+Copy over your copy of Mischief Makers 1.1 US into the root folder of this repository. Rename the rom to baserom.us1.z64.
 
 Next, run `make setup` to extract the assets of the rom.
 

@@ -3,6 +3,16 @@ gCurrentFramebufferIndex = 0x800BE700; // size:0x2
 gDramStack = 0x8011D970; // size:0x400
 gYeildData = 0x8011DDF0; // size:0xDA0
 
+//
+sDMAMesgQ = 0x8012ABA8; // size:0x18
+
+D_8012AD60 = 0x8012AD60; // size:0x14
+
+gContMesgQ = 0x8012ADA0; // size:0x18
+
+gDListHead = 0x8012A670; // size:0x4
+gDListTail = 0x8012ADC0; // size:0xC300
+
 // input.c ?
 gButtonHold = 0x800BE4F8; // size:0x2
 gButtonPress = 0x800BE4FC; // size:0x2

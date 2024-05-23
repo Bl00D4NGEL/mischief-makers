@@ -643,4 +643,3 @@ void Thread_MainProc(void* arg0) {
     }
     Sound_Update();
 }
-

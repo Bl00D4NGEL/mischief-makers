@@ -2,12 +2,29 @@ name: Mischief Makers (North America)
 sha1: 811709c6473f74cbf283aa61f056e1de3046ec73
 options:
   basename: mischiefmakers
+  elf_path: build/mischiefmakers.elf
   find_file_boundaries: True
   compiler: IDO
   platform: n64
   base_path: .
-  target_path: baserom.z64
+  asm_path: ../../asm
+  src_path: ../../src
+  asset_path: ../../assets
+  build_path: ../../build
+  target_path: ../../baserom.us1.z64
+  ld_script_path: mischiefmakers.ld
+  ld_dependencies: True
   symbol_name_format: $VRAM_$ROM
+  header_encoding: ASCII
+  use_legacy_include_asm: False
+  asm_function_macro: glabel
+  asm_jtbl_label_macro: jlabel
+  asm_data_macro: dlabel
+  asm_emit_size_directive: True
+  rodata_string_guesser_level: 2
+  data_string_guesser_level: 2
+  #libultra_symbols: True
+  #hardware_regs: True
 segments:
   - name: header
     type: header
@@ -22,8 +39,10 @@ segments:
     type: code
     start: 0x1000
     vram: 0x80000400
+    bss_size: 0x9C2D0
     symbol_name_format: $VRAM
     subsegments:
+      # text
       - [0x001000, hasm, ../src/asm/entrypoint]
       - [0x001050, c, boot]
       - [0x001BE0, c, input]
@@ -205,26 +224,22 @@ segments:
       - [0x0BB5E0, textbin, rspboot]
       - [0x0BB6B0, textbin, gspFast3D]
       - [0x0BCAB0, textbin, aspMain]
+      # data
       - [0x0BF0F0, data]
       - [0x0E44A0, data, boot]
       - [0x0E4760, data]
       - [0x0EA3B0, data, ultralib/vitbl]
       - [0x0EB0D0, bin]
-      - { start: 0x0EF610, type: databin, name: rsp/gspFast3D, linker_section_order: .rodata }
-      #- { start: auto, name: bss_800EF4D0, type: bss, vram: 0x800EF4D0 } # bss start
-      - { start: auto, name: stack, type: .bss, vram: 0x80123670 }
-      - { start: auto, name: thread, type: .bss, vram: 0x8012A670 }
-      #- { start: auto, name: bss_801370D0, type: bss, vram: 0x801370D0 }
-  #- name: overlay_F00D0
-  #  dir: overlay_F00D0
-  #  type: code
-  #  start: 0xF00D0
-  #  vram: 0x80388000
-  #  follows_vram: main
-  #  symbol_name_format: $VRAM_$ROM
-  #  subsegments:
-  #    - [0xF00D0, asm]
-  - [0xF0100, bin]
+      # rodata
+      - { start: 0xEF610, type: databin, name: rsp/gspFast3D, linker_section_order: .rodata }
+      # bss
+      - { start: 0xF00D0, name: bss_800EF4D0, type: bss, vram: 0x800EF4D0 } # bss start
+      - { start: auto,    name: stack,        type: .bss, vram: 0x80123670 }
+      - { start: auto,    name: thread,       type: .bss, vram: 0x8012A670 }
+      - { start: auto,    name: bss_801370D0, type: bss, vram: 0x801370D0 }
+  - type: bin
+    start: 0xF00D0
+    follows_vram: main
   - [0x67DBA0, textbin] # A crazy number of overlays (TODO)
   - [0x7EAFD0, bin, trailer] # 0xFF to end
   - [0x800000]

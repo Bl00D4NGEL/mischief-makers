@@ -3,9 +3,10 @@
 *.out
 *.ld
 
-undefined_funcs_auto.txt
-undefined_syms_auto.txt
-symbol_addrs.txt
+*undefined_funcs_auto.txt
+*undefined_syms_auto.txt
+*symbol_addrs.txt
+*.d
 
 asm/
 assets/

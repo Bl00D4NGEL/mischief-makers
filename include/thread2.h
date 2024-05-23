@@ -32,11 +32,7 @@ extern OSTask gGFXTasks[2];
 extern OSViMode* gOSViModep;
 extern OSViMode gOSViMode;
 
-extern OSContStatus D_8012AD60[3];
-extern u8 D_8012AD63[4];
-extern u8 D_8012AD67[4];
-extern u8 D_8012AD6B[4];
-extern u8 D_8012AD6F;
+extern OSContStatus D_8012AD60[4];
 
 extern OSContPad gContpadArrayA[4];
 extern OSContPad gContpadArrayB[4];

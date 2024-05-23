@@ -26,52 +26,6 @@ void Input_Update(void) {
 
 #ifdef NON_MATCHING
 u32 Input_GetFirstController(void) {
-    u8 sp23;
-    s32 var_t2;
-    s32 var_t5;
-    s32 var_t9;
-
-    osCreateMesgQueue(&D_8012AC20, &D_8012AC7C, 1);
-    osSetEventMesg(5U, &D_8012AC20, (void* )1);
-    osContInit(&D_8012AC20, &sp23, &D_8012AD60);
-    osCreateMesgQueue(&D_8012AC08, &D_8012AC78, 1);
-    osSetEventMesg(5U, &D_8012AC08, NULL);
-    osCreateMesgQueue(&gContMesgQ, &D_8012ADB8, 2);
-    osSetEventMesg(5U, &gContMesgQ, (void* )2);
-    if (sp23 & 1) {
-        var_t9 = sp23 & 2;
-        if (!(D_8012AD63 & 8)) {
-            return 0U;
-        }
-        goto block_4;
-    }
-    var_t9 = sp23 & 2;
-block_4:
-    if (var_t9 != 0) {
-        var_t2 = sp23 & 4;
-        if (!(D_8012AD67 & 8)) {
-            return 1U;
-        }
-        goto block_8;
-    }
-    var_t2 = sp23 & 4;
-block_8:
-    if (var_t2 != 0) {
-        var_t5 = sp23 & 8;
-        if (!(D_8012AD6B & 8)) {
-            return 2U;
-        }
-        goto block_12;
-    }
-    var_t5 = sp23 & 8;
-block_12:
-    if (var_t5 != 0) {
-        if (!(D_8012AD6F & 8)) {
-            return 3U;
-        }
-        /* Duplicate return node #16. Try simplifying control flow for better match */
-        return -1U;
-    }
     return -1U;
 }
 #else

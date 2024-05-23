@@ -1,4 +1,11 @@
 BASENAME  = mischiefmakers
+# us0, us1, jp, eu
+VERSION   ?= us1
+
+VERSION_us0 = US0
+VERSION_us1 = US1
+VERSION_jp = JP
+VERSION_eu = EU
 
 BUILD_DIR = build
 ASM_DIR   = asm
@@ -22,7 +29,7 @@ O_FILES := $(foreach file,$(S_FILES),$(BUILD_DIR)/$(file).o) \
 
 
 TARGET = $(BUILD_DIR)/$(BASENAME)
-LD_SCRIPT = $(BASENAME).ld
+LD_SCRIPT = versions/$(VERSION)/$(BASENAME).ld
 
 CROSS = mips-linux-gnu-
 AS = $(CROSS)as
@@ -48,14 +55,16 @@ GREP := grep -rl
 GLOBAL_ASM_C_FILES := $(shell $(GREP) GLOBAL_ASM $(SRC_DIR) </dev/null 2>/dev/null)
 GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES),$(BUILD_DIR)/$(file).o)
 
-CFLAGS := -G0 -Xfullwarn -Xcpluscomm -signed -nostdinc -non_shared -Wab,-r4300_mul
-CFLAGS += -D_LANGUAGE_C -D_FINALROM -DF3DEX_GBI
+DFLAGS = -D_LANGUAGE_C -D_FINALROM -DF3DEX_GBI -DGAME_VERSION=$(VERSION_$(VERSION))
+
+CFLAGS = -G0 -Xfullwarn -Xcpluscomm -signed -nostdinc -non_shared -Wab,-r4300_mul $(DFLAGS)
+
 # ignore compiler warnings about anonymous structs
 CFLAGS += -woff 649,838
 CFLAGS += $(INCLUDE_CFLAGS)
-CC_CHECK := gcc -fsyntax-only -fsigned-char -m32 -std=gnu90 -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wno-main -Wno-unused-parameter -DAVOID_UB -D_LANGUAGE_C -D_FINALROM -DF3DEX_GBI $(INCLUDE_CFLAGS)
+CC_CHECK := gcc -fsyntax-only -fsigned-char -m32 -std=gnu90 -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wno-main -Wno-unused-parameter $(DFLAGS) $(INCLUDE_CFLAGS)
 
-LDFLAGS = -T $(LD_SCRIPT) -Map $(TARGET).map -T undefined_syms_auto.txt -T undefined_funcs_auto.txt -T undefined_funcs.txt -T undefined_syms.txt --no-check-sections
+LDFLAGS = -T $(LD_SCRIPT) -Map $(TARGET).map -T versions/$(VERSION)/undefined_syms_auto.txt -T versions/$(VERSION)/undefined_funcs_auto.txt -T versions/$(VERSION)/undefined_funcs.txt -T versions/$(VERSION)/undefined_syms.txt --no-check-sections
 
 ASM_PROCESSOR_DIR := $(TOOLS_DIR)/asm-processor
 
@@ -85,7 +94,9 @@ clean:
 	rm -rf build
 
 setup:
-	$(PYTHON) tools/splat/split.py $(BASENAME).yaml
+	gcc -E -x c -P -C versions/$(VERSION)/symbol_addrs_original.txt -o versions/$(VERSION)/symbol_addrs.txt
+	$(PYTHON) tools/clearcomments.py versions/$(VERSION)/symbol_addrs.txt
+	$(PYTHON) tools/splat/split.py versions/$(VERSION)/$(BASENAME).yaml
 
 context:
 	rm -f ctx.c ctx_includes.c
