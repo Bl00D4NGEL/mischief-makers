@@ -1,6 +1,9 @@
 #include "common.h"
+#include "boot.h"
 #include "input.h"
-#include "thread.h"
+
+void Input_Update(void);
+u32 Input_GetFirstController(void);
 
 void Input_Update(void) {
     osContGetReadData(gContpadArrayB);
@@ -24,24 +27,28 @@ void Input_Update(void) {
     gButtonLast = gButtonCurrent;
 }
 
-#ifdef NON_MATCHING
 u32 Input_GetFirstController(void) {
-    return -1U;
+    s32 index;
+    u8 controller_bits;
+
+    osCreateMesgQueue(&gContInitMesgQ, &D_8012AC7C, 1);
+    osSetEventMesg(OS_EVENT_SI, &gContInitMesgQ, 1);
+    osContInit(&gContInitMesgQ, &controller_bits, gContStatus);
+
+    osCreateMesgQueue(&D_8012AC08, &D_8012AC78, 1);
+    osSetEventMesg(OS_EVENT_SI, &D_8012AC08, NULL);
+
+    osCreateMesgQueue(&gContMesgQ, &D_8012ADB8, 2);
+    osSetEventMesg(OS_EVENT_SI, &gContMesgQ, 2);
+
+    for (index = 0; index < 4; index++) {
+        if (controller_bits & (1 << index)) {
+            if (!(gContStatus[index].errno & CONT_NO_RESPONSE_ERROR)) {
+                return index;
+            }
+        }
+    }
+
+    return -1;
 }
-#else
-#pragma GLOBAL_ASM("asm/nonmatchings/input/Input_GetFirstController.s")
-#endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/input/func_800011F0.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/input/func_80001264.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/input/func_80001290.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/input/func_800012F0.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/input/func_8000147C.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/input/func_80001670.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/input/func_8000178C.s")

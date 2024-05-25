@@ -1,6 +1,5 @@
 #include "common.h"
-#include "thread.h"
-#include "input.h"
+#include "boot.h"
 
 // forward declarations
 
@@ -11,15 +10,17 @@ void func_800008E0(void);
 void func_80000A84(u16 buffer_index);
 void Thread_MainProc(void* arg0);
 
-#ifdef NON_MATCHING_DATA
+
+// data
+
 Vp D_800E38A0 = {
     {
-        640, 480, 511, 0,
-        640, 480, 511, 0
+        SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, G_MAXZ / 2, 0,
+        SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, G_MAXZ / 2, 0
     },
 };
 
-Gfx D_800E38B0[32]  = {
+Gfx D_800E38B0[]  = {
     gsSPSegment(0x00, 0x00000000),
     gsDPPipeSync(),
     gsDPSetScissor(G_SC_NON_INTERLACE, 0, 0, 320, 240),
@@ -38,7 +39,7 @@ Gfx D_800E38B0[32]  = {
     gsSPEndDisplayList(),
 };
 
-Gfx D_800E3930[18] = {
+Gfx D_800E3930[] = {
     gsSPViewport(&D_800E38A0),
     gsSPClipRatio(FRUSTRATIO_2),
     gsSPClearGeometryMode(G_ZBUFFER | G_TEXTURE_ENABLE | G_SHADE | G_CULL_BOTH | G_FOG | G_LIGHTING | G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR | G_LOD | G_SHADING_SMOOTH | G_CLIPPING | 0xFF60CDF8),
@@ -47,14 +48,14 @@ Gfx D_800E3930[18] = {
     gsSPEndDisplayList(),
 };
 
-Gfx D_800E3978[4] = {
+Gfx D_800E3978[] = {
     gsDPPipeSync(),
     gsDPSetCycleType(G_CYC_FILL),
     gsDPSetRenderMode(G_RM_NOOP, G_RM_NOOP2),
     gsSPEndDisplayList(),
 };
 
-Gfx D_800E3998[5] = {
+Gfx D_800E3998[] = {
     gsDPPipeSync(),
     gsDPSetCycleType(G_CYC_COPY),
     gsDPSetTexturePersp(G_TP_NONE),
@@ -62,7 +63,7 @@ Gfx D_800E3998[5] = {
     gsSPEndDisplayList(),
 };
 
-Gfx D_800E39C0[14] = {
+Gfx D_800E39C0[] = {
     gsDPPipeSync(),
     gsDPSetCycleType(G_CYC_1CYCLE),
     gsSPClearGeometryMode(G_CULL_BOTH),
@@ -79,7 +80,7 @@ Gfx D_800E39C0[14] = {
     gsSPEndDisplayList(),
 };
 
-Gfx D_800E3A30[4] = {
+Gfx D_800E3A30[] = {
     gsDPPipeSync(),
     gsDPSetCycleType(G_CYC_1CYCLE),
     gsDPSetRenderMode(G_RM_XLU_SURF, G_RM_XLU_SURF2),
@@ -121,10 +122,86 @@ Gfx D_800E3AC8[] = {
     gsSPEndDisplayList(),
 };
 
-#else
-extern Gfx D_800E3930[];
-extern Gfx D_800E38B0[];
-#endif
+// Lights?
+u32 D_800E3B18[] = {
+    0x20202000,
+    0x20202000,
+    0x00E00000,
+    0x00E00000,
+    0x007F2000,
+    0x00000000,
+    0xE0000000,
+    0xE0000000,
+    0x7FC02000,
+    0x00000000,
+    0x0000E000,
+    0x0000E000,
+    0x81002000,
+    0x00000000,
+    0xE0E00000,
+    0xE0E00000,
+    0x00007F00,
+    0x00000000,
+};
+
+
+// bss
+
+u64 gBootStack[STACK_SIZE / sizeof(u64)]; // 80123670->80124670
+u64 D_80124670[STACK_SIZE / sizeof(u64)]; // 80124670->80125670
+u64 gIdleStack[STACK_SIZE / sizeof(u64)]; // 80125670->80126670
+u64 D_80126670[STACK_SIZE / sizeof(u64)]; // 80126670->80127670
+u64 gMainStack[STACK_SIZE / sizeof(u64)]; // 80127670->80128670
+u64 gRmonStack[STACK_SIZE / sizeof(u64)]; // 80128670->80129670
+u64 D_80129670[STACK_SIZE / sizeof(u64)]; // 80129670->8012A670
+
+Gfx* gDListHead;
+OSMesg D_8012A678[8];
+
+OSThread sIdleThread;
+OSThread sMainThread;
+OSThread sRmonThread;
+
+OSMesgQueue gDmaMesgQ;
+
+OSMesgQueue D_8012ABC0;
+OSMesgQueue D_8012ABD8;
+OSMesgQueue D_8012ABF0;
+OSMesgQueue D_8012AC08;
+OSMesgQueue gContInitMesgQ;
+OSMesgQueue D_8012AC38[2];
+
+OSMesg D_8012AC68;
+OSMesg D_8012AC6C;
+OSMesg D_8012AC70;
+OSMesg D_8012AC74;
+OSMesg D_8012AC78;
+OSMesg D_8012AC7C;
+OSMesg D_8012AC80;
+OSTask* gGFXTaskp;
+OSTask gGFXTasks[2];
+
+OSViMode* gOSViModep;
+OSViMode gOSViMode;
+
+OSContStatus gContStatus[4];
+
+OSContPad gContpadArrayA[4];
+OSContPad gContpadArrayB[4];
+OSMesgQueue gContMesgQ;
+
+OSMesg D_8012ADB8;
+
+GfxData gDListTail[2];
+
+u32 gPlayerControllerIndex;
+u16 gButtonCurrent;
+
+u16 D_801370C6;
+u32 gFramesInPlayTime;
+u16 D_801370CC;
+u16 D_801370CE;
+
 
 // text
 
@@ -260,6 +337,8 @@ typedef struct {
     /* 0x1F8 */ u32 unk_0x1F8;
     /* 0x1FC */ u32 unk_0x1FC;
 } unk_func_80000450; /* sizeof = 0x200 */
+
+// I might put a bounty on rerolling this loop
 
 void func_80000450(void) {
     s32 var_v1; // register v1
@@ -565,7 +644,7 @@ void Thread_MainProc(void* arg0) {
     u16* framebuffer;
 
     Sound_InitPlayers();
-    osCreateMesgQueue(&sDMAMesgQ, &D_8012AC68, 1);
+    osCreateMesgQueue(&gDmaMesgQ, &D_8012AC68, 1);
     osCreateMesgQueue(&D_8012ABD8, &D_8012AC70, 1);
     osSetEventMesg(OS_EVENT_SP, &D_8012ABD8, D_8012AC80);
     Sound_SetEventMesg();

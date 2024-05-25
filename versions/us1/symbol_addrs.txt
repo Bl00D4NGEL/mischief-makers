@@ -26,6 +26,8 @@ osWritebackDCacheAll = 0x8009AEA0; // type:func
 osSpTaskLoad = 0x8009B014; // type:func
 osSpTaskStartGo = 0x8009B294; // type:func
 osContInit = 0x8009B2E0; // type:func
+osInvalDCache = 0x8009B6E0; // type:func
+osPiStartDma = 0x8009B790; // type:func
 ////////////////////////
 // data
 ////////////////////////
@@ -39,24 +41,49 @@ Thread_IdleProc = 0x80000718; // type:func
 Thread_MainProc = 0x80000C20; // type:func
 Input_Update = 0x80000FE0; // type:func
 Input_GetFirstController = 0x80001098; // type:func
+DMA_ReadSync = 0x800011F0; // type:func
+DMA_AwaitMessage = 0x80001264; // type:func 
+DMA_Read = 0x80001290; // type:func
 Sound_InitPlayers = 0x80001B38; // type:func
 Sound_SetEventMesg = 0x800020BC; // type:func
 Sound_Update = 0x80002114; // type:func
 Sound_NextBuffer = 0x800028D0; // type:func
 Sound_StartTask = 0x800029EC; // type:func
 LookAt_Update = 0x80010898; // type:func
+GameState_SoftReset = 0x80022F48; // type:func
+GameState_Intro = 0x80017800; // type:func
+GameState_TitleScreen = 0x8001817C; // type:func
+GameState_DebugSoundTest = 0x800188CC; // type:func
+GameState_DebugStageSelect = 0x800191B8; // type:func
+GameState_Loading = 0x800232A4; // type:func
+GameState_Gameplay = 0x80021034; // type:func
+GameState_ContinueScreen = 0x80012F98; // type:func
+GameState_State8Overlay = 0x80388000; // type:func
+GameState_State9Overlay = 0x80388008; // type:func
+GameState_Attract = 0x80021270; // type:func
+GameState_FileSelect = 0x80007C8C; // type:func
+GameState_Transition = 0x8001B460; // type:func
+GameState_Records = 0x8001D654; // type:func
 ////////////////////////
 // game data
 ////////////////////////
+gFramesInScene = 0x800BE4E4; // size:0x2
+gGamePaused = 0x800BE4E8; // size:0x2
+gGameState = 0x800BE4F0; // size:0x2
+gGameStateSubState = 0x800BE4F4; // size:0x2
+gRngSeed = 0x800BE5A4; // size:0x2
+gDebugBitfeild = 0x800BE6AC; // size:0x2
 gCurrentFramebufferIndex = 0x800BE700; // size:0x2
 gDramStack = 0x8011D970; // size:0x400
 gYeildData = 0x8011DDF0; // size:0xDA0
 //
-sDMAMesgQ = 0x8012ABA8; // size:0x18
-D_8012AD60 = 0x8012AD60; // size:0x14
+gDmaMesgQ = 0x8012ABA8; // size:0x18
+gContInitMesgQ = 0x8012AC20; // size:0x18
+gContStatus = 0x8012AD60; // size:0x14
 gContMesgQ = 0x8012ADA0; // size:0x18
 gDListHead = 0x8012A670; // size:0x4
 gDListTail = 0x8012ADC0; // size:0xC300
+gFramesInPlayTime = 0x801370C8; // size:0x2
 // input.c ?
 gButtonHold = 0x800BE4F8; // size:0x2
 gButtonPress = 0x800BE4FC; // size:0x2

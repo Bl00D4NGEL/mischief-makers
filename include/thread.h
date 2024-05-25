@@ -3,7 +3,6 @@
 
 #include <ultra64.h>
 #include "inttypes.h"
-#include "thread2.h"
 
 extern OSThread sIdleThread;
 extern OSThread sMainThread;

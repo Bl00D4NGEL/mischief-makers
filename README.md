@@ -20,7 +20,7 @@ The build process has the following package requirements:
 Under a Debian based distribution, you can install these with the following commands:
 ```
 sudo apt update
-sudo apt install git build-essential binutils-mips-linux-gnu gcc-mips-linux-gnu python3
+sudo apt install git build-essential binutils-mips-linux-gnu gcc-mips-linux-gnu python3 ninja-build
 ```
 
 ### Clone the repository

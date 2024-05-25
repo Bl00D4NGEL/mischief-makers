@@ -12,6 +12,9 @@
 #define FRAMEBUFFER0 (0x801DA800)
 #define FRAMEBUFFER1 (0x803DA800)
 
+#define SCREEN_WIDTH (320)
+#define SCREEN_HEIGHT (240)
+
 #ifndef osInitialize
 #define osInitialize __osInitialize_common
 #endif
@@ -31,7 +34,15 @@ enum {
     GAMESTATE_FILESELECT,
     GAMESTATE_TRANSITION,
     GAMESTATE_NONE,
-    GAMESTATE_UNKNOWN2 // level select (best times?)
+    GAMESTATE_RECORDS
 };
+
+extern u16 gFramesInScene;
+extern u16 gGamePaused;
+extern u16 gGameState;
+extern u16 gGameStateSubState;
+extern u16 gDebugBitfeild;
+
+extern u32 gFramesInPlayTime;
 
 #endif

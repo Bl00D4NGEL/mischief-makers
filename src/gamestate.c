@@ -1,0 +1,199 @@
+#include "common.h"
+#include "boot.h"
+#include "input.h"
+
+void func_800012F0(void);
+void func_8000147C(void);
+void func_80001670(void);
+u16 func_8000178C(void);
+
+void func_800012F0(void) {
+    if (gGameState == GAMESTATE_GAMEPLAY) {
+        if ((gDebugBitfeild & 0x200) && (gGamePaused == 0)) {
+            gGamePaused = 1;
+        }
+
+        if (gGamePaused != 0 && gGameStateSubState == 0x10) {
+            if ((gButtonPress & D_800BE500) || (gButtonPress & D_800BE518)) {
+                // if this is true, you can pause while not drawing the pause screen (it still processes though?)
+                if (gDebugBitfeild & 0x100) {
+                    func_80020844(); // PauseGame_RestoreVolume ?
+                    func_800208D4(); // PauseGame_Unpause ?
+                }
+                else {
+                    gGameStateSubState = 0x20;
+                }
+            }
+        }
+        else if ((gButtonPress & D_800BE500) && (D_800BE4EC == 0) && (gGameStateSubState == 0)) {
+            // player->health >= 0
+            if (D_800EF5F0 >= 0) {
+                gGamePaused = 1;
+                gDebugBitfeild &= ~0x10;
+                if (gDebugBitfeild & 0x100) {
+                    gGameStateSubState = 0x10;
+                }
+                else {
+                    gGameStateSubState = 0;
+                }
+            }
+        }
+        if (gGamePaused == 0) {
+            func_800838E0(); // DebugText_Reset ?
+        }
+    }
+    else {
+        func_800838E0(); // DebugText_Reset ?
+    }
+}
+
+void func_8000147C(void) {
+    gFramesInScene++;
+    if (gFramesInPlayTime < 518399999) {
+        gFramesInPlayTime++;
+    }
+
+    func_800012F0(); // PauseGame_Check
+    func_80001670(); // GameState_Tick
+    func_800821B0(); // MarinaGraphics_Load
+    func_80009940();
+    func_80082F10();
+    func_80009BE8(D_80171B30); // DrawActors
+
+    // "Snowstorm Maze" and "Lunar"
+    if (D_800BE674) {
+        func_80082CFC(); // DrawForeground
+        func_8000DD6C(); // DrawClanBlocks
+        func_80009BE8(&D_80171D30); // DrawActors
+        func_80082E04(); // DrawEnvLayer
+    }
+    else {
+        func_80082E04(); // DrawEnvLayer
+        func_80009BE8(D_80171C30); // DrawActors
+        func_80082CFC(); // DrawForeground
+        func_80009BE8(&D_80171D30); // DrawActors
+        func_8000DD6C(); // DrawClanBlocks
+    }
+
+    if (D_8013747C != 0) {
+        func_8000EA88(); // DrawPortraits
+        func_80009BE8(D_80171F10); // DrawActors
+    }
+    else {
+        func_80009BE8(D_80171F10); // DrawActors
+        func_8000EA88(); // DrawPortraits
+    }
+
+    func_8000178C(); // update rng
+    func_800822B8(); // MarinaGraphics_Decrypt
+    func_800218FC(); // DrawLetterbox
+    func_8000F290(); // DrawLifeBar
+    func_80009BE0();
+
+    if (gDebugBitfeild & 1) {
+        func_8002167C();
+    }
+
+    if (gDebugBitfeild & 0x8000) {
+        func_8001FF28();
+    }
+
+    if (gDebugBitfeild & 0x40) {
+        func_80021658();
+    }
+
+    if ((gDebugBitfeild & 0x1020) == 0x1000) {
+        func_80021660();
+    }
+
+    func_80021620(); // DebugText_BorW
+    func_80083E74(); // DebugText_Tick
+}
+
+
+extern void GameState_SoftReset(void);
+extern void GameState_Intro(void);
+extern void GameState_TitleScreen(void);
+extern void GameState_DebugSoundTest(void);
+extern void GameState_DebugStageSelect(void);
+extern void GameState_Loading(void);
+extern void GameState_Gameplay(void);
+extern void GameState_ContinueScreen(void);
+extern void GameState_State8Overlay(void);
+extern void GameState_State9Overlay(void);
+extern void GameState_Attract(void);
+extern void GameState_FileSelect(void);
+extern void GameState_Transition(void);
+extern void GameState_Records(void);
+
+void func_80001670(void) {
+    switch (gGameState) {
+        case GAMESTATE_SOFTRESET: {
+            GameState_SoftReset(); // soft reset
+            break;
+        }
+        case GAMESTATE_INTRO: {
+            GameState_Intro(); // game intro
+            break;
+        }
+        case GAMESTATE_TITLESCREEN: {
+            GameState_TitleScreen(); // titlescreen
+            break;
+        }
+        case GAMESTATE_DEBUG_SOUNDTEST: {
+            GameState_DebugSoundTest(); // debug sound test
+            break;
+        }
+        case GAMESTATE_DEBUG_STAGESELECT: {
+            GameState_DebugStageSelect(); // debug level select
+            break;
+        }
+        case GAMESTATE_LOADING: {
+            GameState_Loading(); // loading stage
+            break;
+        }
+        case GAMESTATE_GAMEPLAY: {
+            GameState_Gameplay(); // in stage
+            break;
+        }
+        case GAMESTATE_CONTINUE: {
+            GameState_ContinueScreen(); // game over screen
+            break;
+        }
+        case GAMESTATE_UNKNOWN0: {
+            GameState_State8Overlay(); // dma'd in from rom
+            break;
+        }
+        case GAMESTATE_UNKNOWN1: {
+            GameState_State9Overlay(); // dma'd in from rom
+            break;
+        }
+        case GAMESTATE_ATTRACT: {
+            GameState_Attract(); // attract demo mode
+            break;
+        }
+        case GAMESTATE_FILESELECT: {
+            GameState_FileSelect(); // file select
+            break;
+        }
+        case GAMESTATE_TRANSITION: {
+            GameState_Transition(); // transition
+            break;
+        }
+        case GAMESTATE_RECORDS: {
+            GameState_Records(); // level select (best times)
+            break;
+        }
+        default: {
+            break; // applies for case 13?
+        }
+    }
+}
+
+extern u16 gRngSeed;
+
+// LCG rng
+u16 func_8000178C(void) {
+    gRngSeed = (gRngSeed * 0x85) + 1;
+    return gRngSeed / 0x100;
+}

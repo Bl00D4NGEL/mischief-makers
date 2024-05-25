@@ -23,6 +23,8 @@ osWritebackDCacheAll = 0x8009AEA0; // type:func
 osSpTaskLoad = 0x8009B014; // type:func
 osSpTaskStartGo = 0x8009B294; // type:func
 osContInit = 0x8009B2E0; // type:func
+osInvalDCache = 0x8009B6E0; // type:func
+osPiStartDma = 0x8009B790; // type:func
 
 ////////////////////////
 // data

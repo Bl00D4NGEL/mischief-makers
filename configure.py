@@ -238,20 +238,6 @@ def create_build_script(linker_entries: List[LinkerEntry]):
     ido = "5.3"
     libultra = "VERSION_H"
 
-    build(
-        [Path("build/src/stack.c.o")],
-        [Path("src/stack.c")],
-        "cc",
-        variables={"flags": opt_level},
-    )
-
-    build(
-        [Path("build/src/thread.c.o")],
-        [Path("src/thread.c")],
-        "cc",
-        variables={"flags": opt_level},
-    )
-
     for entry in linker_entries:
         seg = entry.segment
 

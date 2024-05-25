@@ -1,17 +1,30 @@
+gFramesInScene = 0x800BE4E4; // size:0x2
+gGamePaused = 0x800BE4E8; // size:0x2
+gGameState = 0x800BE4F0; // size:0x2
+gGameStateSubState = 0x800BE4F4; // size:0x2
+
+gRngSeed = 0x800BE5A4; // size:0x2
+
+gDebugBitfeild = 0x800BE6AC; // size:0x2
+
 gCurrentFramebufferIndex = 0x800BE700; // size:0x2
 
 gDramStack = 0x8011D970; // size:0x400
 gYeildData = 0x8011DDF0; // size:0xDA0
 
 //
-sDMAMesgQ = 0x8012ABA8; // size:0x18
+gDmaMesgQ = 0x8012ABA8; // size:0x18
 
-D_8012AD60 = 0x8012AD60; // size:0x14
+gContInitMesgQ = 0x8012AC20; // size:0x18
+
+gContStatus = 0x8012AD60; // size:0x14
 
 gContMesgQ = 0x8012ADA0; // size:0x18
 
 gDListHead = 0x8012A670; // size:0x4
 gDListTail = 0x8012ADC0; // size:0xC300
+
+gFramesInPlayTime = 0x801370C8; // size:0x2
 
 // input.c ?
 gButtonHold = 0x800BE4F8; // size:0x2
@@ -19,4 +32,3 @@ gButtonPress = 0x800BE4FC; // size:0x2
 gButtonLast = 0x800BE538; // size:0x2
 gJoyX = 0x800BE53C; // size:0x1
 gJoyY = 0x800BE540; // size:0x1
-
