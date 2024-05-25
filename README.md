@@ -13,39 +13,42 @@ The build process has the following package requirements:
 - git
 - build-essential
 - binutils-mips-linux-gnu
+- gcc-mips-linux-gnu
 - python3
+- ninja-build
 
 Under a Debian based distribution, you can install these with the following commands:
 ```
 sudo apt update
-sudo apt install git build-essential binutils-mips-linux-gnu python3
+sudo apt install git build-essential binutils-mips-linux-gnu gcc-mips-linux-gnu python3
 ```
 
 ### Clone the repository
-Clone `https://github.com/Drahsid/mischief-makers.git` in whatever directory you wish. Make sure to initialize the submodules!
+Clone `https://github.com/Drahsid/mischief-makers.git` in whatever directory you wish.
 ```
 git clone https://github.com/Drahsid/mischief-makers.git --recursive
-cd mischief-makers
-git submodule init
 ```
 
 ### Install Python3 requirements
-Navigate to `tools/splat/` and run `pip3 install -r requirements.txt`
+In the root directory, run `pip3 install -U -r requirements.txt`
+
+Subsequently, Navigate to `tools/splat/` and run `pip3 install -U -r requirements.txt`
 
 ### Prepare the base rom
 Copy over your copy of Mischief Makers 1.1 US into the root folder of this repository. Rename the rom to baserom.us1.z64.
 
-Next, run `make setup` to extract the assets of the rom.
+For first-time setup, run `./configure.py --setup` to download the compiler.
+To extract and disassemble the rom, run `./configure.py`
 
 ## Build the rom
-Just run `make` to build the rom. If the build succeeds, a folder will be produced with the name `build`, inside this will be the output rom `mischiefmakers.z64`.
-
-Addtionally, if the rom matches, you should see this output:
+Just run `ninja`, or alternatively, `./configure.py -b`. A folder named 'build' will be produced, inside this will be the output rom `mischiefmakers.z64`. If the rom matches, you should see the following output in the console:
 ```
-CRC 1: 0xBFA526B4  Calculated: 0xBFA526B4 (Good)
-CRC 2: 0x0691E430  Calculated: 0x0691E430 (Good)
+source: 811709c6473f74cbf283aa61f056e1de3046ec73; target: 811709c6473f74cbf283aa61f056e1de3046ec73
 OK!
 ```
+
+## Other configure optons
+You can use `-c` (clean) and `-fc` (full clean) to clean the build, extraction, and dissasemmbly output.
 
 ## Contributing
 Contributions are welcome. If you would like to reserve a function, open a PR with the function or file name(s).

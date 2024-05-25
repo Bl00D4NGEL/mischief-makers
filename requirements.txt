@@ -1,0 +1,7 @@
+splat64[mips]==0.24.2
+spimdisasm==1.26.0
+ninja_syntax>=1.7.2
+argparse
+GitPython
+requests
+hashlib

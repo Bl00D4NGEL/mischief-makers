@@ -1,5 +1,5 @@
 [submodule "tools/asm-processor"]
-	path = tools/asm-processor
+	path = tools/asm_processor
 	url = https://github.com/simonlindholm/asm-processor/
 	branch = main
 [submodule "tools/asm-differ"]
