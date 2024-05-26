@@ -25,6 +25,10 @@ osSpTaskStartGo = 0x8009B294; // type:func
 osContInit = 0x8009B2E0; // type:func
 osInvalDCache = 0x8009B6E0; // type:func
 osPiStartDma = 0x8009B790; // type:func
+__assert = 0x8009B9D0; // type:func
+__osError = 0x800A5ED0; // type:func
+__osDisableInt = 0x800A5E90; // type:func
+__osRestoreInt = 0x800A5EB0; // type:func
 
 ////////////////////////
 // data
