@@ -16,7 +16,10 @@ options:
   ld_dependencies: True
   symbol_name_format: $VRAM_$ROM
   header_encoding: ASCII
-  use_legacy_include_asm: False
+  hasm_in_src_path: true
+  mips_abi_gpr: o32
+  disassemble_all: true
+  gfx_ucode: f3d
   asm_function_macro: glabel
   asm_jtbl_label_macro: jlabel
   asm_data_macro: dlabel
@@ -34,7 +37,7 @@ segments:
     start: 0x40
     vram: 0xA4000040
     subsegments:
-      - [0x0040, hasm, boot]
+      - [0x0040, hasm, asm/boot]
   - name: main
     type: code
     start: 0x1000
@@ -43,7 +46,7 @@ segments:
     symbol_name_format: $VRAM
     subsegments:
       # text
-      - [0x001000, hasm, ../src/asm/entrypoint]
+      - [0x001000, hasm, asm/entrypoint]
       - [0x001050, c, boot]
       - [0x001BE0, c, input]
       - [0x001DF0, c, dma]
@@ -59,15 +62,15 @@ segments:
       - [0x013850, asm, gameover] # gameover gamestate
       - [0x0156F0, asm]
       - [0x017A70, asm]
-      - [0x01E7A0, c, actor_init]
+      - [0x01E7A0, asm, actor_init]
       - [0x01F1E0, asm]
       - [0x022290, asm]
-      - [0x023910, c, soft_reset]
+      - [0x023910, asm, soft_reset]
       - [0x0241E0, asm] # has to do with scenes (scene init?)
       - [0x027F70, asm] # has to do with on screen text
       - [0x0438E0, asm]
       - [0x048A30, asm]
-      - [0x049200, c, marina]
+      - [0x049200, asm, marina]
       - [0x04FEB0, asm]
       - [0x059EA0, asm]
       - [0x05D120, asm]
@@ -81,7 +84,7 @@ segments:
       - [0x082920, asm]
       - [0x082DB0, asm] # has to do with loading marina's graphics
       - [0x082F80, asm]
-      - [0x0844E0, c, osd_debug_text]
+      - [0x0844E0, asm, osd_debug_text]
       - [0x084BB0, asm]
       - [0x08D0A0, asm]
       - [0x08F080, asm]
@@ -108,7 +111,7 @@ segments:
       - [0x09BAA0, asm, ultralib/os/writebackdcacheall]
       - [0x09BAD0, asm, ultralib/io/sptask]
       - [0x09BEE0, asm, ultralib/io/controller]
-      - [0x09C2E0, hasm, ../src/ultralib/os/invaldcache]
+      - [0x09C2E0, hasm, ultralib/os/invaldcache]
       - [0x09C390, asm, ultralib/io/pidma]
       - [0x09C5D0, asm, ultralib/debug/assert]
       - [0x09C620, asm]
@@ -146,8 +149,8 @@ segments:
       - [0x0A63F0, asm]
       - [0x0A6830, asm]
       - [0x0A6930, asm]
-      - [0x0A6A90, hasm, ../src/ultralib/os/interrupt]
-      - [0x0A6AD0, hasm, ../src/ultralib/error/errorasm]
+      - [0x0A6A90, hasm, ultralib/os/interrupt]
+      - [0x0A6AD0, hasm, ultralib/error/errorasm]
       - [0x0A6AF0, asm]
       - [0x0A7990, asm]
       - [0x0A79B0, asm]
@@ -261,7 +264,7 @@ segments:
       - [0x0EBB10, rodata, 5A70]
       - [0x0EBBC0, rodata, A540]
       - [0x0EBBE0, rodata, gameover]
-      - [0x0EBC50, rodata]
+      - [0x0EBC50, rodata, 17A70]
       - [0x0EBD00, rodata] # level select strings
       - [0x0EC190, rodata]
       - [0x0EC910, rodata]

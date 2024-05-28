@@ -1,0 +1,53 @@
+#include "common.h"
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80080190.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_800801D8.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_800805B8.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80080818.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_800808D0.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80080AEC.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80080ED4.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80080FF8.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_8008105C.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80081260.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80081478.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80081584.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80081644.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_800816AC.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80081720.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80081790.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_800817D8.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_800818C0.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_800819A8.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80081CBC.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80081CC8.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80081CD4.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80081CE4.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80081CF0.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80081CFC.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80081D08.s")

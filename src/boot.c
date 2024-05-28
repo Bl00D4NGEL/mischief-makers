@@ -1,5 +1,6 @@
 #include "common.h"
 #include "boot.h"
+#include "input.h"
 
 // forward declarations
 
