@@ -91,12 +91,13 @@ segments:
       - [0x097770, asm, stage_end_screen]
       - [0x099750, asm] # decrypts/decompresses marina's graphics
       # libultra text
-      - [0x0999F0, asm, ultralib/io/viblack]
-      - [0x099A70, asm, ultralib/io/viswapbuf]
-      - [0x099B50, asm, ultralib/os/initialize]
-      - [0x09A070, asm, ultralib/os/createthread]
-      - [0x09A220, asm, ultralib/os/startthread]
-      - [0x09A3C0, asm, ultralib/io/vimgr]
+      - [0x0999F0, c, ultralib/io/viblack]
+      - [0x099A70, c, ultralib/io/viswapbuf]
+      - [0x099B50, c, ultralib/os/initialize]
+      - [0x09A070, c, ultralib/os/createthread]
+      - [0x09A220, c, ultralib/os/startthread]
+      - [0x09A3C0, c, ultralib/io/vimgr]
+      - [0x09A7C0, asm] # trailing nops, probably some ido jank with loops
       - [0x09A820, asm, ultralib/io/visetmode]
       - [0x09A8F0, asm, ultralib/io/pimgr]
       - [0x09AC20, asm, ultralib/rmon/rmonmain]
@@ -133,7 +134,7 @@ segments:
       - [0x0A0C60, asm]
       - [0x0A4D70, asm]
       - [0x0A4DB0, asm]
-      - [0x0A4E80, asm]
+      - [0x0A4E80, c, libc/ll]
       - [0x0A51F0, asm]
       - [0x0A5270, asm]
       - [0x0A53C0, asm]
@@ -237,8 +238,11 @@ segments:
       # data
       - [0x0BF0F0, data]  # audio(?) strings at BF354, C192C, C272C
                           # level(?) strings at C90EC
-      - [0x0E44A0, .data, boot]
+      - [0x0E44A0, .data, boot] # seems oddly late
       - [0x0E4760, data]
+      # libultra data
+      - [0x0EA370, .data, ultralib/os/initialize]
+      - [0x0EA390, .data, ultralib/io/vimgr]
       - [0x0EA3B0, data, ultralib/vitbl]
       - [0x0EB0D0, data]
       # rodata
@@ -282,7 +286,7 @@ segments:
       - [0x0EE100, rodata, stage_end_screen]
       - [0x0EE1F0, rodata]
       # libultra
-      - [0x0EE200, rodata, ultralib/io/viswapbuf]
+      - [0x0EE200, .rodata, ultralib/io/viswapbuf]
       - [0x0EE230, rodata, ultralib/io/visetmode]
       - [0x0EE260, rodata, ultralib/rmon/rmonmain]
       - [0x0EE2A0, rodata, ultralib/io/visetevent]
@@ -327,6 +331,11 @@ segments:
       - { start: 0xF00D0, name: bss_800EF4D0, type: bss, vram: 0x800EF4D0 } # bss start
       - { start: auto,    name: boot,        type: .bss, vram: 0x80123670 }
       - { start: auto,    name: bss_801370D0, type: bss, vram: 0x801370D0 }
+      - { start: auto,    name: ultralib/os/initialize, type: .bss, vram: 0x801826C0 }
+      - { start: auto,    name: ultralib/io/vimgr, type: .bss, vram: 0x801826D0 }
+      - { start: auto,    name: bss_801838F0, type: bss, vram: 0x801838F0 }
+      - { start: auto,    name: ultralib/os/timerintr, type: bss, vram: 0x801856F0 }
+      - { start: auto,    name: bss_80185730, type: bss, vram: 0x80185730 }
   - type: bin
     start: 0xF00D0
     follows_vram: main

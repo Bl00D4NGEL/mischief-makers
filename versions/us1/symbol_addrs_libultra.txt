@@ -7,7 +7,9 @@ __osInitialize_common = 0x80098F50; // type:func
 osCreateThread = 0x80099470; // type:func
 osStartThread = 0x80099620; // type:func
 osCreateViManager = 0x800997C0; // type:func
+viMgrMain = 0x800999C0; // type:func
 osSetThreadPri = 0x8009A460; // type:func
+osGetThreadPri = 0x800A7810; // type:func
 osViSetMode = 0x80099C20; // type:func
 osCreatePiManager = 0x80099CF0; // type:func
 rmonMain = 0x8009A2B8; // type:func
@@ -19,6 +21,7 @@ osViSetEvent = 0x8009A9B0; // type:func
 osContStartReadData = 0x8009AA80; // type:func
 osContGetReadData = 0x8009AB58; // type:func
 osRecvMesg = 0x8009AD10; // type:func
+osSendMesg = 0x8009E2F0; // type:func
 osWritebackDCacheAll = 0x8009AEA0; // type:func
 osSpTaskLoad = 0x8009B014; // type:func
 osSpTaskStartGo = 0x8009B294; // type:func
@@ -29,10 +32,90 @@ __assert = 0x8009B9D0; // type:func
 __osError = 0x800A5ED0; // type:func
 __osDisableInt = 0x800A5E90; // type:func
 __osRestoreInt = 0x800A5EB0; // type:func
+__osGetSR = 0x800A6DA0; // type:func
+__osSetSR = 0x800A6D90; // type:func
+__osSetFpcCsr = 0x800A6DB0; // type:func
+__osSiRawReadIo = 0x800A6DC0; // type:func
+__osSiRawWriteIo = 0x800A6E80; // type:func
+osWritebackDCache = 0x800A6F10; // type:func
+osInvalICache = 0x800A6F90; // type:func
+osMapTLBRdb = 0x800A7010; // type:func
+osPiRawReadIo = 0x800A7070; // type:func
+bzero = 0x800A7150; // type:func
+__osExceptionPreamble = 0x800A5EF0; // type:func
+__ptExceptionPreamble = 0x800A5F00; // type:func
+__osCleanupThread = 0x800A6D80; // type:func
+__osEnqueueThread = 0x800A6B9C; // type:func
+__osPopThread = 0x800A6BE8; // type:func
+__osDispatchThread = 0x800A6C00; // type:func
+__osEnqueueAndYield = 0x800A6A90; // type:func
+__osViGetCurrentContext = 0x800A7840; // type:func
+__osViSwapContext = 0x800A7860; // type:func
+osGetCount = 0x800A7BE0; // type:func
+__osTimerInterrupt = 0x800A72F8; // type:func
+__osTimerServicesInit = 0x800A7260; // type:func
+__osViInit = 0x800A5D30; // type:func
+
+// libc/ll.c
+__ull_rshift = 0x800A4280; // type:func
+__ull_rem = 0x800A42BC; // type:func
+__ull_div = 0x800A4308; // type:func
+__ll_lshift = 0x800A4354; // type:func
+__ll_rem = 0x800A4390; // type:func
+__ll_div = 0x800A43DC; // type:func
+__ll_mul = 0x800A4448; // type:func
+__ull_divremi = 0x800A4488; // type:func
+__ll_mod = 0x800A44F8; // type:func
+__ll_rshift = 0x800A45AC; // type:func
 
 ////////////////////////
 // data
 ////////////////////////
 osTvType = 0x80000300; // size:0x4
+osResetType = 0x8000030C; // size:0x4
+osAppNMIBuffer = 0x8000031C; // size:0x4
+
+// initialize.c
+osClockRate = 0x800E9770; // size:0x8
+osViClock = 0x800E9778; // size:0x4
+__osShutdown = 0x800E977C; // size:0x4
+__OSGlobalIntMask = 0x800E9780; // size:0x4
+
+// vimgr.c
+__osViDevMgr = 0x800E9790; // size:0x1C
+
+// vitbl.c
 osViModeTable = 0x800E97B0; // size:0xD20
+
+// vi.c
+__osViCurr = 0x800EA5D0; // size:0x4
+__osViNext = 0x800EA5D4; // size:0x4
+
+// thread.c
+__osRunQueue = 0x800EA608; // size:0x4
+__osActiveQueue = 0x800EA60C; // size:0x4
+__osRunningThread = 0x800EA610; // size:0x4
+
+////////////////////////
+// bss
+////////////////////////
+
+// initialize.c
+__kmc_pt_mode = 0x801826C0; // size:0x4
+
+// vimgr.c
+viThread = 0x801826D0;
+viThreadStack = 0x80182880;
+viEventQueue = 0x80183880;
+viEventBuf = 0x80183898;
+viRetraceMsg = 0x801838B0;
+viCounterMsg = 0x801838C8;
+
+// timerintr.c
+__osCurrentTime = 0x801856F0; // size:0x8
+__osBaseCounter = 0x801856F8; // size:0x4
+__osViIntrCount = 0x801856FC; // size:0x4
+__osTimerCounter = 0x80185700; // size:0x4
+__osBaseTimer = 0x80185704; // size:0x20
+__osTimerList = 0x80185724; // size:0x4
 

@@ -41,8 +41,8 @@ CROSS_STRIP = f"{CROSS}strip"
 CROSS_OBJCOPY = f"{CROSS}objcopy"
 AS_FLAGS = f"-G 0 {COMMON_INCLUDES} -EB -mtune=vr4300 -march=vr4300 -mabi=32"
 OPT_FLAGS = "-O2"
-MIPS_FLAGS = "-mips1 -o32"
-MIPS_FLAGS_ULTRA = "-mips2 -g1 -o32"
+MIPS_FLAGS = "-mips1 -32"
+MIPS_FLAGS_ULTRA = "-mips2 -g1 -32"
 
 IDO_53_CC = TOOLS_DIR / "ido5.3" / "cc"
 
@@ -150,6 +150,52 @@ NULL = "int"
         )
 
 
+def build_c_segment(entry: any, build):
+    opt_level = OPT_FLAGS
+    mips = MIPS_FLAGS
+    ido = "5.3"
+    libultra = "VERSION_H"
+
+    c_path = entry.src_paths[0]
+    if "libc" in str(c_path):
+        opt_level = "-O3"
+        mips = "-mips2 -32"
+
+        if c_path.stem in ["ll", "llbit", "llcvt"]:
+            opt_level = "-O1 -g2"
+            mips = "-mips3 -32"
+        build(
+            entry.object_path,
+            entry.src_paths,
+            "cc_libultra",
+            variables={
+                "flags": f"{opt_level} {mips}",
+                "libultra": libultra,
+                "ido": TOOLS_DIR / ("ido" + ido) / "cc",
+            },
+        )
+    elif "ultralib" in str(c_path):
+        opt_level = "-O2 -g2"
+        mips = "-mips2"
+
+        build(
+                entry.object_path,
+                entry.src_paths,
+                "cc_libultra",
+                variables={
+                    "flags": f"{opt_level} {mips}",
+                    "ido": TOOLS_DIR / ("ido" + ido) / "cc",
+                    "libultra": libultra,
+                },
+            )
+    else:
+        build(
+                entry.object_path,
+                entry.src_paths,
+                "cc",
+                variables={"flags": opt_level},
+            )
+
 def create_build_script(linker_entries: List[LinkerEntry]):
     built_objects: Set[Path] = set()
 
@@ -233,11 +279,6 @@ def create_build_script(linker_entries: List[LinkerEntry]):
         command=f"{CROSS_OBJCOPY} $in $out -O binary",
     )
 
-    opt_level = OPT_FLAGS
-    mips = MIPS_FLAGS
-    ido = "5.3"
-    libultra = "VERSION_H"
-
     for entry in linker_entries:
         seg = entry.segment
 
@@ -254,12 +295,7 @@ def create_build_script(linker_entries: List[LinkerEntry]):
         ):
             build(entry.object_path, entry.src_paths, "as")
         elif isinstance(seg, splat.segtypes.common.c.CommonSegC):
-            build(
-                    entry.object_path,
-                    entry.src_paths,
-                    "cc",
-                    variables={"flags": opt_level},
-                )
+            build_c_segment(entry, build)
         elif isinstance(seg, splat.segtypes.common.textbin.CommonSegTextbin):
             if seg.sibling is None:
                 build(entry.object_path, entry.src_paths, "as")
