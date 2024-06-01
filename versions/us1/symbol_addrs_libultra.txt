@@ -44,6 +44,7 @@ osPiRawReadIo = 0x800A7070; // type:func
 bzero = 0x800A7150; // type:func
 __osExceptionPreamble = 0x800A5EF0; // type:func
 __ptExceptionPreamble = 0x800A5F00; // type:func
+__ptException = 0x800A5F24; // type:func
 __osCleanupThread = 0x800A6D80; // type:func
 __osEnqueueThread = 0x800A6B9C; // type:func
 __osPopThread = 0x800A6BE8; // type:func
@@ -62,6 +63,8 @@ __osDevMgrMain = 0x800A8480; // type:func
 __osPiGetAccess = 0x800A7E78; // type:func
 __osRdbSend = 0x800A8950; // type:func
 __osPiRelAccess = 0x800A7EC4; // type:func
+send_mesg = 0x800A6994; // type:func
+__osException = 0x800A5FC8; // type:func
 
 // libc/ll.c
 __ull_rshift = 0x800A4280; // type:func
@@ -102,6 +105,7 @@ __osViNext = 0x800EA5D4; // size:0x4
 __osRunQueue = 0x800EA608; // size:0x4
 __osActiveQueue = 0x800EA60C; // size:0x4
 __osRunningThread = 0x800EA610; // size:0x4
+__osFaultedThread = 0x800EA614; // size:0x4
 
 // pimgr.c
 __osPiDevMgr = 0x800EA4D0; // size:0x1C
@@ -110,6 +114,41 @@ __osCurrentHandle = 0x800EA4F0; // size:0x8
 
 // piacs.c
 __osPiAccessQueueEnabled = 0x800EA630; // size:0x4
+
+// exceptasm.s
+__osHwIntTable = 0x800EA5E0; // size:0x8
+__osRdb_DbgRead_Ct = 0x800EA5F4; // size:0x4
+__osRdb_Mesg = 0x800EA5F8; // size:0x4
+__os_Kdebug_Pkt = 0x800EA5FC; // size:0x4
+__osIntOffTable = 0x800EDA80; // size:0x1
+__osIntTable = 0x800EDAA0; // size:0x24
+__osCauseTable_pt = 0x800EDAC4; // size:0x20
+
+// kdebugserver.c
+__osThreadSave = 0x8018A550; // size:0x1B0
+
+// readhost.c
+__osRdb_Read_Data_Buf = 0x8018A72C; // size:0x4
+
+// rmonsio.c
+__osRdb_DbgRead_Buf = 0x80189A8C; // size:0x4
+
+// initrdb.c
+__osRdb_IP6_Ct = 0x8018A748; // size:0x4
+__osRdb_IP6_Data = 0x8018A740; // size:0x4
+__osRdb_IP6_CurSend = 0x8018A750; // size:0x4
+__osRdb_IP6_Size = 0x8018A744; // size:0x4
+__osRdb_IP6_Empty = 0x800EA640; // size:0x4
+
+// leointerrupt.c
+leoDiskStack = 0x8018A760; // size:0x1000
+
+// seteventmesg.c
+__osEventStateTab = 0x80185530; // size:0xB8
+
+// setintmask.s
+__osRcpImTable = 0x800EE390;
+
 
 ////////////////////////
 // bss
@@ -154,4 +193,7 @@ CartRomHandle = 0x80185730; // size:0x74
 
 // leodiskinit.c
 LeoDiskHandle = 0x801857B8; // size:0x74
+
+// exceptasm.s
+__osRdb_Read_Data_Ct = 0x8018A730; // size:0x4
 
