@@ -55,6 +55,13 @@ osGetCount = 0x800A7BE0; // type:func
 __osTimerInterrupt = 0x800A72F8; // type:func
 __osTimerServicesInit = 0x800A7260; // type:func
 __osViInit = 0x800A5D30; // type:func
+__osPiCreateAccessQueue = 0x800A7E20; // type:func
+osPiRawStartDma = 0x800A7F00; // type:func
+osEPiRawStartDma = 0x800A80E0; // type:func
+__osDevMgrMain = 0x800A8480; // type:func
+__osPiGetAccess = 0x800A7E78; // type:func
+__osRdbSend = 0x800A8950; // type:func
+__osPiRelAccess = 0x800A7EC4; // type:func
 
 // libc/ll.c
 __ull_rshift = 0x800A4280; // type:func
@@ -96,6 +103,14 @@ __osRunQueue = 0x800EA608; // size:0x4
 __osActiveQueue = 0x800EA60C; // size:0x4
 __osRunningThread = 0x800EA610; // size:0x4
 
+// pimgr.c
+__osPiDevMgr = 0x800EA4D0; // size:0x1C
+__osPiTable = 0x800EA4EC; // size:0x4
+__osCurrentHandle = 0x800EA4F0; // size:0x8
+
+// piacs.c
+__osPiAccessQueueEnabled = 0x800EA630; // size:0x4
+
 ////////////////////////
 // bss
 ////////////////////////
@@ -104,12 +119,12 @@ __osRunningThread = 0x800EA610; // size:0x4
 __kmc_pt_mode = 0x801826C0; // size:0x4
 
 // vimgr.c
-viThread = 0x801826D0;
-viThreadStack = 0x80182880;
-viEventQueue = 0x80183880;
-viEventBuf = 0x80183898;
-viRetraceMsg = 0x801838B0;
-viCounterMsg = 0x801838C8;
+viThread = 0x801826D0; // size:0x1B0
+viThreadStack = 0x80182880; // size:0x1000
+viEventQueue = 0x80183880; // size:0x18
+viEventBuf = 0x80183898; // size:0x14
+viRetraceMsg = 0x801838B0; // size:0x18
+viCounterMsg = 0x801838C8; // size:0x18
 
 // timerintr.c
 __osCurrentTime = 0x801856F0; // size:0x8
@@ -118,4 +133,25 @@ __osViIntrCount = 0x801856FC; // size:0x4
 __osTimerCounter = 0x80185700; // size:0x4
 __osBaseTimer = 0x80185704; // size:0x20
 __osTimerList = 0x80185724; // size:0x4
+
+// pimgr.c
+piThread = 0x801838F0; // size:0x1B0
+piThreadStack = 0x80183AA0; // size:0x1000
+ramromThread = 0x80184AA0; // size:0x1B0
+ramromThreadStack = 0x80184C50; // size:0x400
+getRamromQ = 0x80185050; // size:0x18
+getRamromBuf = 0x80185068; // size:0x4
+freeRamromQ = 0x80185070; // size:0x18
+freeRamromBuf = 0x80185088; // size:0x4
+piEventQueue = 0x80185090; // size:0x18
+piEventBuf = 0x801850A8; // size:0x4
+
+// piacs.c
+__osPiAccessQueue = 0x80185838; // size:0x18
+
+// cartrominit.c
+CartRomHandle = 0x80185730; // size:0x74
+
+// leodiskinit.c
+LeoDiskHandle = 0x801857B8; // size:0x74
 

@@ -97,9 +97,9 @@ segments:
       - [0x09A070, c, ultralib/os/createthread]
       - [0x09A220, c, ultralib/os/startthread]
       - [0x09A3C0, c, ultralib/io/vimgr]
-      - [0x09A7C0, asm] # trailing nops, probably some ido jank with loops
-      - [0x09A820, asm, ultralib/io/visetmode]
-      - [0x09A8F0, asm, ultralib/io/pimgr]
+      - [0x09A7C0, hasm, ultralib/io/vimgrnops] # trailing nops, probably some ido jank with loops
+      - [0x09A820, c, ultralib/io/visetmode]
+      - [0x09A8F0, c, ultralib/io/pimgr]
       - [0x09AC20, asm, ultralib/rmon/rmonmain]
       - [0x09B060, asm, ultralib/os/setthreadpri]
       - [0x09B190, asm, ultralib/os/virtualtophysical]
@@ -244,16 +244,15 @@ segments:
       - [0x0EA370, .data, ultralib/os/initialize]
       - [0x0EA390, .data, ultralib/io/vimgr]
       - [0x0EA3B0, data, ultralib/vitbl]
-      - [0x0EB0D0, data]
+      - [0x0EB0D0, .data, ultralib/io/pimgr]
+      - [0x0EB100, data]
+      - [0x0EB150, data]
+      - [0x0EB160, data]
+      - [0x0EB1D0, data]
+      - [0x0EB1E0, data]
+      - [0x0EB220, data]
+      - [0x0EB230, data]
       # rodata
-      - [0x0EB150, rodata]
-      - [0x0EB160, rodata]
-      - [0x0EB1D0, rodata]
-      - [0x0EB1E0, rodata]
-      - [0x0EB220, rodata]
-      - [0x0EB230, rodata]
-      - [0x0EB240, rodata]
-      - [0x0EB250, rodata]
       - [0x0EB260, rodata]
       - [0x0EB3A0, rodata]
       - [0x0EB3F0, rodata]
@@ -287,7 +286,7 @@ segments:
       - [0x0EE1F0, rodata]
       # libultra
       - [0x0EE200, .rodata, ultralib/io/viswapbuf]
-      - [0x0EE230, rodata, ultralib/io/visetmode]
+      - [0x0EE230, .rodata, ultralib/io/visetmode]
       - [0x0EE260, rodata, ultralib/rmon/rmonmain]
       - [0x0EE2A0, rodata, ultralib/io/visetevent]
       - [0x0EE2C0, rodata, ultralib/debug/assert]
@@ -333,7 +332,8 @@ segments:
       - { start: auto,    name: bss_801370D0, type: bss, vram: 0x801370D0 }
       - { start: auto,    name: ultralib/os/initialize, type: .bss, vram: 0x801826C0 }
       - { start: auto,    name: ultralib/io/vimgr, type: .bss, vram: 0x801826D0 }
-      - { start: auto,    name: bss_801838F0, type: bss, vram: 0x801838F0 }
+      - { start: auto,    name: ultralib/io/pimgr, type: .bss, vram: 0x801838F0 }
+      - { start: auto,    name: bss_801850B0, type: bss, vram: 0x801850B0 }
       - { start: auto,    name: ultralib/os/timerintr, type: bss, vram: 0x801856F0 }
       - { start: auto,    name: bss_80185730, type: bss, vram: 0x80185730 }
   - type: bin
