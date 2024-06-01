@@ -66,6 +66,7 @@ __osPiRelAccess = 0x800A7EC4; // type:func
 send_mesg = 0x800A6994; // type:func
 __osException = 0x800A5FC8; // type:func
 __osDequeueThread = 0x800A7210; // type:func
+__osProbeTLB = 0x800AA780; // type:func
 
 // libc/ll.c
 __ull_rshift = 0x800A4280; // type:func
@@ -107,6 +108,7 @@ __osRunQueue = 0x800EA608; // size:0x4
 __osActiveQueue = 0x800EA60C; // size:0x4
 __osRunningThread = 0x800EA610; // size:0x4
 __osFaultedThread = 0x800EA614; // size:0x4
+__osThreadTail = 0x800EA600; // size:0x8
 
 // pimgr.c
 __osPiDevMgr = 0x800EA4D0; // size:0x1C
