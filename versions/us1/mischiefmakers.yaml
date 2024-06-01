@@ -107,7 +107,7 @@ segments:
       - [0x09B2F0, c, ultralib/os/seteventmesg]
       - [0x09B390, c, ultralib/io/visetspecial]
       - [0x09B5B0, c, ultralib/io/visetevent]
-      - [0x09B680, asm, ultralib/io/contreaddata]
+      - [0x09B680, c, ultralib/io/contreaddata]
       - [0x09B910, asm, ultralib/os/recvmesg]
       - [0x09BAA0, asm, ultralib/os/writebackdcacheall]
       - [0x09BAD0, asm, ultralib/io/sptask]

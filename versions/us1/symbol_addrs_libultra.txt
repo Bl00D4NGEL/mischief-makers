@@ -70,6 +70,10 @@ __osProbeTLB = 0x800AA780; // type:func
 __osLeoInterrupt = 0x800B4AB0; // type:func
 __osLeoAbnormalResume = 0x800B51FC; // type:func
 __osLeoResume = 0x800B52F4; // type:func
+__osSiGetAccess = 0x800AA898; // type:func
+__osSiRawStartDma = 0x800AA920; // type:func
+__osSiRelAccess = 0x800AA8E4; // type:func
+__osPackReadData = 0x8009AC14; // type:func
 
 // libc/ll.c
 __ull_rshift = 0x800A4280; // type:func
@@ -202,4 +206,9 @@ LeoDiskHandle = 0x801857B8; // size:0x74
 
 // exceptasm.s
 __osRdb_Read_Data_Ct = 0x8018A730; // size:0x4
+
+// controller.c
+__osContPifRam = 0x80185630;  // size:0x40
+__osContLastCmd = 0x80185670; // size:0x1
+__osMaxControllers = 0x80185671; // size:0x1
 
