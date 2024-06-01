@@ -114,7 +114,7 @@ segments:
       - [0x09BEE0, asm, ultralib/io/controller]
       - [0x09C2E0, hasm, ultralib/os/invaldcache]
       - [0x09C390, asm, ultralib/io/pidma]
-      - [0x09C5D0, asm, ultralib/debug/assert]
+      - [0x09C5D0, c, ultralib/debug/assert]
       - [0x09C620, asm]
       - [0x09C730, asm]
       - [0x09C880, asm]
@@ -148,7 +148,7 @@ segments:
       - [0x0A6240, asm]
       - [0x0A6310, asm]
       - [0x0A6320, asm]
-      - [0x0A63F0, asm]
+      - [0x0A63F0, asm, libc/syncprintf]
       - [0x0A6830, asm]
       - [0x0A6930, asm, ultralib/io/vi]
       - [0x0A6A90, hasm, ultralib/os/interrupt]
@@ -190,7 +190,7 @@ segments:
       - [0x0AB990, asm]
       - [0x0ABB00, asm]
       - [0x0ABC50, asm]
-      - [0x0ABE20, asm]
+      - [0x0ABE20, hasm, ultralib/debug/assertbreak]
       - [0x0ABE30, asm]
       - [0x0ABE50, asm]
       - [0x0AE340, asm]
@@ -298,7 +298,7 @@ segments:
       - [0x0EE230, .rodata, ultralib/io/visetmode]
       - [0x0EE260, rodata, ultralib/rmon/rmonmain]
       - [0x0EE2A0, .rodata, ultralib/io/visetevent]
-      - [0x0EE2C0, rodata, ultralib/debug/assert]
+      - [0x0EE2C0, .rodata, ultralib/debug/assert]
       - [0x0EE2E0, rodata, ultralib/audio/heapalloc]
       - [0x0EE2F0, rodata]
       - [0x0EE530, rodata, ultralib/audio/synthesizer]
@@ -337,7 +337,7 @@ segments:
       - { start: 0xEF610, type: databin, name: rsp/gspFast3D, linker_section_order: .rodata }
       # bss
       - { start: 0xF00D0, name: bss_800EF4D0, type: bss, vram: 0x800EF4D0 } # bss start
-      - { start: auto,    name: boot,        type: .bss, vram: 0x80123670 }
+      - { start: auto,    name: boot, type: .bss, vram: 0x80123670 }
       - { start: auto,    name: bss_801370D0, type: bss, vram: 0x801370D0 }
       - { start: auto,    name: ultralib/os/initialize, type: .bss, vram: 0x801826C0 }
       - { start: auto,    name: ultralib/io/vimgr, type: .bss, vram: 0x801826D0 }

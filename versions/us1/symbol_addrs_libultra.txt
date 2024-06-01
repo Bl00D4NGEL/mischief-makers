@@ -74,6 +74,8 @@ __osSiCreateAccessQueue = 0x800AA840; // type:func
 __osSiGetAccess = 0x800AA898; // type:func
 __osSiRelAccess = 0x800AA8E4; // type:func
 __osSiDeviceBusy = 0x800B5530; // type:func
+osSyncPrintf = 0x800A5B34; // type:func
+__assertBreak = 0x800AB220; // type:func
 
 // libc/ll.c
 __ull_rshift = 0x800A4280; // type:func
