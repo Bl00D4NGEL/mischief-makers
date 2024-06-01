@@ -36,3 +36,4 @@ glabel osMapTLBRdb
 /* A7C68 800A7068 00000000 */  nop
 /* A7C6C 800A706C 00000000 */  nop
 .size osMapTLBRdb, . - osMapTLBRdb
+

@@ -21,3 +21,4 @@ void osViSetMode(OSViMode* modep) {
     __osViNext->control = __osViNext->modep->comRegs.ctrl;
     __osRestoreInt(saveMask);
 }
+

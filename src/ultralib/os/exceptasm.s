@@ -1045,3 +1045,4 @@ glabel __osCleanupThread
 /* A7988 800A6D88 00000000 */   nop
 /* A798C 800A6D8C 00000000 */  nop
 .size __osCleanupThread, . - __osCleanupThread
+

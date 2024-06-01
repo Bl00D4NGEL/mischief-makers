@@ -48,3 +48,4 @@ glabel osInvalICache
 /* A7C08 800A7008 00000000 */  nop
 /* A7C0C 800A700C 00000000 */  nop
 .size osInvalICache, . - osInvalICache
+

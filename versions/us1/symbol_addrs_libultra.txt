@@ -65,6 +65,7 @@ __osRdbSend = 0x800A8950; // type:func
 __osPiRelAccess = 0x800A7EC4; // type:func
 send_mesg = 0x800A6994; // type:func
 __osException = 0x800A5FC8; // type:func
+__osDequeueThread = 0x800A7210; // type:func
 
 // libc/ll.c
 __ull_rshift = 0x800A4280; // type:func

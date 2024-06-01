@@ -15,3 +15,4 @@ glabel __osSetFpcCsr
 /* A79B8 800A6DB8 03E00008 */  jr         $ra
 /* A79BC 800A6DBC 00000000 */   nop
 .size __osSetFpcCsr, . - __osSetFpcCsr
+

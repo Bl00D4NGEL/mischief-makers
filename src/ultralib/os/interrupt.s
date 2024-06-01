@@ -32,3 +32,4 @@ glabel __osRestoreInt
 /* A6AC8 800A5EC8 00000000 */   nop
 /* A6ACC 800A5ECC 00000000 */  nop
 .size __osRestoreInt, . - __osRestoreInt
+

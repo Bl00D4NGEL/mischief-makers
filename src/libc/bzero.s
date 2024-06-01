@@ -66,3 +66,4 @@ glabel bzero
 /* A7E08 800A7208 00000000 */  nop
 /* A7E0C 800A720C 00000000 */  nop
 .size bzero, . - bzero
+

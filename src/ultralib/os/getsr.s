@@ -16,3 +16,4 @@ glabel __osGetSR
 /* A79A8 800A6DA8 00000000 */   nop
 /* A79AC 800A6DAC 00000000 */  nop
 .size __osGetSR, . - __osGetSR
+

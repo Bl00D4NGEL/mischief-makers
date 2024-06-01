@@ -35,3 +35,4 @@ glabel func_80099BC0
 /* 9A818 80099C18 00000000 */  nop
 /* 9A81C 80099C1C 00000000 */  nop
 .size func_80099BC0, . - func_80099BC0
+

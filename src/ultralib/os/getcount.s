@@ -16,3 +16,4 @@ glabel osGetCount
 /* A87E8 800A7BE8 00000000 */   nop
 /* A87EC 800A7BEC 00000000 */  nop
 .size osGetCount, . - osGetCount
+

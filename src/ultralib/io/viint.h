@@ -69,3 +69,4 @@ __OSViContext *__osViGetCurrentContext(void);
 void __osViInit(void);
 extern	OSDevMgr	__osViDevMgr;
 #endif
+

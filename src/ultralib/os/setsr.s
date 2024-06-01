@@ -16,3 +16,4 @@ glabel __osSetSR
 /* A7998 800A6D98 03E00008 */  jr         $ra
 /* A799C 800A6D9C 00000000 */   nop
 .size __osSetSR, . - __osSetSR
+

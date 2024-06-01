@@ -61,3 +61,4 @@ glabel osInvalDCache
 /* 9C388 8009B788 03E00008 */  jr         $ra
 /* 9C38C 8009B78C 00000000 */   nop
 .size osInvalDCache, . - osInvalDCache
+

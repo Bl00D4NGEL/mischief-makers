@@ -20,3 +20,4 @@ glabel __osError
 /* A6AE8 800A5EE8 03E00008 */  jr         $ra
 /* A6AEC 800A5EEC 00000000 */   nop
 .size __osError, . - __osError
+
