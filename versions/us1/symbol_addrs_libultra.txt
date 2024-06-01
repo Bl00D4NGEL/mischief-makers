@@ -67,6 +67,9 @@ send_mesg = 0x800A6994; // type:func
 __osException = 0x800A5FC8; // type:func
 __osDequeueThread = 0x800A7210; // type:func
 __osProbeTLB = 0x800AA780; // type:func
+__osLeoInterrupt = 0x800B4AB0; // type:func
+__osLeoAbnormalResume = 0x800B51FC; // type:func
+__osLeoResume = 0x800B52F4; // type:func
 
 // libc/ll.c
 __ull_rshift = 0x800A4280; // type:func
@@ -146,9 +149,6 @@ __osRdb_IP6_Empty = 0x800EA640; // size:0x4
 // leointerrupt.c
 leoDiskStack = 0x8018A760; // size:0x1000
 
-// seteventmesg.c
-__osEventStateTab = 0x80185530; // size:0xB8
-
 // setintmask.s
 __osRcpImTable = 0x800EE390;
 
@@ -187,6 +187,9 @@ freeRamromQ = 0x80185070; // size:0x18
 freeRamromBuf = 0x80185088; // size:0x4
 piEventQueue = 0x80185090; // size:0x18
 piEventBuf = 0x801850A8; // size:0x4
+
+// seteventmesg.c
+__osEventStateTab = 0x80185530; // size:0xB8
 
 // piacs.c
 __osPiAccessQueue = 0x80185838; // size:0x18
