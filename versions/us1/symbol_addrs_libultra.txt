@@ -7,7 +7,6 @@ __osInitialize_common = 0x80098F50; // type:func
 osCreateThread = 0x80099470; // type:func
 osStartThread = 0x80099620; // type:func
 osCreateViManager = 0x800997C0; // type:func
-viMgrMain = 0x800999C0; // type:func
 osSetThreadPri = 0x8009A460; // type:func
 osGetThreadPri = 0x800A7810; // type:func
 osViSetMode = 0x80099C20; // type:func
@@ -70,10 +69,11 @@ __osProbeTLB = 0x800AA780; // type:func
 __osLeoInterrupt = 0x800B4AB0; // type:func
 __osLeoAbnormalResume = 0x800B51FC; // type:func
 __osLeoResume = 0x800B52F4; // type:func
-__osSiGetAccess = 0x800AA898; // type:func
 __osSiRawStartDma = 0x800AA920; // type:func
+__osSiCreateAccessQueue = 0x800AA840; // type:func
+__osSiGetAccess = 0x800AA898; // type:func
 __osSiRelAccess = 0x800AA8E4; // type:func
-__osPackReadData = 0x8009AC14; // type:func
+__osSiDeviceBusy = 0x800B5530; // type:func
 
 // libc/ll.c
 __ull_rshift = 0x800A4280; // type:func
@@ -124,6 +124,9 @@ __osCurrentHandle = 0x800EA4F0; // size:0x8
 
 // piacs.c
 __osPiAccessQueueEnabled = 0x800EA630; // size:0x4
+
+// siacs.c
+__osSiAccessQueueEnabled = 0x800EA650; // size:0x4
 
 // exceptasm.s
 __osHwIntTable = 0x800EA5E0; // size:0x8
@@ -212,3 +215,6 @@ __osContPifRam = 0x80185630;  // size:0x40
 __osContLastCmd = 0x80185670; // size:0x1
 __osMaxControllers = 0x80185671; // size:0x1
 
+// siacs.c
+siAccessBuf = 0x8018A4A0; // size:0x4
+__osSiAccessQueue = 0x8018A4A8; // size:0x18

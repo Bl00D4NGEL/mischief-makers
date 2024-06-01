@@ -108,8 +108,8 @@ segments:
       - [0x09B390, c, ultralib/io/visetspecial]
       - [0x09B5B0, c, ultralib/io/visetevent]
       - [0x09B680, c, ultralib/io/contreaddata]
-      - [0x09B910, asm, ultralib/os/recvmesg]
-      - [0x09BAA0, asm, ultralib/os/writebackdcacheall]
+      - [0x09B910, c, ultralib/os/recvmesg]
+      - [0x09BAA0, hasm, ultralib/os/writebackdcacheall]
       - [0x09BAD0, asm, ultralib/io/sptask]
       - [0x09BEE0, asm, ultralib/io/controller]
       - [0x09C2E0, hasm, ultralib/os/invaldcache]
@@ -183,8 +183,8 @@ segments:
       - [0x0A9D20, asm]
       - [0x0AA700, asm]
       - [0x0AB380, hasm, ultralib/os/probetlb]
-      - [0x0AB440, asm]
-      - [0x0AB520, asm]
+      - [0x0AB440, c, ultralib/io/siacs]
+      - [0x0AB520, c, ultralib/io/sirawdma]
       - [0x0AB610, asm]
       - [0x0AB970, asm]
       - [0x0AB990, asm]
@@ -218,7 +218,8 @@ segments:
       - [0x0B5600, asm]
       - [0x0B56B0, asm, ultralib/io/leointerrupt]
       - [0x0B6010, asm]
-      - [0x0B6130, asm]
+      - [0x0B6130, c, ultralib/io/si]
+      - [0x0B6170, asm] # handwritten
       - [0x0B6180, asm]
       - [0x0B61F0, asm]
       - [0x0B62A0, asm]
@@ -259,6 +260,7 @@ segments:
       - [0x0EB200, data]
       - [0x0EB220, data]
       - [0x0EB230, data]
+      - [0x0EB250, .data, ultralib/io/siacs]
       # rodata
       - [0x0EB260, rodata]
       - [0x0EB3A0, rodata]
@@ -312,7 +314,7 @@ segments:
       - [0x0EE7F0, rodata, ultralib/io/sprawread]
       - [0x0EE840, rodata, ultralib/rmon/rmonmem]
       - [0x0EE910, rodata, ultralib/rmon/rmonbrk]
-      - [0x0EEAE0, rodata, ultralib/io/sirawdma]
+      - [0x0EEAE0, .rodata, ultralib/io/sirawdma]
       - [0x0EEB10, rodata, ultralib/io/sprawdma]
       - [0x0EEBA0, rodata, ultralib/audio/seqplayer]
       - [0x0EEF80, rodata, ultralib/audio/cents2ratio]
@@ -345,9 +347,12 @@ segments:
       - { start: auto,    name: bss_801855F0, type: bss, vram: 0x801855F0 }
       - { start: auto,    name: ultralib/os/timerintr, type: bss, vram: 0x801856F0 }
       - { start: auto,    name: bss_80185730, type: bss, vram: 0x80185730 }
+      - { start: auto,    name: ultralib/io/siacs, type: .bss, vram: 0x8018A4A0 }
+      - { start: auto,    name: bss_8018A4C0, type: bss, vram: 0x8018A4C0 }
   - type: bin
     start: 0xF00D0
     follows_vram: main
   - [0x67DBA0, textbin] # A crazy number of overlays (TODO)
   - [0x7EAFD0, bin, trailer] # 0xFF to end
   - [0x800000]
+
