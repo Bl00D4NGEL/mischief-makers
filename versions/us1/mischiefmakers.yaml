@@ -356,65 +356,235 @@ segments:
     exclusive_ram_id: bin_F00D0
 
   # overlays from D_800CD08C
-  - [0x67DBA0, databin, overlay_67DBA0_static_data] # static data 67DBA0->67DC20 (0x80)
-  - [0x67DC20, textbin, overlay_67DBA0] # text,data,rodata 67DC20->68A090 (0xC470)
+  # note that the sections labeled 'static_data' seem to be function tables. data/rodata appear below text
+  - name: overlay_67DBA0_static_data
+    exclusive_ram_id: overlay_67DBA0_static_data
+    type: code
+    vram: 0x80192000
+    start: 0x67DBA0
+    subsegments: 
+      - [0x67DBA0, data, overlay_67DBA0/static_data] # static data 67DBA0->67DC20 (0x80)
+  - name: overlay_67DBA0
+    exclusive_ram_id: overlay_67DBA0
+    type: code
+    vram: 0x80192100
+    start: 0x67DC20
+    subsegments: 
+      - [0x67DC20, data, overlay_67DBA0/67DC20] # code 67DC20->68A090 (0xC470)
 
-  - [0x68A090, databin, overlay_68A090_static_data] # static data 68A090->68A100 (0x70)
-  - [0x68A100, textbin, overlay_68A090] # text,data,rodata 68A100->6A00C0 (0x15FC0)
+  - name: overlay_68A090_static_data
+    exclusive_ram_id: overlay_68A090_static_data
+    type: code
+    vram: 0x80192000
+    start: 0x68A090
+    subsegments: 
+      - [0x68A090, data, overlay_68A090/static_data] # static data 68A090->68A100 (0x70)
+  - name: overlay_68A090
+    exclusive_ram_id: overlay_68A090
+    type: code
+    vram: 0x80192100
+    start: 0x68A100
+    subsegments: 
+      - [0x68A100, data, overlay_68A090/68A100] # code 68A100->6A00C0 (0x15FC0)
 
-  - [0x6A00C0, databin, overlay_6A00C0_static_data] # static data 6A00C0->6A0100 (0x40)
-  - [0x6A0100, textbin, overlay_6A00C0] # text,data,rodata 6A0100->6AAA80 (0xA980)
+  - name: overlay_6A00C0_static_data
+    exclusive_ram_id: overlay_6A00C0_static_data
+    type: code
+    vram: 0x80192000
+    start: 0x6A00C0
+    subsegments: 
+      - [0x6A00C0, data, overlay_6A00C0/static_data] # static data 6A00C0->6A0100 (0x40)
+  - name: overlay_6A00C0
+    exclusive_ram_id: overlay_6A00C0
+    type: code
+    vram: 0x80192100
+    start: 0x6A0100
+    subsegments: 
+      - [0x6A0100, data, overlay_6A00C0/6A0100] # code 6A0100->6AAA80 (0xA980)
 
-  - [0x6AAA80, databin, overlay_6AAA80_static_data] # static data 6AAA80->6AAAF0 (0x70)
-  - [0x6AAAF0, textbin, overlay_6AAA80] # text,data,rodata 6AAAF0->6BCD80 (0x12290)
+  - name: overlay_6AAA80_static_data
+    exclusive_ram_id: overlay_6AAA80_static_data
+    type: code
+    vram: 0x80192000
+    start: 0x6AAA80
+    subsegments: 
+      - [0x6AAA80, data, overlay_6AAA80/static_data] # static data 6AAA80->6AAAF0 (0x70)
+  - name: overlay_6AAA80
+    exclusive_ram_id: overlay_6AAA80
+    type: code
+    vram: 0x80192100
+    start: 0x6AAAF0
+    subsegments: 
+      - [0x6AAAF0, data, overlay_6AAA80/6AAAF0] # code 6AAAF0->6BCD80 (0x12290)
 
-  - [0x6BCD80, databin, overlay_6BCD80_static_data] # static data 6BCD80->6BCDD0 (0x50)
-  - [0x6BCDD0, textbin, overlay_6BCD80] # text,data,rodata 6BCDD0->6D1BF0 (0x14E20)
+  - name: overlay_6BCD80_static_data
+    exclusive_ram_id: overlay_6BCD80_static_data
+    type: code
+    vram: 0x80192000
+    start: 0x6BCD80
+    subsegments: 
+      - [0x6BCD80, data, overlay_6BCD80/static_data] # static data 6BCD80->6BCDD0 (0x50)
+  - name: overlay_6BCD80
+    exclusive_ram_id: overlay_6BCD80
+    type: code
+    vram: 0x80192100
+    start: 0x6BCDD0
+    subsegments: 
+      - [0x6BCDD0, data, overlay_6BCD80/6BCDD0] # code 6BCDD0->6D1BF0 (0x14E20)
 
   - name: overlay_6D1BF0_static_data
+    exclusive_ram_id: overlay_6D1BF0_static_data
     type: code
     vram: 0x80192000
     start: 0x6D1BF0
-    subsegments:
+    subsegments: 
       - [0x6D1BF0, data, overlay_6D1BF0/static_data] # static data 6D1BF0->6D1C00 (0x10)
-                                                     # seems to be an array of pointers within the overlay
-                                                     # possibly point to the start of files/sections
-                                                     # though that has the cursed implication of subalign 4, and linker section nonsense
   - name: overlay_6D1BF0
+    exclusive_ram_id: overlay_6D1BF0
     type: code
     vram: 0x80192100
     start: 0x6D1C00
-    exclusive_ram_id: overlay_6D1BF0
-    subsegments:
-      - { start: 0x6D1C00, name: overlay_6D1BF0/6D1C00, type: asm,  vram: 0x80192100 } # text,data,rodata 6D1C00->6D2750 (0xB50)
-      - { start: 0x6D2710, name: overlay_6D1BF0/6D1C00, type: rodata,  vram: 0x80192C10 }
+    subsegments: 
+      - [0x6D1C00, asm, overlay_6D1BF0/6D1C00] # code 6D1C00->6D2750 (0xB50)
+      - [0x6D2710, rodata, overlay_6D1BF0/6D1C00]
 
-  - [0x6D2750, databin, overlay_6D2750_static_data] # static data 6D2750->6D2780 (0x30)
-  - [0x6D2780, textbin, overlay_6D2750] # text,data,rodata 6D2780->6D9FB0 (0x7830)
+  - name: overlay_6D2750_static_data
+    exclusive_ram_id: overlay_6D2750_static_data
+    type: code
+    vram: 0x80192000
+    start: 0x6D2750
+    subsegments: 
+      - [0x6D2750, data, overlay_6D2750/static_data] # static data 6D2750->6D2780 (0x30)
+  - name: overlay_6D2750
+    exclusive_ram_id: overlay_6D2750
+    type: code
+    vram: 0x80192100
+    start: 0x6D2780
+    subsegments: 
+      - [0x6D2780, data, overlay_6D2750/6D2780] # code 6D2780->6D9FB0 (0x7830)
 
-  - [0x6D9FB0, databin, overlay_6D9FB0_static_data] # static data 6D9FB0->6DA010 (0x60)
-  - [0x6DA010, textbin, overlay_6D9FB0] # text,data,rodata 6DA010->6E2AE0 (0x8AD0)
+  - name: overlay_6D9FB0_static_data
+    exclusive_ram_id: overlay_6D9FB0_static_data
+    type: code
+    vram: 0x80192000
+    start: 0x6D9FB0
+    subsegments: 
+      - [0x6D9FB0, data, overlay_6D9FB0/static_data] # static data 6D9FB0->6DA010 (0x60)
+  - name: overlay_6D9FB0
+    exclusive_ram_id: overlay_6D9FB0
+    type: code
+    vram: 0x80192100
+    start: 0x6DA010
+    subsegments: 
+      - [0x6DA010, data, overlay_6D9FB0/6DA010] # code 6DA010->6E2AE0 (0x8AD0)
 
-  - [0x6E2AE0, databin, overlay_6E2AE0_static_data] # static data 6E2AE0->6E2B20 (0x40)
-  - [0x6E2B20, textbin, overlay_6E2AE0] # text,data,rodata 6E2B20->6EE550 (0xBA30)
+  - name: overlay_6E2AE0_static_data
+    exclusive_ram_id: overlay_6E2AE0_static_data
+    type: code
+    vram: 0x80192000
+    start: 0x6E2AE0
+    subsegments: 
+      - [0x6E2AE0, data, overlay_6E2AE0/static_data] # static data 6E2AE0->6E2B20 (0x40)
+  - name: overlay_6E2AE0
+    exclusive_ram_id: overlay_6E2AE0
+    type: code
+    vram: 0x80192100
+    start: 0x6E2B20
+    subsegments: 
+      - [0x6E2B20, data, overlay_6E2AE0/6E2B20] # code 6E2B20->6EE550 (0xBA30)
 
-  - [0x6EE550, databin, overlay_6EE550_static_data] # static data 6EE550->6EE580 (0x30)
-  - [0x6EE580, textbin, overlay_6EE550] # text,data,rodata 6EE580->6F3DA0 (0x5820)
+  - name: overlay_6EE550_static_data
+    exclusive_ram_id: overlay_6EE550_static_data
+    type: code
+    vram: 0x80192000
+    start: 0x6EE550
+    subsegments: 
+      - [0x6EE550, data, overlay_6EE550/static_data] # static data 6EE550->6EE580 (0x30)
+  - name: overlay_6EE550
+    exclusive_ram_id: overlay_6EE550
+    type: code
+    vram: 0x80192100
+    start: 0x6EE580
+    subsegments: 
+      - [0x6EE580, data, overlay_6EE550/6EE580] # code 6EE580->6F3DA0 (0x5820)
 
-  - [0x6F3DA0, databin, overlay_6F3DA0_static_data] # static data 6F3DA0->6F3DD0 (0x30)
-  - [0x6F3DD0, textbin, overlay_6F3DA0] # text,data,rodata 6F3DD0->6F7B20 (0x3D50)
+  - name: overlay_6F3DA0_static_data
+    exclusive_ram_id: overlay_6F3DA0_static_data
+    type: code
+    vram: 0x80192000
+    start: 0x6F3DA0
+    subsegments: 
+      - [0x6F3DA0, data, overlay_6F3DA0/static_data] # static data 6F3DA0->6F3DD0 (0x30)
+  - name: overlay_6F3DA0
+    exclusive_ram_id: overlay_6F3DA0
+    type: code
+    vram: 0x80192100
+    start: 0x6F3DD0
+    subsegments: 
+      - [0x6F3DD0, data, overlay_6F3DA0/6F3DD0] # code 6F3DD0->6F7B20 (0x3D50)
 
-  - [0x6F7B20, databin, overlay_6F7B20_static_data] # static data 6F7B20->6F7B30 (0x10)
-  - [0x6F7B30, textbin, overlay_6F7B20] # text,data,rodata 6F7B30->6F9330 (0x1800)
+  - name: overlay_6F7B20_static_data
+    exclusive_ram_id: overlay_6F7B20_static_data
+    type: code
+    vram: 0x80192000
+    start: 0x6F7B20
+    subsegments: 
+      - [0x6F7B20, data, overlay_6F7B20/static_data] # static data 6F7B20->6F7B30 (0x10)
+  - name: overlay_6F7B20
+    exclusive_ram_id: overlay_6F7B20
+    type: code
+    vram: 0x80192100
+    start: 0x6F7B30
+    subsegments: 
+      - [0x6F7B30, asm, overlay_6F7B20/6F7B30] # code 6F7B30->6F9330 (0x1800)
+      - [0x6F91F0, rodata, overlay_6F7B20/6F7B30]
 
-  - [0x6F9330, databin, overlay_6F9330_static_data] # static data 6F9330->6F9390 (0x60)
-  - [0x6F9390, textbin, overlay_6F9330] # text,data,rodata 6F9390->713600 (0x1A270)
+  - name: overlay_6F9330_static_data
+    exclusive_ram_id: overlay_6F9330_static_data
+    type: code
+    vram: 0x80192000
+    start: 0x6F9330
+    subsegments: 
+      - [0x6F9330, data, overlay_6F9330/static_data] # static data 6F9330->6F9390 (0x60)
+  - name: overlay_6F9330
+    exclusive_ram_id: overlay_6F9330
+    type: code
+    vram: 0x80192100
+    start: 0x6F9390
+    subsegments: 
+      - [0x6F9390, data, overlay_6F9330/6F9390] # code 6F9390->713600 (0x1A270)
 
-  - [0x713600, databin, overlay_713600_static_data] # static data 713600->713630 (0x30)
-  - [0x713630, textbin, overlay_713600] # text,data,rodata 713630->719700 (0x60D0)
+  - name: overlay_713600_static_data
+    exclusive_ram_id: overlay_713600_static_data
+    type: code
+    vram: 0x80192000
+    start: 0x713600
+    subsegments: 
+      - [0x713600, data, overlay_713600/static_data] # static data 713600->713630 (0x30)
+  - name: overlay_713600
+    exclusive_ram_id: overlay_713600
+    type: code
+    vram: 0x80192100
+    start: 0x713630
+    subsegments: 
+      - [0x713630, data, overlay_713600/713630] # code 713630->719700 (0x60D0)
 
-  - [0x731DD0, databin, overlay_731DD0_static_data] # static data 731DD0->731E60 (0x90)
-  - [0x731E60, textbin, overlay_731DD0] # text,data,rodata 731E60->73D070 (0xB210)
+  - name: overlay_731DD0_static_data
+    exclusive_ram_id: overlay_731DD0_static_data
+    type: code
+    vram: 0x80192000
+    start: 0x731DD0
+    subsegments: 
+      - [0x731DD0, data, overlay_731DD0/static_data] # static data 731DD0->731E60 (0x90)
+  - name: overlay_731DD0
+    exclusive_ram_id: overlay_731DD0
+    type: code
+    vram: 0x80192100
+    start: 0x731E60
+    subsegments: 
+      - [0x731E60, data, overlay_731DD0/731E60] # code 731E60->73D070 (0xB210)
+
+  - [0x73D070, bin]
 
   - [0x7EAFD0, bin, trailer] # 0xFF to end
   - [0x800000]
