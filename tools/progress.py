@@ -8,10 +8,12 @@ import sys
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
 root_dir = os.path.join(script_dir, "..")
-asm_dir = os.path.join(root_dir, "asm", "nonmatchings")
+asm_dir = os.path.join(root_dir, "asm")
+matchings_dir = os.path.join(asm_dir, "matchings")
+data_dir = os.path.join(asm_dir, "data")
+src_dir = os.path.join(root_dir, "src")
 build_dir = os.path.join(root_dir, "build")
 elf_path = os.path.join(build_dir, "mischiefmakers.elf")
-
 
 def get_func_sizes():
     try:
@@ -37,80 +39,47 @@ def get_func_sizes():
 
     return sizes, total
 
-
-def get_nonmatching_funcs():
+def get_funcs_from_asm(asm_path):
     funcs = set()
-
-    for root, dirs, files in os.walk(asm_dir):
-        for f in files:
-            if f.endswith(".s") and not f.startswith(".L"):
-                funcs.add(f[:-2])
-
+    with open(asm_path, 'r') as file:
+        for line in file:
+            if line.startswith('glabel '):
+                func_name = line.split()[1]
+                funcs.add(func_name)
     return funcs
 
-
-def get_funcs_sizes(sizes, matchings, nonmatchings):
-    msize = 0
-    nmsize = 0
-
-    for func in matchings:
-        msize += sizes[func]
-
-    for func in nonmatchings:
-        if func not in sizes:
-            pass
-            # print(func)
-        else:
-            nmsize += sizes[func]
-
-    return msize, nmsize
-
-
-def lerp(a, b, alpha):
-    return a + (b - a) * alpha
-
-
-def getProgressData() -> list:
-    func_sizes, total_size = get_func_sizes()
-    all_funcs = set(func_sizes.keys())
-
-    nonmatching_funcs = get_nonmatching_funcs()
-    matching_funcs = all_funcs - nonmatching_funcs
-
-    matching_size, nonmatching_size = get_funcs_sizes(
-        func_sizes, matching_funcs, nonmatching_funcs
-    )
-
-    if len(all_funcs) == 0:
-        funcs_matching_ratio = 0.0
-        matching_ratio = 0.0
-    else:
-        funcs_matching_ratio = (len(matching_funcs) / len(all_funcs)) * 100
-        matching_ratio = (matching_size / total_size) * 100
-
-    if matching_size + nonmatching_size != total_size:
-        print("Warning: category/total size mismatch!\n")
-
-    return (
-        len(matching_funcs),
-        len(all_funcs),
-        funcs_matching_ratio,
-        matching_size,
-        total_size,
-        matching_ratio,
-    )
-
+def get_all_funcs(asm_root, exclude_dirs=None):
+    if exclude_dirs is None:
+        exclude_dirs = []
+    all_funcs = set()
+    for root, dirs, files in os.walk(asm_root):
+        dirs[:] = [d for d in dirs if d not in exclude_dirs]
+        for file in files:
+            if file.endswith('.s'):
+                asm_path = os.path.join(root, file)
+                funcs = get_funcs_from_asm(asm_path)
+                all_funcs.update(funcs)
+    return all_funcs
 
 def main(frogress_key=None):
-    func_sizes, total_size = get_func_sizes()
-    all_funcs = set(func_sizes.keys())
+    func_sizes, total_size = get_func_sizes() # get the size of every function, and the total size of all functions within the ELF
+    all_funcs = set(func_sizes.keys()) # get a list of every function
 
-    nonmatching_funcs = get_nonmatching_funcs()
-    matching_funcs = all_funcs - nonmatching_funcs
+    nonmatching_funcs = get_all_funcs(asm_dir, exclude_dirs=['matchings', 'data']) # read every *.s file within `asm`, excluding the trees `asm/matchings` and `asm/data` to get a complete list of nonmatching functions
+    matching_funcs = get_all_funcs(matchings_dir) # read every *.s file within `asm/matchings`
+    matching_funcs.update(get_all_funcs(src_dir)) # and `src` to get a complete list of matching functions
 
-    matching_size, nonmatching_size = get_funcs_sizes(
-        func_sizes, matching_funcs, nonmatching_funcs
-    )
+    # determine total size of matching functions
+    matching_size = 0
+    for func in matching_funcs:
+        if func in func_sizes:
+            matching_size += func_sizes[func]
+
+    # determine total size of nonmatching functions
+    nonmatching_size = 0
+    for func in nonmatching_funcs:
+        if func in func_sizes:
+            nonmatching_size += func_sizes[func]
 
     if len(all_funcs) == 0:
         funcs_matching_ratio = 0.0
@@ -120,12 +89,14 @@ def main(frogress_key=None):
         matching_ratio = (matching_size / total_size) * 100
 
     if matching_size + nonmatching_size != total_size:
-        print("Warning: category/total size mismatch!\n")
+        print(f"Warning: category/total size mismatch!\n")
+        print(f"Function sizes: matching {matching_size:X} + nonmatching {nonmatching_size:X} == {(matching_size + nonmatching_size):X}, total {total_size:X}")
+
     print(
         f"{len(matching_funcs)} matched functions / {len(all_funcs)} total ({funcs_matching_ratio:.2f}%)"
     )
     print(
-        f"{matching_size} matching bytes / {total_size} total ({matching_ratio:.2f}%)"
+        f"0x{matching_size:X} matching bytes / 0x{total_size:X} total ({matching_ratio:.2f}%)"
     )
 
     if frogress_key is not None:
@@ -157,7 +128,6 @@ def main(frogress_key=None):
             print("Error: Could not push progress data to frogress:" + response.text)
             sys.exit(1)
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Calculate the progress of the project"
@@ -167,4 +137,4 @@ if __name__ == "__main__":
         help="Push progress data to progress.deco.mp with the provided key",
     )
     args = parser.parse_args()
-    main(args.frogress)
+    main()

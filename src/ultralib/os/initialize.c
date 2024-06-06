@@ -116,6 +116,6 @@ void __osInitialize_common(void) {
     }
 }
 
-void ptstart() {
+static void ptstart() {
 }
 

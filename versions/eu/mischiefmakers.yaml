@@ -16,7 +16,10 @@ options:
   ld_dependencies: True
   symbol_name_format: $VRAM_$ROM
   header_encoding: ASCII
-  use_legacy_include_asm: False
+  hasm_in_src_path: true
+  mips_abi_gpr: o32
+  disassemble_all: true
+  gfx_ucode: f3d
   asm_function_macro: glabel
   asm_jtbl_label_macro: jlabel
   asm_data_macro: dlabel
