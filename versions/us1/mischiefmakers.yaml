@@ -344,7 +344,7 @@ segments:
       - { start: auto,    name: ultralib/io/vimgr, type: .bss, vram: 0x801826D0 }
       - { start: auto,    name: ultralib/io/pimgr, type: .bss, vram: 0x801838F0 }
       - { start: auto,    name: bss_801850B0, type: bss, vram: 0x801850B0 }
-      - { start: auto,    name: ultralib/os/seteventmesg, type: .bss, vram: 0x80185530}
+      - { start: auto,    name: ultralib/os/seteventmesg, type: .bss, vram: 0x80185530 }
       - { start: auto,    name: bss_801855F0, type: bss, vram: 0x801855F0 }
       - { start: auto,    name: ultralib/os/timerintr, type: bss, vram: 0x801856F0 }
       - { start: auto,    name: bss_80185730, type: bss, vram: 0x80185730 }
@@ -370,7 +370,9 @@ segments:
     vram: 0x80192100
     start: 0x67DC20
     subsegments: 
-      - [0x67DC20, data, overlay_67DBA0/67DC20] # code 67DC20->68A090 (0xC470)
+      - [0x67DC20, asm, overlay_67DBA0/67DC20] # code 67DC20->68A090 (0xC470)
+      - [0x686BB0, data, overlay_67DBA0/67DC20]
+      - [0x689200, rodata, overlay_67DBA0/67DC20] # guess
 
   - name: overlay_68A090_static_data
     exclusive_ram_id: overlay_68A090_static_data
@@ -385,7 +387,9 @@ segments:
     vram: 0x80192100
     start: 0x68A100
     subsegments: 
-      - [0x68A100, data, overlay_68A090/68A100] # code 68A100->6A00C0 (0x15FC0)
+      - [0x68A100, data]
+      #- [0x68A100, asm, overlay_68A090/68A100] # code 68A100->6A00C0 (0x15FC0)
+      #- [0x69BD40, rodata, overlay_68A090/68A100]
 
   - name: overlay_6A00C0_static_data
     exclusive_ram_id: overlay_6A00C0_static_data
