@@ -1,2 +1,3 @@
+_bssSegmentStart = 0x800ECFC0;
 
-
+__gBootStackEnd = 0x80122160;

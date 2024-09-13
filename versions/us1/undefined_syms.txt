@@ -1,6 +1,5 @@
 _bssSegmentStart = 0x800EF4D0;
 _bssSegmentEnd = 0x8018B7A0;
-_bssSegmentSize = 0x9C2D0;
 
 __gBootStackEnd = 0x80124670;
 __gIdleStackEnd = 0x80126670;

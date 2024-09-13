@@ -7,7 +7,6 @@ import re
 import sys
 import subprocess
 from pathlib import Path
-from pathlib import Path
 from typing import Dict, List, Set, Union
 
 import ninja_syntax
@@ -22,6 +21,16 @@ TOOLS_DIR = ROOT / "tools"
 BASENAME = "mischiefmakers"
 GAME_VERSION = "us1"
 
+def get_version_num():
+    if GAME_VERSION == "jp":
+        return 0
+    elif GAME_VERSION == "us0":
+        return 1
+    elif GAME_VERSION == "us1":
+        return 2
+    elif GAME_VERSION == "eu":
+        return 3
+
 YAML_FILE = f"versions/{GAME_VERSION}/{BASENAME}.yaml"
 LD_PATH = f"versions/{GAME_VERSION}/{BASENAME}.ld"
 MAP_PATH = f"build/{BASENAME}.map"
@@ -30,7 +39,7 @@ Z64_PATH = f"build/{BASENAME}.z64"
 OK_PATH = f"build/{BASENAME}.ok"
 
 COMMON_INCLUDES = "-I include -I src -I ultralib/include -I ultralib/include/ido -I ultralib/include/PR -I ultralib/src"
-IDO_DEFS = f"-D_LANGUAGE_C -D_DEBUG -DF3DEX_GBI -DGAME_VERSION={GAME_VERSION.upper()} -DBUILD_VERSION=VERSION_H"
+IDO_DEFS = f"-D_LANGUAGE_C -D_DEBUG -DF3DEX_GBI -DGAME_VERSION={get_version_num()} -DBUILD_VERSION=VERSION_H"
 IDO_DEFS_ULTRA = "-D_DEBUG -DBUILD_VERSION=VERSION_H"
 
 CROSS = "mips-linux-gnu-"
@@ -222,7 +231,7 @@ def create_build_script(linker_entries: List[LinkerEntry]):
                 implicit_outputs=implicit_outputs,
             )
 
-    ninja = ninja_syntax.Writer(open(str(ROOT / "build.ninja"), "w"), width=9999)
+    ninja = ninja_syntax.Writer(open(str(ROOT / "build.ninja"), "w"), width=96)
 
     # Rules
     ninja.rule(
@@ -234,7 +243,7 @@ def create_build_script(linker_entries: List[LinkerEntry]):
     ninja.rule(
         "as",
         description="as $in",
-        command=f"{CROSS_CPP} {COMMON_INCLUDES} $in -o - | iconv -t EUC-JP | {CROSS_AS} -G0 {COMMON_INCLUDES} -EB -mtune=vr4300 -march=vr4300 -o $out",
+        command=f"{CROSS_CPP} {COMMON_INCLUDES} -DGAME_VERSION={get_version_num()} $in -o - | iconv -t EUC-JP | {CROSS_AS} -G0 {COMMON_INCLUDES} -EB -mtune=vr4300 -march=vr4300 -o $out",
     )
 
     ninja.rule(
@@ -327,7 +336,6 @@ def create_build_script(linker_entries: List[LinkerEntry]):
 
 
 def graph_segments():
-
     import pandas as pd
     import numpy as np
     import matplotlib.pyplot as plt

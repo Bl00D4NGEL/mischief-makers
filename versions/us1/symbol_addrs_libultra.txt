@@ -161,6 +161,8 @@ leoDiskStack = 0x8018A760; // size:0x1000
 // setintmask.s
 __osRcpImTable = 0x800EE390;
 
+// errorasm.s
+__osErrorHandler = 0x800EAA84;
 
 ////////////////////////
 // bss

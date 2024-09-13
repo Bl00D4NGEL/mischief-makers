@@ -240,9 +240,9 @@ segments:
       - [0x0BB260, asm]
       - [0x0BB310, asm]
       - [0x0BB3F0, asm]
-      - [0x0BB5E0, textbin, rspboot]
-      - [0x0BB6B0, textbin, gspFast3D]
-      - [0x0BCAB0, textbin, aspMain]
+      - [0x0BB5E0, bin, rspboot]
+      - [0x0BB6B0, bin, gspFast3D]
+      - [0x0BCAB0, bin, aspMain]
       # data
       - [0x0BF0F0, data]  # audio(?) strings at BF354, C192C, C272C
                           # level(?) strings at C90EC
