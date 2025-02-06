@@ -18,7 +18,7 @@ options:
   header_encoding: ASCII
   hasm_in_src_path: true
   mips_abi_gpr: o32
-  disassemble_all: true
+  #disassemble_all: true
   gfx_ucode: f3d
   asm_function_macro: glabel
   asm_jtbl_label_macro: jlabel
@@ -26,6 +26,7 @@ options:
   asm_emit_size_directive: True
   rodata_string_guesser_level: 2
   data_string_guesser_level: 2
+  #suggestion_rodata_section_start: True
   #libultra_symbols: True
   #hardware_regs: True
 segments:

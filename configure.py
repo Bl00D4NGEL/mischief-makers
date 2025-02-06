@@ -435,6 +435,7 @@ if __name__ == "__main__":
     subprocess.run([CROSS_CPP, "-E", "-x", "c", "-P", "-C", f"versions/{GAME_VERSION}/symbol_addrs_original.txt", "-o", f"versions/{GAME_VERSION}/symbol_addrs.txt"])
     remove_multiline_comments(f"versions/{GAME_VERSION}/symbol_addrs.txt")
 
+    print(f"building game version {GAME_VERSION}")
     split.main([YAML_FILE], modes="all", verbose=False, disassemble_all=args.disassemble_all)
 
     linker_entries = split.linker_writer.entries
@@ -446,4 +447,4 @@ if __name__ == "__main__":
     write_permuter_settings()
 
     if args.build:
-        subprocess.run(["ninja"])
+        subprocess.run(["ninja", "-j", "1"])

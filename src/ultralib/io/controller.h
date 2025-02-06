@@ -5,7 +5,7 @@
 #include <PR/os_version.h>
 #include <PR/rcp.h>
 
-#include <macros.h>
+#include <PRinternal/macros.h>
 
 #define CHNL_ERR(format) (((format).rxsize & CHNL_ERR_MASK) >> 4)
 
