@@ -83,8 +83,6 @@ def fullclean():
         os.remove(f"versions/{GAME_VERSION}/{BASENAME}.d")
     if os.path.exists(f"versions/{GAME_VERSION}/{BASENAME}.ld"):
         os.remove(f"versions/{GAME_VERSION}/{BASENAME}.ld")
-    if os.path.exists(f"versions/{GAME_VERSION}/symbol_addrs.txt"):
-        os.remove(f"versions/{GAME_VERSION}/symbol_addrs.txt")
     if os.path.exists(f"versions/{GAME_VERSION}/undefined_funcs_auto.txt"):
         os.remove(f"versions/{GAME_VERSION}/undefined_funcs_auto.txt")
     if os.path.exists(f"versions/{GAME_VERSION}/undefined_syms_auto.txt"):
@@ -399,7 +397,7 @@ if __name__ == "__main__":
         action="store_true",
     )
     parser.add_argument(
-        "-s",
+        "-i",
         "--setup",
         help="Download and extract IDO compiler",
         action="store_true",
@@ -414,6 +412,12 @@ if __name__ == "__main__":
         "-b",
         "--build",
         help="Build",
+        action="store_true",
+    )
+    parser.add_argument(
+        "-s",
+        "--split",
+        help="Split",
         action="store_true",
     )
     args = parser.parse_args()
@@ -432,19 +436,12 @@ if __name__ == "__main__":
         print(f"baserom.{GAME_VERSION}.z64 is missing!")
         sys.exit(1)
 
-    subprocess.run([CROSS_CPP, "-E", "-x", "c", "-P", "-C", f"versions/{GAME_VERSION}/symbol_addrs_original.txt", "-o", f"versions/{GAME_VERSION}/symbol_addrs.txt"])
-    remove_multiline_comments(f"versions/{GAME_VERSION}/symbol_addrs.txt")
-
-    print(f"building game version {GAME_VERSION}")
-    split.main([YAML_FILE], modes="all", verbose=False, disassemble_all=args.disassemble_all)
-
-    linker_entries = split.linker_writer.entries
-
-    # graph_segments()
-
-    create_build_script(linker_entries)
-
-    write_permuter_settings()
+    if args.split:
+        split.main([YAML_FILE], modes="all", verbose=False, disassemble_all=args.disassemble_all)
+        linker_entries = split.linker_writer.entries
+        # graph_segments()
+        create_build_script(linker_entries)
+        write_permuter_settings()
 
     if args.build:
-        subprocess.run(["ninja", "-j", "1"])
+        subprocess.run(["ninja"])

@@ -38,10 +38,10 @@ Subsequently, Navigate to `tools/splat/` and run `pip3 install -U -r requirement
 Copy over your copy of Mischief Makers 1.1 US into the root folder of this repository. Rename the rom to baserom.us1.z64.
 
 For first-time setup, run `./configure.py --setup` to download the compiler.
-To extract and disassemble the rom, run `./configure.py`
+To extract and disassemble the rom, run `./configure.py -s`
 
 ## Build the rom
-Just run `ninja`, or alternatively, `./configure.py -b`. A folder named 'build' will be produced, inside this will be the output rom `mischiefmakers.z64`. If the rom matches, you should see the following output in the console:
+Just run `ninja`, or alternatively, `./configure.py -sb`. A folder named 'build' will be produced, inside this will be the output rom `mischiefmakers.z64`. If the rom matches, you should see the following output in the console:
 ```
 source: 811709c6473f74cbf283aa61f056e1de3046ec73; target: 811709c6473f74cbf283aa61f056e1de3046ec73
 OK!
