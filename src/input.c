@@ -31,15 +31,15 @@ u32 Input_GetFirstController(void) {
     s32 index;
     u8 controller_bits;
 
-    osCreateMesgQueue(&gContInitMesgQ, &D_8012AC7C, 1);
-    osSetEventMesg(OS_EVENT_SI, &gContInitMesgQ, 1);
-    osContInit(&gContInitMesgQ, &controller_bits, gContStatus);
+    osCreateMesgQueue(&gControllerInitMessageQueue, &gControllerInitMessageBuffer, 1);
+    osSetEventMesg(OS_EVENT_SI, &gControllerInitMessageQueue, 1);
+    osContInit(&gControllerInitMessageQueue, &controller_bits, gContStatus);
 
-    osCreateMesgQueue(&D_8012AC08, &D_8012AC78, 1);
-    osSetEventMesg(OS_EVENT_SI, &D_8012AC08, NULL);
+    osCreateMesgQueue(&gSerialInterfaceMessageQueue, &gSerialInterfaceMessageBuffer, 1);
+    osSetEventMesg(OS_EVENT_SI, &gSerialInterfaceMessageQueue, NULL);
 
-    osCreateMesgQueue(&gContMesgQ, &D_8012ADB8, 2);
-    osSetEventMesg(OS_EVENT_SI, &gContMesgQ, 2);
+    osCreateMesgQueue(&gControllerReadMessageQueue, &gControllerReadMessageBuffer, 2);
+    osSetEventMesg(OS_EVENT_SI, &gControllerReadMessageQueue, 2);
 
     for (index = 0; index < 4; index++) {
         if (controller_bits & (1 << index)) {
@@ -51,4 +51,3 @@ u32 Input_GetFirstController(void) {
 
     return -1;
 }
-

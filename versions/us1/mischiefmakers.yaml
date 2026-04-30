@@ -13,6 +13,7 @@ options:
   asset_path: ../../assets
   build_path: ../../build
   create_asm_dependencies: True
+  disassemble_all: True
 
   ld_script_path: mischiefmakers.ld
   ld_dependencies: True
@@ -26,6 +27,7 @@ options:
   asm_data_macro: dlabel
   asm_emit_size_directive: True
   hasm_in_src_path: true
+  generate_asm_macros_files: False
   
   symbol_name_format: $VRAM_$ROM
   mips_abi_gpr: o32
@@ -617,4 +619,3 @@ segments:
 
   - [0x7EAFD0, bin, trailer] # 0xFF to end
   - [0x800000]
-

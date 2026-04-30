@@ -7,7 +7,7 @@ import re
 import sys
 import subprocess
 from pathlib import Path
-from typing import Dict, List, Set, Union
+from typing import Dict, Iterable, List, Set, Union
 
 import ninja_syntax
 import requests
@@ -17,6 +17,7 @@ from splat.segtypes.linker_entry import LinkerEntry
 
 ROOT = Path(__file__).parent.relative_to(os.getcwd())
 TOOLS_DIR = ROOT / "tools"
+PYTHON = sys.executable
 
 BASENAME = "mischiefmakers"
 GAME_VERSION = "us1"
@@ -37,6 +38,23 @@ MAP_PATH = f"build/{BASENAME}.map"
 ELF_PATH = f"build/{BASENAME}.elf"
 Z64_PATH = f"build/{BASENAME}.z64"
 OK_PATH = f"build/{BASENAME}.ok"
+GENERATED_SYMBOLS_PATH = f"build/{BASENAME}.symbols.ld"
+SLINKY_CONFIG_PATH = f"build/{BASENAME}.slinky.yaml"
+SLINKY = os.environ.get("SLINKY", "slinky-cli")
+SLINKY_DROP_SECTION = ".slinky_discard"
+SLINKY_INPUT_SECTIONS = [".text", ".data", ".rodata", ".rdata", ".bss"]
+SLINKY_SECTION_ORDER = [".text", ".data", ".rodata", ".bss"]
+SYMBOL_ADDRS_PATHS = [
+    f"versions/{GAME_VERSION}/symbol_addrs_libultra.txt",
+    f"versions/{GAME_VERSION}/symbol_addrs_functions.txt",
+    f"versions/{GAME_VERSION}/symbol_addrs_data.txt",
+]
+SYMBOL_SCAN_DIRS = ["asm", "src", "include"]
+SYMBOL_SCAN_SUFFIXES = {".c", ".h", ".s", ".txt"}
+ADDRESS_SYMBOL_RE = re.compile(
+    r"(?<![A-Za-z0-9_.$])(?P<name>(?:D|func|jtbl)_[0-9A-Fa-f]{4,8}(?:_[0-9A-Fa-f]{4,8})?)(?![A-Za-z0-9_])"
+    r"|(?<![A-Za-z0-9_.$])(?P<label>\.L[0-9A-Fa-f]{4,8}(?:_[0-9A-Fa-f]{4,8})?)(?![A-Za-z0-9_])"
+)
 
 COMMON_INCLUDES = "-I include -I src -I ultralib/include -I ultralib/include/ido -I ultralib/include/PR -I ultralib/src"
 IDO_DEFS = f"-D_LANGUAGE_C -D_DEBUG -DF3DEX_GBI -DGAME_VERSION={get_version_num()} -DBUILD_VERSION=VERSION_H"
@@ -57,7 +75,7 @@ IDO_53_CC = TOOLS_DIR / "ido5.3" / "cc"
 
 O32_TOOL = ROOT / "ultralib/tools/set_o32abi_bit.py"
 
-GAME_CC_CMD = f"python3 tools/asm_processor/build.py --input-enc=utf-8 --output-enc=EUC-JP {IDO_53_CC} -- {CROSS_AS} {AS_FLAGS} -- -G 0 -non_shared -fullwarn -verbose -Xcpluscomm -nostdinc -Wab,-r4300_mul $flags {MIPS_FLAGS} {COMMON_INCLUDES} {IDO_DEFS} -c -o $out $in"
+GAME_CC_CMD = f"{PYTHON} tools/asm_processor/build.py --input-enc=utf-8 --output-enc=EUC-JP {IDO_53_CC} -- {CROSS_AS} {AS_FLAGS} -- -G 0 -non_shared -fullwarn -verbose -Xcpluscomm -nostdinc -Wab,-r4300_mul $flags {MIPS_FLAGS} {COMMON_INCLUDES} {IDO_DEFS} -c -o $out $in"
 
 LIBULTRA_CC_CMD = f"$ido -G 0 -non_shared -fullwarn -verbose -Wab,-r4300_mul -woff 513,516,649,838,712 -Xcpluscomm -nostdinc $flags {COMMON_INCLUDES} {IDO_DEFS} -DBUILD_VERSION=$libultra -c -o $out $in && {O32_TOOL} $out"
 
@@ -130,6 +148,207 @@ def obtain_ido_recomp(version: str):
 def setup():
     obtain_ido_recomp("5.3")
     print("Setup complete!")
+
+
+def parse_symbol_assignment(line: str):
+    symbol_line = line.split("//", 1)[0].strip()
+    if not symbol_line or "=" not in symbol_line:
+        return None
+
+    name, value = symbol_line.split("=", 1)
+    name = name.strip()
+    value = value.split(";", 1)[0].strip()
+    if not name or not value:
+        return None
+
+    return name, value
+
+
+def symbol_address_from_name(name: str):
+    if name.startswith(".L"):
+        hex_value = name[2:].split("_", 1)[0]
+    else:
+        hex_value = name.split("_", 2)[1]
+
+    return f"0x{int(hex_value, 16):X}"
+
+
+def write_generated_symbol_script():
+    symbols: Dict[str, str] = {}
+
+    for path_str in SYMBOL_ADDRS_PATHS:
+        path = Path(path_str)
+        if not path.exists():
+            continue
+
+        for line in path.read_text(encoding="utf-8").splitlines():
+            assignment = parse_symbol_assignment(line)
+            if assignment is None:
+                continue
+
+            name, value = assignment
+            symbols[name] = value
+
+    for root_str in SYMBOL_SCAN_DIRS:
+        root = Path(root_str)
+        if not root.exists():
+            continue
+
+        for path in root.rglob("*"):
+            if not path.is_file() or path.suffix not in SYMBOL_SCAN_SUFFIXES:
+                continue
+
+            text = path.read_text(encoding="utf-8", errors="ignore")
+            for match in ADDRESS_SYMBOL_RE.finditer(text):
+                name = match.group("name") or match.group("label")
+                symbols.setdefault(name, symbol_address_from_name(name))
+
+    output_path = Path(GENERATED_SYMBOLS_PATH)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open("w", encoding="utf-8", newline="\n") as f:
+        for name in sorted(symbols):
+            f.write(f"{name} = {symbols[name]};\n")
+
+
+def format_slinky_value(value):
+    if value is None:
+        return "null"
+
+    if isinstance(value, bool):
+        return "true" if value else "false"
+
+    if isinstance(value, int):
+        return f"0x{value:X}"
+
+    return str(value)
+
+
+def format_slinky_list(values: List[str]):
+    if not values:
+        return "null"
+
+    return "[" + ", ".join(values) + "]"
+
+
+def ordered_slinky_sections(sections: Iterable[str]):
+    unique_sections = set(sections)
+    ordered_sections = [
+        section for section in SLINKY_SECTION_ORDER if section in unique_sections
+    ]
+    ordered_sections += sorted(unique_sections - set(ordered_sections))
+    return ordered_sections
+
+
+def slinky_linker_path(path: Path):
+    return path.as_posix()
+
+
+def slinky_section_map(entry: LinkerEntry):
+    input_sections = list(SLINKY_INPUT_SECTIONS)
+    section_link = entry.section_link
+    section_order = entry.section_order_type
+
+    if section_link not in input_sections:
+        input_sections.append(section_link)
+
+    section_map: Dict[str, str] = {}
+    for section in input_sections:
+        if section != section_link:
+            section_map[section] = SLINKY_DROP_SECTION
+
+    if section_link != section_order:
+        section_map[section_link] = section_order
+
+    return section_map
+
+
+def format_slinky_file_entry(entry: LinkerEntry):
+    path = slinky_linker_path(entry.object_path)
+    section_map = slinky_section_map(entry)
+    map_entries = ", ".join(
+        f"{section}: {target}" for section, target in section_map.items()
+    )
+
+    return f"      - {{ path: {path}, section_order: {{ {map_entries} }} }}"
+
+
+def write_slinky_config():
+    output_path = Path(SLINKY_CONFIG_PATH)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    lines: List[str] = [
+        "settings:",
+        "  linker_symbols_style: splat",
+        "  alloc_sections: [.text, .data, .rodata]",
+        "  noload_sections: [.bss]",
+        "  subalign: 16",
+        "  wildcard_sections: false",
+        "  fill_value: 0",
+        "",
+        "segments:",
+    ]
+
+    segment_items = sorted(
+        split.segment_roms.items(),
+        key=lambda item: (item[0], item[1], item[2].get_cname()),
+    )
+
+    for item in segment_items:
+        segment = item[2]
+        entries = [
+            entry
+            for entry in segment.get_linker_entries()
+            if entry.object_path is not None
+        ]
+
+        if not entries:
+            continue
+
+        alloc_sections = ordered_slinky_sections(
+            entry.section_order_type for entry in entries if not entry.noload
+        )
+        noload_sections = ordered_slinky_sections(
+            entry.section_order_type for entry in entries if entry.noload
+        )
+
+        lines.append(f"  - name: {segment.get_cname()}")
+
+        if segment.vram_start is not None:
+            lines.append(f"    fixed_vram: {format_slinky_value(segment.vram_start)}")
+
+        if segment.subalign != 16:
+            lines.append(f"    subalign: {format_slinky_value(segment.subalign)}")
+
+        if segment.align is not None:
+            lines.append(f"    section_end_align: {format_slinky_value(segment.align)}")
+            lines.append(f"    segment_end_align: {format_slinky_value(segment.align)}")
+
+        if alloc_sections != [".text", ".data", ".rodata"]:
+            lines.append(f"    alloc_sections: {format_slinky_list(alloc_sections)}")
+
+        if noload_sections != [".bss"]:
+            lines.append(f"    noload_sections: {format_slinky_list(noload_sections)}")
+
+        lines.append("    files:")
+        for entry in entries:
+            lines.append(format_slinky_file_entry(entry))
+        lines.append("")
+
+    output_path.write_text("\n".join(lines), encoding="utf-8")
+
+
+def generate_slinky_linker_script():
+    write_slinky_config()
+
+    if shutil.which(SLINKY) is None and not Path(SLINKY).exists():
+        print(
+            "slinky-cli is required. Install it with "
+            "`cargo install --git https://github.com/decompals/slinky --locked slinky-cli`, "
+            "or set SLINKY=/path/to/slinky-cli."
+        )
+        sys.exit(1)
+
+    subprocess.run([SLINKY, SLINKY_CONFIG_PATH, "-o", LD_PATH], check=True)
 
 
 def write_permuter_settings():
@@ -263,15 +482,21 @@ def create_build_script(linker_entries: List[LinkerEntry]):
     )
 
     ninja.rule(
+        "symbols",
+        description=f"symbols {GENERATED_SYMBOLS_PATH}",
+        command=f"{PYTHON} configure.py --symbols",
+    )
+
+    ninja.rule(
         "ld",
         description="link $out",
-        command=f"{CROSS_LD} -T versions/{GAME_VERSION}/undefined_syms_auto.txt -T versions/{GAME_VERSION}/undefined_funcs_auto.txt -T versions/{GAME_VERSION}/undefined_funcs.txt -T versions/{GAME_VERSION}/undefined_syms.txt -Map $mapfile -T $in -o $out",
+        command=f"{PYTHON} configure.py --symbols && {CROSS_LD} -T {GENERATED_SYMBOLS_PATH} -T versions/{GAME_VERSION}/undefined_syms_auto.txt -T versions/{GAME_VERSION}/undefined_funcs_auto.txt -T versions/{GAME_VERSION}/undefined_funcs.txt -T versions/{GAME_VERSION}/undefined_syms.txt -Map $mapfile -T $in -o $out",
     )
 
     ninja.rule(
         "sha1sum",
-        description=f"python3 {TOOLS_DIR}/checksum.py $in",
-        command=f"python3 {TOOLS_DIR}/checksum.py $in && touch $out",
+        description=f"{PYTHON} {TOOLS_DIR}/checksum.py $in",
+        command=f"{PYTHON} {TOOLS_DIR}/checksum.py $in && touch $out",
     )
 
     ninja.rule(
@@ -313,10 +538,23 @@ def create_build_script(linker_entries: List[LinkerEntry]):
             sys.exit(1)
 
     ninja.build(
+        GENERATED_SYMBOLS_PATH,
+        "symbols",
+        implicit=SYMBOL_ADDRS_PATHS,
+    )
+
+    ninja.build(
         ELF_PATH,
         "ld",
         LD_PATH,
-        implicit=[str(obj) for obj in built_objects],
+        implicit=[str(obj) for obj in sorted(built_objects)]
+        + [
+            GENERATED_SYMBOLS_PATH,
+            f"versions/{GAME_VERSION}/undefined_syms_auto.txt",
+            f"versions/{GAME_VERSION}/undefined_funcs_auto.txt",
+            f"versions/{GAME_VERSION}/undefined_funcs.txt",
+            f"versions/{GAME_VERSION}/undefined_syms.txt",
+        ],
         variables={"mapfile": MAP_PATH},
     )
 
@@ -420,7 +658,17 @@ if __name__ == "__main__":
         help="Split",
         action="store_true",
     )
+    parser.add_argument(
+        "--symbols",
+        help="Generate linker symbols for address-style references",
+        action="store_true",
+    )
     args = parser.parse_args()
+
+    if args.symbols:
+        write_generated_symbol_script()
+        if not any([args.fullclean, args.clean, args.setup, args.split, args.build]):
+            sys.exit(0)
 
     if args.fullclean:
         fullclean()
@@ -437,11 +685,13 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if args.split:
-        split.main([YAML_FILE], modes="all", verbose=False, disassemble_all=args.disassemble_all)
+        split.main([Path(YAML_FILE)], modes="all", verbose=False, disassemble_all=args.disassemble_all)
         linker_entries = split.linker_writer.entries
+        generate_slinky_linker_script()
         # graph_segments()
+        write_generated_symbol_script()
         create_build_script(linker_entries)
         write_permuter_settings()
 
     if args.build:
-        subprocess.run(["ninja"])
+        subprocess.run(["ninja"], check=True)

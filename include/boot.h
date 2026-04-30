@@ -7,27 +7,27 @@
 
 #include "thread.h"
 
-extern Gfx* gDListHead;
-extern OSMesg D_8012A678[8];
+extern Gfx* gDisplayListHead;
+extern OSMesg gPiManagerMessageBuffer[8];
 
-extern OSMesgQueue gDmaMesgQ;
+extern OSMesgQueue gDmaMessageQueue;
 
-extern OSMesgQueue D_8012ABC0;
-extern OSMesgQueue D_8012ABD8;
-extern OSMesgQueue D_8012ABF0;
-extern OSMesgQueue D_8012AC08;
-extern OSMesgQueue gContInitMesgQ;
+extern OSMesgQueue gVideoInterfaceMessageQueue;
+extern OSMesgQueue gSignalProcessorMessageQueue;
+extern OSMesgQueue gDisplayProcessorMessageQueue;
+extern OSMesgQueue gSerialInterfaceMessageQueue;
+extern OSMesgQueue gControllerInitMessageQueue;
 extern OSMesgQueue D_8012AC38[2];
 
-extern OSMesg D_8012AC68;
-extern OSMesg D_8012AC6C;
-extern OSMesg D_8012AC70;
-extern OSMesg D_8012AC74;
-extern OSMesg D_8012AC78;
-extern OSMesg D_8012AC7C;
-extern OSMesg D_8012AC80;
-extern OSTask* gGFXTaskp;
-extern OSTask gGFXTasks[2];
+extern OSMesg gDmaMessageBuffer;
+extern OSMesg gVideoInterfaceMessageBuffer;
+extern OSMesg gSignalProcessorMessageBuffer;
+extern OSMesg gDisplayProcessorMessageBuffer;
+extern OSMesg gSerialInterfaceMessageBuffer;
+extern OSMesg gControllerInitMessageBuffer;
+extern OSMesg gEventMessage;
+extern OSTask* gCurrentGraphicsTask;
+extern OSTask gGraphicsTasks[2];
 
 extern OSViMode* gOSViModep;
 extern OSViMode gOSViMode;
@@ -36,11 +36,11 @@ extern OSContStatus gContStatus[4];
 
 extern OSContPad gContpadArrayA[4];
 extern OSContPad gContpadArrayB[4];
-extern OSMesgQueue gContMesgQ;
+extern OSMesgQueue gControllerReadMessageQueue;
 
-extern OSMesg D_8012ADB8;
+extern OSMesg gControllerReadMessageBuffer;
 
-extern GfxData gDListTail[2];
+extern GfxData gDisplayListData[2];
 
 extern u32 gPlayerControllerIndex;
 extern u16 gButtonCurrent;
@@ -51,4 +51,3 @@ extern u16 D_801370CC;
 extern u16 D_801370CE;
 
 #endif
-

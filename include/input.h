@@ -14,7 +14,7 @@ extern u16 gButtonPress;
 
 extern OSContPad gContpadArrayA[4];
 extern OSContPad gContpadArrayB[4];
-extern OSMesgQueue gContMesgQ;
+extern OSMesgQueue gControllerReadMessageQueue;
 extern u32 gPlayerControllerIndex;
 extern u16 gButtonCurrent;
 
@@ -22,4 +22,3 @@ extern s8 gJoyX;
 extern s8 gJoyY;
 
 #endif
-

@@ -12,3 +12,6 @@ gspFast3DTextStart = 0x800BAAB0;
 gspFast3DDataStart = 0x800EEA10;
 aspMainTextStart = 0x800BBEB0;
 
+gContMesgQ = 0x8012ADA0;
+gDListHead = 0x8012A670;
+gDListTail = 0x8012ADC0;

@@ -1,6 +1,5 @@
-splat64[mips]==0.32.2
-spimdisasm==1.32.1
-ninja_syntax>=1.7.2
-argparse
-GitPython
-requests
+splat64[mips]==0.40.0
+spimdisasm==1.40.2
+ninja_syntax==1.7.2
+GitPython==3.1.49
+requests==2.33.1

@@ -61,7 +61,7 @@ def import_c_file(in_file) -> str:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="""Create a context file which can be used for mips_to_c"""
+        description="""Create a context file which can be used for m2c"""
     )
     parser.add_argument(
         "c_file",

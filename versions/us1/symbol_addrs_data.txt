@@ -8,21 +8,22 @@ gRngSeed = 0x800BE5A4; // size:0x2
 gDebugBitfeild = 0x800BE6AC; // size:0x2
 
 gCurrentFramebufferIndex = 0x800BE700; // size:0x2
+gCurrentDisplayListBase = 0x800EF4F4; // size:0x4
 
 gDramStack = 0x8011D970; // size:0x400
 gYeildData = 0x8011DDF0; // size:0xDA0
 
 //
-gDmaMesgQ = 0x8012ABA8; // size:0x18
+gDmaMessageQueue = 0x8012ABA8; // size:0x18
 
-gContInitMesgQ = 0x8012AC20; // size:0x18
+gControllerInitMessageQueue = 0x8012AC20; // size:0x18
 
 gContStatus = 0x8012AD60; // size:0x14
 
-gContMesgQ = 0x8012ADA0; // size:0x18
+gControllerReadMessageQueue = 0x8012ADA0; // size:0x18
 
-gDListHead = 0x8012A670; // size:0x4
-gDListTail = 0x8012ADC0; // size:0xC300
+gDisplayListHead = 0x8012A670; // size:0x4
+gDisplayListData = 0x8012ADC0; // size:0xC300
 
 gFramesInPlayTime = 0x801370C8; // size:0x2
 
