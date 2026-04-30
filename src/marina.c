@@ -1,8 +1,66 @@
 #include "common.h"
+#include "data_symbols.h"
 
+#include "boot.h"
+
+#include "input.h"
+
+typedef struct {
+    u32 flags;
+    u8 pad[0x54];
+} MarinaEntry;
+
+extern MarinaEntry D_800EF590[];
+
+#ifdef NON_MATCHING
+u8 func_80048600(s32 arg0) {
+    u16 idx = (u16)arg0;
+    u16 flags = D_801370CC;
+    u8 ret;
+
+    if (flags & D_800BE50C) {
+        ret = 1;
+        if (D_800EF590[idx].flags & 0x20) {
+            ret = 0x81;
+        }
+    } else {
+        ret = 0;
+        if (flags & D_800BE510) {
+            ret = 2;
+            if (D_800EF590[idx].flags & 0x20) {
+                ret = 0x82;
+            }
+        }
+    }
+
+    if (flags & D_800BE508) {
+        ret = (u8)(ret | 0x10);
+    }
+
+    if (flags & D_800BE504) {
+        ret = (u8)(ret | 0x20);
+    }
+
+    return ret;
+}
+#else
 #pragma GLOBAL_ASM("asm/nonmatchings/marina/func_80048600.s")
+#endif
 
-#pragma GLOBAL_ASM("asm/nonmatchings/marina/func_800486F4.s")
+s32 func_800486F4(void) {
+    s32 v0 = D_801373F0;
+    s32 v1 = (v0 << 0x18) >> 0x18;
+
+    if ((v0 == 2) || (v0 == 6)) {
+        v1 = 4;
+    }
+
+    if ((v0 == 0xE) || (v0 == 0xA)) {
+        v1 = 0xC;
+    }
+
+    return v1;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/marina/func_80048740.s")
 
