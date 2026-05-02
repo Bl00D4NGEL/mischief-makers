@@ -5,6 +5,7 @@ __pycache__/
 assets/
 build/
 expected/
+nonmatchings/
 tools/ido5.3/
 
 *.bin

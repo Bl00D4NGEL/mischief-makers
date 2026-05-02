@@ -6,7 +6,7 @@ static void __osPackReadData(void);
 
 s32 osContStartReadData(OSMesgQueue* mq) {
     s32 ret = 0;
-    s32 i;
+    s32 index;
 
     __osSiGetAccess();
 
@@ -16,8 +16,8 @@ s32 osContStartReadData(OSMesgQueue* mq) {
         osRecvMesg(mq, NULL, OS_MESG_BLOCK);
     }
 
-    for (i = 0; i < ARRLEN(__osContPifRam.raw); i++) {
-        __osContPifRam.ramarray[i] = CONT_CMD_NOP;
+    for (index = 0; index < ARRLEN(__osContPifRam.raw); index++) {
+        __osContPifRam.ramarray[index] = CONT_CMD_NOP;
     }
     __osContPifRam.pifstatus = 0;
 
@@ -30,46 +30,45 @@ s32 osContStartReadData(OSMesgQueue* mq) {
 
 void osContGetReadData(OSContPad* data) {
     u8* ptr = (u8*)__osContPifRam.ramarray;
-    __OSContReadFormat readformat;
-    int i;
+    __OSContReadFormat read_format;
+    s32 index;
 
-    for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(__OSContReadFormat), data++) {
-        readformat = *(__OSContReadFormat*)ptr;
-        data->errno = CHNL_ERR(readformat);
+    for (index = 0; index < __osMaxControllers; index++, ptr += sizeof(__OSContReadFormat), data++) {
+        read_format = *(__OSContReadFormat*)ptr;
+        data->errno = CHNL_ERR(read_format);
 
         if (data->errno != 0) {
             continue;
         }
 
-        data->button = readformat.button;
-        data->stick_x = readformat.stick_x;
-        data->stick_y = readformat.stick_y;
+        data->button = read_format.button;
+        data->stick_x = read_format.stick_x;
+        data->stick_y = read_format.stick_y;
     }
 }
 
 static void __osPackReadData(void) {
     u8* ptr = (u8*)__osContPifRam.ramarray;
-    __OSContReadFormat readformat;
-    int i;
+    __OSContReadFormat read_format;
+    s32 index;
 
-    for (i = 0; i < ARRLEN(__osContPifRam.raw); i++) {
-        __osContPifRam.ramarray[i] = 0;
+    for (index = 0; index < ARRLEN(__osContPifRam.raw); index++) {
+        __osContPifRam.ramarray[index] = 0;
     }
 
     __osContPifRam.pifstatus = CONT_CMD_EXE;
-    readformat.dummy = CONT_CMD_NOP;
-    readformat.txsize = CONT_CMD_READ_BUTTON_TX;
-    readformat.rxsize = CONT_CMD_READ_BUTTON_RX;
-    readformat.cmd = CONT_CMD_READ_BUTTON;
-    readformat.button = 0xFFFF;
-    readformat.stick_x = -1;
-    readformat.stick_y = -1;
+    read_format.dummy = CONT_CMD_NOP;
+    read_format.txsize = CONT_CMD_READ_BUTTON_TX;
+    read_format.rxsize = CONT_CMD_READ_BUTTON_RX;
+    read_format.cmd = CONT_CMD_READ_BUTTON;
+    read_format.button = 0xFFFF;
+    read_format.stick_x = -1;
+    read_format.stick_y = -1;
 
-    for (i = 0; i < __osMaxControllers; i++) {
-        *(__OSContReadFormat*)ptr = readformat;
+    for (index = 0; index < __osMaxControllers; index++) {
+        *(__OSContReadFormat*)ptr = read_format;
         ptr += sizeof(__OSContReadFormat);
     }
 
     *ptr = CONT_CMD_END;
 }
-

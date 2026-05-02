@@ -2,10 +2,9 @@
 #include <PR/ultraerror.h>
 #include "osint.h"
 
-void osCreateMesgQueue(OSMesgQueue* mq, OSMesg* msg, s32 msgCount) {
-
-    if (msgCount <= 0) {
-        __osError(ERR_OSCREATEMESGQUEUE, 1, msgCount);
+void osCreateMesgQueue(OSMesgQueue* mq, OSMesg* msg, s32 msg_count) {
+    if (msg_count <= 0) {
+        __osError(ERR_OSCREATEMESGQUEUE, 1, msg_count);
         return;
     }
 
@@ -13,7 +12,6 @@ void osCreateMesgQueue(OSMesgQueue* mq, OSMesg* msg, s32 msgCount) {
     mq->fullqueue = (OSThread*)&__osThreadTail.next;
     mq->validCount = 0;
     mq->first = 0;
-    mq->msgCount = msgCount;
+    mq->msgCount = msg_count;
     mq->msg = msg;
 }
-

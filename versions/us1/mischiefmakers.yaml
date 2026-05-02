@@ -86,10 +86,10 @@ segments:
       - [0x00A540, asm] # has to do with drawing and the persp/ortho view
       - [0x011820, asm]
       - [0x012DD0, asm] # has to do with spawning the player actor, and the camera
-      - [0x0134E0, asm]
+      - [0x0134E0, c]
       - [0x013850, asm, gameover] # gameover gamestate
       - [0x0156F0, asm]
-      - [0x017A70, asm]
+      - [0x017A70, c]
       - [0x01E7A0, asm, actor_init]
       - [0x01F1E0, asm]
       - [0x022290, asm]
@@ -98,7 +98,7 @@ segments:
       - [0x026A00, c] # might be a fake split
       - [0x027F70, asm] # has to do with on screen text
       - [0x0438E0, asm]
-      - [0x048A30, asm]
+      - [0x048A30, c]
       - [0x049200, c, marina]
       - [0x04FEB0, asm]
       - [0x059EA0, asm]
@@ -106,17 +106,17 @@ segments:
       - [0x05E230, asm]
       - [0x060CF0, asm]
       - [0x061B80, asm]
-      - [0x066250, asm]
+      - [0x066250, c]
       - [0x07D8E0, asm]
       - [0x0805E0, asm]
-      - [0x080D90, asm]
+      - [0x080D90, c]
       - [0x082920, asm]
       - [0x082DB0, asm] # has to do with loading marina's graphics
       - [0x082F80, asm]
       - [0x0844E0, asm, osd_debug_text]
       - [0x084BB0, asm]
-      - [0x08D0A0, asm]
-      - [0x08F080, asm]
+      - [0x08D0A0, c]
+      - [0x08F080, c]
       - [0x097770, asm, stage_end_screen]
       - [0x099750, asm] # decrypts/decompresses marina's graphics
       # libultra text
@@ -126,10 +126,10 @@ segments:
       - [0x09A070, c, ultralib/os/createthread]
       - [0x09A220, c, ultralib/os/startthread]
       - [0x09A3C0, c, ultralib/io/vimgr]
-      - [0x09A7C0, hasm, ultralib/io/vimgrnops] # trailing nops, probably some ido jank with loops
+      - [0x09A7C0, pad]
       - [0x09A820, c, ultralib/io/visetmode]
       - [0x09A8F0, c, ultralib/io/pimgr]
-      - [0x09AC20, asm, ultralib/rmon/rmonmain]
+      - [0x09AC20, c, ultralib/rmon/rmonmain]
       - [0x09B060, c, ultralib/os/setthreadpri]
       - [0x09B190, c, ultralib/os/virtualtophysical]
       - [0x09B250, c, ultralib/os/createmesgqueue]
@@ -139,231 +139,278 @@ segments:
       - [0x09B680, c, ultralib/io/contreaddata]
       - [0x09B910, c, ultralib/os/recvmesg]
       - [0x09BAA0, hasm, ultralib/os/writebackdcacheall]
-      - [0x09BAD0, asm, ultralib/io/sptask]
-      - [0x09BEE0, asm, ultralib/io/controller]
+      - [0x09BAD0, c, ultralib/io/sptask]
+      - [0x09BEE0, c, ultralib/io/controller]
       - [0x09C2E0, hasm, ultralib/os/invaldcache]
-      - [0x09C390, asm, ultralib/io/pidma]
+      - [0x09C390, c, ultralib/io/pidma]
       - [0x09C5D0, c, ultralib/debug/assert]
-      - [0x09C620, asm]
-      - [0x09C730, asm]
-      - [0x09C880, asm]
-      - [0x09C8E0, asm]
-      - [0x09CD50, asm]
-      - [0x09D020, asm]
-      - [0x09EEA0, asm]
-      - [0x09EEF0, asm, ultralib/os/sendmesg]
-      - [0x09F080, asm]
-      - [0x09F0D0, asm]
-      - [0x09F140, asm]
-      - [0x09FA70, asm]
-      - [0x09FA90, asm]
-      - [0x0A09A0, asm]
-      - [0x0A09F0, asm]
-      - [0x0A0B40, asm]
-      - [0x0A0BF0, asm]
-      - [0x0A0C60, asm]
-      - [0x0A4D70, asm]
-      - [0x0A4DB0, asm]
+      - [0x09C620, c, ultralib/audio/sl]
+      - [0x09C730, c, ultralib/audio/heapalloc]
+      - [0x09C880, c, ultralib/audio/heapinit]
+      - [0x09C8E0, c, ultralib/audio/bnkf]
+      - [0x09CD50, c, ultralib/io/aisetfreq]
+      - [0x09D020, c, ultralib/audio/csplayer]
+      - [0x09EEA0, c, ultralib/audio/seqpsetbank]
+      - [0x09EEF0, c, ultralib/os/sendmesg]
+      - [0x09F080, c, ultralib/audio/seqpsetvol]
+      - [0x09F0D0, c, ultralib/audio/seqpsetfxmix]
+      - [0x09F140, c, ultralib/audio/synthesizer]
+      - [0x09FA70, c, ultralib/audio/seqpgetstate]
+      - [0x09FA90, c, ultralib/audio/cseq]
+      - [0x0A09A0, c, ultralib/audio/seqpsetseq]
+      - [0x0A09F0, c, ultralib/audio/seqpplay]
+      - [0x0A0A30, c, ultralib/io/aisetnextbuf]
+      - [0x0A0B40, c, ultralib/audio/seqpstop]
+      - [0x0A0B80, c, ultralib/audio/seqpsetchlvol]
+      - [0x0A0BF0, c, ultralib/audio/seqpsetpan]
+      - [0x0A0C60, c, ultralib/sp/sprite]
+      - [0x0A4D70, c, ultralib/sp/clearattribute]
+      - [0x0A4D90, c, ultralib/sp/setattribute]
+      - [0x0A4DB0, c, ultralib/sp/color]
+      - [0x0A4DE0, c, ultralib/sp/spscale]
       - [0x0A4E80, c, libc/ll]
-      - [0x0A51F0, asm]
-      - [0x0A5270, asm]
-      - [0x0A53C0, asm]
-      - [0x0A5510, asm]
-      - [0x0A5810, asm]
-      - [0x0A59F0, asm]
-      - [0x0A5AA0, asm]
-      - [0x0A5D10, asm]
-      - [0x0A5DD0, asm]
-      - [0x0A6240, asm]
-      - [0x0A6310, asm]
-      - [0x0A6320, asm]
-      - [0x0A63F0, asm, libc/syncprintf]
-      - [0x0A6830, asm]
-      - [0x0A6930, asm, ultralib/io/vi]
+      - [0x0A51F0, c, ultralib/io/conteepprobe]
+      - [0x0A5270, c, ultralib/io/conteeplongread]
+      - [0x0A53C0, c, ultralib/io/conteeplongwrite]
+      - [0x0A5510, c, ultralib/gu/perspective]
+      - [0x0A5810, c, ultralib/gu/ortho]
+      - [0x0A59F0, c, ultralib/gu/translate]
+      - [0x0A5AA0, c, ultralib/gu/rotate]
+      - [0x0A5D10, c, ultralib/gu/scale]
+      - [0x0A5DD0, c, ultralib/gu/lookat]
+      - [0x0A6240, c, libc/sprintf]
+      - [0x0A6310, hasm, ultralib/gu/sqrtf]
+      - [0x0A6320, c, ultralib/os/gettime]
+      - [0x0A63F0, c, libc/syncprintf]
+      - [0x0A6830, c, libc/string]
+      - [0x0A6930, c, ultralib/io/vi]
       - [0x0A6A90, hasm, ultralib/os/interrupt]
       - [0x0A6AD0, hasm, ultralib/error/errorasm]
       - [0x0A6AF0, hasm, ultralib/os/exceptasm]
       - [0x0A7990, hasm, ultralib/os/setsr]
       - [0x0A79A0, hasm, ultralib/os/getsr]
       - [0x0A79B0, hasm, ultralib/os/setfpccsr]
-      - [0x0A79C0, asm, ultralib/io/sirawread]
-      - [0x0A7A80, asm, ultralib/io/sirawwrite]
+      - [0x0A79C0, c, ultralib/io/sirawread]
+      - [0x0A7A80, c, ultralib/io/sirawwrite]
       - [0x0A7B10, hasm, ultralib/os/writebackdcache]
       - [0x0A7B90, hasm, ultralib/os/invalicache]
       - [0x0A7C10, hasm, ultralib/os/maptlbrdb]
-      - [0x0A7C70, asm, ultralib/pirawread]
+      - [0x0A7C70, c, ultralib/io/pirawread]
       - [0x0A7D50, hasm, libc/bzero]
-      - [0x0A7E10, asm, ultralib/os/thread]
-      - [0x0A7E60, asm, ultralib/os/timerintr]
-      - [0x0A81B0, asm]
+      - [0x0A7E10, c, ultralib/os/thread]
+      - [0x0A7E60, c, ultralib/os/timerintr]
       - [0x0A8410, c, ultralib/os/getthreadpri]
-      - [0x0A8440, asm, ultralib/io/vigetcurrcontext]
-      - [0x0A8460, asm, ultralib/io/viswapcontext]
+      - [0x0A8440, c, ultralib/io/vigetcurrcontext]
+      - [0x0A8460, c, ultralib/io/viswapcontext]
       - [0x0A87E0, hasm, ultralib/os/getcount]
-      - [0x0A87F0, asm]
-      - [0x0A8900, asm]
-      - [0x0A8A20, asm, ultralib/io/piacs]
-      - [0x0A8B00, asm, ultralib/io/pirawdma]
-      - [0x0A8CE0, asm, ultralib/io/epirawdma]
-      - [0x0A9080, asm, ultralib/io/devmgr]
-      - [0x0A9550, asm, ultralib/os/rdbsend]
-      - [0x0A9860, asm]
-      - [0x0A9A10, asm]
-      - [0x0A9D20, asm]
-      - [0x0AA700, asm]
+      - [0x0A87F0, c, ultralib/io/cartrominit]
+      - [0x0A8900, c, ultralib/io/leodiskinit]
+      - [0x0A8A20, c, ultralib/io/piacs]
+      - [0x0A8B00, c, ultralib/io/pirawdma]
+      - [0x0A8CE0, c, ultralib/io/epirawdma]
+      - [0x0A9080, c, ultralib/io/devmgr]
+      - [0x0A9550, c, ultralib/os/rdbsend]
+      - [0x0A9860, c, ultralib/rmon/rmonmisc]
+      - [0x0A9A10, c, ultralib/rmon/rmonsio]
+      - [0x0A9C60, c, ultralib/io/sprawread]
+      - [0x0A9D20, c, ultralib/rmon/rmonmem]
+      - [0x0AA700, c, ultralib/rmon/rmonbrk]
       - [0x0AB380, hasm, ultralib/os/probetlb]
       - [0x0AB440, c, ultralib/io/siacs]
       - [0x0AB520, c, ultralib/io/sirawdma]
-      - [0x0AB610, asm]
-      - [0x0AB970, asm]
-      - [0x0AB990, asm]
-      - [0x0ABB00, asm]
-      - [0x0ABC50, asm]
+      - [0x0AB610, hasm, libc/bcopy]
+      - [0x0AB970, c, ultralib/io/spsetstat]
+      - [0x0AB990, c, ultralib/io/spsetpc]
+      - [0x0AB9D0, c, ultralib/io/sprawdma]
+      - [0x0ABB00, c, ultralib/io/sp]
+      - [0x0ABB40, c, ultralib/os/settimer]
+      - [0x0ABC50, c, ultralib/os/jammesg]
+      - [0x0ABDE0, c, ultralib/io/pigetcmdq]
       - [0x0ABE20, hasm, ultralib/debug/assertbreak]
-      - [0x0ABE30, asm]
-      - [0x0ABE50, asm]
-      - [0x0AE340, asm]
-      - [0x0AE7D0, asm]
-      - [0x0AE8A0, asm]
-      - [0x0AE9A0, asm]
-      - [0x0AEA90, asm]
-      - [0x0AEB70, asm]
-      - [0x0AEED0, asm]
-      - [0x0AEF70, asm]
-      - [0x0AF0C0, asm]
-      - [0x0AF1A0, asm]
-      - [0x0AF2A0, asm]
-      - [0x0AFEE0, asm]
-      - [0x0B0110, asm]
-      - [0x0B2BF0, asm]
-      - [0x0B2DD0, asm]
-      - [0x0B2E20, asm]
-      - [0x0B3340, asm]
-      - [0x0B3660, asm]
-      - [0x0B39A0, asm]
-      - [0x0B3BE0, asm]
-      - [0x0B3E60, asm]
-      - [0x0B5510, asm]
-      - [0x0B5600, asm]
-      - [0x0B56B0, asm, ultralib/io/leointerrupt]
-      - [0x0B6010, asm]
+      - [0x0ABE30, c, ultralib/audio/syndelete]
+      - [0x0ABE50, c, ultralib/audio/seqplayer]
+      - [0x0AE340, c, ultralib/audio/event]
+      - [0x0AE7D0, c, ultralib/audio/synstopvoice]
+      - [0x0AE8A0, c, ultralib/audio/synfreevoice]
+      - [0x0AE9A0, c, ultralib/audio/synsetvol]
+      - [0x0AEA90, c, ultralib/audio/synsetpitch]
+      - [0x0AEB70, c, ultralib/audio/synallocvoice]
+      - [0x0AEED0, c, ultralib/audio/cents2ratio]
+      - [0x0AEF70, c, ultralib/audio/synstartvoiceparam]
+      - [0x0AF0C0, c, ultralib/audio/synsetpan]
+      - [0x0AF1A0, c, ultralib/audio/synsetfxmix]
+      - [0x0AF2A0, hasm, ultralib/os/setintmask]
+      - [0x0AF340, c, ultralib/audio/drvrnew]
+      - [0x0AFDE0, c, ultralib/audio/synallocfx]
+      - [0x0AFEE0, c, ultralib/audio/mainbus]
+      - [0x0B0110, c, ultralib/audio/load]
+      - [0x0B12F0, c, ultralib/audio/resample]
+      - [0x0B1750, c, ultralib/audio/env]
+      - [0x0B2A50, c, ultralib/audio/auxbus]
+      - [0x0B2BF0, c, ultralib/audio/save]
+      - [0x0B2DD0, c, ultralib/io/ai]
+      - [0x0B2E20, c, ultralib/io/conteepwrite]
+      - [0x0B3340, c, ultralib/io/conteepread]
+      - [0x0B3660, c, ultralib/gu/mtxutil]
+      - [0x0B39A0, c, ultralib/gu/cosf]
+      - [0x0B3BE0, c, ultralib/gu/sinf]
+      - [0x0B3E60, c, ultralib/gu/normalize]
+      - [0x0B3F10, c, libc/xprintf]
+      - [0x0B5150, c, ultralib/error/error]
+      - [0x0B51B0, c, ultralib/debug/kdebugserver]
+      - [0x0B5510, c, ultralib/host/readhost]
+      - [0x0B5600, c, ultralib/os/initrdb]
+      - [0x0B56B0, c, ultralib/io/leointerrupt]
+      - [0x0B6010, c, ultralib/os/stopthread]
       - [0x0B6130, c, ultralib/io/si]
-      - [0x0B6170, asm] # handwritten
-      - [0x0B6180, asm]
-      - [0x0B61F0, asm]
-      - [0x0B62A0, asm]
-      - [0x0B6380, asm]
-      - [0x0B63E0, asm]
-      - [0x0B6440, asm]
-      - [0x0B6500, asm]
-      - [0x0B6590, asm]
-      - [0x0B7280, asm]
-      - [0x0B7DF0, asm]
-      - [0x0B7E10, asm]
-      - [0x0B8850, asm]
-      - [0x0B8900, asm]
-      - [0x0B9B90, asm]
-      - [0x0B9EC0, asm]
-      - [0x0BAD90, asm]
-      - [0x0BB260, asm]
-      - [0x0BB310, asm]
-      - [0x0BB3F0, asm]
-      - [0x0BB5E0, bin, rspboot]
-      - [0x0BB6B0, bin, gspFast3D]
-      - [0x0BCAB0, bin, aspMain]
+      - [0x0B6170, hasm, ultralib/os/setcompare]
+      - [0x0B6180, c, ultralib/os/resetglobalintmask]
+      - [0x0B61F0, c, ultralib/io/epirawwrite]
+      - [0x0B62A0, c, ultralib/io/epirawread]
+      - [0x0B6380, c, ultralib/os/setglobalintmask]
+      - [0x0B63E0, c, ultralib/os/yieldthread]
+      - [0x0B6440, c, ultralib/rmon/rmoncmds]
+      - [0x0B6500, c, ultralib/io/sprawwrite]
+      - [0x0B6590, c, ultralib/rmon/rmonregs]
+      - [0x0B7280, c, ultralib/rmon/rmontask]
+      - [0x0B7DF0, c, ultralib/os/getactivequeue]
+      - [0x0B7E10, c, ultralib/audio/seq]
+      - [0x0B8850, c, ultralib/audio/synsetpriority]
+      - [0x0B8870, c, ultralib/audio/copy]
+      - [0x0B88D0, c, ultralib/audio/filter]
+      - [0x0B8900, c, ultralib/audio/reverb]
+      - [0x0B9B90, c, libc/xlitob]
+      - [0x0B9EC0, c, libc/xldtob]
+      - [0x0BAD90, c, ultralib/log/log]
+      - [0x0BB250, hasm, ultralib/os/getcause]
+      - [0x0BB260, hasm, ultralib/rmon/rmonrcp]
+      - [0x0BB310, c, ultralib/os/destroythread]
+      - [0x0BB3F0, c, libc/ldiv]
+      - [0x0BB5E0, textbin, rsp/rspboot]
+      - [0x0BB6B0, textbin, rsp/gspFast3D]
+      - [0x0BC6B0, textbin, rsp/gspFast3D_dram]
+      - [0x0BCAB0, textbin, rsp/aspMain]
       # data
-      - [0x0BF0F0, data]  # audio(?) strings at BF354, C192C, C272C
-                          # level(?) strings at C90EC
-      - [0x0E44A0, .data, boot] # seems oddly late
+      - [0x0BF0F0, data] # game globals?
+      - [0x0BF350, data] # music names start at BF354; music.s refs tables at C1654/C2280/C26DC.
+      - [0x0C4500, data] # font/text drawing data starts at C4508; 4F80 refs the table at C5A5C
+      - [0x0C5AE0, data] # 5510?
+      - [0x0C5B20, data] # 5A70?
+      - [0x0C6200, data] # A540?
+      - [0x0C7DA0, data] # 241E0?
+      - [0x0C84A0, data] # 11820?
+      - [0x0C88D0, data] # 134E0?
+      - [0x0C8910, data, gameover]
+      - [0x0C8B20, data] # 156F0
+      - [0x0C8BE0, data] # stage/level tables; level labels start at C90EC
+      - [0x0CA300, data]
+      - [0x0E44A0, .data, boot]
       - [0x0E4760, data]
+      - [0x0E4920, data] # 84BB0?
+      - [0x0E5160, data] # 8D0A0?
+      - [0x0E66C0, data] # 17A70?
+      - [0x0E6700, data] # 8F080?
+      - [0x0EA340, data, stage_end_screen]
       # libultra data
       - [0x0EA370, .data, ultralib/os/initialize]
       - [0x0EA390, .data, ultralib/io/vimgr]
-      - [0x0EA3B0, data, ultralib/vitbl]
+      - [0x0EA3B0, .data, ultralib/io/vitbl]
       - [0x0EB0D0, .data, ultralib/io/pimgr]
-      - [0x0EB100, data]
-      - [0x0EB150, data]
-      - [0x0EB160, data]
-      - [0x0EB1D0, data]
-      - [0x0EB1E0, data, ultralib/os/exceptasm]
-      - [0x0EB200, data]
-      - [0x0EB220, data]
-      - [0x0EB230, data]
+      - [0x0EB100, .data, ultralib/rmon/rmonmain]
+      - [0x0EB110, .data, ultralib/io/controller]
+      - [0x0EB120, .data, ultralib/audio/sl]
+      - [0x0EB130, .data, ultralib/io/aisetnextbuf]
+      - [0x0EB140, .data, ultralib/sp/sprite]
+      - [0x0EB150, .data, ultralib/gu/rotate]
+      - [0x0EB160, .data, libc/syncprintf]
+      - [0x0EB170, .data, ultralib/io/vi]
+      - [0x0EB1E0, .data, ultralib/os/exceptasm]
+      - [0x0EB200, .data, ultralib/os/thread]
+      - [0x0EB220, .data, ultralib/os/timerintr]
+      - [0x0EB230, .data, ultralib/io/piacs]
+      - [0x0EB240, .data, ultralib/os/rdbsend]
       - [0x0EB250, .data, ultralib/io/siacs]
+      - [0x0EB3F0, .data, ultralib/audio/env]
+      - [0x0EB530, .data, libc/xprintf]
+      - [0x0EB580, .data, ultralib/vimodes/vimodentsclan1]
+      - [0x0EB5D0, .data, ultralib/vimodes/vimodepallan1]
+      - [0x0EB620, .data, ultralib/vimodes/vimodempallan1]
+      - [0x0EB670, .data, ultralib/error/error]
+      - [0x0EB690, .data, ultralib/debug/kdebugserver]
+      - [0x0EB6A0, .data, ultralib/host/readhost]
+      - [0x0EB6B0, .data, ultralib/rmon/rmoncmds]
+      - [0x0EB790, .data, ultralib/audio/reverb]
+      - [0x0EB7B0, .data, libc/xlitob]
+      - [0x0EB7E0, .data, ultralib/log/log]
       # rodata
-      - [0x0EB260, rodata]
-      - [0x0EB3A0, rodata]
-      - [0x0EB3F0, rodata]
-      - [0x0EB580, rodata]
-      - [0x0EB690, rodata]
-      - [0x0EB6A0, rodata]
-      - [0x0EB6B0, rodata]
-      - [0x0EB7B0, rodata]
-      - [0x0EB7E0, rodata]
       - [0x0EB7F0, .rodata, gamestate]
-      - [0x0EB830, rodata, music]
-      - [0x0EBB10, rodata, 5A70]
-      - [0x0EBBC0, rodata, A540]
-      - [0x0EBBE0, rodata, gameover]
-      - [0x0EBC50, rodata, 17A70]
-      - [0x0EBD00, rodata] # level select strings
-      - [0x0EC190, rodata]
-      - [0x0EC910, rodata]
-      - [0x0ECAA0, rodata]
-      - [0x0ECAD0, rodata]
-      - [0x0ECB90, rodata]
-      - [0x0ECD80, rodata]
-      - [0x0ED0E0, rodata]
-      - [0x0ED130, rodata]
-      - [0x0ED460, rodata]
-      - [0x0EDC10, rodata]
-      - [0x0EDC50, rodata]
-      - [0x0EDC70, rodata]
-      - [0x0EDEF0, rodata]
+      - [0x0EB830, rodata] # music?
+      - [0x0EBB10, rodata] # 5A70?
+      - [0x0EBBC0, rodata] # A540?
+      - [0x0EBBE0, rodata] # 11820?
+      - [0x0EBC00, rodata, gameover]
+      - [0x0EBC50, .rodata, 17A70]
+      - [0x0EBD00, rodata] # 17A70?
+      - [0x0EC190, rodata] # 1F1E0?
+      - [0x0EC220, rodata] # 241E0?
+      - [0x0EC280, rodata] # 27F70?
+      - [0x0EC920, rodata] # 438E0?
+      - [0x0EC960, rodata] # marina?
+      - [0x0EC9D0, rodata] # 4FEB0?
+      - [0x0ECAC0, rodata] # 59EA0?
+      - [0x0ECB90, rodata] # 5E230?
+      - [0x0ECCF0, rodata] # 60CF0?
+      - [0x0ECD80, rodata] # 61B80?
+      - [0x0ED0E0, rodata] # 66250?
+      - [0x0EDBC0, rodata] # 7D8E0?
+      - [0x0EDC10, rodata] # 805E0?
+      - [0x0EDC20, rodata] # 80D90?
+      - [0x0EDC50, rodata] # 82920?
+      - [0x0EDC70, rodata, osd_debug_text]
+      - [0x0EDCE0, rodata] # 84BB0?
+      - [0x0EDEF0, rodata] # 8F080?
       - [0x0EE100, rodata, stage_end_screen]
-      - [0x0EE1F0, rodata]
       # libultra
       - [0x0EE200, .rodata, ultralib/io/viswapbuf]
       - [0x0EE230, .rodata, ultralib/io/visetmode]
-      - [0x0EE260, rodata, ultralib/rmon/rmonmain]
+      - [0x0EE260, .rodata, ultralib/rmon/rmonmain]
       - [0x0EE2A0, .rodata, ultralib/io/visetevent]
       - [0x0EE2C0, .rodata, ultralib/debug/assert]
-      - [0x0EE2E0, rodata, ultralib/audio/heapalloc]
-      - [0x0EE2F0, rodata]
-      - [0x0EE530, rodata, ultralib/audio/synthesizer]
-      - [0x0EE610, rodata, ultralib/audio/seq] # possibly cseq
-      - [0x0EE620, rodata, ultralib/sp/sprite]
-      - [0x0EE670, rodata]
-      - [0x0EE680, rodata, ultralib/os/exceptasm]
-      - [0x0EE6F0, rodata, ultralib/io/sirawread]
-      - [0x0EE740, rodata, ultralib/io/sirawwrite]
-      - [0x0EE770, rodata, ultralib/io/pirawread]
-      - [0x0EE7A0, rodata]
-      - [0x0EE7C0, rodata, ultralib/rmon/rmonmisc]
-      - [0x0EE7F0, rodata, ultralib/io/sprawread]
-      - [0x0EE840, rodata, ultralib/rmon/rmonmem]
-      - [0x0EE910, rodata, ultralib/rmon/rmonbrk]
+      - [0x0EE2E0, .rodata, ultralib/audio/heapalloc]
+      - [0x0EE530, .rodata, ultralib/audio/synthesizer]
+      - [0x0EE610, .rodata, ultralib/audio/cseq]
+      - [0x0EE620, .rodata, ultralib/sp/sprite]
+      - [0x0EE670, .rodata, ultralib/gu/perspective]
+      - [0x0EE680, .rodata, ultralib/os/exceptasm]
+      - [0x0EE6F0, .rodata, ultralib/io/sirawread]
+      - [0x0EE740, .rodata, ultralib/io/sirawwrite]
+      - [0x0EE770, .rodata, ultralib/io/pirawread]
+      - [0x0EE7A0, .rodata, ultralib/io/devmgr]
+      - [0x0EE7C0, .rodata, ultralib/rmon/rmonmisc]
+      - [0x0EE7F0, .rodata, ultralib/io/sprawread]
+      - [0x0EE840, .rodata, ultralib/rmon/rmonmem]
+      - [0x0EE910, .rodata, ultralib/rmon/rmonbrk]
       - [0x0EEAE0, .rodata, ultralib/io/sirawdma]
-      - [0x0EEB10, rodata, ultralib/io/sprawdma]
-      - [0x0EEBA0, rodata, ultralib/audio/seqplayer]
-      - [0x0EEF80, rodata, ultralib/audio/cents2ratio]
-      - [0x0EEF90, rodata] # possibly also drvrNew, but I doubt
-      - [0x0EF010, rodata, ultralib/audio/drvrNew]
-      - [0x0EF100, rodata, ultralib/audio/resample]
-      - [0x0EF130, rodata, ultralib/audio/env]
-      - [0x0EF1F0, rodata, ultralib/audio/save]
-      - [0x0EF220, rodata]
-      - [0x0EF270, rodata]
-      - [0x0EF2C0, rodata]
-      - [0x0EF3C0, rodata, ultralib/io/epirawread]
-      - [0x0EF3F0, rodata, ultralib/io/sprawwrite]
-      - [0x0EF420, rodata, ultralib/rmon/rmonregs]
-      - [0x0EF4A0, rodata, ultralib/rmon/rmontask]
-      - [0x0EF540, rodata, ultralib/audio/cseq] # possibly seq
-      - [0x0EF550, rodata, ultralib/audio/reverb]
-      - [0x0EF5A0, rodata, ultralib/gu/libm_vals]
-      - [0x0EF5B0, rodata]
-      - { start: 0xEF610, type: databin, name: rsp/gspFast3D, linker_section_order: .rodata }
+      - [0x0EEB10, .rodata, ultralib/io/sprawdma]
+      - [0x0EEBA0, .rodata, ultralib/audio/seqplayer]
+      - [0x0EEF80, .rodata, ultralib/audio/cents2ratio]
+      - [0x0EEF90, .rodata, ultralib/os/setintmask]
+      - [0x0EF010, .rodata, ultralib/audio/drvrnew]
+      - [0x0EF100, .rodata, ultralib/audio/resample]
+      - [0x0EF130, .rodata, ultralib/audio/env]
+      - [0x0EF1F0, .rodata, ultralib/audio/save]
+      - [0x0EF220, .rodata, ultralib/gu/cosf]
+      - [0x0EF270, .rodata, ultralib/gu/sinf]
+      - [0x0EF2C0, .rodata, libc/xprintf]
+      - [0x0EF3C0, .rodata, ultralib/io/epirawread]
+      - [0x0EF3F0, .rodata, ultralib/io/sprawwrite]
+      - [0x0EF420, .rodata, ultralib/rmon/rmonregs]
+      - [0x0EF4A0, .rodata, ultralib/rmon/rmontask]
+      - [0x0EF540, .rodata, ultralib/audio/seq]
+      - [0x0EF550, .rodata, ultralib/audio/reverb]
+      - { start: 0x0EF5A0, type: hasm, name: ultralib/gu/libm_vals, linker_section: .rdata, linker_section_order: .rodata }
+      - [0x0EF5B0, .rodata, libc/xldtob]
+      - { start: 0xEF610, type: databin, name: rsp/gspFast3DData, linker_section_order: .rodata }
       # bss
       - { name: bss_800EF4D0, type: bss, vram: 0x800EF4D0 } # bss start
       - { name: boot, type: .bss, vram: 0x80123670 }
@@ -371,251 +418,812 @@ segments:
       - { name: ultralib/os/initialize, type: .bss, vram: 0x801826C0 }
       - { name: ultralib/io/vimgr, type: .bss, vram: 0x801826D0 }
       - { name: ultralib/io/pimgr, type: .bss, vram: 0x801838F0 }
-      - { name: bss_801850B0, type: bss, vram: 0x801850B0 }
+      - { name: ultralib/rmon/rmonmain, type: .bss, vram: 0x801850B0 }
       - { name: ultralib/os/seteventmesg, type: .bss, vram: 0x80185530 }
-      - { name: bss_801855F0, type: bss, vram: 0x801855F0 }
-      - { name: ultralib/os/timerintr, type: bss, vram: 0x801856F0 }
-      - { name: bss_80185730, type: bss, vram: 0x80185730 }
+      - { name: ultralib/io/sptask, type: .bss, vram: 0x801855F0 }
+      - { name: ultralib/io/controller, type: .bss, vram: 0x80185630 }
+      - { name: ultralib/sp/sprite, type: .bss, vram: 0x801856C0 }
+      - { name: ultralib/os/timerintr, type: .bss, vram: 0x801856D0 }
+      - { name: ultralib/io/cartrominit, type: .bss, vram: 0x80185730 }
+      - { name: ultralib/io/leodiskinit, type: .bss, vram: 0x801857B0 }
+      - { name: ultralib/io/piacs, type: .bss, vram: 0x80185830 }
+      - { name: ultralib/rmon/rmonmisc, type: .bss, vram: 0x80185850 }
+      - { name: ultralib/rmon/rmonsio, type: .bss, vram: 0x80189A70 }
+      - { name: ultralib/rmon/rmonmem, type: .bss, vram: 0x8018A290 }
+      - { name: ultralib/rmon/rmonbrk, type: .bss, vram: 0x8018A390 }
       - { name: ultralib/io/siacs, type: .bss, vram: 0x8018A4A0 }
-      - { name: bss_8018A4C0, type: bss, vram: 0x8018A4C0 }
+      - { name: ultralib/io/conteepread, type: .bss, vram: 0x8018A4C0 }
+      - { name: ultralib/error/error, type: .bss, vram: 0x8018A500 }
+      - { name: ultralib/debug/kdebugserver, type: .bss, vram: 0x8018A550 }
+      - { name: ultralib/host/readhost, type: .bss, vram: 0x8018A710 }
+      - { name: ultralib/os/initrdb, type: .bss, vram: 0x8018A740 }
+      - { name: ultralib/io/leointerrupt, type: .bss, vram: 0x8018A760 }
+      - { name: ultralib/rmon/rmonregs, type: .bss, vram: 0x8018B760 }
+      - { name: ultralib/log/log, type: .bss, vram: 0x8018B780 }
+
   - type: bin
     start: 0xF00D0
     exclusive_ram_id: bin_F00D0
 
-  # overlays from D_800CD08C
-  # note that the sections labeled 'static_data' seem to be function tables. data/rodata appear below text
-  - name: overlay_67DBA0_static_data
-    exclusive_ram_id: overlay_67DBA0_static_data
+  # Actor overlay loader tables D_800CD08C/D_800CD60C/D_800CDB8C/D_800CE10C/D_800CE68C store two ROM ranges per stage and overlay slot.
+  # The first range is a loaded actor dispatch table. func_80016E70 indexes it as ActorFunc callbacks.
+  # The second range is the overlay object segment.
+
+  # Overlay slot 0: dispatch table -> 0x80192000, object -> 0x80192100
+  - name: overlay_67DBA0_dispatch_table
+    exclusive_ram_id: overlay_67DBA0_dispatch_table
     type: code
     vram: 0x80192000
     start: 0x67DBA0
-    subsegments: 
-      - [0x67DBA0, data, overlay_67DBA0/static_data] # static data 67DBA0->67DC20 (0x80)
+    subsegments:
+      - [0x67DBA0, data, overlay_67DBA0/dispatch_table] # dispatch table 67DBA0->67DC20 (0x80)
   - name: overlay_67DBA0
     exclusive_ram_id: overlay_67DBA0
     type: code
     vram: 0x80192100
     start: 0x67DC20
-    subsegments: 
-      - [0x67DC20, asm, overlay_67DBA0/67DC20] # code 67DC20->68A090 (0xC470)
+    subsegments:
+      - [0x67DC20, asm, overlay_67DBA0/67DC20] # object segment 67DC20->68A090 (0xC470)
       - [0x686BB0, data, overlay_67DBA0/67DC20]
       - [0x689200, rodata, overlay_67DBA0/67DC20] # guess
 
-  - name: overlay_68A090_static_data
-    exclusive_ram_id: overlay_68A090_static_data
+  - name: overlay_68A090_dispatch_table
+    exclusive_ram_id: overlay_68A090_dispatch_table
     type: code
     vram: 0x80192000
     start: 0x68A090
-    subsegments: 
-      - [0x68A090, data, overlay_68A090/static_data] # static data 68A090->68A100 (0x70)
+    subsegments:
+      - [0x68A090, data, overlay_68A090/dispatch_table] # dispatch table 68A090->68A100 (0x70)
   - name: overlay_68A090
     exclusive_ram_id: overlay_68A090
     type: code
     vram: 0x80192100
     start: 0x68A100
-    subsegments: 
-      - [0x68A100, data]
-      #- [0x68A100, asm, overlay_68A090/68A100] # code 68A100->6A00C0 (0x15FC0)
-      #- [0x69BD40, rodata, overlay_68A090/68A100]
+    subsegments:
+      - [0x68A100, data, overlay_68A090/68A100] # object segment 68A100->6A00C0 (0x15FC0)
 
-  - name: overlay_6A00C0_static_data
-    exclusive_ram_id: overlay_6A00C0_static_data
+  - name: overlay_6A00C0_dispatch_table
+    exclusive_ram_id: overlay_6A00C0_dispatch_table
     type: code
     vram: 0x80192000
     start: 0x6A00C0
-    subsegments: 
-      - [0x6A00C0, data, overlay_6A00C0/static_data] # static data 6A00C0->6A0100 (0x40)
+    subsegments:
+      - [0x6A00C0, data, overlay_6A00C0/dispatch_table] # dispatch table 6A00C0->6A0100 (0x40)
   - name: overlay_6A00C0
     exclusive_ram_id: overlay_6A00C0
     type: code
     vram: 0x80192100
     start: 0x6A0100
-    subsegments: 
-      - [0x6A0100, data, overlay_6A00C0/6A0100] # code 6A0100->6AAA80 (0xA980)
+    subsegments:
+      - [0x6A0100, data, overlay_6A00C0/6A0100] # object segment 6A0100->6AAA80 (0xA980)
 
-  - name: overlay_6AAA80_static_data
-    exclusive_ram_id: overlay_6AAA80_static_data
+  - name: overlay_6AAA80_dispatch_table
+    exclusive_ram_id: overlay_6AAA80_dispatch_table
     type: code
     vram: 0x80192000
     start: 0x6AAA80
-    subsegments: 
-      - [0x6AAA80, data, overlay_6AAA80/static_data] # static data 6AAA80->6AAAF0 (0x70)
+    subsegments:
+      - [0x6AAA80, data, overlay_6AAA80/dispatch_table] # dispatch table 6AAA80->6AAAF0 (0x70)
   - name: overlay_6AAA80
     exclusive_ram_id: overlay_6AAA80
     type: code
     vram: 0x80192100
     start: 0x6AAAF0
-    subsegments: 
-      - [0x6AAAF0, data, overlay_6AAA80/6AAAF0] # code 6AAAF0->6BCD80 (0x12290)
+    subsegments:
+      - [0x6AAAF0, data, overlay_6AAA80/6AAAF0] # object segment 6AAAF0->6BCD80 (0x12290)
 
-  - name: overlay_6BCD80_static_data
-    exclusive_ram_id: overlay_6BCD80_static_data
+  - name: overlay_6BCD80_dispatch_table
+    exclusive_ram_id: overlay_6BCD80_dispatch_table
     type: code
     vram: 0x80192000
     start: 0x6BCD80
-    subsegments: 
-      - [0x6BCD80, data, overlay_6BCD80/static_data] # static data 6BCD80->6BCDD0 (0x50)
+    subsegments:
+      - [0x6BCD80, data, overlay_6BCD80/dispatch_table] # dispatch table 6BCD80->6BCDD0 (0x50)
   - name: overlay_6BCD80
     exclusive_ram_id: overlay_6BCD80
     type: code
     vram: 0x80192100
     start: 0x6BCDD0
-    subsegments: 
-      - [0x6BCDD0, data, overlay_6BCD80/6BCDD0] # code 6BCDD0->6D1BF0 (0x14E20)
+    subsegments:
+      - [0x6BCDD0, data, overlay_6BCD80/6BCDD0] # object segment 6BCDD0->6D1BF0 (0x14E20)
 
-  - name: overlay_6D1BF0_static_data
-    exclusive_ram_id: overlay_6D1BF0_static_data
+  - name: overlay_6D1BF0_dispatch_table
+    exclusive_ram_id: overlay_6D1BF0_dispatch_table
     type: code
     vram: 0x80192000
     start: 0x6D1BF0
-    subsegments: 
-      - [0x6D1BF0, data, overlay_6D1BF0/static_data] # static data 6D1BF0->6D1C00 (0x10)
+    subsegments:
+      - [0x6D1BF0, .data, overlay_6D1BF0/dispatch_table] # dispatch table 6D1BF0->6D1C00 (0x10)
   - name: overlay_6D1BF0
     exclusive_ram_id: overlay_6D1BF0
     type: code
     vram: 0x80192100
     start: 0x6D1C00
-    subsegments: 
-      - [0x6D1C00, asm, overlay_6D1BF0/6D1C00] # code 6D1C00->6D2750 (0xB50)
-      - [0x6D2710, rodata, overlay_6D1BF0/6D1C00]
+    subsegments:
+      - [0x6D1C00, c, overlay_6D1BF0/6D1C00] # object segment 6D1C00->6D2750 (0xB50)
+      - [0x6D2710, .rodata, overlay_6D1BF0/6D1C00]
 
-  - name: overlay_6D2750_static_data
-    exclusive_ram_id: overlay_6D2750_static_data
+  - name: overlay_6D2750_dispatch_table
+    exclusive_ram_id: overlay_6D2750_dispatch_table
     type: code
     vram: 0x80192000
     start: 0x6D2750
-    subsegments: 
-      - [0x6D2750, data, overlay_6D2750/static_data] # static data 6D2750->6D2780 (0x30)
+    subsegments:
+      - [0x6D2750, data, overlay_6D2750/dispatch_table] # dispatch table 6D2750->6D2780 (0x30)
   - name: overlay_6D2750
     exclusive_ram_id: overlay_6D2750
     type: code
     vram: 0x80192100
     start: 0x6D2780
-    subsegments: 
-      - [0x6D2780, data, overlay_6D2750/6D2780] # code 6D2780->6D9FB0 (0x7830)
+    subsegments:
+      - [0x6D2780, data, overlay_6D2750/6D2780] # object segment 6D2780->6D9FB0 (0x7830)
 
-  - name: overlay_6D9FB0_static_data
-    exclusive_ram_id: overlay_6D9FB0_static_data
+  - name: overlay_6D9FB0_dispatch_table
+    exclusive_ram_id: overlay_6D9FB0_dispatch_table
     type: code
     vram: 0x80192000
     start: 0x6D9FB0
-    subsegments: 
-      - [0x6D9FB0, data, overlay_6D9FB0/static_data] # static data 6D9FB0->6DA010 (0x60)
+    subsegments:
+      - [0x6D9FB0, data, overlay_6D9FB0/dispatch_table] # dispatch table 6D9FB0->6DA010 (0x60)
   - name: overlay_6D9FB0
     exclusive_ram_id: overlay_6D9FB0
     type: code
     vram: 0x80192100
     start: 0x6DA010
-    subsegments: 
-      - [0x6DA010, data, overlay_6D9FB0/6DA010] # code 6DA010->6E2AE0 (0x8AD0)
+    subsegments:
+      - [0x6DA010, data, overlay_6D9FB0/6DA010] # object segment 6DA010->6E2AE0 (0x8AD0)
 
-  - name: overlay_6E2AE0_static_data
-    exclusive_ram_id: overlay_6E2AE0_static_data
+  - name: overlay_6E2AE0_dispatch_table
+    exclusive_ram_id: overlay_6E2AE0_dispatch_table
     type: code
     vram: 0x80192000
     start: 0x6E2AE0
-    subsegments: 
-      - [0x6E2AE0, data, overlay_6E2AE0/static_data] # static data 6E2AE0->6E2B20 (0x40)
+    subsegments:
+      - [0x6E2AE0, data, overlay_6E2AE0/dispatch_table] # dispatch table 6E2AE0->6E2B20 (0x40)
   - name: overlay_6E2AE0
     exclusive_ram_id: overlay_6E2AE0
     type: code
     vram: 0x80192100
     start: 0x6E2B20
-    subsegments: 
-      - [0x6E2B20, data, overlay_6E2AE0/6E2B20] # code 6E2B20->6EE550 (0xBA30)
+    subsegments:
+      - [0x6E2B20, data, overlay_6E2AE0/6E2B20] # object segment 6E2B20->6EE550 (0xBA30)
 
-  - name: overlay_6EE550_static_data
-    exclusive_ram_id: overlay_6EE550_static_data
+  - name: overlay_6EE550_dispatch_table
+    exclusive_ram_id: overlay_6EE550_dispatch_table
     type: code
     vram: 0x80192000
     start: 0x6EE550
-    subsegments: 
-      - [0x6EE550, data, overlay_6EE550/static_data] # static data 6EE550->6EE580 (0x30)
+    subsegments:
+      - [0x6EE550, data, overlay_6EE550/dispatch_table] # dispatch table 6EE550->6EE580 (0x30)
   - name: overlay_6EE550
     exclusive_ram_id: overlay_6EE550
     type: code
     vram: 0x80192100
     start: 0x6EE580
-    subsegments: 
-      - [0x6EE580, data, overlay_6EE550/6EE580] # code 6EE580->6F3DA0 (0x5820)
+    subsegments:
+      - [0x6EE580, data, overlay_6EE550/6EE580] # object segment 6EE580->6F3DA0 (0x5820)
 
-  - name: overlay_6F3DA0_static_data
-    exclusive_ram_id: overlay_6F3DA0_static_data
+  - name: overlay_6F3DA0_dispatch_table
+    exclusive_ram_id: overlay_6F3DA0_dispatch_table
     type: code
     vram: 0x80192000
     start: 0x6F3DA0
-    subsegments: 
-      - [0x6F3DA0, data, overlay_6F3DA0/static_data] # static data 6F3DA0->6F3DD0 (0x30)
+    subsegments:
+      - [0x6F3DA0, data, overlay_6F3DA0/dispatch_table] # dispatch table 6F3DA0->6F3DD0 (0x30)
   - name: overlay_6F3DA0
     exclusive_ram_id: overlay_6F3DA0
     type: code
     vram: 0x80192100
     start: 0x6F3DD0
-    subsegments: 
-      - [0x6F3DD0, data, overlay_6F3DA0/6F3DD0] # code 6F3DD0->6F7B20 (0x3D50)
+    subsegments:
+      - [0x6F3DD0, data, overlay_6F3DA0/6F3DD0] # object segment 6F3DD0->6F7B20 (0x3D50)
 
-  - name: overlay_6F7B20_static_data
-    exclusive_ram_id: overlay_6F7B20_static_data
+  - name: overlay_6F7B20_dispatch_table
+    exclusive_ram_id: overlay_6F7B20_dispatch_table
     type: code
     vram: 0x80192000
     start: 0x6F7B20
-    subsegments: 
-      - [0x6F7B20, data, overlay_6F7B20/static_data] # static data 6F7B20->6F7B30 (0x10)
+    subsegments:
+      - [0x6F7B20, data, overlay_6F7B20/dispatch_table] # dispatch table 6F7B20->6F7B30 (0x10)
   - name: overlay_6F7B20
     exclusive_ram_id: overlay_6F7B20
     type: code
     vram: 0x80192100
     start: 0x6F7B30
-    subsegments: 
-      - [0x6F7B30, asm, overlay_6F7B20/6F7B30] # code 6F7B30->6F9330 (0x1800)
+    subsegments:
+      - [0x6F7B30, asm, overlay_6F7B20/6F7B30] # object segment 6F7B30->6F9330 (0x1800)
       - [0x6F91F0, rodata, overlay_6F7B20/6F7B30]
 
-  - name: overlay_6F9330_static_data
-    exclusive_ram_id: overlay_6F9330_static_data
+  - name: overlay_6F9330_dispatch_table
+    exclusive_ram_id: overlay_6F9330_dispatch_table
     type: code
     vram: 0x80192000
     start: 0x6F9330
-    subsegments: 
-      - [0x6F9330, data, overlay_6F9330/static_data] # static data 6F9330->6F9390 (0x60)
+    subsegments:
+      - [0x6F9330, data, overlay_6F9330/dispatch_table] # dispatch table 6F9330->6F9390 (0x60)
   - name: overlay_6F9330
     exclusive_ram_id: overlay_6F9330
     type: code
     vram: 0x80192100
     start: 0x6F9390
-    subsegments: 
-      - [0x6F9390, data, overlay_6F9330/6F9390] # code 6F9390->713600 (0x1A270)
+    subsegments:
+      - [0x6F9390, data, overlay_6F9330/6F9390] # object segment 6F9390->713600 (0x1A270)
 
-  - name: overlay_713600_static_data
-    exclusive_ram_id: overlay_713600_static_data
+  - name: overlay_713600_dispatch_table
+    exclusive_ram_id: overlay_713600_dispatch_table
     type: code
     vram: 0x80192000
     start: 0x713600
-    subsegments: 
-      - [0x713600, data, overlay_713600/static_data] # static data 713600->713630 (0x30)
+    subsegments:
+      - [0x713600, data, overlay_713600/dispatch_table] # dispatch table 713600->713630 (0x30)
   - name: overlay_713600
     exclusive_ram_id: overlay_713600
     type: code
     vram: 0x80192100
     start: 0x713630
-    subsegments: 
-      - [0x713630, data, overlay_713600/713630] # code 713630->719700 (0x60D0)
+    subsegments:
+      - [0x713630, data, overlay_713600/713630] # object segment 713630->719700 (0x60D0)
 
-  - name: overlay_731DD0_static_data
-    exclusive_ram_id: overlay_731DD0_static_data
+  # Overlay slot 1: dispatch table -> 0x8019B000, object -> 0x8019B100
+  - name: overlay_719700_dispatch_table
+    exclusive_ram_id: overlay_719700_dispatch_table
     type: code
-    vram: 0x80192000
+    vram: 0x8019B000
+    start: 0x719700
+    subsegments:
+      - [0x719700, data, overlay_719700/dispatch_table] # dispatch table 719700->719720 (0x20)
+  - name: overlay_719700
+    exclusive_ram_id: overlay_719700
+    type: code
+    vram: 0x8019B100
+    start: 0x719720
+    subsegments:
+      - [0x719720, data, overlay_719700/719720] # object segment 719720->722A30 (0x9310)
+
+  - name: overlay_722A30_dispatch_table
+    exclusive_ram_id: overlay_722A30_dispatch_table
+    type: code
+    vram: 0x8019B000
+    start: 0x722A30
+    subsegments:
+      - [0x722A30, data, overlay_722A30/dispatch_table] # dispatch table 722A30->722A50 (0x20)
+  - name: overlay_722A30
+    exclusive_ram_id: overlay_722A30
+    type: code
+    vram: 0x8019B100
+    start: 0x722A50
+    subsegments:
+      - [0x722A50, data, overlay_722A30/722A50] # object segment 722A50->72B120 (0x86D0)
+
+  - name: overlay_72B120_dispatch_table
+    exclusive_ram_id: overlay_72B120_dispatch_table
+    type: code
+    vram: 0x8019B000
+    start: 0x72B120
+    subsegments:
+      - [0x72B120, data, overlay_72B120/dispatch_table] # dispatch table 72B120->72B140 (0x20)
+  - name: overlay_72B120
+    exclusive_ram_id: overlay_72B120
+    type: code
+    vram: 0x8019B100
+    start: 0x72B140
+    subsegments:
+      - [0x72B140, data, overlay_72B120/72B140] # object segment 72B140->731DD0 (0x6C90)
+
+  - name: overlay_731DD0_dispatch_table
+    exclusive_ram_id: overlay_731DD0_dispatch_table
+    type: code
+    vram: 0x8019B000
     start: 0x731DD0
-    subsegments: 
-      - [0x731DD0, data, overlay_731DD0/static_data] # static data 731DD0->731E60 (0x90)
+    subsegments:
+      - [0x731DD0, data, overlay_731DD0/dispatch_table] # dispatch table 731DD0->731E60 (0x90)
   - name: overlay_731DD0
     exclusive_ram_id: overlay_731DD0
     type: code
-    vram: 0x80192100
+    vram: 0x8019B100
     start: 0x731E60
-    subsegments: 
-      - [0x731E60, data, overlay_731DD0/731E60] # code 731E60->73D070 (0xB210)
+    subsegments:
+      - [0x731E60, data, overlay_731DD0/731E60] # object segment 731E60->73D070 (0xB210)
 
-  - [0x73D070, bin]
+  - name: overlay_73D070_dispatch_table
+    exclusive_ram_id: overlay_73D070_dispatch_table
+    type: code
+    vram: 0x8019B000
+    start: 0x73D070
+    subsegments:
+      - [0x73D070, data, overlay_73D070/dispatch_table] # dispatch table 73D070->73D090 (0x20)
+  - name: overlay_73D070
+    exclusive_ram_id: overlay_73D070
+    type: code
+    vram: 0x8019B100
+    start: 0x73D090
+    subsegments:
+      - [0x73D090, data, overlay_73D070/73D090] # object segment 73D090->742CA0 (0x5C10)
+
+  - name: overlay_742CA0_dispatch_table
+    exclusive_ram_id: overlay_742CA0_dispatch_table
+    type: code
+    vram: 0x8019B000
+    start: 0x742CA0
+    subsegments:
+      - [0x742CA0, data, overlay_742CA0/dispatch_table] # dispatch table 742CA0->742CB0 (0x10)
+  - name: overlay_742CA0
+    exclusive_ram_id: overlay_742CA0
+    type: code
+    vram: 0x8019B100
+    start: 0x742CB0
+    subsegments:
+      - [0x742CB0, data, overlay_742CA0/742CB0] # object segment 742CB0->749C90 (0x6FE0)
+
+  - name: overlay_749C90_dispatch_table
+    exclusive_ram_id: overlay_749C90_dispatch_table
+    type: code
+    vram: 0x8019B000
+    start: 0x749C90
+    subsegments:
+      - [0x749C90, data, overlay_749C90/dispatch_table] # dispatch table 749C90->749CB0 (0x20)
+  - name: overlay_749C90
+    exclusive_ram_id: overlay_749C90
+    type: code
+    vram: 0x8019B100
+    start: 0x749CB0
+    subsegments:
+      - [0x749CB0, data, overlay_749C90/749CB0] # object segment 749CB0->753860 (0x9BB0)
+
+  - name: overlay_753860_dispatch_table
+    exclusive_ram_id: overlay_753860_dispatch_table
+    type: code
+    vram: 0x8019B000
+    start: 0x753860
+    subsegments:
+      - [0x753860, data, overlay_753860/dispatch_table] # dispatch table 753860->753880 (0x20)
+  - name: overlay_753860
+    exclusive_ram_id: overlay_753860
+    type: code
+    vram: 0x8019B100
+    start: 0x753880
+    subsegments:
+      - [0x753880, data, overlay_753860/753880] # object segment 753880->754570 (0xCF0)
+
+  - name: overlay_754570_dispatch_table
+    exclusive_ram_id: overlay_754570_dispatch_table
+    type: code
+    vram: 0x8019B000
+    start: 0x754570
+    subsegments:
+      - [0x754570, data, overlay_754570/dispatch_table] # dispatch table 754570->7545A0 (0x30)
+  - name: overlay_754570
+    exclusive_ram_id: overlay_754570
+    type: code
+    vram: 0x8019B100
+    start: 0x7545A0
+    subsegments:
+      - [0x7545A0, data, overlay_754570/7545A0] # object segment 7545A0->75D630 (0x9090)
+
+  - name: overlay_75D630_dispatch_table
+    exclusive_ram_id: overlay_75D630_dispatch_table
+    type: code
+    vram: 0x8019B000
+    start: 0x75D630
+    subsegments:
+      - [0x75D630, data, overlay_75D630/dispatch_table] # dispatch table 75D630->75D660 (0x30)
+  - name: overlay_75D630
+    exclusive_ram_id: overlay_75D630
+    type: code
+    vram: 0x8019B100
+    start: 0x75D660
+    subsegments:
+      - [0x75D660, data, overlay_75D630/75D660] # object segment 75D660->766080 (0x8A20)
+
+  # Overlay slot 2: dispatch table -> 0x801A6800, object -> 0x801A6900
+  - name: overlay_766080_dispatch_table
+    exclusive_ram_id: overlay_766080_dispatch_table
+    type: code
+    vram: 0x801A6800
+    start: 0x766080
+    subsegments:
+      - [0x766080, data, overlay_766080/dispatch_table] # dispatch table 766080->766110 (0x90)
+  - name: overlay_766080
+    exclusive_ram_id: overlay_766080
+    type: code
+    vram: 0x801A6900
+    start: 0x766110
+    subsegments:
+      - [0x766110, data, overlay_766080/766110] # object segment 766110->76F390 (0x9280)
+
+  - name: overlay_76F390_dispatch_table
+    exclusive_ram_id: overlay_76F390_dispatch_table
+    type: code
+    vram: 0x801A6800
+    start: 0x76F390
+    subsegments:
+      - [0x76F390, data, overlay_76F390/dispatch_table] # dispatch table 76F390->76F3A0 (0x10)
+  - name: overlay_76F390
+    exclusive_ram_id: overlay_76F390
+    type: code
+    vram: 0x801A6900
+    start: 0x76F3A0
+    subsegments:
+      - [0x76F3A0, data, overlay_76F390/76F3A0] # object segment 76F3A0->76FD60 (0x9C0)
+
+  - name: overlay_76FD60_dispatch_table
+    exclusive_ram_id: overlay_76FD60_dispatch_table
+    type: code
+    vram: 0x801A6800
+    start: 0x76FD60
+    subsegments:
+      - [0x76FD60, data, overlay_76FD60/dispatch_table] # dispatch table 76FD60->76FDD0 (0x70)
+  - name: overlay_76FD60
+    exclusive_ram_id: overlay_76FD60
+    type: code
+    vram: 0x801A6900
+    start: 0x76FDD0
+    subsegments:
+      - [0x76FDD0, data, overlay_76FD60/76FDD0] # object segment 76FDD0->774DA0 (0x4FD0)
+
+  - [0x774DA0, bin] # not referenced by the overlay loader tables
+
+  - name: overlay_775460_dispatch_table
+    exclusive_ram_id: overlay_775460_dispatch_table
+    type: code
+    vram: 0x801A6800
+    start: 0x775460
+    subsegments:
+      - [0x775460, data, overlay_775460/dispatch_table] # dispatch table 775460->7754F0 (0x90)
+  - name: overlay_775460
+    exclusive_ram_id: overlay_775460
+    type: code
+    vram: 0x801A6900
+    start: 0x7754F0
+    subsegments:
+      - [0x7754F0, data, overlay_775460/7754F0] # object segment 7754F0->77F240 (0x9D50)
+
+  - name: overlay_77F240_dispatch_table
+    exclusive_ram_id: overlay_77F240_dispatch_table
+    type: code
+    vram: 0x801A6800
+    start: 0x77F240
+    subsegments:
+      - [0x77F240, data, overlay_77F240/dispatch_table] # dispatch table 77F240->77F260 (0x20)
+  - name: overlay_77F240
+    exclusive_ram_id: overlay_77F240
+    type: code
+    vram: 0x801A6900
+    start: 0x77F260
+    subsegments:
+      - [0x77F260, data, overlay_77F240/77F260] # object segment 77F260->7854B0 (0x6250)
+
+  - name: overlay_7854B0_dispatch_table
+    exclusive_ram_id: overlay_7854B0_dispatch_table
+    type: code
+    vram: 0x801A6800
+    start: 0x7854B0
+    subsegments:
+      - [0x7854B0, data, overlay_7854B0/dispatch_table] # dispatch table 7854B0->7854D0 (0x20)
+  - name: overlay_7854B0
+    exclusive_ram_id: overlay_7854B0
+    type: code
+    vram: 0x801A6900
+    start: 0x7854D0
+    subsegments:
+      - [0x7854D0, data, overlay_7854B0/7854D0] # object segment 7854D0->78B430 (0x5F60)
+
+  - name: overlay_78B430_dispatch_table
+    exclusive_ram_id: overlay_78B430_dispatch_table
+    type: code
+    vram: 0x801A6800
+    start: 0x78B430
+    subsegments:
+      - [0x78B430, data, overlay_78B430/dispatch_table] # dispatch table 78B430->78B440 (0x10)
+  - name: overlay_78B430
+    exclusive_ram_id: overlay_78B430
+    type: code
+    vram: 0x801A6900
+    start: 0x78B440
+    subsegments:
+      - [0x78B440, data, overlay_78B430/78B440] # object segment 78B440->78CB60 (0x1720)
+
+  - name: overlay_78CB60_dispatch_table
+    exclusive_ram_id: overlay_78CB60_dispatch_table
+    type: code
+    vram: 0x801A6800
+    start: 0x78CB60
+    subsegments:
+      - [0x78CB60, data, overlay_78CB60/dispatch_table] # dispatch table 78CB60->78CBF0 (0x90)
+  - name: overlay_78CB60
+    exclusive_ram_id: overlay_78CB60
+    type: code
+    vram: 0x801A6900
+    start: 0x78CBF0
+    subsegments:
+      - [0x78CBF0, data, overlay_78CB60/78CBF0] # object segment 78CBF0->7969B0 (0x9DC0)
+
+  # Overlay slot 3: dispatch table -> 0x801B0800, object -> 0x801B0900
+  - name: overlay_7969B0_dispatch_table
+    exclusive_ram_id: overlay_7969B0_dispatch_table
+    type: code
+    vram: 0x801B0800
+    start: 0x7969B0
+    subsegments:
+      - [0x7969B0, data, overlay_7969B0/dispatch_table] # dispatch table 7969B0->7969D0 (0x20)
+  - name: overlay_7969B0
+    exclusive_ram_id: overlay_7969B0
+    type: code
+    vram: 0x801B0900
+    start: 0x7969D0
+    subsegments:
+      - [0x7969D0, data, overlay_7969B0/7969D0] # object segment 7969D0->7986D0 (0x1D00)
+
+  - name: overlay_7986D0_dispatch_table
+    exclusive_ram_id: overlay_7986D0_dispatch_table
+    type: code
+    vram: 0x801B0800
+    start: 0x7986D0
+    subsegments:
+      - [0x7986D0, data, overlay_7986D0/dispatch_table] # dispatch table 7986D0->798740 (0x70)
+  - name: overlay_7986D0
+    exclusive_ram_id: overlay_7986D0
+    type: code
+    vram: 0x801B0900
+    start: 0x798740
+    subsegments:
+      - [0x798740, data, overlay_7986D0/798740] # object segment 798740->7A13D0 (0x8C90)
+
+  - name: overlay_7A13D0_dispatch_table
+    exclusive_ram_id: overlay_7A13D0_dispatch_table
+    type: code
+    vram: 0x801B0800
+    start: 0x7A13D0
+    subsegments:
+      - [0x7A13D0, data, overlay_7A13D0/dispatch_table] # dispatch table 7A13D0->7A1410 (0x40)
+  - name: overlay_7A13D0
+    exclusive_ram_id: overlay_7A13D0
+    type: code
+    vram: 0x801B0900
+    start: 0x7A1410
+    subsegments:
+      - [0x7A1410, data, overlay_7A13D0/7A1410] # object segment 7A1410->7A6E60 (0x5A50)
+
+  - name: overlay_7A6E60_dispatch_table
+    exclusive_ram_id: overlay_7A6E60_dispatch_table
+    type: code
+    vram: 0x801B0800
+    start: 0x7A6E60
+    subsegments:
+      - [0x7A6E60, data, overlay_7A6E60/dispatch_table] # dispatch table 7A6E60->7A6E80 (0x20)
+  - name: overlay_7A6E60
+    exclusive_ram_id: overlay_7A6E60
+    type: code
+    vram: 0x801B0900
+    start: 0x7A6E80
+    subsegments:
+      - [0x7A6E80, data, overlay_7A6E60/7A6E80] # object segment 7A6E80->7AC7F0 (0x5970)
+
+  - name: overlay_7AC7F0_dispatch_table
+    exclusive_ram_id: overlay_7AC7F0_dispatch_table
+    type: code
+    vram: 0x801B0800
+    start: 0x7AC7F0
+    subsegments:
+      - [0x7AC7F0, data, overlay_7AC7F0/dispatch_table] # dispatch table 7AC7F0->7AC820 (0x30)
+  - name: overlay_7AC7F0
+    exclusive_ram_id: overlay_7AC7F0
+    type: code
+    vram: 0x801B0900
+    start: 0x7AC820
+    subsegments:
+      - [0x7AC820, data, overlay_7AC7F0/7AC820] # object segment 7AC820->7B3FC0 (0x77A0)
+
+  - name: overlay_7B3FC0_dispatch_table
+    exclusive_ram_id: overlay_7B3FC0_dispatch_table
+    type: code
+    vram: 0x801B0800
+    start: 0x7B3FC0
+    subsegments:
+      - [0x7B3FC0, data, overlay_7B3FC0/dispatch_table] # dispatch table 7B3FC0->7B3FE0 (0x20)
+  - name: overlay_7B3FC0
+    exclusive_ram_id: overlay_7B3FC0
+    type: code
+    vram: 0x801B0900
+    start: 0x7B3FE0
+    subsegments:
+      - [0x7B3FE0, data, overlay_7B3FC0/7B3FE0] # object segment 7B3FE0->7B8760 (0x4780)
+
+  - name: overlay_7B8760_dispatch_table
+    exclusive_ram_id: overlay_7B8760_dispatch_table
+    type: code
+    vram: 0x801B0800
+    start: 0x7B8760
+    subsegments:
+      - [0x7B8760, data, overlay_7B8760/dispatch_table] # dispatch table 7B8760->7B87B0 (0x50)
+  - name: overlay_7B8760
+    exclusive_ram_id: overlay_7B8760
+    type: code
+    vram: 0x801B0900
+    start: 0x7B87B0
+    subsegments:
+      - [0x7B87B0, data, overlay_7B8760/7B87B0] # object segment 7B87B0->7BC840 (0x4090)
+
+  - name: overlay_7BC840_dispatch_table
+    exclusive_ram_id: overlay_7BC840_dispatch_table
+    type: code
+    vram: 0x801B0800
+    start: 0x7BC840
+    subsegments:
+      - [0x7BC840, data, overlay_7BC840/dispatch_table] # dispatch table 7BC840->7BC850 (0x10)
+  - name: overlay_7BC840
+    exclusive_ram_id: overlay_7BC840
+    type: code
+    vram: 0x801B0900
+    start: 0x7BC850
+    subsegments:
+      - [0x7BC850, data, overlay_7BC840/7BC850] # object segment 7BC850->7C0AB0 (0x4260)
+
+  - name: overlay_7C0AB0_dispatch_table
+    exclusive_ram_id: overlay_7C0AB0_dispatch_table
+    type: code
+    vram: 0x801B0800
+    start: 0x7C0AB0
+    subsegments:
+      - [0x7C0AB0, data, overlay_7C0AB0/dispatch_table] # dispatch table 7C0AB0->7C0B20 (0x70)
+  - name: overlay_7C0AB0
+    exclusive_ram_id: overlay_7C0AB0
+    type: code
+    vram: 0x801B0900
+    start: 0x7C0B20
+    subsegments:
+      - [0x7C0B20, data, overlay_7C0AB0/7C0B20] # object segment 7C0B20->7C6AB0 (0x5F90)
+
+  # Overlay slot 4: dispatch table -> 0x801B9800, object -> 0x801B9900
+  - name: overlay_7C6AB0_dispatch_table
+    exclusive_ram_id: overlay_7C6AB0_dispatch_table
+    type: code
+    vram: 0x801B9800
+    start: 0x7C6AB0
+    subsegments:
+      - [0x7C6AB0, data, overlay_7C6AB0/dispatch_table] # dispatch table 7C6AB0->7C6AE0 (0x30)
+  - name: overlay_7C6AB0
+    exclusive_ram_id: overlay_7C6AB0
+    type: code
+    vram: 0x801B9900
+    start: 0x7C6AE0
+    subsegments:
+      - [0x7C6AE0, data, overlay_7C6AB0/7C6AE0] # object segment 7C6AE0->7CE060 (0x7580)
+
+  - name: overlay_7CE060_dispatch_table
+    exclusive_ram_id: overlay_7CE060_dispatch_table
+    type: code
+    vram: 0x801B9800
+    start: 0x7CE060
+    subsegments:
+      - [0x7CE060, data, overlay_7CE060/dispatch_table] # dispatch table 7CE060->7CE090 (0x30)
+  - name: overlay_7CE060
+    exclusive_ram_id: overlay_7CE060
+    type: code
+    vram: 0x801B9900
+    start: 0x7CE090
+    subsegments:
+      - [0x7CE090, data, overlay_7CE060/7CE090] # object segment 7CE090->7D40C0 (0x6030)
+
+  - name: overlay_7D40C0_dispatch_table
+    exclusive_ram_id: overlay_7D40C0_dispatch_table
+    type: code
+    vram: 0x801B9800
+    start: 0x7D40C0
+    subsegments:
+      - [0x7D40C0, data, overlay_7D40C0/dispatch_table] # dispatch table 7D40C0->7D40F0 (0x30)
+  - name: overlay_7D40C0
+    exclusive_ram_id: overlay_7D40C0
+    type: code
+    vram: 0x801B9900
+    start: 0x7D40F0
+    subsegments:
+      - [0x7D40F0, data, overlay_7D40C0/7D40F0] # object segment 7D40F0->7DAAA0 (0x69B0)
+
+  - name: overlay_7DAAA0_dispatch_table
+    exclusive_ram_id: overlay_7DAAA0_dispatch_table
+    type: code
+    vram: 0x801B9800
+    start: 0x7DAAA0
+    subsegments:
+      - [0x7DAAA0, data, overlay_7DAAA0/dispatch_table] # dispatch table 7DAAA0->7DAB00 (0x60)
+  - name: overlay_7DAAA0
+    exclusive_ram_id: overlay_7DAAA0
+    type: code
+    vram: 0x801B9900
+    start: 0x7DAB00
+    subsegments:
+      - [0x7DAB00, data, overlay_7DAAA0/7DAB00] # object segment 7DAB00->7DC7A0 (0x1CA0)
+
+  - name: overlay_7DC7A0_dispatch_table
+    exclusive_ram_id: overlay_7DC7A0_dispatch_table
+    type: code
+    vram: 0x801B9800
+    start: 0x7DC7A0
+    subsegments:
+      - [0x7DC7A0, data, overlay_7DC7A0/dispatch_table] # dispatch table 7DC7A0->7DC7D0 (0x30)
+  - name: overlay_7DC7A0
+    exclusive_ram_id: overlay_7DC7A0
+    type: code
+    vram: 0x801B9900
+    start: 0x7DC7D0
+    subsegments:
+      - [0x7DC7D0, data, overlay_7DC7A0/7DC7D0] # object segment 7DC7D0->7E2A30 (0x6260)
+
+  - name: overlay_7E2A30_dispatch_table
+    exclusive_ram_id: overlay_7E2A30_dispatch_table
+    type: code
+    vram: 0x801B9800
+    start: 0x7E2A30
+    subsegments:
+      - [0x7E2A30, data, overlay_7E2A30/dispatch_table] # dispatch table 7E2A30->7E2A60 (0x30)
+  - name: overlay_7E2A30
+    exclusive_ram_id: overlay_7E2A30
+    type: code
+    vram: 0x801B9900
+    start: 0x7E2A60
+    subsegments:
+      - [0x7E2A60, data, overlay_7E2A30/7E2A60] # object segment 7E2A60->7E6A20 (0x3FC0)
+
+  - name: overlay_7E6A20_dispatch_table
+    exclusive_ram_id: overlay_7E6A20_dispatch_table
+    type: code
+    vram: 0x801B9800
+    start: 0x7E6A20
+    subsegments:
+      - [0x7E6A20, data, overlay_7E6A20/dispatch_table] # dispatch table 7E6A20->7E6A50 (0x30)
+  - name: overlay_7E6A20
+    exclusive_ram_id: overlay_7E6A20
+    type: code
+    vram: 0x801B9900
+    start: 0x7E6A50
+    subsegments:
+      - [0x7E6A50, data, overlay_7E6A20/7E6A50] # object segment 7E6A50->7E7EB0 (0x1460)
+
+  - name: overlay_7E7EB0_dispatch_table
+    exclusive_ram_id: overlay_7E7EB0_dispatch_table
+    type: code
+    vram: 0x801B9800
+    start: 0x7E7EB0
+    subsegments:
+      - [0x7E7EB0, data, overlay_7E7EB0/dispatch_table] # dispatch table 7E7EB0->7E7ED0 (0x20)
+  - name: overlay_7E7EB0
+    exclusive_ram_id: overlay_7E7EB0
+    type: code
+    vram: 0x801B9900
+    start: 0x7E7ED0
+    subsegments:
+      - [0x7E7ED0, data, overlay_7E7EB0/7E7ED0] # object segment 7E7ED0->7EA3C0 (0x24F0)
+
+  - name: overlay_7EA3C0_dispatch_table
+    exclusive_ram_id: overlay_7EA3C0_dispatch_table
+    type: code
+    vram: 0x801B9800
+    start: 0x7EA3C0
+    subsegments:
+      - [0x7EA3C0, data, overlay_7EA3C0/dispatch_table] # dispatch table 7EA3C0->7EA3D0 (0x10)
+  - name: overlay_7EA3C0
+    exclusive_ram_id: overlay_7EA3C0
+    type: code
+    vram: 0x801B9900
+    start: 0x7EA3D0
+    subsegments:
+      - [0x7EA3D0, data, overlay_7EA3C0/7EA3D0] # object segment 7EA3D0->7EA710 (0x340)
+
+  - name: overlay_7EA710_dispatch_table
+    exclusive_ram_id: overlay_7EA710_dispatch_table
+    type: code
+    vram: 0x801B9800
+    start: 0x7EA710
+    subsegments:
+      - [0x7EA710, data, overlay_7EA710/dispatch_table] # dispatch table 7EA710->7EA730 (0x20)
+  - name: overlay_7EA710
+    exclusive_ram_id: overlay_7EA710
+    type: code
+    vram: 0x801B9900
+    start: 0x7EA730
+    subsegments:
+      - [0x7EA730, data, overlay_7EA710/7EA730] # object segment 7EA730->7EAFD0 (0x8A0)
 
   - [0x7EAFD0, bin, trailer] # 0xFF to end
   - [0x800000]

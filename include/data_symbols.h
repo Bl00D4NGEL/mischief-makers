@@ -6,6 +6,8 @@
 
 extern Gfx* gCurrentDisplayListBase;
 extern u16 gCurrentFramebufferIndex;
+extern s16 D_800BE558;
+extern s16 D_800BE55C;
 
 // func_800012F0
 extern u16 D_800BE4EC;

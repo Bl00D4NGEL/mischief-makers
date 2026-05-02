@@ -2,11 +2,11 @@
 #include "PR/os_internal.h"
 #include "PR/ultraerror.h"
 #include "PR/rcp.h"
-#include "viint.h"
-#include "../os/osint.h"
+#include "PRinternal/viint.h"
+#include "PRinternal/osint.h"
 
 // data
-OSDevMgr __osViDevMgr = { 0 };
+OSDevMgr __osViDevMgr = {0};
 
 // bss
 static OSThread viThread;
@@ -20,9 +20,9 @@ static u16 retrace; // required to OK?
 static void viMgrMain(void* arg);
 
 void osCreateViManager(OSPri pri) {
-    u32 savedMask;
-    OSPri oldPri;
-    OSPri myPri;
+    u32 saved_mask;
+    OSPri old_priority;
+    OSPri my_priority;
 
     if ((pri < OS_PRIORITY_IDLE) || (pri > OS_PRIORITY_MAX)) {
         __osError(ERR_OSCREATEVIMANAGER, 1, pri);
@@ -43,15 +43,15 @@ void osCreateViManager(OSPri pri) {
     viCounterMsg.hdr.retQueue = NULL;
     osSetEventMesg(OS_EVENT_VI, &viEventQueue, &viRetraceMsg);
     osSetEventMesg(OS_EVENT_COUNTER, &viEventQueue, &viCounterMsg);
-    oldPri = -1;
-    myPri = osGetThreadPri(NULL);
+    old_priority = -1;
+    my_priority = osGetThreadPri(NULL);
 
-    if (myPri < pri) {
-        oldPri = myPri;
+    if (my_priority < pri) {
+        old_priority = my_priority;
         osSetThreadPri(NULL, pri);
     }
 
-    savedMask = __osDisableInt();
+    saved_mask = __osDisableInt();
     __osViDevMgr.active = TRUE;
     __osViDevMgr.thread = &viThread;
     __osViDevMgr.cmdQueue = &viEventQueue;
@@ -62,43 +62,42 @@ void osCreateViManager(OSPri pri) {
     osCreateThread(&viThread, 0, viMgrMain, &__osViDevMgr, &viThreadStack[OS_VIM_STACKSIZE], pri);
     __osViInit();
     osStartThread(&viThread);
-    __osRestoreInt(savedMask);
+    __osRestoreInt(saved_mask);
 
-    if (oldPri != -1) {
-        osSetThreadPri(NULL, oldPri);
+    if (old_priority != -1) {
+        osSetThreadPri(NULL, old_priority);
     }
 }
 
 static void viMgrMain(void* arg) {
-    __OSViContext* vc;
-    OSDevMgr* dm;
-    OSIoMesg* mb;
-    //static u16 retrace;
+    __OSViContext* vi_context;
+    OSDevMgr* dev_mgr;
+    OSIoMesg* message;
     s32 first;
     u32 count;
 
-    mb = NULL;
+    message = NULL;
     first = 0;
-    vc = __osViGetCurrentContext();
-    retrace = vc->retraceCount;
+    vi_context = __osViGetCurrentContext();
+    retrace = vi_context->retraceCount;
     if (retrace == 0) {
         retrace = 1;
     }
-    dm = (OSDevMgr*)arg;
+    dev_mgr = (OSDevMgr*)arg;
 
     while (TRUE) {
-        osRecvMesg(dm->evtQueue, (OSMesg)&mb, OS_MESG_BLOCK);
-        switch (mb->hdr.type) {
+        osRecvMesg(dev_mgr->evtQueue, (OSMesg)&message, OS_MESG_BLOCK);
+        switch (message->hdr.type) {
             case OS_MESG_TYPE_VRETRACE:
                 __osViSwapContext();
                 retrace--;
 
                 if (retrace == 0) {
-                    vc = __osViGetCurrentContext();
-                    if (vc->msgq != NULL) {
-                        osSendMesg(vc->msgq, vc->msg, OS_MESG_NOBLOCK);
+                    vi_context = __osViGetCurrentContext();
+                    if (vi_context->msgq != NULL) {
+                        osSendMesg(vi_context->msgq, vi_context->msg, OS_MESG_NOBLOCK);
                     }
-                    retrace = vc->retraceCount;
+                    retrace = vi_context->retraceCount;
                 }
 
                 __osViIntrCount++;
@@ -122,4 +121,3 @@ static void viMgrMain(void* arg) {
         }
     }
 }
-

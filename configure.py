@@ -3,11 +3,10 @@
 import argparse
 import os
 import shutil
-import re
 import sys
 import subprocess
 from pathlib import Path
-from typing import Dict, Iterable, List, Set, Union
+from typing import Dict, List, Set, Union
 
 import ninja_syntax
 import requests
@@ -38,27 +37,23 @@ MAP_PATH = f"build/{BASENAME}.map"
 ELF_PATH = f"build/{BASENAME}.elf"
 Z64_PATH = f"build/{BASENAME}.z64"
 OK_PATH = f"build/{BASENAME}.ok"
-GENERATED_SYMBOLS_PATH = f"build/{BASENAME}.symbols.ld"
-SLINKY_CONFIG_PATH = f"build/{BASENAME}.slinky.yaml"
-SLINKY = os.environ.get("SLINKY", "slinky-cli")
-SLINKY_DROP_SECTION = ".slinky_discard"
-SLINKY_INPUT_SECTIONS = [".text", ".data", ".rodata", ".rdata", ".bss"]
-SLINKY_SECTION_ORDER = [".text", ".data", ".rodata", ".bss"]
-SYMBOL_ADDRS_PATHS = [
-    f"versions/{GAME_VERSION}/symbol_addrs_libultra.txt",
-    f"versions/{GAME_VERSION}/symbol_addrs_functions.txt",
-    f"versions/{GAME_VERSION}/symbol_addrs_data.txt",
-]
-SYMBOL_SCAN_DIRS = ["asm", "src", "include"]
-SYMBOL_SCAN_SUFFIXES = {".c", ".h", ".s", ".txt"}
-ADDRESS_SYMBOL_RE = re.compile(
-    r"(?<![A-Za-z0-9_.$])(?P<name>(?:D|func|jtbl)_[0-9A-Fa-f]{4,8}(?:_[0-9A-Fa-f]{4,8})?)(?![A-Za-z0-9_])"
-    r"|(?<![A-Za-z0-9_.$])(?P<label>\.L[0-9A-Fa-f]{4,8}(?:_[0-9A-Fa-f]{4,8})?)(?![A-Za-z0-9_])"
-)
 
-COMMON_INCLUDES = "-I include -I src -I ultralib/include -I ultralib/include/ido -I ultralib/include/PR -I ultralib/src"
 IDO_DEFS = f"-D_LANGUAGE_C -D_DEBUG -DF3DEX_GBI -DGAME_VERSION={get_version_num()} -DBUILD_VERSION=VERSION_H"
-IDO_DEFS_ULTRA = "-D_DEBUG -DBUILD_VERSION=VERSION_H"
+COMMON_INCLUDES = "-I include -I src -I ultralib/include -I ultralib/include/PR -I ultralib/src"
+
+# Stock libultra_d.a version H IDO flags from ultralib/makefiles/ido.mk
+LIBULTRA_INCLUDES = "-I include -I ultralib/include -I ultralib/include/compiler/ido -I ultralib/include/PR -I ultralib/src"
+LIBULTRA_CFLAGS = "-c -Wab,-r4300_mul -G 0 -nostdinc -Xcpluscomm -fullwarn -woff 516,649,838,712"
+LIBULTRA_ASFLAGS = "-c -Wab,-r4300_mul -G 0 -nostdinc -woff 516,649,838,712"
+LIBULTRA_VERSION_DEFS = "-DBUILD_VERSION=VERSION_H -DBUILD_VERSION_STRING=\\\"2.0H\\\""
+LIBULTRA_DEFAULT_DEFS = f"-D_MIPS_SZLONG=32 -DF3DEX_GBI {LIBULTRA_VERSION_DEFS} -non_shared -D_DEBUG"
+LIBULTRA_NODEBUG_DEFS = f"-D_MIPS_SZLONG=32 -DF3DEX_GBI {LIBULTRA_VERSION_DEFS} -non_shared -DNDEBUG"
+LIBULTRA_DEFAULT_OPT_FLAGS = "-O1 -g2"
+LIBULTRA_DEFAULT_ASOPT_FLAGS = "-O0 -g2"
+LIBULTRA_DEFAULT_MIPS_FLAGS = "-mips2 -o32"
+LIBULTRA_MIPS3_FLAGS = "-mips3 -32"
+LIBULTRA_MATCHING_MIPS2_G1_FLAGS = "-mips2 -g1 -32"
+LIBULTRA_O3_DIRS = ["audio", "gt", "gu", "mgu", "rg", "sched", "sp"]
 
 CROSS = "mips-linux-gnu-"
 CROSS_AS = f"{CROSS}as"
@@ -69,17 +64,17 @@ CROSS_OBJCOPY = f"{CROSS}objcopy"
 AS_FLAGS = f"-G 0 {COMMON_INCLUDES} -EB -mtune=vr4300 -march=vr4300 -mabi=32"
 OPT_FLAGS = "-O2"
 MIPS_FLAGS = "-mips1 -32"
-MIPS_FLAGS_ULTRA = "-mips2 -g1 -32"
 
 IDO_53_CC = TOOLS_DIR / "ido5.3" / "cc"
 
 O32_TOOL = ROOT / "ultralib/tools/set_o32abi_bit.py"
+ASM_PROCESSOR_PRELUDE = "include/asm_processor_prelude.inc"
 
-GAME_CC_CMD = f"{PYTHON} tools/asm_processor/build.py --input-enc=utf-8 --output-enc=EUC-JP {IDO_53_CC} -- {CROSS_AS} {AS_FLAGS} -- -G 0 -non_shared -fullwarn -verbose -Xcpluscomm -nostdinc -Wab,-r4300_mul $flags {MIPS_FLAGS} {COMMON_INCLUDES} {IDO_DEFS} -c -o $out $in"
+GAME_CC_CMD = f"{PYTHON} tools/asm_processor/build.py --input-enc=utf-8 --output-enc=EUC-JP --asm-prelude {ASM_PROCESSOR_PRELUDE} {IDO_53_CC} -- {CROSS_AS} {AS_FLAGS} -- -G 0 -non_shared -fullwarn -verbose -Xcpluscomm -nostdinc -Wab,-r4300_mul $flags {MIPS_FLAGS} {COMMON_INCLUDES} {IDO_DEFS} -c -o $out $in"
 
-LIBULTRA_CC_CMD = f"$ido -G 0 -non_shared -fullwarn -verbose -Wab,-r4300_mul -woff 513,516,649,838,712 -Xcpluscomm -nostdinc $flags {COMMON_INCLUDES} {IDO_DEFS} -DBUILD_VERSION=$libultra -c -o $out $in && {O32_TOOL} $out"
+LIBULTRA_CC_CMD = f"$ido {LIBULTRA_CFLAGS} $mips $defs $opt_flags $in {LIBULTRA_INCLUDES} -o $out && {O32_TOOL} $out"
 
-LIBULTRA_AS_CMD = f"{IDO_53_CC} -G 0 -non_shared -fullwarn -verbose -Wab,-r4300_mul -woff 513,516,649,838,712 $flags {MIPS_FLAGS_ULTRA} {COMMON_INCLUDES} {IDO_DEFS_ULTRA} -c -o $out $in && {O32_TOOL} $out && {CROSS_STRIP} $out -N asdasdasdasd"
+LIBULTRA_AS_CMD = f"{IDO_53_CC} {LIBULTRA_ASFLAGS} {LIBULTRA_DEFAULT_MIPS_FLAGS} {LIBULTRA_DEFAULT_DEFS} {LIBULTRA_DEFAULT_ASOPT_FLAGS} $in {LIBULTRA_INCLUDES} -o $out && {O32_TOOL} $out && {CROSS_STRIP} $out -N asdasdasdasd"
 
 def clean():
     if os.path.exists(f"versions/{GAME_VERSION}/.splache"):
@@ -150,207 +145,6 @@ def setup():
     print("Setup complete!")
 
 
-def parse_symbol_assignment(line: str):
-    symbol_line = line.split("//", 1)[0].strip()
-    if not symbol_line or "=" not in symbol_line:
-        return None
-
-    name, value = symbol_line.split("=", 1)
-    name = name.strip()
-    value = value.split(";", 1)[0].strip()
-    if not name or not value:
-        return None
-
-    return name, value
-
-
-def symbol_address_from_name(name: str):
-    if name.startswith(".L"):
-        hex_value = name[2:].split("_", 1)[0]
-    else:
-        hex_value = name.split("_", 2)[1]
-
-    return f"0x{int(hex_value, 16):X}"
-
-
-def write_generated_symbol_script():
-    symbols: Dict[str, str] = {}
-
-    for path_str in SYMBOL_ADDRS_PATHS:
-        path = Path(path_str)
-        if not path.exists():
-            continue
-
-        for line in path.read_text(encoding="utf-8").splitlines():
-            assignment = parse_symbol_assignment(line)
-            if assignment is None:
-                continue
-
-            name, value = assignment
-            symbols[name] = value
-
-    for root_str in SYMBOL_SCAN_DIRS:
-        root = Path(root_str)
-        if not root.exists():
-            continue
-
-        for path in root.rglob("*"):
-            if not path.is_file() or path.suffix not in SYMBOL_SCAN_SUFFIXES:
-                continue
-
-            text = path.read_text(encoding="utf-8", errors="ignore")
-            for match in ADDRESS_SYMBOL_RE.finditer(text):
-                name = match.group("name") or match.group("label")
-                symbols.setdefault(name, symbol_address_from_name(name))
-
-    output_path = Path(GENERATED_SYMBOLS_PATH)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    with output_path.open("w", encoding="utf-8", newline="\n") as f:
-        for name in sorted(symbols):
-            f.write(f"{name} = {symbols[name]};\n")
-
-
-def format_slinky_value(value):
-    if value is None:
-        return "null"
-
-    if isinstance(value, bool):
-        return "true" if value else "false"
-
-    if isinstance(value, int):
-        return f"0x{value:X}"
-
-    return str(value)
-
-
-def format_slinky_list(values: List[str]):
-    if not values:
-        return "null"
-
-    return "[" + ", ".join(values) + "]"
-
-
-def ordered_slinky_sections(sections: Iterable[str]):
-    unique_sections = set(sections)
-    ordered_sections = [
-        section for section in SLINKY_SECTION_ORDER if section in unique_sections
-    ]
-    ordered_sections += sorted(unique_sections - set(ordered_sections))
-    return ordered_sections
-
-
-def slinky_linker_path(path: Path):
-    return path.as_posix()
-
-
-def slinky_section_map(entry: LinkerEntry):
-    input_sections = list(SLINKY_INPUT_SECTIONS)
-    section_link = entry.section_link
-    section_order = entry.section_order_type
-
-    if section_link not in input_sections:
-        input_sections.append(section_link)
-
-    section_map: Dict[str, str] = {}
-    for section in input_sections:
-        if section != section_link:
-            section_map[section] = SLINKY_DROP_SECTION
-
-    if section_link != section_order:
-        section_map[section_link] = section_order
-
-    return section_map
-
-
-def format_slinky_file_entry(entry: LinkerEntry):
-    path = slinky_linker_path(entry.object_path)
-    section_map = slinky_section_map(entry)
-    map_entries = ", ".join(
-        f"{section}: {target}" for section, target in section_map.items()
-    )
-
-    return f"      - {{ path: {path}, section_order: {{ {map_entries} }} }}"
-
-
-def write_slinky_config():
-    output_path = Path(SLINKY_CONFIG_PATH)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-
-    lines: List[str] = [
-        "settings:",
-        "  linker_symbols_style: splat",
-        "  alloc_sections: [.text, .data, .rodata]",
-        "  noload_sections: [.bss]",
-        "  subalign: 16",
-        "  wildcard_sections: false",
-        "  fill_value: 0",
-        "",
-        "segments:",
-    ]
-
-    segment_items = sorted(
-        split.segment_roms.items(),
-        key=lambda item: (item[0], item[1], item[2].get_cname()),
-    )
-
-    for item in segment_items:
-        segment = item[2]
-        entries = [
-            entry
-            for entry in segment.get_linker_entries()
-            if entry.object_path is not None
-        ]
-
-        if not entries:
-            continue
-
-        alloc_sections = ordered_slinky_sections(
-            entry.section_order_type for entry in entries if not entry.noload
-        )
-        noload_sections = ordered_slinky_sections(
-            entry.section_order_type for entry in entries if entry.noload
-        )
-
-        lines.append(f"  - name: {segment.get_cname()}")
-
-        if segment.vram_start is not None:
-            lines.append(f"    fixed_vram: {format_slinky_value(segment.vram_start)}")
-
-        if segment.subalign != 16:
-            lines.append(f"    subalign: {format_slinky_value(segment.subalign)}")
-
-        if segment.align is not None:
-            lines.append(f"    section_end_align: {format_slinky_value(segment.align)}")
-            lines.append(f"    segment_end_align: {format_slinky_value(segment.align)}")
-
-        if alloc_sections != [".text", ".data", ".rodata"]:
-            lines.append(f"    alloc_sections: {format_slinky_list(alloc_sections)}")
-
-        if noload_sections != [".bss"]:
-            lines.append(f"    noload_sections: {format_slinky_list(noload_sections)}")
-
-        lines.append("    files:")
-        for entry in entries:
-            lines.append(format_slinky_file_entry(entry))
-        lines.append("")
-
-    output_path.write_text("\n".join(lines), encoding="utf-8")
-
-
-def generate_slinky_linker_script():
-    write_slinky_config()
-
-    if shutil.which(SLINKY) is None and not Path(SLINKY).exists():
-        print(
-            "slinky-cli is required. Install it with "
-            "`cargo install --git https://github.com/decompals/slinky --locked slinky-cli`, "
-            "or set SLINKY=/path/to/slinky-cli."
-        )
-        sys.exit(1)
-
-    subprocess.run([SLINKY, SLINKY_CONFIG_PATH, "-o", LD_PATH], check=True)
-
-
 def write_permuter_settings():
     with open("permuter_settings.toml", "w") as f:
         f.write(
@@ -376,49 +170,139 @@ NULL = "int"
         )
 
 
-def build_c_segment(entry: any, build):
-    opt_level = OPT_FLAGS
-    mips = MIPS_FLAGS
-    ido = "5.3"
-    libultra = "VERSION_H"
+def get_libultra_c_flags(c_path: Path) -> Dict[str, str]:
+    opt_level = LIBULTRA_DEFAULT_OPT_FLAGS
+    mips = LIBULTRA_DEFAULT_MIPS_FLAGS
 
-    c_path = entry.src_paths[0]
-    if "libc" in str(c_path):
+    parts = c_path.parts
+    if "libc" in parts:
         opt_level = "-O3"
-        mips = "-mips2 -32"
 
         if c_path.stem in ["ll", "llbit", "llcvt"]:
+            opt_level = LIBULTRA_DEFAULT_OPT_FLAGS
+            mips = LIBULTRA_MIPS3_FLAGS
+        # Matching exceptions observed in the ROM
+        elif c_path.stem in ["ldiv", "sprintf", "xldtob", "xlitob", "xprintf"]:
+            opt_level = "-O2 -g2"
+            mips = "-mips2 -32"
+        elif c_path.stem == "syncprintf":
+            opt_level = "-O2 -g2"
+            mips = "-mips2 -32"
+        elif c_path.stem == "string":
+            opt_level = "-g2"
+    elif "ultralib" in parts:
+        source_dir = c_path.parent.name
+
+        if (source_dir == "audio" and c_path.stem in ["bnkf", "heapalloc", "heapinit"]) or (
+            source_dir == "io" and c_path.stem == "aisetfreq"
+        ):
+            opt_level = ""
+            mips = LIBULTRA_MATCHING_MIPS2_G1_FLAGS
+        elif source_dir == "audio" and c_path.stem == "csplayer":
+            opt_level = ""
+            mips = "-mips1 -g1 -32"
+        elif source_dir == "audio" and c_path.stem == "seqplayer":
             opt_level = "-O1 -g2"
-            mips = "-mips3 -32"
+        elif source_dir == "audio" and c_path.stem in [
+            "seqpsetbank",
+            "seqpsetvol",
+            "seqpsetfxmix",
+            "seqpgetstate",
+            "seqpsetseq",
+            "seqpplay",
+            "seqpstop",
+            "seqpsetchlvol",
+            "seqpsetpan",
+        ]:
+            opt_level = "-O2 -g2"
+            mips = "-mips2 -32"
+        elif source_dir == "audio" and c_path.stem in ["synthesizer", "cseq"]:
+            opt_level = "-O1 -g2"
+        elif source_dir == "audio" and c_path.stem in [
+            "auxbus",
+            "cents2ratio",
+            "copy",
+            "drvrnew",
+            "event",
+            "env",
+            "filter",
+            "load",
+            "mainbus",
+            "reverb",
+            "resample",
+            "save",
+            "seq",
+            "sl",
+            "synallocvoice",
+            "synallocfx",
+            "synstartvoiceparam",
+            "syndelete",
+            "synfreevoice",
+            "synsetfxmix",
+            "synsetpitch",
+            "synsetpan",
+            "synsetpriority",
+            "synsetvol",
+            "synstopvoice",
+        ]:
+            opt_level = "-O1 -g2"
+        elif source_dir == "sp" and c_path.stem in ["sprite", "clearattribute", "setattribute", "color", "spscale"]:
+            opt_level = "-g2"
+        elif source_dir == "gu" and c_path.stem in [
+            "perspective",
+            "ortho",
+            "rotate",
+            "scale",
+            "translate",
+            "lookat",
+            "mtxutil",
+            "normalize",
+        ]:
+            opt_level = "-g2"
+        elif source_dir == "gu" and c_path.stem in ["cosf", "sinf"]:
+            opt_level = "-g2"
+        elif source_dir in LIBULTRA_O3_DIRS:
+            opt_level = "-O3"
+        elif c_path.stem == "initialize_isv":
+            opt_level = "-O2"
+
+    return {"opt_flags": opt_level, "mips": mips}
+
+
+def get_libultra_c_defs(c_path: Path) -> str:
+    if "ultralib" in c_path.parts and c_path.parent.name == "audio" and c_path.stem == "csplayer":
+        return LIBULTRA_NODEBUG_DEFS
+
+    if "ultralib" in c_path.parts and c_path.parent.name == "sp" and c_path.stem == "sprite":
+        return LIBULTRA_DEFAULT_DEFS.replace("-DF3DEX_GBI", "-DF3D_GBI")
+
+    return LIBULTRA_DEFAULT_DEFS
+
+
+def build_c_segment(entry: any, build):
+    opt_level = OPT_FLAGS
+    ido = "5.3"
+
+    c_path = entry.src_paths[0]
+    if "libc" in c_path.parts or "ultralib" in c_path.parts:
+        libultra_flags = get_libultra_c_flags(c_path)
         build(
             entry.object_path,
             entry.src_paths,
             "cc_libultra",
             variables={
-                "flags": f"{opt_level} {mips}",
-                "libultra": libultra,
+                "opt_flags": libultra_flags["opt_flags"],
+                "mips": libultra_flags["mips"],
+                "defs": get_libultra_c_defs(c_path),
                 "ido": TOOLS_DIR / ("ido" + ido) / "cc",
             },
         )
-    elif "ultralib" in str(c_path):
-        opt_level = "-O2 -g2"
-        mips = "-mips2"
-
-        build(
-                entry.object_path,
-                entry.src_paths,
-                "cc_libultra",
-                variables={
-                    "flags": f"{opt_level} {mips}",
-                    "ido": TOOLS_DIR / ("ido" + ido) / "cc",
-                    "libultra": libultra,
-                },
-            )
     else:
         build(
                 entry.object_path,
                 entry.src_paths,
                 "cc",
+                implicit=[ASM_PROCESSOR_PRELUDE],
                 variables={"flags": opt_level},
             )
 
@@ -430,6 +314,7 @@ def create_build_script(linker_entries: List[LinkerEntry]):
         src_paths: List[Path],
         task: str,
         variables: Dict[str, str] = {},
+        implicit: List[str] = [],
         implicit_outputs: List[str] = [],
     ):
         if not isinstance(object_paths, list):
@@ -444,6 +329,7 @@ def create_build_script(linker_entries: List[LinkerEntry]):
                 outputs=object_strs,
                 rule=task,
                 inputs=[str(s) for s in src_paths],
+                implicit=implicit,
                 variables=variables,
                 implicit_outputs=implicit_outputs,
             )
@@ -482,15 +368,9 @@ def create_build_script(linker_entries: List[LinkerEntry]):
     )
 
     ninja.rule(
-        "symbols",
-        description=f"symbols {GENERATED_SYMBOLS_PATH}",
-        command=f"{PYTHON} configure.py --symbols",
-    )
-
-    ninja.rule(
         "ld",
         description="link $out",
-        command=f"{PYTHON} configure.py --symbols && {CROSS_LD} -T {GENERATED_SYMBOLS_PATH} -T versions/{GAME_VERSION}/undefined_syms_auto.txt -T versions/{GAME_VERSION}/undefined_funcs_auto.txt -T versions/{GAME_VERSION}/undefined_funcs.txt -T versions/{GAME_VERSION}/undefined_syms.txt -Map $mapfile -T $in -o $out",
+        command=f"{CROSS_LD} -T versions/{GAME_VERSION}/undefined_syms_auto.txt -T versions/{GAME_VERSION}/undefined_funcs_auto.txt -T versions/{GAME_VERSION}/undefined_funcs.txt -T versions/{GAME_VERSION}/undefined_syms.txt -Map $mapfile -T $in -o $out",
     )
 
     ninja.rule(
@@ -514,10 +394,17 @@ def create_build_script(linker_entries: List[LinkerEntry]):
     for entry in linker_entries:
         seg = entry.segment
 
-        if seg.type[0] == ".":
+        if entry.object_path is None:
             continue
 
-        if entry.object_path is None:
+        if entry.object_path in built_objects:
+            continue
+
+        if seg.type[0] == ".":
+            if entry.src_paths and entry.src_paths[0].suffix == ".c":
+                build_c_segment(entry, build)
+            elif entry.src_paths and entry.src_paths[0].suffix == ".s":
+                build(entry.object_path, entry.src_paths, "as")
             continue
 
         if isinstance(seg, splat.segtypes.n64.header.N64SegHeader):
@@ -538,18 +425,11 @@ def create_build_script(linker_entries: List[LinkerEntry]):
             sys.exit(1)
 
     ninja.build(
-        GENERATED_SYMBOLS_PATH,
-        "symbols",
-        implicit=SYMBOL_ADDRS_PATHS,
-    )
-
-    ninja.build(
         ELF_PATH,
         "ld",
         LD_PATH,
         implicit=[str(obj) for obj in sorted(built_objects)]
         + [
-            GENERATED_SYMBOLS_PATH,
             f"versions/{GAME_VERSION}/undefined_syms_auto.txt",
             f"versions/{GAME_VERSION}/undefined_funcs_auto.txt",
             f"versions/{GAME_VERSION}/undefined_funcs.txt",
@@ -570,55 +450,6 @@ def create_build_script(linker_entries: List[LinkerEntry]):
         [Z64_PATH, f"checksum.{GAME_VERSION}.sha1"],
     )
 
-
-def graph_segments():
-    import pandas as pd
-    import numpy as np
-    import matplotlib.pyplot as plt
-    from splat.segtypes.segment import Segment
-
-    graph_items = []
-    vram_start = 0x80000400
-
-    for item in split.segment_rams.items():
-        segment: Segment = item[2]
-        graph_items.append(
-            dict(
-                Segment=segment.name,
-                VRAMStart=segment.vram_start,
-                VRAMEnd=segment.vram_end,
-                VRAMLength=segment.vram_end - segment.vram_start,
-                PosFromStart=segment.vram_start - vram_start,
-            )
-        )
-
-    # Sort graph_items by VRAMStart
-    graph_items = sorted(graph_items, key=lambda x: x["VRAMStart"])
-
-    df = pd.DataFrame(graph_items)
-    plt.barh(y=df["Segment"], width=df["VRAMLength"], left=df["PosFromStart"])
-    plt.grid(axis="x")
-
-    axes = plt.gca()
-    xlabels = map(lambda t: "0x%08X" % (int(t) + vram_start), axes.get_xticks())
-    axes.set_xticklabels(xlabels)
-
-    plt.show()
-
-
-def remove_multiline_comments(input_file):
-    with open(input_file, 'r') as file:
-        text = file.read()
-
-    pattern = r'/\*[\s\S]*?\*/'
-    result = re.sub(pattern, '', text)
-
-    # Remove empty lines from the result
-    lines = result.splitlines()
-    non_empty_lines = [line for line in lines if line.strip()]
-
-    with open(input_file, 'w') as file:
-        file.write('\n'.join(non_empty_lines))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Configure the project")
@@ -641,12 +472,6 @@ if __name__ == "__main__":
         action="store_true",
     )
     parser.add_argument(
-        "-d",
-        "--disassemble-all",
-        help="Disassemble all",
-        action="store_true",
-    )
-    parser.add_argument(
         "-b",
         "--build",
         help="Build",
@@ -658,26 +483,17 @@ if __name__ == "__main__":
         help="Split",
         action="store_true",
     )
-    parser.add_argument(
-        "--symbols",
-        help="Generate linker symbols for address-style references",
-        action="store_true",
-    )
     args = parser.parse_args()
-
-    if args.symbols:
-        write_generated_symbol_script()
-        if not any([args.fullclean, args.clean, args.setup, args.split, args.build]):
-            sys.exit(0)
 
     if args.fullclean:
         fullclean()
-
-    if args.clean:
+    elif args.clean:
         clean()
 
     if args.setup:
         setup()
+
+    if not any([args.split, args.build]):
         sys.exit(0)
 
     if not Path(f"baserom.{GAME_VERSION}.z64").exists():
@@ -685,11 +501,8 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if args.split:
-        split.main([Path(YAML_FILE)], modes="all", verbose=False, disassemble_all=args.disassemble_all)
+        split.main([Path(YAML_FILE)], modes="all", verbose=False)
         linker_entries = split.linker_writer.entries
-        generate_slinky_linker_script()
-        # graph_segments()
-        write_generated_symbol_script()
         create_build_script(linker_entries)
         write_permuter_settings()
 

@@ -3,14 +3,14 @@
 #include "osint.h"
 
 void osSetThreadPri(OSThread* t, OSPri pri) {
-    register u32 saveMask;
+    register u32 save_mask;
 
     if ((pri < OS_PRIORITY_IDLE) || (pri > OS_PRIORITY_MAX)) {
         __osError(ERR_OSSETTHREADPRI, 1, pri);
         return;
     }
 
-    saveMask = __osDisableInt();
+    save_mask = __osDisableInt();
 
     if (t == NULL) {
         t = __osRunningThread;
@@ -30,6 +30,5 @@ void osSetThreadPri(OSThread* t, OSPri pri) {
         }
     }
 
-    __osRestoreInt(saveMask);
+    __osRestoreInt(save_mask);
 }
-

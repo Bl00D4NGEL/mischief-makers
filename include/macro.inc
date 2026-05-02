@@ -14,6 +14,12 @@
     \label:
 .endm
 
+.macro alabel label, visibility=global
+    .\visibility \label
+    .type \label, @function
+    \label:
+.endm
+
 .macro endlabel label
     .size \label, . - \label
 .endm

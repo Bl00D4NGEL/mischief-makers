@@ -4,7 +4,8 @@
 #include "viint.h"
 
 void osViSwapBuffer(void* frameBufPtr) {
-    u32 saveMask;
+    u32 save_mask;
+
     if (!__osViDevMgr.active) {
         __osError(ERR_OSVISWAPBUFFER_VIMGR, 0);
         return;
@@ -17,10 +18,9 @@ void osViSwapBuffer(void* frameBufPtr) {
         return;
     }
 
-    saveMask = __osDisableInt();
+    save_mask = __osDisableInt();
 
     __osViNext->framep = frameBufPtr;
     __osViNext->state |= VI_STATE_BUFFER_UPDATED;
-    __osRestoreInt(saveMask);
+    __osRestoreInt(save_mask);
 }
-

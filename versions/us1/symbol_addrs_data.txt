@@ -1,5 +1,6 @@
 gFramesInScene = 0x800BE4E4; // size:0x2
 gGamePaused = 0x800BE4E8; // size:0x2
+D_800BE4EC = 0x800BE4EC; // size:0x2
 gGameState = 0x800BE4F0; // size:0x2
 gGameStateSubState = 0x800BE4F4; // size:0x2
 
@@ -33,3 +34,33 @@ gButtonPress = 0x800BE4FC; // size:0x2
 gButtonLast = 0x800BE538; // size:0x2
 gJoyX = 0x800BE53C; // size:0x1
 gJoyY = 0x800BE540; // size:0x1
+
+// Literal constants that should not be emitted as linker symbols
+D_1000000 = 0x01000000; // ignore:true
+D_10CE330 = 0x010CE330; // ignore:true
+D_119EB70 = 0x0119EB70; // ignore:true
+D_11B1BF0 = 0x011B1BF0; // ignore:true
+D_11BD940 = 0x011BD940; // ignore:true
+D_11C1D30 = 0x011C1D30; // ignore:true
+D_4000000 = 0x04000000; // ignore:true
+D_407C860 = 0x0407C860; // ignore:true
+D_4081620 = 0x04081620; // ignore:true
+D_4091D20 = 0x04091D20; // ignore:true
+D_40AC80 = 0x0040AC80; // ignore:true
+D_40E17F0 = 0x040E17F0; // ignore:true
+D_40F50F0 = 0x040F50F0; // ignore:true
+D_40F52F8 = 0x040F52F8; // ignore:true
+D_5095C98 = 0x05095C98; // ignore:true
+D_7FFFF = 0x0007FFFF; // ignore:true
+D_7FFFFF00 = 0x7FFFFF00; // ignore:true
+D_80000004 = 0x80000004; // ignore:true
+D_80000008 = 0x80000008; // ignore:true
+D_80000100 = 0x80000100; // ignore:true
+D_A4400000 = 0xA4400000; // ignore:true
+D_A4500004 = 0xA4500004; // ignore:true
+D_A4600000 = 0xA4600000; // ignore:true
+D_A4800000 = 0xA4800000; // ignore:true
+D_A4800010 = 0xA4800010; // ignore:true
+D_C0000000 = 0xC0000000; // ignore:true
+D_C0000008 = 0xC0000008; // ignore:true
+D_FFC0001F = 0xFFC0001F; // ignore:true

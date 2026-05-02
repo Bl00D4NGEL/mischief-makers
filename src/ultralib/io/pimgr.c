@@ -1,7 +1,7 @@
 #include <PRinternal/macros.h>
 #include <PR/os_internal.h>
 #include <PR/ultraerror.h>
-#include "piint.h"
+#include <PRinternal/piint.h>
 #include <PR/rdb.h>
 
 // bss
@@ -19,21 +19,20 @@ static OSMesgQueue piEventQueue ALIGNED(8);
 static OSMesg piEventBuf[1];
 
 // data
-OSDevMgr __osPiDevMgr = { 0 };
+OSDevMgr __osPiDevMgr = {0};
 OSPiHandle* __osPiTable = NULL;
 
-OSPiHandle* __osCurrentHandle[2] ALIGNED(8) = { &CartRomHandle, &LeoDiskHandle };
+OSPiHandle* __osCurrentHandle[2] ALIGNED(8) = {&CartRomHandle, &LeoDiskHandle};
 
 extern OSPiHandle CartRomHandle;
 extern OSPiHandle LeoDiskHandle;
 
 static void ramromMain(void*);
 
-
 void osCreatePiManager(OSPri pri, OSMesgQueue* cmdQ, OSMesg* cmdBuf, s32 cmdMsgCnt) {
-    u32 savedMask;
-    OSPri oldPri;
-    OSPri myPri;
+    u32 saved_mask;
+    OSPri old_priority;
+    OSPri my_priority;
 
     if ((pri < OS_PRIORITY_IDLE) || (pri > OS_PRIORITY_MAX)) {
         __osError(ERR_OSCREATEPIMANAGER, 1, pri);
@@ -51,15 +50,15 @@ void osCreatePiManager(OSPri pri, OSMesgQueue* cmdQ, OSMesg* cmdBuf, s32 cmdMsgC
     }
 
     osSetEventMesg(OS_EVENT_PI, &piEventQueue, (OSMesg)0x22222222);
-    oldPri = -1;
-    myPri = osGetThreadPri(NULL);
+    old_priority = -1;
+    my_priority = osGetThreadPri(NULL);
 
-    if (myPri < pri) {
-        oldPri = myPri;
+    if (my_priority < pri) {
+        old_priority = my_priority;
         osSetThreadPri(NULL, pri);
     }
 
-    savedMask = __osDisableInt();
+    saved_mask = __osDisableInt();
     __osPiDevMgr.active = 1;
     __osPiDevMgr.thread = &piThread;
     __osPiDevMgr.cmdQueue = cmdQ;
@@ -72,10 +71,10 @@ void osCreatePiManager(OSPri pri, OSMesgQueue* cmdQ, OSMesg* cmdBuf, s32 cmdMsgC
 
     osCreateThread(&ramromThread, 0, ramromMain, NULL, ramromThreadStack + 1024, (OSPri)pri - 1);
     osStartThread(&ramromThread);
-    __osRestoreInt(savedMask);
+    __osRestoreInt(saved_mask);
 
-    if (oldPri != -1) {
-        osSetThreadPri(NULL, oldPri);
+    if (old_priority != -1) {
+        osSetThreadPri(NULL, old_priority);
     }
 }
 
@@ -104,4 +103,3 @@ static void ramromMain(void* arg) {
         __osPiRelAccess();
     }
 }
-

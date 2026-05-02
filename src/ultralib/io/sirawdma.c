@@ -28,4 +28,3 @@ s32 __osSiRawStartDma(s32 direction, void* dramAddr) {
 
     return 0;
 }
-

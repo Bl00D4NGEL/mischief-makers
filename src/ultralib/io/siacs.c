@@ -23,4 +23,3 @@ void __osSiGetAccess(void) {
 void __osSiRelAccess(void) {
     osSendMesg(&__osSiAccessQueue, NULL, OS_MESG_NOBLOCK);
 }
-

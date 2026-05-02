@@ -8,4 +8,3 @@ OSPri osGetThreadPri(OSThread* thread) {
 
     return thread->priority;
 }
-

@@ -3,20 +3,21 @@
 #include "osint.h"
 
 s32 osRecvMesg(OSMesgQueue* mq, OSMesg* msg, s32 flags) {
-    register u32 saveMask;
+    register u32 save_mask;
 
     if ((flags != OS_MESG_NOBLOCK) && (flags != OS_MESG_BLOCK)) {
         __osError(ERR_OSRECVMESG, 1, flags);
         return -1;
     }
 
-    saveMask = __osDisableInt();
+    save_mask = __osDisableInt();
 
     while (MQ_IS_EMPTY(mq)) {
         if (flags == OS_MESG_NOBLOCK) {
-            __osRestoreInt(saveMask);
+            __osRestoreInt(save_mask);
             return -1;
-        } else {
+        }
+        else {
             __osRunningThread->state = OS_STATE_WAITING;
             __osEnqueueAndYield(&mq->mtqueue);
         }
@@ -33,7 +34,6 @@ s32 osRecvMesg(OSMesgQueue* mq, OSMesg* msg, s32 flags) {
         osStartThread(__osPopThread(&mq->fullqueue));
     }
 
-    __osRestoreInt(saveMask);
+    __osRestoreInt(save_mask);
     return 0;
 }
-

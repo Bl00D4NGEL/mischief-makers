@@ -1,6 +1,6 @@
 # Mischief Makers
-[![Match Status](https://img.shields.io/badge/matched-3.37-brightgreen.svg)]()
-[![Decomp Status](https://img.shields.io/badge/decompiled-6.53-yellow.svg)]()
+[![Match Status](https://img.shields.io/badge/matched-17.81-brightgreen.svg)]()
+[![Decomp Status](https://img.shields.io/badge/decompiled-17.81-yellow.svg)]()
 
 A in-progress decompilation of Mischief Makers (or Yuke-Yuke!! Trouble Makers, ゆけゆけ!!トラブルメーカーズ, Yuke Yuke!! Toraburu Mēkāzu in Japanese.)
 
@@ -17,12 +17,11 @@ The build process has the following package requirements:
 - python3
 - python3-venv
 - ninja-build
-- cargo
 
 Under a Debian based distribution, you can install these with the following commands:
 ```
 sudo apt update
-sudo apt install git build-essential binutils-mips-linux-gnu gcc-mips-linux-gnu python3 python3-venv ninja-build cargo
+sudo apt install git build-essential binutils-mips-linux-gnu gcc-mips-linux-gnu python3 python3-venv ninja-build
 ```
 
 ### Clone the repository
@@ -45,19 +44,12 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 ```
 
+Also note that you can do the following:
+```
+source .venv/bin/activate
+```
+
 Run `configure.py` through this venv Python.
-
-### Install Slinky
-The build uses Slinky to generate the final linker script from the split linker entries. Install `slinky-cli` and ensure it is on `PATH`:
-```
-cargo install --git https://github.com/decompals/slinky --locked slinky-cli
-slinky-cli --version
-```
-
-If `slinky-cli` is not on `PATH`, set `SLINKY` when configuring:
-```
-SLINKY=/path/to/slinky-cli .venv/bin/python configure.py --split
-```
 
 ### Prepare the base rom
 Copy over your copy of Mischief Makers 1.1 US into the root folder of this repository. Rename the rom to baserom.us1.z64.
@@ -71,7 +63,6 @@ To extract, disassemble, generate the build script, and build the ROM:
 ```
 .venv/bin/python configure.py --split --build
 ```
-The split step writes `build/mischiefmakers.slinky.yaml` and uses Slinky to generate `versions/us1/mischiefmakers.ld`.
 
 ## Build the rom
 Just run `ninja`, or alternatively, `./configure.py -sb`. A folder named 'build' will be produced, inside this will be the output rom `mischiefmakers.z64`. If the rom matches, you should see the following output in the console:
@@ -86,7 +77,6 @@ Use the venv Python for configure commands:
 .venv/bin/python configure.py --clean
 .venv/bin/python configure.py --fullclean
 .venv/bin/python configure.py --split
-.venv/bin/python configure.py --symbols
 ```
 
 ## Contributing

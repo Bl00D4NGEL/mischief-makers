@@ -13,4 +13,3 @@ u32 osVirtualToPhysical(void* addr) {
         return __osProbeTLB(addr);
     }
 }
-

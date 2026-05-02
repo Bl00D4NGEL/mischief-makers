@@ -1,6 +1,193 @@
 #include "common.h"
+#include "actor.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_80016E70.s")
+extern ActorFunc D_800E5AC0[];
+extern ActorFunc D_80192000[];
+extern ActorFunc D_8019B000[];
+extern ActorFunc D_801A6800[];
+extern ActorFunc D_801B0800[];
+
+void func_80016E70(u16 actor_index) {
+    u8 index = D_800EF510[actor_index].unk_0D2 & 0xFFFF;
+
+    switch (D_800EF510[actor_index].unk_0D2 >> 8) {
+        case 1:
+            D_801B0800[index](actor_index);
+            break;
+
+        case 2:
+            D_8019B000[index](actor_index);
+            break;
+
+        case 3:
+            D_8019B000[index](actor_index);
+            break;
+
+        case 4:
+            D_801B0800[index](actor_index);
+            break;
+
+        case 5:
+            D_801B0800[index](actor_index);
+            break;
+
+        case 6:
+            D_80192000[index](actor_index);
+            break;
+
+        case 7:
+            D_801B0800[index](actor_index);
+            break;
+
+        case 8:
+            D_800E5AC0[index](actor_index);
+            break;
+
+        case 9:
+            D_8019B000[index](actor_index);
+            break;
+
+        case 10:
+            D_8019B000[index](actor_index);
+            break;
+
+        case 11:
+            D_8019B000[index](actor_index);
+            break;
+
+        case 12:
+            D_8019B000[index](actor_index);
+            break;
+
+        case 13:
+            D_8019B000[index](actor_index);
+            break;
+
+        case 14:
+            D_801B0800[index](actor_index);
+            break;
+
+        case 15:
+            D_80192000[index](actor_index);
+            break;
+
+        case 16:
+            D_80192000[index](actor_index);
+            break;
+
+        case 17:
+            D_8019B000[index](actor_index);
+            break;
+
+        case 18:
+            D_8019B000[index](actor_index);
+            break;
+
+        case 19:
+            D_8019B000[index](actor_index);
+            break;
+
+        case 20:
+            D_80192000[index](actor_index);
+            break;
+
+        case 21:
+            D_80192000[index](actor_index);
+            break;
+
+        case 22:
+            D_80192000[index](actor_index);
+            break;
+
+        case 23:
+            D_801A6800[index](actor_index);
+            break;
+
+        case 24:
+            D_801A6800[index](actor_index);
+            break;
+
+        case 25:
+            D_80192000[index](actor_index);
+            break;
+
+        case 26:
+            D_801A6800[index](actor_index);
+            break;
+
+        case 27:
+            D_801B0800[index](actor_index);
+            break;
+
+        case 28:
+            D_801A6800[index](actor_index);
+            break;
+
+        case 29:
+            D_801A6800[index](actor_index);
+            break;
+
+        case 30:
+            D_801A6800[index](actor_index);
+            break;
+
+        case 31:
+            D_801A6800[index](actor_index);
+            break;
+
+        case 32:
+            D_801A6800[index](actor_index);
+            break;
+
+        case 33:
+            D_80192000[index](actor_index);
+            break;
+
+        case 34:
+            D_80192000[index](actor_index);
+            break;
+
+        case 35:
+            D_80192000[index](actor_index);
+            break;
+
+        case 36:
+            D_80192000[index](actor_index);
+            break;
+
+        case 37:
+            D_801A6800[index](actor_index);
+            break;
+
+        case 38:
+            D_80192000[index](actor_index);
+            break;
+
+        case 39:
+            D_801B0800[index](actor_index);
+            break;
+
+        case 40:
+            D_801B0800[index](actor_index);
+            break;
+
+        case 41:
+            D_801B0800[index](actor_index);
+            break;
+
+        case 42:
+            D_801B0800[index](actor_index);
+            break;
+
+        case 43:
+            D_80192000[index](actor_index);
+            break;
+
+        case 44:
+            D_80192000[index](actor_index);
+            break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_8001751C.s")
 

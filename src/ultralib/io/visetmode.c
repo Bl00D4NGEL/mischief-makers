@@ -1,11 +1,10 @@
 #include "PR/os_internal.h"
 #include "PR/ultraerror.h"
 #include "assert.h"
-#include "viint.h"
-
+#include "PRinternal/viint.h"
 
 void osViSetMode(OSViMode* modep) {
-    register u32 saveMask;
+    register u32 save_mask;
 
     if (!__osViDevMgr.active) {
         __osError(ERR_OSVISETMODE, 0);
@@ -14,11 +13,10 @@ void osViSetMode(OSViMode* modep) {
 
     assert(modep != NULL, "../io/visetmode.c", 58);
 
-    saveMask = __osDisableInt();
+    save_mask = __osDisableInt();
 
     __osViNext->modep = modep;
     __osViNext->state = VI_STATE_MODE_UPDATED;
     __osViNext->control = __osViNext->modep->comRegs.ctrl;
-    __osRestoreInt(saveMask);
+    __osRestoreInt(save_mask);
 }
-

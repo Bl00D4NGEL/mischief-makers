@@ -1,10 +1,10 @@
 #include <PR/os_internal.h>
 #include <PR/ultraerror.h>
 #include "assert.h"
-#include "viint.h"
+#include "PRinternal/viint.h"
 
-void osViSetEvent(OSMesgQueue* mq, OSMesg m, u32 retraceCount) {
-    register u32 saveMask;
+void osViSetEvent(OSMesgQueue* mq, OSMesg msg, u32 retrace_count) {
+    register u32 save_mask;
 
     if (!__osViDevMgr.active) {
         __osError(ERR_OSVISETEVENT, 0);
@@ -13,11 +13,10 @@ void osViSetEvent(OSMesgQueue* mq, OSMesg m, u32 retraceCount) {
 
     assert(mq != NULL, "../io/visetevent.c", 61);
 
-    saveMask = __osDisableInt();
+    save_mask = __osDisableInt();
 
     __osViNext->msgq = mq;
-    __osViNext->msg = m;
-    __osViNext->retraceCount = retraceCount;
-    __osRestoreInt(saveMask);
+    __osViNext->msg = msg;
+    __osViNext->retraceCount = retrace_count;
+    __osRestoreInt(save_mask);
 }
-

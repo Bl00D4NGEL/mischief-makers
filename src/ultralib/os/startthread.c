@@ -3,7 +3,7 @@
 #include "osint.h"
 
 void osStartThread(OSThread* t) {
-    register u32 saveMask = __osDisableInt();
+    register u32 save_mask = __osDisableInt();
 
     switch (t->state) {
         case OS_STATE_WAITING:
@@ -23,7 +23,7 @@ void osStartThread(OSThread* t) {
             break;
         default:
             __osError(ERR_OSSTARTTHREAD, 0);
-            __osRestoreInt(saveMask);
+            __osRestoreInt(save_mask);
             return;
     }
 
@@ -35,6 +35,5 @@ void osStartThread(OSThread* t) {
         __osEnqueueAndYield(&__osRunQueue);
     }
 
-    __osRestoreInt(saveMask);
+    __osRestoreInt(save_mask);
 }
-

@@ -1,6 +1,7 @@
 #include "PR/os_internal.h"
 #include "PR/rcp.h"
 #include "PR/os_version.h"
+#include "PRinternal/piint.h"
 
 typedef struct {
     /* 0x0 */ unsigned int inst1;
@@ -22,16 +23,16 @@ u32 __OSGlobalIntMask = OS_IM_ALL;
 u32 __kmc_pt_mode;
 
 void __osInitialize_common(void) {
-    u32 pifdata;
+    u32 pif_data;
     u32 clock = 0;
 
     __osSetSR(__osGetSR() | SR_CU1);    // enable fpu
     __osSetFpcCsr(FPCSR_FS | FPCSR_EV); // flush denorm to zero, enable invalid operation
 
-    while (__osSiRawReadIo(PIF_RAM_END - 3, &pifdata)) { // last byte of joychannel ram
+    while (__osSiRawReadIo(PIF_RAM_END - 3, &pif_data)) { // last byte of joychannel ram
         ;
     }
-    while (__osSiRawWriteIo(PIF_RAM_END - 3, pifdata | 8)) {
+    while (__osSiRawWriteIo(PIF_RAM_END - 3, pif_data | 8)) {
         ; // todo: magic contant
     }
     *(__osExceptionVector*)UT_VEC = *__osExceptionPreamble;
@@ -64,23 +65,23 @@ void __osInitialize_common(void) {
     }
 
     if (!__kmc_pt_mode) {
-        int (*fnc)();
-        unsigned int c;
-        unsigned int c1;
-        unsigned int* src;
-        unsigned int* dst;
-        unsigned int monadr;
-        volatile unsigned int* mon;
-        volatile unsigned int* stat;
+        int (*func)();
+        u32 c;
+        u32 c1;
+        u32* src;
+        u32* dst;
+        u32 monitor_address;
+        volatile u32* monitor;
+        volatile u32* status;
 
-        stat = (unsigned*)0xbff08004;
-        mon = (unsigned*)0xBFF00000;
-        if (*mon != 0x4B4D4300) {
+        status = (u32*)0xbff08004;
+        monitor = (u32*)0xBFF00000;
+        if (*monitor != 0x4B4D4300) {
             return;
         }
 
-        src = (unsigned*)__ptExceptionPreamble;
-        dst = (unsigned*)E_VEC;
+        src = (u32*)__ptExceptionPreamble;
+        dst = (u32*)E_VEC;
         *dst++ = *src++;
         *dst++ = *src++;
         *dst++ = *src++;
@@ -96,26 +97,25 @@ void __osInitialize_common(void) {
 
         __kmc_pt_mode = TRUE;
 
-        if ((*stat & 0x10) == 0) {
-            monadr = *(mon + 1);
-            if (monadr != 0xBFF00000) {
-                unsigned int* src;
-                unsigned int* dst = monadr | 0x20000000;
-                unsigned int ct = 0x2000 / 4;
+        if ((*status & 0x10) == 0) {
+            monitor_address = *(monitor + 1);
+            if (monitor_address != 0xBFF00000) {
+                u32* src;
+                u32* dst = monitor_address | 0x20000000;
+                u32 count = 0x2000 / 4;
 
                 src = 0xBFF00000;
 
-                while (ct != 0) {
+                while (count != 0) {
                     *dst++ = *src++;
-                    ct--;
+                    count--;
                 }
             }
-            fnc = monadr + 8;
-            fnc(0x4B4D4300, 0);
+            func = monitor_address + 8;
+            func(0x4B4D4300, 0);
         }
     }
 }
 
-static void ptstart() {
+static void ptstart(void) {
 }
-

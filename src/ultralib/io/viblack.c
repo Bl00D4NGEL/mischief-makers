@@ -2,14 +2,14 @@
 #include "viint.h"
 
 void osViBlack(u8 active) {
-    register u32 saveMask = __osDisableInt();
+    register u32 save_mask = __osDisableInt();
 
     if (active) {
         __osViNext->state |= VI_STATE_BLACK;
-    } else {
+    }
+    else {
         __osViNext->state &= ~VI_STATE_BLACK;
     }
 
-    __osRestoreInt(saveMask);
+    __osRestoreInt(save_mask);
 }
-

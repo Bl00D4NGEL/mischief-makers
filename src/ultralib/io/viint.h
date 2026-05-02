@@ -19,7 +19,7 @@
 #define VI_CTRL_ANTIALIAS_MODE_2 0x00200 /* Bit [9:8] anti-alias mode */
 #define VI_CTRL_ANTIALIAS_MODE_1 0x00100 /* Bit [9:8] anti-alias mode */
 
-#define VI_SCALE_MASK 0xfff //see rcp scale_x/scale_y
+#define VI_SCALE_MASK 0xfff // see rcp scale_x/scale_y
 #define VI_2_10_FPART_MASK 0x3ff
 #define VI_SUBPIXEL_SH 0x10
 
@@ -36,7 +36,7 @@
 #define F210(val) FTOFIX(val, 2, 10)
 #define SCALE(scaleup, off) (F210((1.0f / (f32)(scaleup))) | (F210((f32)(off)) << 16))
 
-#define VCURRENT(v) v //seemingly unused
+#define VCURRENT(v) v // seemingly unused
 #define ORIGIN(v) v
 #define VINTR(v) v
 #define HSTART START
@@ -52,21 +52,20 @@ typedef struct
 {
     /* 0x0 */ u16 state;
     /* 0x2 */ u16 retraceCount;
-    /* 0x4 */ void *framep;
-    /* 0x8 */ OSViMode *modep;
+    /* 0x4 */ void* framep;
+    /* 0x8 */ OSViMode* modep;
     /* 0xC */ u32 control;
-    /* 0x10 */ OSMesgQueue *msgq;
+    /* 0x10 */ OSMesgQueue* msgq;
     /* 0x14 */ OSMesg msg;
     /* 0x18 */ __OSViScale x;
     /* 0x24 */ __OSViScale y;
 } __OSViContext; // 0x30 bytes
 
 void __osViSwapContext(void);
-extern __OSViContext *__osViCurr;
-extern __OSViContext *__osViNext;
+extern __OSViContext* __osViCurr;
+extern __OSViContext* __osViNext;
 extern u32 __additional_scanline;
-__OSViContext *__osViGetCurrentContext(void);
+__OSViContext* __osViGetCurrentContext(void);
 void __osViInit(void);
-extern	OSDevMgr	__osViDevMgr;
+extern OSDevMgr __osViDevMgr;
 #endif
-

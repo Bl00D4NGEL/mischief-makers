@@ -9,4 +9,3 @@ extern u64 __osThprofHeap[];
 extern void* __osThprofStack;
 
 void osThreadProfileCallback(OSThread*);
-
