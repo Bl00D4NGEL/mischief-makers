@@ -12,7 +12,9 @@ import ninja_syntax
 import requests
 import splat
 import splat.scripts.split as split
+from splat.segtypes.common.codesubsegment import CommonSegCodeSubsegment
 from splat.segtypes.linker_entry import LinkerEntry
+from splat.util import options as splat_options
 
 ROOT = Path(__file__).parent.relative_to(os.getcwd())
 TOOLS_DIR = ROOT / "tools"
@@ -20,6 +22,57 @@ PYTHON = sys.executable
 
 BASENAME = "mischiefmakers"
 GAME_VERSION = "us1"
+
+# TODO: Not this
+def split_as_asmtu_file_with_dot_siblings(self, out_path):
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    self.print_file_boundaries()
+
+    with open(out_path, "w", encoding="utf-8", newline="\n") as asm_file:
+        for line in self.get_asm_file_header():
+            asm_file.write(line + "\n")
+
+        if self.spim_section is not None:
+            asm_file.write(self.spim_section.disassemble())
+
+        emitted_sections = {self.get_linker_section_linksection()}
+        for section in self.section_order:
+            if section in emitted_sections:
+                continue
+
+            sibling = self.siblings.get(section)
+            if asmtu_should_emit_sibling(self, sibling):
+                asm_file.write("\n")
+                asm_file.write(f"{sibling.get_section_asm_line()}\n\n")
+                asm_file.write(sibling.spim_section.disassemble())
+                emitted_sections.add(section)
+
+        for section, sibling in self.siblings.items():
+            if section in emitted_sections:
+                continue
+
+            if asmtu_should_emit_sibling(self, sibling):
+                asm_file.write("\n")
+                asm_file.write(f"{sibling.get_section_asm_line()}\n\n")
+                asm_file.write(sibling.spim_section.disassemble())
+                emitted_sections.add(section)
+
+
+def asmtu_should_emit_sibling(parent, sibling):
+    if not isinstance(sibling, CommonSegCodeSubsegment):
+        return False
+
+    if sibling.spim_section is None:
+        return False
+
+    if parent.type == "asmtu" and sibling.type.startswith("."):
+        return True
+
+    return (not sibling.should_self_split()) or splat_options.opts.make_full_disasm_for_code
+
+
+CommonSegCodeSubsegment.split_as_asmtu_file = split_as_asmtu_file_with_dot_siblings
 
 def get_version_num():
     if GAME_VERSION == "jp":
@@ -69,8 +122,9 @@ IDO_53_CC = TOOLS_DIR / "ido5.3" / "cc"
 
 O32_TOOL = ROOT / "ultralib/tools/set_o32abi_bit.py"
 ASM_PROCESSOR_PRELUDE = "include/asm_processor_prelude.inc"
+GAME_WARNING_SUPPRESSIONS = "-woff 649,838"
 
-GAME_CC_CMD = f"{PYTHON} tools/asm_processor/build.py --input-enc=utf-8 --output-enc=EUC-JP --asm-prelude {ASM_PROCESSOR_PRELUDE} {IDO_53_CC} -- {CROSS_AS} {AS_FLAGS} -- -G 0 -non_shared -fullwarn -verbose -Xcpluscomm -nostdinc -Wab,-r4300_mul $flags {MIPS_FLAGS} {COMMON_INCLUDES} {IDO_DEFS} -c -o $out $in"
+GAME_CC_CMD = f"{PYTHON} tools/asm_processor/build.py --input-enc=utf-8 --output-enc=EUC-JP --asm-prelude {ASM_PROCESSOR_PRELUDE} {IDO_53_CC} -- {CROSS_AS} {AS_FLAGS} -- -G 0 -non_shared -fullwarn {GAME_WARNING_SUPPRESSIONS} -verbose -Xcpluscomm -nostdinc -Wab,-r4300_mul $flags {MIPS_FLAGS} {COMMON_INCLUDES} {IDO_DEFS} -c -o $out $in"
 
 LIBULTRA_CC_CMD = f"$ido {LIBULTRA_CFLAGS} $mips $defs $opt_flags $in {LIBULTRA_INCLUDES} -o $out && {O32_TOOL} $out"
 

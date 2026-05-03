@@ -65,7 +65,7 @@ void __osInitialize_common(void) {
     }
 
     if (!__kmc_pt_mode) {
-        int (*func)();
+        void (*func)(u32 magic, s32 arg);
         u32 c;
         u32 c1;
         u32* src;

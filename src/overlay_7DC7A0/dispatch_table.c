@@ -1,0 +1,16 @@
+#include "common.h"
+
+u32 D_801B9800_7DC7A0[] = {
+    0x801B9ED4,
+    0x801BA774,
+    0x801BACDC,
+    0x801BBEBC,
+    0x801BC828,
+    0x801B9ED4,
+    0x801B9ED4,
+    0x801B9ED4,
+    0x801B9ED4,
+    0x801B9ED4,
+    0x00000000,
+    0x00000000,
+};

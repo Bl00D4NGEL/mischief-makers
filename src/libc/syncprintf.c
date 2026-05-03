@@ -1,5 +1,6 @@
 #include <compiler/ido/stdarg.h>
 #include <PR/os.h>
+#include <PR/os_internal_host.h>
 #include <PR/rcp.h>
 #include <PR/rdb.h>
 
@@ -11,7 +12,7 @@ static void* proutSyncPrintf(void* str, const char* buf, u32 count) {
     u32 sent = 0;
 
     while (sent < count) {
-        sent += __osRdbSend(buf + sent, count - sent, RDB_TYPE_GtoH_PRINT);
+        sent += __osRdbSend((u8*)(buf + sent), count - sent, RDB_TYPE_GtoH_PRINT);
     }
     return (void*)1;
 }

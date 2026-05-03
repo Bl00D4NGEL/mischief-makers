@@ -1,4 +1,5 @@
 #include <PR/rcp.h>
+#include <PR/os_internal_error.h>
 #include <PR/ultraerror.h>
 
 extern s32 osViClock;

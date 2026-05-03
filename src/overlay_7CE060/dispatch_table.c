@@ -1,0 +1,16 @@
+#include "common.h"
+
+u32 D_801B9800_7CE060[] = {
+    0x801B9CF4,
+    0x801B9F18,
+    0x801BA0C8,
+    0x801BA868,
+    0x801BA9E0,
+    0x801BABE8,
+    0x801BAE74,
+    0x801BAFEC,
+    0x801BB0F0,
+    0x801BB2AC,
+    0x801BB360,
+    0x00000000,
+};
