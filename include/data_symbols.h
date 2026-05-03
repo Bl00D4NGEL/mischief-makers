@@ -13,7 +13,6 @@ extern s16 D_800BE55C;
 extern u16 D_800BE4EC;
 extern u16 D_800BE500;
 extern u16 D_800BE518;
-extern s16 D_800EF5F0;
 
 // func_8000147C
 extern u16 D_800BE674;

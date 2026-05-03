@@ -1,33 +1,27 @@
 #include "common.h"
+#include "actor.h"
 #include "data_symbols.h"
 
 #include "boot.h"
 
 #include "input.h"
 
-typedef struct {
-    u32 flags;
-    u8 pad[0x54];
-} MarinaEntry;
-
-extern MarinaEntry D_800EF590[];
-
 #ifdef NON_MATCHING
-u8 func_80048600(s32 arg0) {
-    u16 idx = (u16)arg0;
+u8 func_80048600(s32 actor_index) {
     u16 flags = D_801370CC;
     u8 ret;
 
     if (flags & D_800BE50C) {
         ret = 1;
-        if (D_800EF590[idx].flags & 0x20) {
+        if (gActors[actor_index].flags & 0x20) {
             ret = 0x81;
         }
-    } else {
+    }
+    else {
         ret = 0;
         if (flags & D_800BE510) {
             ret = 2;
-            if (D_800EF590[idx].flags & 0x20) {
+            if (gActors[actor_index].flags & 0x20) {
                 ret = 0x82;
             }
         }
@@ -132,9 +126,11 @@ s32 func_800486F4(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/marina/func_8004DC44.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/marina/func_8004E1D4.s")
+void func_8004E1D4(s32 arg0) {
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/marina/func_8004E1DC.s")
+void func_8004E1DC(s32 arg0) {
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/marina/func_8004E1E4.s")
 

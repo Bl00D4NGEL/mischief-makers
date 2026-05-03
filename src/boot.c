@@ -299,7 +299,7 @@ void Graphics_Begin_Frame(u16 buffer_index) {
     u16* framebuffer;
 
     gCurrentGraphicsTask = &gGraphicsTasks[buffer_index];
-    gCurrentDisplayListBase = gDisplayListData[buffer_index].unk_0x00;
+    gCurrentDisplayListBase = gDisplayListData[buffer_index].unk_000;
     gDisplayListHead = gCurrentDisplayListBase + 48;
 
     if (buffer_index) {

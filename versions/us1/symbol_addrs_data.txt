@@ -10,6 +10,7 @@ gDebugBitfeild = 0x800BE6AC; // size:0x2
 
 gCurrentFramebufferIndex = 0x800BE700; // size:0x2
 gCurrentDisplayListBase = 0x800EF4F4; // size:0x4
+gActors = 0x800EF510; // size:0x14B80
 
 gDramStack = 0x8011D970; // size:0x400
 gYeildData = 0x8011DDF0; // size:0xDA0
@@ -53,13 +54,16 @@ D_40F52F8 = 0x040F52F8; // ignore:true
 D_5095C98 = 0x05095C98; // ignore:true
 D_7FFFF = 0x0007FFFF; // ignore:true
 D_7FFFFF00 = 0x7FFFFF00; // ignore:true
+D_80000000 = 0x80000000; // ignore:true
 D_80000004 = 0x80000004; // ignore:true
 D_80000008 = 0x80000008; // ignore:true
 D_80000100 = 0x80000100; // ignore:true
 D_A4400000 = 0xA4400000; // ignore:true
+D_A4400024 = 0xA4400024; // ignore:true
 D_A4500004 = 0xA4500004; // ignore:true
 D_A4600000 = 0xA4600000; // ignore:true
 D_A4800000 = 0xA4800000; // ignore:true
+D_A4800004 = 0xA4800004; // ignore:true
 D_A4800010 = 0xA4800010; // ignore:true
 D_C0000000 = 0xC0000000; // ignore:true
 D_C0000008 = 0xC0000008; // ignore:true

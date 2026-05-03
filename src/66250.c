@@ -1,8 +1,55 @@
 #include "common.h"
+#include "actor.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80065650.s")
+extern u16 func_800284B8(u16 arg0, u16 arg1);
+extern s32 func_8002981C(s32 arg0, s32 arg1, s32 arg2);
+extern s32 func_800298D0(s32 arg0, s32 arg1, s32 arg2);
+extern u16 func_8000178C(void);
+extern void func_800339BC(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern void func_80033E7C(u16 actor_index, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, s32 arg6);
+extern void func_80028C00(u16 actor_index);
+extern void func_80067E50(u16 actor_index, void* arg1);
+extern void func_80066964(u16 actor_index, u16 arg1);
+extern void func_80066A10(u16 actor_index);
+extern void func_80066BCC(u16 actor_index);
+extern void func_8006C1AC(u16 actor_index);
+extern void func_8006C5A4(u16 actor_index);
+extern void func_80069C54(u16 actor_index);
+extern void func_80072628(u16 actor_index);
+extern void func_80078F54(u16 actor_index);
+extern u16 D_800D2950;
+extern ActorFunc D_800D7F00[];
+extern u8 D_800E1788[];
+extern u16 D_800E3580;
+extern u32 D_800E3584;
+extern u16 D_800BE4E0;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80065724.s")
+void func_80065650(u16 actor_index) {
+    u16 rand_x[2];
+    u16 rand_y;
+
+    func_80067E50(actor_index, D_800E1788);
+    if ((D_800BE4E0 % 17) == 0) {
+        rand_x[0] = func_8000178C();
+        rand_y = func_8000178C();
+        func_800339BC(
+            (gActors[actor_index].posX.raw - ((rand_x[0] & 0x1F) * FIXED_UNIT(0.625))) + FIXED_UNIT(10.0),
+            (gActors[actor_index].posY.raw - ((rand_y & 0x1F) * FIXED_UNIT(0.75))) + FIXED_UNIT(18.0),
+            gActors[actor_index].posZ.raw, 0
+        );
+    }
+}
+
+void func_80065724(u16 actor_index) {
+    func_80033E7C(
+        actor_index,
+        gActors[actor_index].posX.whole,
+        gActors[actor_index].posY.whole + 6,
+        gActors[actor_index].posZ.whole + 1,
+        0x6000,
+        0x80000,
+        3);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800657B0.s")
 
@@ -48,7 +95,12 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80067B18.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80067E50.s")
+void func_80067E50(u16 actor_index, void* arg1) {
+    if (gActors[actor_index].unk_0E6 == 0) {
+        gActors[actor_index].unk_0E8 = arg1;
+        gActors[actor_index].unk_0E6 = 1;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80067E9C.s")
 
@@ -88,21 +140,47 @@ u32 func_80068888(u32 arg0, u32 arg1) {
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068898.s")
+u32 func_80068898(void) {
+    return func_80029A7C(32, 16, -16);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800688C0.s")
+u32 func_800688C0(void) {
+    return func_80029A7C(0x38, 0x18, -0x18);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800688E8.s")
+u32 func_800688E8(void) {
+    return func_80029DEC(63, 1);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006890C.s")
+u32 func_8006890C(void) {
+    return func_80029A7C(0x50, 0x20, -0x18);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068934.s")
+u32 func_80068934(void) {
+    if ((gActors[D_800E3580].flags & 0xA80) && func_80029A7C(0x68, 0x20, -0x20)) {
+        return 1;
+    }
+
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800689A8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800689F8.s")
+u32 func_800689F8(void) {
+    if (func_80029B00(12, 0, -48)) {
+        return 2;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068A30.s")
+    return 0;
+}
+
+u32 func_80068A30(void) {
+    if (func_80029B00(12, 48, 0)) {
+        return 3;
+    }
+
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068A68.s")
 
@@ -110,35 +188,82 @@ u32 func_80068ACC(void) {
     return 1;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068AD4.s")
+u32 func_80068AD4(void) {
+    return func_80029D58(0x40, 0x80, 0x40, -0x40);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068B00.s")
+u32 func_80068B00(void) {
+    return func_80029A7C(0xA0, 0x60, -0x60);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068B28.s")
+u32 func_80068B28(void) {
+    return func_80029D58(0x40, 0x80, 0x40, -0x40);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068B54.s")
+u32 func_80068B54(void) {
+    return func_80029CC0(0x40, 0x80, 0x80, -0x80);
+}
 
 u32 func_80068B80(u32 arg0) {
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068B8C.s")
+s32 func_80068B8C(u16 actor_index, u16 arg1) {
+    if (D_800E3584 & 0x10000) {
+        gActors[actor_index].state = arg1;
+        return 1;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068BE8.s")
+    return 0;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068C48.s")
+s32 func_80068BE8(u16 actor_index, u16 arg1) {
+    if (D_800E3584 & 0x30000) {
+        gActors[actor_index].state = arg1;
+        return 1;
+    }
+
+    return 0;
+}
+
+s32 func_80068C48(u16 actor_index, u16 arg1) {
+    if (D_800E3584 & 0xC0000) {
+        gActors[actor_index].state = arg1;
+        return 1;
+    }
+
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068CA8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068D18.s")
+s32 func_80068D18(u16 actor_index, u16 arg1) {
+    if ((((s32)gActors[actor_index].unk_150 << 0xE) < 0) && (D_800E3584 & 0x30000)) {
+        gActors[actor_index].state = arg1;
+        return 1;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068D88.s")
+    return 0;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068DF8.s")
+s32 func_80068D88(u16 actor_index, u16 arg1) {
+    if ((((s32)gActors[actor_index].unk_150 << 0xE) < 0) && (D_800E3584 & 0xC0000)) {
+        gActors[actor_index].state = arg1;
+        return 1;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068E00.s")
+    return 0;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068E08.s")
+u16 func_80068DF8(u16 arg0) {
+}
+
+u16 func_80068E00(u16 arg0) {
+}
+
+u16 func_80068E08(u16 arg0) {
+    return func_80068DF8(arg0) | func_80068E00(arg0);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80068E48.s")
 
@@ -148,29 +273,39 @@ u32 func_80068B80(u32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006907C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80069130.s")
+void func_80069130(u16 arg0) {
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80069138.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80069204.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800692C0.s")
+void func_800692C0(u16 arg0) {
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800692C8.s")
+void func_800692C8(u16 arg0) {
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800692D0.s")
+void func_800692D0(u16 arg0) {
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800692D8.s")
+void func_800692D8(u16 arg0) {
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800692E0.s")
+void func_800692E0(u16 arg0) {
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800692E8.s")
+void func_800692E8(u16 arg0) {
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800692F0.s")
+void func_800692F0(u16 arg0) {
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800692F8.s")
+void func_800692F8(u16 arg0, u16 arg1) {
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80069304.s")
+void func_80069304(u16 arg0) {
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006930C.s")
 
@@ -188,13 +323,19 @@ u32 func_80068B80(u32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80069A18.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80069B94.s")
+void func_80069B94(u16 actor_index) {
+    gActors[actor_index].velocityX = func_8002981C(gActors[actor_index].velocityX, 0, FIXED_UNIT(0.25));
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80069BF4.s")
+void func_80069BF4(u16 actor_index) {
+    gActors[actor_index].velocityX = func_8002981C(gActors[actor_index].velocityX, 0, FIXED_UNIT(0.015625));
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80069C54.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80069CDC.s")
+void func_80069CDC(u16 actor_index) {
+    func_80069C54(actor_index);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80069D04.s")
 
@@ -202,7 +343,11 @@ u32 func_80068B80(u32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80069E18.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80069EC4.s")
+void func_80069EC4(u16 actor_index, f32 arg1) {
+    gActors[actor_index].state = 0x90;
+    gActors[actor_index].unk_118 = arg1;
+    gActors[actor_index].unk_11C = 0.0f;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80069F10.s")
 
@@ -262,11 +407,42 @@ u32 func_80068B80(u32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006C0F4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006C1A4.s")
+void func_8006C1A4(u16 arg0) {
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006C1AC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006C5A4.s")
+void func_8006C5A4(u16 actor_index) {
+    u16 state;
+
+    state = gActors[actor_index].state;
+    if ((state >= 0x51) && (state != 0xFFFF)) {
+        if (gActors[actor_index].unk_0E0 == 0) {
+            gActors[actor_index].flags &= ~0x400;
+        }
+
+        if (gActors[actor_index].unk_0D4 != 0) {
+            gActors[actor_index].unk_0D4--;
+        }
+
+        func_80066964(actor_index, (gActors[actor_index].unk_0D8 & 0x7000) / 0x1000);
+        func_80066A10(actor_index);
+
+        if (gActors[actor_index].flags & 0x20) {
+            gActors[actor_index].unk_148 = -gActors[actor_index].scaleX;
+        }
+        else {
+            gActors[actor_index].unk_148 = gActors[actor_index].scaleX;
+        }
+
+        if (((gActors[actor_index].unk_098 & 0x200) == 0) && (D_800D2950 != actor_index)) {
+            func_80028C00(actor_index);
+        }
+    }
+
+    func_80066BCC(actor_index);
+    gActors[actor_index].unk_098 &= 0xFFDFF9FF;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006C6F0.s")
 
@@ -320,7 +496,8 @@ u32 func_80068B80(u32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006D9A4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006DB10.s")
+void func_8006DB10(u16 arg0) {
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006DB18.s")
 
@@ -336,7 +513,8 @@ u32 func_80068B80(u32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006E1F8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006E3DC.s")
+void func_8006E3DC(u16 arg0) {
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006E3E4.s")
 
@@ -376,7 +554,8 @@ u32 func_80068B80(u32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006FF70.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80070000.s")
+void func_80070000(u16 arg0) {
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80070008.s")
 
@@ -388,9 +567,11 @@ u32 func_80068B80(u32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8007095C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80070A14.s")
+void func_80070A14(u16 arg0) {
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80070A1C.s")
+void func_80070A1C(u16 arg0) {
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80070A24.s")
 
@@ -414,13 +595,18 @@ u32 func_80068B80(u32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80072400.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80072620.s")
+void func_80072620(u16 arg0) {
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80072628.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800728E8.s")
+void func_800728E8(u16 actor_index) {
+    func_80072628(actor_index);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80072910.s")
+void func_80072910(u16 actor_index) {
+    func_80072628(actor_index);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80072938.s")
 
@@ -432,7 +618,8 @@ u32 func_80068B80(u32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80072D9C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80072DD4.s")
+void func_80072DD4(u16 arg0) {
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80072DDC.s")
 
@@ -444,7 +631,14 @@ u32 func_80068B80(u32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80072FE4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8007325C.s")
+void func_8007325C(u16 actor_index) {
+    func_8006C1AC(actor_index);
+    if (gActors[actor_index].state < 0x4000) {
+        D_800D7F00[gActors[actor_index].state / 16](actor_index);
+    }
+
+    func_8006C5A4(actor_index);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800732F8.s")
 
@@ -482,7 +676,14 @@ u32 func_80068B80(u32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800740C8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800742B8.s")
+u16 func_800742B8(u16 arg0) {
+    if (arg0 & 1) {
+        return func_800284B8(1, 0x10);
+    }
+    else {
+        return func_800284B8(0x70, 0x7A);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800742FC.s")
 
@@ -586,7 +787,21 @@ u32 func_80068B80(u32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8007951C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80079760.s")
+void func_80079760(u16 actor_index) {
+    s32 arg0;
+
+    func_80078F54(actor_index);
+    if (gActors[actor_index].flags & 0x20) {
+        arg0 = 0x2000000;
+    }
+    else {
+        arg0 = 0;
+    }
+
+    gActors[actor_index].unk_168 = func_800298D0(arg0, gActors[actor_index].unk_168, 0x180000);
+    gActors[actor_index].velocityX = func_8002981C(gActors[actor_index].velocityX, 0, gActors[actor_index].unk_158 + 0x80);
+    gActors[actor_index].velocityY = func_8002981C(gActors[actor_index].velocityY, 0, gActors[actor_index].unk_15C + 0x80);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80079810.s")
 

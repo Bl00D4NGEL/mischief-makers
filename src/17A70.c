@@ -7,10 +7,26 @@ extern ActorFunc D_8019B000[];
 extern ActorFunc D_801A6800[];
 extern ActorFunc D_801B0800[];
 
-void func_80016E70(u16 actor_index) {
-    u8 index = D_800EF510[actor_index].unk_0D2 & 0xFFFF;
+extern s16 D_800C9694[];
+extern u16* D_800C96A0[];
+extern u16 D_800C8478[];
+extern u8 D_800C5008;
+extern u16 D_80171AD0[];
+extern u16 D_80171AD4[];
+extern u64 D_80171AD8[];
+extern u64 D_80171B10;
+extern u8 D_80171B18;
+extern u16 D_80178136;
+extern u16 D_80178156;
+extern u16 D_8017815A;
+extern u16 D_8017815C;
+extern u16 D_80178160;
+extern u16 D_80178162;
 
-    switch (D_800EF510[actor_index].unk_0D2 >> 8) {
+void func_80016E70(u16 actor_index) {
+    u8 index = gActors[actor_index].actorType & 0xFFFF;
+
+    switch (gActors[actor_index].actorType >> 8) {
         case 1:
             D_801B0800[index](actor_index);
             break;
@@ -231,7 +247,13 @@ void func_80016E70(u16 actor_index) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_80019E48.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_80019EC4.s")
+void func_80019EC4(void) {
+    func_8008310C();
+    func_80083454();
+    func_80019A80();
+    func_80019E48();
+    func_8001A254();
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_80019F04.s")
 
@@ -243,11 +265,33 @@ void func_80016E70(u16 actor_index) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_8001A584.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_8001A758.s")
+s16 func_8001A758(u16 arg0, u16 arg1) {
+    if (arg0 < D_800C8478[arg1]) {
+        return 0;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_8001A7E0.s")
+    if (arg0 < D_800C8478[arg1] + 1800) {
+        return 1;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_8001A838.s")
+    if (arg0 < D_800C8478[arg1] + 7200) {
+        return 2;
+    }
+
+    if (arg0 < D_800C8478[arg1] + 18000 && arg0 < 36000) {
+        return 3;
+    }
+
+    return 4;
+}
+
+void func_8001A7E0(s16 arg0, s16 arg1, u16 arg2, u16 arg3, s16 arg4) {
+    func_8008379C(arg0, arg1, D_800C9694[func_8001A758(arg2, arg3)], arg4);
+}
+
+void func_8001A838(s16 arg0, s16 arg1, u16 arg2, u16 arg3, s16 arg4) {
+    func_80083810(arg0, arg1, D_800C96A0[func_8001A758(arg2, arg3)], arg4);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_8001A890.s")
 
@@ -255,7 +299,9 @@ void func_80016E70(u16 actor_index) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_8001ACA8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_8001B004.s")
+void func_8001B004(void) {
+    func_8001ACA8(9, 6, 0xFFFF);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_8001B02C.s")
 
@@ -263,7 +309,12 @@ void func_80016E70(u16 actor_index) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_8001B1A0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_8001B1F8.s")
+void func_8001B1F8(void) {
+    func_8001B02C();
+    func_8001B1A0();
+    D_80178160 = D_8017815C;
+    D_8017815A = D_80178156;
+}
 
 void func_8001B23C(void) {
 }
@@ -272,13 +323,30 @@ void func_8001B23C(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_8001B2F4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_8001B3D0.s")
+void func_8001B3D0(void) {
+    u16 yellow_gem_count;
+    u32 save_slot_index;
+
+    D_80171B18 = D_80178162;
+    D_80171AD0[D_800C5008] = D_80178136;
+    yellow_gem_count = func_8001B244();
+    save_slot_index = D_800C5008;
+    D_80171AD4[save_slot_index] = yellow_gem_count;
+    D_80171AD8[save_slot_index] = (u64)gFramesInPlayTime;
+    func_80005770();
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/17A70/GameState_Transition.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_8001C7A4.s")
+void func_8001C7A4(void) {
+    D_80171B10 |= (u64)1 << D_80178162;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_8001C7F0.s")
+u64 func_8001C7F0(u16 arg0) {
+    u64 mask = (u64)1 << arg0;
+
+    return D_80171B10 & mask;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/17A70/func_8001C834.s")
 

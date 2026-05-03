@@ -1,6 +1,9 @@
 #include "common.h"
+#include "actor.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80080190.s")
+void func_80080190(u16 actor_index) {
+    gActors[actor_index].unk_098 &= ~0x200600;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_800801D8.s")
 
@@ -30,7 +33,12 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80081720.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_80081790.s")
+void func_80081790(u16 actor_index, void* arg1) {
+    gActors[actor_index].unk_174 = (s32)arg1;
+    gActors[actor_index].unk_16C = 0;
+    gActors[actor_index].unk_124 = 0.0f;
+    gActors[actor_index].unk_11C = 0.0f;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/80D90/func_800817D8.s")
 

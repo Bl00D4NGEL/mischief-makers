@@ -548,10 +548,10 @@ __osErrorHandler = 0x800EAA84;
 
 // ucode
 rspbootTextStart = 0x800BA9E0; // size:0xD0 name_end:rspbootTextEnd
-gspFast3DTextStart = 0x800BAAB0; // size:0x1000 name_end:gspFast3DTextEnd
-gspFast3D_dramTextStart = 0x800BBAB0; // size:0x400 name_end:gspFast3D_dramTextEnd
-aspMainTextStart = 0x800BBEB0; // size:0x2640 name_end:aspMainTextEnd
-gspFast3DDataStart = 0x800EEA10; // size:0xAC0 name_end:gspFast3DDataEnd rom:0xEF610
+gspFast3DTextStart = 0x800BAAB0; // size:0x1400 name_end:gspFast3DTextEnd
+aspMainTextStart = 0x800BBEB0; // size:0xE20 name_end:aspMainTextEnd
+gspFast3DDataStart = 0x800EEA10; // size:0x800 name_end:gspFast3DDataEnd rom:0xEF610
+aspMainDataStart = 0x800EF210; // size:0x2C0 name_end:aspMainDataEnd rom:0xEFE10
 
 ////////////////////////
 // bss

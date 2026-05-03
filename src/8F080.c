@@ -1,10 +1,25 @@
 #include "common.h"
+#include "actor.h"
+
+extern u8 D_800E8BEC[];
+extern u8 D_800E9654[];
+
+extern void func_80081790(u16 actor_index, void* arg1);
+extern void func_800819A8(u16 actor_index, void* arg1);
+extern s32 func_8008EFA8(u16 actor_index);
+extern void func_8008FB20(u16 actor_index);
+extern void func_8008FD08(u16 actor_index);
+extern void func_80090064(u16 actor_index);
+extern void func_800902B0(u16 actor_index);
+extern void func_80090558(u16 actor_index);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_8008E480.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_8008E790.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_8008E918.s")
+void func_8008E918(u16 actor_index) {
+    func_80081790(actor_index, D_800E8BEC);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_8008E948.s")
 
@@ -22,7 +37,14 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_8008EFA8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_8008F094.s")
+s32 func_8008F094(u16 actor_index, u16 arg1) {
+    gActors[actor_index].unk_0E0 -= arg1;
+    if (gActors[actor_index].unk_0E0 & 0x8000) {
+        gActors[actor_index].unk_0E0 = 0;
+    }
+
+    return func_8008EFA8(actor_index);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_8008F108.s")
 
@@ -173,11 +195,15 @@ void func_800930E4(u32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_8009685C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_800968EC.s")
+void func_800968EC(u16 actor_index) {
+    func_800819A8(actor_index, D_800E9654);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_8009691C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_800969CC.s")
+void func_800969CC(u16 actor_index) {
+    func_80090558(actor_index);
+}
 
 void func_800969F4(u16 arg0) {
 }
@@ -194,10 +220,22 @@ void func_80096A0C(u16 arg0) {
 void func_80096A14(u16 arg0) {
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_80096A1C.s")
+void func_80096A1C(u16 actor_index) {
+    gActors[actor_index + 1].unk_0D8 = 1;
+    func_8008FB20(actor_index);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_80096A70.s")
+void func_80096A70(u16 actor_index) {
+    gActors[actor_index + 1].unk_0D8 = 2;
+    func_8008FD08(actor_index);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_80096AC4.s")
+void func_80096AC4(u16 actor_index) {
+    gActors[actor_index + 1].unk_0D8 = 3;
+    func_80090064(actor_index);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_80096B18.s")
+void func_80096B18(u16 actor_index) {
+    gActors[actor_index + 1].unk_0D8 = 5;
+    func_800902B0(actor_index);
+}
