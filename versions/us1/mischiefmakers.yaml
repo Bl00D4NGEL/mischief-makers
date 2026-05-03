@@ -294,12 +294,12 @@ segments:
       - [0x0BF0F0, data]
       - [0x0BF350, data] # music names start at BF354; music.s refs tables at C1654/C2280/C26DC.
       - [0x0C4500, data] # font/text drawing data starts at C4508; 4F80 refs the table at C5A5C
-      - [0x0C5AE0, data] # 5510?
+      - [0x0C5AE0, .data, 5510]
       - [0x0C5B20, data] # 5A70?
       - [0x0C6200, data] # A540?
       - [0x0C7DA0, data] # 241E0?
       - [0x0C84A0, data] # 11820?
-      - [0x0C88D0, data] # 134E0?
+      - [0x0C88D0, .data, 134E0]
       - [0x0C8910, data, gameover]
       - [0x0C8B20, data] # 156F0
       - [0x0C8BE0, data] # stage/level tables; level labels start at C90EC
@@ -308,7 +308,7 @@ segments:
       - [0x0E4760, data]
       - [0x0E4920, data] # 84BB0?
       - [0x0E5160, data] # 8D0A0?
-      - [0x0E66C0, data] # 17A70?
+      - [0x0E66C0, .data, 17A70]
       - [0x0E6700, data] # 8F080?
       - [0x0EA340, data, stage_end_screen]
       # libultra data
@@ -1235,14 +1235,15 @@ segments:
     vram: 0x801B9800
     start: 0x7EA3C0
     subsegments:
-      - [0x7EA3C0, data, overlay_7EA3C0/dispatch_table] # dispatch table 7EA3C0->7EA3D0 (0x10)
+      - [0x7EA3C0, .data, overlay_7EA3C0/dispatch_table] # dispatch table 7EA3C0->7EA3D0 (0x10)
   - name: overlay_7EA3C0
     exclusive_ram_id: overlay_7EA3C0
     type: code
     vram: 0x801B9900
     start: 0x7EA3D0
     subsegments:
-      - [0x7EA3D0, data, overlay_7EA3C0/7EA3D0] # object segment 7EA3D0->7EA710 (0x340)
+      - [0x7EA3D0, c, overlay_7EA3C0/7EA3D0] # object segment 7EA3D0->7EA710 (0x340)
+      - [0x7EA690, .data, overlay_7EA3C0/7EA3D0]
 
   - name: overlay_7EA710_dispatch_table # blackgamma7: World4
     exclusive_ram_id: overlay_7EA710_dispatch_table

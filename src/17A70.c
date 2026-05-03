@@ -1,7 +1,6 @@
 #include "common.h"
 #include "actor.h"
 
-extern ActorFunc D_800E5AC0[];
 extern ActorFunc D_80192000[];
 extern ActorFunc D_8019B000[];
 extern ActorFunc D_801A6800[];
@@ -22,6 +21,45 @@ extern u16 D_8017815A;
 extern u16 D_8017815C;
 extern u16 D_80178160;
 extern u16 D_80178162;
+
+void func_800955F4(u16 actor_index);
+void func_80096104(u16 actor_index);
+void func_8009672C(u16 actor_index);
+void func_8009691C(u16 actor_index);
+void func_800969F4(u16 actor_index);
+void func_800969FC(u16 actor_index);
+void func_80096A04(u16 actor_index);
+void func_80096A0C(u16 actor_index);
+void func_80096A14(u16 actor_index);
+
+extern u8 D_800E9634[];
+extern u8 D_800E9654[];
+extern u8 D_800E9720[];
+
+ActorFunc D_800E5AC0[] = {
+    func_800955F4,
+    func_800969FC,
+    func_800969F4,
+    func_80096A04,
+    func_80096104,
+    func_8009672C,
+    func_8009691C,
+};
+
+void* D_800E5ADC[] = {
+    D_800E9634,
+    D_800E9654,
+    D_800E9720,
+    D_800E9634,
+    D_800E9654,
+    D_800E9720,
+};
+
+ActorFunc D_800E5AF4[] = {
+    func_80096A0C,
+    func_80096A14,
+    NULL,
+};
 
 void func_80016E70(u16 actor_index) {
     u8 index = gActors[actor_index].actorType & 0xFFFF;
