@@ -4,9 +4,9 @@
 #include <ultra64.h>
 #include "inttypes.h"
 
-extern OSThread sIdleThread;
-extern OSThread sMainThread;
-extern OSThread sRmonThread;
+extern OSThread gIdleThread;
+extern OSThread gMainThread;
+extern OSThread gRmonThread;
 
 #define DRAM_STACK_SIZE (0x400)
 #define STACK_SIZE (0x1000)
@@ -21,4 +21,3 @@ extern u64 gMainStack[STACK_SIZE / sizeof(u64)]; // 80127670->80128670
 extern u64 gRmonStack[STACK_SIZE / sizeof(u64)]; // 80128670->80129670
 
 #endif
-

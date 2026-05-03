@@ -159,9 +159,9 @@ u64 D_80129670[STACK_SIZE / sizeof(u64)]; // 80129670->8012A670
 Gfx* gDisplayListHead;
 OSMesg gPiManagerMessageBuffer[8];
 
-OSThread sIdleThread;
-OSThread sMainThread;
-OSThread sRmonThread;
+OSThread gIdleThread;
+OSThread gMainThread;
+OSThread gRmonThread;
 
 OSMesgQueue gDmaMessageQueue;
 
@@ -240,8 +240,8 @@ void Video_Clear_Framebuffer(void) {
 
 void boot(s32 unused) {
     osInitialize();
-    osCreateThread(&sIdleThread, 1, Thread_IdleProc, NULLPTR, __gIdleStackEnd, 10);
-    osStartThread(&sIdleThread);
+    osCreateThread(&gIdleThread, 1, Thread_IdleProc, NULLPTR, __gIdleStackEnd, 10);
+    osStartThread(&gIdleThread);
 }
 
 void Thread_IdleProc(void* argument) {
@@ -260,10 +260,10 @@ void Thread_IdleProc(void* argument) {
     }
 
     osCreatePiManager(OS_PRIORITY_PIMGR, &D_8012AC38, &gPiManagerMessageBuffer, 8);
-    osCreateThread(&sRmonThread, 0, rmonMain, NULL, __gRmonStackEnd, OS_PRIORITY_RMON);
-    osStartThread(&sRmonThread);
-    osCreateThread(&sMainThread, 3, Thread_MainProc, argument, __gMainStackEnd, 10);
-    osStartThread(&sMainThread);
+    osCreateThread(&gRmonThread, 0, rmonMain, NULL, __gRmonStackEnd, OS_PRIORITY_RMON);
+    osStartThread(&gRmonThread);
+    osCreateThread(&gMainThread, 3, Thread_MainProc, argument, __gMainStackEnd, 10);
+    osStartThread(&gMainThread);
     osSetThreadPri(0, 0);
 
     while (1) {

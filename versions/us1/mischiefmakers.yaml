@@ -292,7 +292,7 @@ segments:
       # data
       - [0x0BD8D0, data] # game globals?
       - [0x0BF0F0, data]
-      - [0x0BF350, data] # music names start at BF354; music.s refs tables at C1654/C2280/C26DC.
+      - [0x0BF350, data, music_data] # music names start at BF354; music.s refs tables at C1654/C2280/C26DC
       - [0x0C4500, data] # font/text drawing data starts at C4508; 4F80 refs the table at C5A5C
       - [0x0C5AE0, .data, 5510]
       - [0x0C5B20, data] # 5A70?
@@ -344,7 +344,7 @@ segments:
       - [0x0EB7E0, .data, ultralib/log/log]
       # rodata
       - [0x0EB7F0, .rodata, gamestate]
-      - [0x0EB830, rodata] # music?
+      - [0x0EB830, .rodata, music]
       - [0x0EBB10, rodata] # 5A70?
       - [0x0EBBC0, rodata] # A540?
       - [0x0EBBE0, rodata] # 11820?
@@ -469,14 +469,17 @@ segments:
   - name: audio/bank_ctl
     type: bin
     start: 0x4B9990
+    vram: 0x4B9990
     exclusive_ram_id: audio_bank_ctl
   - name: audio/bank_tbl
     type: bin
     start: 0x4CB120
+    vram: 0x4CB120
     exclusive_ram_id: audio_bank_tbl
   - name: audio/seq_bank
     type: bin
     start: 0x6413B0
+    vram: 0x6413B0
     exclusive_ram_id: audio_seq_bank
 
   # Actor overlay loader tables D_800CD08C/D_800CD60C/D_800CDB8C/D_800CE10C/D_800CE68C store two ROM ranges per stage and overlay slot.

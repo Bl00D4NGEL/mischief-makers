@@ -8,11 +8,17 @@ DMA_ReadSync = 0x800011F0; // type:func
 DMA_AwaitMessage = 0x80001264; // type:func 
 DMA_Read = 0x80001290; // type:func
 
+Sound_DmaCallback = 0x800017D0; // type:func
+Sound_DmaNew = 0x80001988; // type:func
+Sound_CleanDmaBuffers = 0x80001A80; // type:func
 Sound_InitPlayers = 0x80001B38; // type:func
 Sound_SetEventMesg = 0x800020BC; // type:func
 Sound_Update = 0x80002114; // type:func
 Sound_NextBuffer = 0x800028D0; // type:func
 Sound_StartTask = 0x800029EC; // type:func
+Sound_LoadSequence = 0x80002A2C; // type:func
+Sound_DmaReadSync = 0x80002AE0; // type:func
+Sound_PlayMusic = 0x80002B50; // type:func
 
 LookAt_Update = 0x80010898; // type:func
 
@@ -30,4 +36,3 @@ GameState_Attract = 0x80021270; // type:func
 GameState_FileSelect = 0x80007C8C; // type:func
 GameState_Transition = 0x8001B460; // type:func
 GameState_Records = 0x8001D654; // type:func
-
