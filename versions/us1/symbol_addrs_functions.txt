@@ -19,6 +19,7 @@ Sound_StartTask = 0x800029EC; // type:func
 Sound_LoadSequence = 0x80002A2C; // type:func
 Sound_DmaReadSync = 0x80002AE0; // type:func
 Sound_PlayMusic = 0x80002B50; // type:func
+Trouble_RLE_Type1 = 0x80004910; // type:func
 
 LookAt_Update = 0x80010898; // type:func
 
@@ -36,3 +37,4 @@ GameState_Attract = 0x80021270; // type:func
 GameState_FileSelect = 0x80007C8C; // type:func
 GameState_Transition = 0x8001B460; // type:func
 GameState_Records = 0x8001D654; // type:func
+Trouble_RLE_Type2 = 0x80098B50; // type:func

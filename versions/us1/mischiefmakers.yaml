@@ -11,6 +11,7 @@ options:
   asm_path: ../../asm
   src_path: ../../src
   asset_path: ../../assets
+  extensions_path: ../../tools/splat_ext
   build_path: ../../build
   create_asm_dependencies: True
   disassemble_all: True
@@ -81,10 +82,10 @@ segments:
       - [0x001EF0, c, gamestate]
       - [0x0023D0, c, music] # music.c from rodata
       - [0x004F80, asm] # was called sprite, might just be for on screen debug text
-      - [0x005510, c] # custom LZ decoder?
+      - [0x005510, c, rle_type1]
       - [0x005A70, asm] # has to do with the save file
       - [0x00A540, asm] # has to do with drawing and the persp/ortho view
-      - [0x011820, asm]
+      - [0x011820, c] # collision builder?
       - [0x012DD0, asm] # has to do with spawning the player actor, and the camera
       - [0x0134E0, c]
       - [0x013850, asm, gameover] # gameover gamestate
@@ -118,7 +119,7 @@ segments:
       - [0x08D0A0, c]
       - [0x08F080, c]
       - [0x097770, asm, stage_end_screen]
-      - [0x099750, c] # decrypts/decompresses marina's graphics
+      - [0x099750, hasm, asm/rle_type2]
       # libultra text
       - [0x0999F0, c, ultralib/io/viblack]
       - [0x099A70, c, ultralib/io/viswapbuf]
@@ -442,30 +443,51 @@ segments:
       - { name: ultralib/rmon/rmonregs, type: .bss, vram: 0x8018B760 }
       - { name: ultralib/log/log, type: .bss, vram: 0x8018B780 }
 
-  - name: bin_F00D0 # raw header plus table-addressed LZ chunks from D_F0100
-    type: bin
+  - name: bin_F00D0 # Trouble RLE Type1 graphics resource banks from D_800CEC0C; base is F0100
+    type: Trouble_RLE
+    subtype: Type1
     start: 0xF00D0
     exclusive_ram_id: bin_F00D0
-  - name: bin_1E6900_80200400 # LZ?
-    type: bin
+
+  - name: gfx/common_gfx_resources_1E6900_80200400 # Trouble RLE Type1, graphics resources, palette pointer table is at 0x684F8
+    type: Trouble_RLE
+    subtype: Type1
     start: 0x1E6900
-    exclusive_ram_id: bin_1E6900_80200400
-  - name: bin_214B40_80296000
-    type: bin
+    exclusive_ram_id: common_gfx_resources_1E6900_80200400
+
+  - name: gfx/clancer # Trouble RLE Type2 sources: D_80178104 table loaded to 0x80296000
+    type: Trouble_RLE
+    subtype: Type2
     start: 0x214B40
-    exclusive_ram_id: bin_214B40_80296000
-  - name: bin_248F40 # LZ ?
-    type: bin
+    width: 48
+    height: 48
+    exclusive_ram_id: sprite_table_214B40
+
+  - name: bin_248F40 # Trouble RLE Type1 map graphics banks from D_800CFE04 plus a stream at 0x3FAB30->0x40AC70
+    type: Trouble_RLE
+    subtype: Type1
     start: 0x248F40
     exclusive_ram_id: bin_248F40
-  - name: bin_4A15A0
+
+  - name: gfx/marina # Trouble RLE Type2 sources: marina graphic table, segmented pointers based at 0x05000000
+    type: Trouble_RLE
+    subtype: Type2
+    start: 0x40AC80
+    width: 64
+    height: 64
+    exclusive_ram_id: sprite_table_248F40
+
+  - name: bin_4A15A0 # actor placement/object lists, table-indexed by D_800CFB40
     type: bin
     start: 0x4A15A0
     exclusive_ram_id: bin_4A15A0
-  - name: bin_4A1FC0 # some LZ ?
-    type: bin
+    
+  - name: map_collision_4A1FC0 # Trouble RLE Type1 stage collision data pool
+    type: Trouble_RLE
+    subtype: Type1
     start: 0x4A1FC0
-    exclusive_ram_id: bin_4A1FC0
+    exclusive_ram_id: map_collision_4A1FC0
+
   - name: audio/bank_ctl
     type: bin
     start: 0x4B9990
@@ -1010,7 +1032,7 @@ segments:
     start: 0x77F260
     subsegments:
       - [0x77F260, asmtu, overlay_77F240/77F260] # object segment 77F260->7854B0 (0x6250)
-      - [0x784710, .data, overlay_77F240/77F260]
+      - [0x784710, .data, overlay_77F240/77F260] # has the "Evil" "Rage", "Enemy", "Blood", "Pain", etc. strings
       - [0x785250, .rodata, overlay_77F240/77F260]
 
   - name: overlay_7854B0_dispatch_table # blackgamma7: World5
@@ -1064,7 +1086,7 @@ segments:
     bss_size: 0x10
     subsegments:
       - [0x78CBF0, asmtu, overlay_78CB60/78CBF0] # object segment 78CBF0->7969B0 (0x9DC0)
-      - [0x7958C0, .data, overlay_78CB60/78CBF0]
+      - [0x7958C0, .data, overlay_78CB60/78CBF0] # has the "Foul!", "100M", "Jump", etc. strings
       - [0x7963E0, .rodata, overlay_78CB60/78CBF0]
       - { name: overlay_78CB60/78CBF0, type: .bss, vram: 0x801B06C0 }
 
