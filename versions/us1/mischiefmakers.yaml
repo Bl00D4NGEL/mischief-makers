@@ -902,7 +902,7 @@ segments:
     vram: 0x8019B100
     start: 0x753880
     subsegments:
-      - [0x753880, asmtu, overlay_753860/753880] # object segment 753880->754570 (0xCF0)
+      - [0x753880, c, overlay_753860/753880] # object segment 753880->754570 (0xCF0)
       - [0x753FD0, .data, overlay_753860/753880]
       - [0x7544E0, .rodata, overlay_753860/753880]
 
@@ -1422,7 +1422,7 @@ segments:
     vram: 0x801B9900
     start: 0x7EA730
     subsegments:
-      - [0x7EA730, asmtu, overlay_7EA710/7EA730] # object segment 7EA730->7EAFD0 (0x8A0)
+      - [0x7EA730, c, overlay_7EA710/7EA730] # object segment 7EA730->7EAFD0 (0x8A0)
       - [0x7EADE0, .data, overlay_7EA710/7EA730]
       - [0x7EAFA0, .rodata, overlay_7EA710/7EA730]
 
