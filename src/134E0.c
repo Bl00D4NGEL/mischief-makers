@@ -1,7 +1,6 @@
 #include "common.h"
 
 typedef u8 (*UnkFuncType_D_800C7CD0)(s16 arg0, s16 arg1);
-extern UnkFuncType_D_800C7CD0 D_800C7CD0[];
 
 extern s16 D_800BE558;
 extern s16 D_800BE55C;
@@ -11,14 +10,12 @@ extern u16 D_800BE65C;
 extern u16 D_800BE660;
 extern u8 D_8010CDF0[];
 
-u8 func_80012AB4(s16 arg0, s16 arg1);
-
 u8 func_800128E0(s16 arg0, s16 arg1) {
     return 0xFF;
 }
 
 // Thanks to LLONSIT for finding this cursed match
-s32 func_800128F0(s16 arg0, s16 arg1) {\
+u8 func_800128F0(s16 arg0, s16 arg1) {\
     if ((arg1 & 0xF) < (arg0 & 0xF) / 2) {
         return 0xFF;
     }
@@ -78,6 +75,26 @@ u8 func_80012B28(s16 arg0, s16 arg1) {
 
     return D_8010CDF0[((arg0 >> 4) & D_800BE658) + ((y << D_800BE660) & D_800BE65C)];
 }
+
+
+UnkFuncType_D_800C7CD0 D_800C7CD0[] = {
+    func_800128E0,
+    func_800128F0,
+    func_80012944,
+    func_800128E0,
+    func_800128E0,
+    func_80012970,
+    func_800128E0,
+    func_800128E0,
+    func_800128E0,
+    func_800129C8,
+    func_80012A24,
+    func_800128E0,
+    func_800128E0,
+    func_80012A58,
+    func_800128E0,
+    func_800128E0,
+};
 
 u8 func_80012B88(u8 arg0, s16 arg1, s16 arg2) {
     return D_800C7CD0[arg0 & 0xF](D_800BE558 + arg1, D_800BE55C + arg2) & arg0; // low nibble selects the 16x16 shape test; high bits carry collision type/flags

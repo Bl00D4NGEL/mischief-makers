@@ -300,7 +300,7 @@ segments:
       - [0x0C6200, data] # A540?
       - [0x0C7DA0, data] # 241E0?
       - [0x0C84A0, data] # 11820?
-      - [0x0C88D0, .data]
+      - [0x0C88D0, .data, 134E0]
       - [0x0C8910, data, gameover]
       - [0x0C8B20, data] # 156F0
       - [0x0C8BE0, data] # stage/level tables; level labels start at C90EC
