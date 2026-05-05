@@ -977,8 +977,9 @@ segments:
     vram: 0x801A6900
     start: 0x76F3A0
     subsegments:
-      - [0x76F3A0, asmtu, overlay_76F390/76F3A0] # object segment 76F3A0->76FD60 (0x9C0)
+      - [0x76F3A0, c, overlay_76F390/76F3A0] # object segment 76F3A0->76FD60 (0x9C0)
       - [0x76FCF0, .data, overlay_76F390/76F3A0]
+      - [0x76FD40, .rodata, overlay_76F390/76F3A0]
 
   - name: overlay_76FD60_dispatch_table # blackgamma7: World3
     exclusive_ram_id: overlay_76FD60_dispatch_table
