@@ -13,7 +13,6 @@ extern u16 D_800BE4E0;
 
 extern s32 func_80003778(u32 arg0, u16 actor_index);
 extern s32 func_800288EC(u16 actor_index, s16 arg1);
-extern f32 func_80029860(f32 arg0, f32 arg1, f32 arg2);
 extern void func_8002ABE4(u16 actor_index, s32 arg1);
 extern u16 func_80031284(s32 arg0, s16 arg1, s16 arg2, s32 arg3);
 extern void func_80039134(u16 actor_index);
@@ -68,8 +67,8 @@ void func_801A6980_76F420(u16 actor_index) {
             gActors[temp_v0].unk_0E4 = 0x64;
             gActors[temp_v0].unk_0DA = 0x84;
             gActors[temp_v0].unk_0DB = 0xB;
-            gActors[temp_v0].unk_0F8 = 0x40000;
-            gActors[temp_v0].unk_0FC = 0x40000;
+            gActors[temp_v0].unk_0F8 = FIXED_UNIT(4.0);
+            gActors[temp_v0].unk_0FC = FIXED_UNIT(4.0);
             gActors[temp_v0].scaleX = gActors[actor_index].unk_114;
             gActors[temp_v0].scaleY = gActors[temp_v0].scaleX;
 
@@ -81,7 +80,7 @@ void func_801A6980_76F420(u16 actor_index) {
             }
 
             func_8002ABE4(temp_v0, 0x10);
-            func_8002AEB4(temp_v0, ((u16*)&gActors[actor_index].unk_158)[1]);
+            Actor_SetColorRgb(temp_v0, ((u16*)&gActors[actor_index].unk_158)[1]);
             gActors[temp_v0].colorA = gActors[actor_index].unk_154;
             ((s16*)&gActors[temp_v0].velocityX)[0] = temp_v1->unk_00;
             ((s16*)&gActors[temp_v0].velocityY)[0] = temp_v1->unk_02;
@@ -135,7 +134,7 @@ void func_801A6CAC_76F74C(u16 actor_index) {
             gActors[temp_v0].unk_130 = actor_index;
             gActors[temp_v0].unk_14C = gActors[actor_index].actorType;
             gActors[temp_v0].unk_134 = 0.0f;
-            gActors[temp_v0].unk_0F4 = 0x10000;
+            gActors[temp_v0].unk_0F4 = FIXED_UNIT(1.0);
             gActors[temp_v0].unk_154 = -0x10;
             gActors[temp_v0].unk_138 = -16.0f;
             gActors[temp_v0].unk_13C = 16.0f;
@@ -170,14 +169,14 @@ void func_801A6E4C_76F8EC(u16 actor_index) {
             }
 
             if (temp_v1 >= 0xB4) {
-                gActors[actor_index].unk_114 = func_80029860(gActors[actor_index].unk_114, 0.1f, 0.05f);
-                gActors[actor_index].unk_154 = func_80029860(gActors[actor_index].unk_154, 0.0f, 8.0f);
+                gActors[actor_index].unk_114 = Math_ApproachF32(gActors[actor_index].unk_114, 0.1f, 0.05f);
+                gActors[actor_index].unk_154 = Math_ApproachF32(gActors[actor_index].unk_154, 0.0f, 8.0f);
                 return;
             }
 
-            gActors[actor_index].unk_114 = func_80029860(gActors[actor_index].unk_114, 2.3f, 0.05f);
-            gActors[actor_index].unk_154 = func_80029860(gActors[actor_index].unk_154, 192.0f, 4.0f);
-            gActors[actor_index].unk_158 = func_80029860(gActors[actor_index].unk_158, 0.0f, 1.0f);
+            gActors[actor_index].unk_114 = Math_ApproachF32(gActors[actor_index].unk_114, 2.3f, 0.05f);
+            gActors[actor_index].unk_154 = Math_ApproachF32(gActors[actor_index].unk_154, 192.0f, 4.0f);
+            gActors[actor_index].unk_158 = Math_ApproachF32(gActors[actor_index].unk_158, 0.0f, 1.0f);
             return;
         }
     }
@@ -211,6 +210,6 @@ void func_801A7180_76FC20(u16 actor_index) {
     }
 
     if (gActors[actor_index].velocityY >= -0x7FFFF) {
-        gActors[actor_index].velocityY -= 0x10000;
+        gActors[actor_index].velocityY -= FIXED_UNIT(1.0);
     }
 }

@@ -41,7 +41,7 @@ void ClancerCommanderMech_Init(u16 actor_index) {
     func_80081790(actor_index, D_800E57D4);
     func_800819A8(actor_index, D_800E4698);
     gActors[actor_index].colorA = 0xFE;
-    func_8002AEB4(actor_index, 4);
+    Actor_SetColorRgb(actor_index, 4);
 }
 
 void ClancerCommanderMech_UpdateParts(u16 actor_index) {
@@ -49,13 +49,13 @@ void ClancerCommanderMech_UpdateParts(u16 actor_index) {
         if (gActors[actor_index + 1].unk_180 & 0x8000) {
             func_800819A8(actor_index, D_800E4698);
             func_8008C710(actor_index);
-            func_8002AEB4(actor_index + 0xB, 0x18);
-            func_8002AEB4(actor_index + 0xF, 0x18);
-            func_8002AEB4(actor_index + 0x11, 0x30);
-            func_8002AEB4(actor_index + 0x12, 0x18);
-            func_8002AEB4(actor_index + 9, 0x18);
-            func_8002AEB4(actor_index + 0x1C, 0x18);
-            func_8002AEB4(actor_index + 0x1E, 0x18);
+            Actor_SetColorRgb(actor_index + 0xB, 0x18);
+            Actor_SetColorRgb(actor_index + 0xF, 0x18);
+            Actor_SetColorRgb(actor_index + 0x11, 0x30);
+            Actor_SetColorRgb(actor_index + 0x12, 0x18);
+            Actor_SetColorRgb(actor_index + 9, 0x18);
+            Actor_SetColorRgb(actor_index + 0x1C, 0x18);
+            Actor_SetColorRgb(actor_index + 0x1E, 0x18);
             gActors[actor_index + 18].scaleY = (f32)((f64)gActors[actor_index + 18].scaleY * 1.25);
             gActors[actor_index + 10].scaleY = (f32)((f64)gActors[actor_index + 10].scaleY * 1.25);
             gActors[actor_index + 28].scaleX = (f32)((f64)gActors[actor_index + 28].scaleX * 0.95);
@@ -208,8 +208,8 @@ void ClancerCommanderMech_Update(u16 actor_index) {
                     gActors[actor_index + 3].unk_180++;
                 }
             }
-            gActors[actor_index].velocityX = func_8002981C(gActors[actor_index].velocityX, 0, FIXED_UNIT(0.0625));
-            gActors[actor_index].velocityY = func_8002981C(gActors[actor_index].velocityY, 0, FIXED_UNIT(0.0625));
+            gActors[actor_index].velocityX = Math_ApproachS32(gActors[actor_index].velocityX, 0, FIXED_UNIT(0.0625));
+            gActors[actor_index].velocityY = Math_ApproachS32(gActors[actor_index].velocityY, 0, FIXED_UNIT(0.0625));
             ClancerCommanderMech_UpdateAttachedActorPosition(actor_index, temp_index_22);
             break;
 

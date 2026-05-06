@@ -121,7 +121,7 @@ void func_801B9900_7EA730(void) {
     switch (D_800D28E8) {
         case 0:
             func_80045FA4(D_801B9FB0_7EADE0, 0);
-            func_80043A68(D_801B9FC0_7EADF0);
+            Actor_LoadSpawnTable(D_801B9FC0_7EADF0);
             D_800BE5F4 = 4;
             gActors[0].flags = 0;
             D_800CA230 = 1;
@@ -138,7 +138,7 @@ void func_801B9900_7EA730(void) {
             break;
     }
 
-    func_800462F0();
+    Camera_UpdateViewBounds();
 }
 
 void func_801B99D0_7EA800(void) {
@@ -164,9 +164,9 @@ void func_801B99D0_7EA800(void) {
 }
 
 void func_801B9A78_7EA8A8(s16* arg0) {
-    func_80042E84(0, 0, 0, arg0[0], arg0[1], arg0[2], arg0[3], arg0[4], arg0[5]);
-    func_8002B82C((void*)0x80352B90, (void*)0x80352990, 0xFF, arg0[6], arg0[7], arg0[8]);
-    func_8002B82C((void*)0x80355F90, (void*)0x80355D90, 0xFF, arg0[9], arg0[10], arg0[11]);
+    Palette_AdjustScenePalettes(0, 0, 0, arg0[0], arg0[1], arg0[2], arg0[3], arg0[4], arg0[5]);
+    Palette_AdjustRgb5551Array((void*)0x80352B90, (void*)0x80352990, 0xFF, arg0[6], arg0[7], arg0[8]);
+    Palette_AdjustRgb5551Array((void*)0x80355F90, (void*)0x80355D90, 0xFF, arg0[9], arg0[10], arg0[11]);
 }
 
 void func_801B9B2C_7EA95C(void) {
@@ -188,7 +188,7 @@ void func_801B9BB4_7EA9E4(void) {
     switch (D_800D28E8) {
         case 0:
             func_80045FA4(D_801B9FE0_7EAE10, 0);
-            func_80043A68(D_801BA0DC_7EAF0C);
+            Actor_LoadSpawnTable(D_801BA0DC_7EAF0C);
             D_800BE5F4 = 4;
             gActors[0].flags = 0;
             D_800CA230 = 1;
@@ -241,7 +241,7 @@ void func_801B9BB4_7EA9E4(void) {
             D_801376BC[2] = 1;
             func_8002653C();
             func_80042DBC(D_801BA030_7EAE60);
-            func_80043A68(D_801BA0EC_7EAF1C);
+            Actor_LoadSpawnTable(D_801BA0EC_7EAF1C);
             func_801B9B2C_7EA95C();
             return;
 
@@ -275,7 +275,7 @@ void func_801B9EA4_7EACD4(void) {
     switch (D_800D28E8) {
         case 0:
             func_80045FA4(D_801B9FE0_7EAE10, 0);
-            func_80043A68(D_801BA160_7EAF90);
+            Actor_LoadSpawnTable(D_801BA160_7EAF90);
             D_800BE5F4 = 4;
             gActors[0].flags = 0;
             D_800CA230 = 1;

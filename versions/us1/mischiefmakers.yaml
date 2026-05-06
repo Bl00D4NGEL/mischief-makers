@@ -97,8 +97,8 @@ segments:
       - [0x023910, asm, soft_reset]
       - [0x0241E0, asm] # has to do with scenes (scene init?)
       - [0x026A00, c] # might be a fake split
-      - [0x027F70, asm] # has to do with on screen text
-      - [0x0438E0, asm]
+      - [0x027F70, c] # has to do with on screen text
+      - [0x0438E0, c]
       - [0x048A30, c]
       - [0x049200, c, marina]
       - [0x04FEB0, asm]
@@ -1302,7 +1302,7 @@ segments:
     start: 0x7D40F0
     bss_size: 0x10
     subsegments:
-      - [0x7D40F0, asmtu, overlay_7D40C0/7D40F0] # object segment 7D40F0->7DAAA0 (0x69B0)
+      - [0x7D40F0, c, overlay_7D40C0/7D40F0] # object segment 7D40F0->7DAAA0 (0x69B0)
       - [0x7D6930, .data, overlay_7D40C0/7D40F0]
       - [0x7DA8E0, .rodata, overlay_7D40C0/7D40F0]
       - { name: overlay_7D40C0/7D40F0, type: .bss, vram: 0x801C02B0 }

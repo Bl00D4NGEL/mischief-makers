@@ -143,7 +143,7 @@ u32 D_8019BD24_7544A4[] = {
 };
 
 void func_8019B100_753880(u16 actor_index) {
-    gActors[actor_index].velocityX = func_8002981C(gActors[actor_index].velocityX, 0, gActors[actor_index + 1].unk_12C * 2048.0f);
+    gActors[actor_index].velocityX = Math_ApproachS32(gActors[actor_index].velocityX, 0, gActors[actor_index + 1].unk_12C * 2048.0f);
 
     if (gActors[actor_index].unk_16C & 1) {
         gActors[actor_index].velocityX = 81920.0f * gActors[actor_index + 1].unk_12C * gActors[actor_index + 1].unk_130;
