@@ -57,18 +57,9 @@ extern u32 D_801BACF0_7E7E40[];
 extern u32 D_801BAD00_7E7E50[];
 extern u32 D_801BAD04_7E7E54[];
 
-extern void func_8002AEB4(u16 actor_index, s32 arg1);
 extern s32 func_8002B5A0(s32 arg0, s16 arg1, s16 arg2, s16 arg3);
-extern void func_8002B82C(void* arg0, void* arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
-extern void func_80028744(void);
-extern void Sound_PlayMusic(u32 sequence_id);
-extern void func_80003F24(s32 arg0, s32 arg1);
 extern void func_8003D628(u16 arg0);
-extern void func_80042E84(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8);
-extern void func_80043A68(void* arg0);
-extern void func_80045FA4(void* arg0, s32 arg1);
 extern void func_80046A9C(void);
-extern s32 func_80046D5C(void);
 extern void func_80064AA0(s32 arg0, void* arg1);
 extern s16 func_800456DC(void);
 

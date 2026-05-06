@@ -13,7 +13,7 @@ extern u8 D_800E1380[];
 #pragma GLOBAL_ASM("asm/nonmatchings/actor_init/func_8001DE30.s")
 
 // Thanks to inspectredc for helping with this one!
-void func_8001E2D0(u16 actor_index) {
+DEFAULT_INT func_8001E2D0(u16 actor_index) {
     u16 type_table_index;
 
     type_table_index = gActors[actor_index].actorType * 7;

@@ -17,19 +17,12 @@ extern u8 D_800E59E0[];
 
 extern s32 func_800036C8(s32 arg0, u16 arg1);
 extern s32 func_80003980(s32 arg0, u16 arg1);
-extern s32 func_8001E2D0(u16 arg0);
 extern u16 func_80028528(void);
-extern s32 func_8002981C(s32 arg0, s32 arg1, s32 arg2);
-extern void func_8002AEB4(u16 arg0, s32 arg1);
 extern s16 func_8005DEFC(void);
 extern void func_8005DF40(s32 arg0, s32 arg1);
 extern s32 func_8005DF5C(s32 arg0);
 extern void func_8007F9E0(u16 actor_index);
-extern void func_8008105C(u16 arg0, void* arg1, void* arg2);
-extern void func_80081478(u16 arg0, void* arg1, s32 arg2);
 extern void func_80081720(u16 arg0, void* arg1, s32 arg2);
-extern void func_80081790(u16 arg0, void* arg1);
-extern void func_800819A8(u16 arg0, void* arg1);
 extern void func_8008C710(u16 arg0);
 
 void func_80192C00_6D2700(u16 actor_index);

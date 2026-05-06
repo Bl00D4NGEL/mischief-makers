@@ -1,10 +1,7 @@
 #include "common.h"
 #include "actor.h"
 
-extern u16 func_800284B8(u16 arg0, u16 arg1);
-extern s32 func_8002981C(s32 arg0, s32 arg1, s32 arg2);
 extern s32 func_800298D0(s32 arg0, s32 arg1, s32 arg2);
-extern u16 func_8000178C(void);
 extern void func_800339BC(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern void func_80033E7C(u16 actor_index, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, s32 arg6);
 extern void func_80028C00(u16 actor_index);

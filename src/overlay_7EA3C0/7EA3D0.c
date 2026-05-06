@@ -16,14 +16,6 @@ typedef struct {
 
 extern UnkStruct_D_801373E0 D_801373E0;
 
-extern void func_80028744(void);
-extern void func_80043A68(void* arg0);
-extern void func_80045FA4(void* arg0, s32 arg1);
-extern void func_80046148(void* arg0, s32 arg1);
-extern void func_80046188(void* arg0, void* arg1);
-extern s32 func_80046D5C(void);
-extern void func_80046E6C(void);
-
 u32 D_801B9BC0_7EA690[] = {
     0x05800198,
     0xFFF02090,

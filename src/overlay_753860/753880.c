@@ -6,15 +6,8 @@ extern s16 D_800BE56C;
 extern u16 D_800E3580;
 extern u32 D_800E3584;
 
-extern s32 func_8001E2D0(u16 actor_index);
-extern void func_80026E60(s32 arg0);
-extern s32 func_8002981C(s32 arg0, s32 arg1, s32 arg2);
 extern void func_8002AA20(u16 actor_index, s32 unused);
 extern void func_8002AC30(u16 actor_index, s32 arg1);
-extern void func_8008105C(u16 actor_index, void* arg1, void* arg2);
-extern void func_80081478(u16 actor_index, void* arg1, s32 arg2);
-extern void func_80081790(u16 actor_index, void* arg1);
-extern void func_800819A8(u16 actor_index, s16* hierarchy);
 extern void func_80083BD8(s32 arg0, s16 arg1, s32 arg2);
 
 void func_8019B100_753880(u16 actor_index);
