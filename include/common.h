@@ -6,6 +6,7 @@
 #include "inttypes.h"
 #include "common_structs.h"
 #include "linker.h"
+#include "cosine.h"
 
 typedef s32 DEFAULT_INT; // use this to explicitly show when the original programmer likely forgot to write the return type
 
@@ -17,6 +18,9 @@ typedef s32 DEFAULT_INT; // use this to explicitly show when the original progra
 
 #define SCREEN_WIDTH (320)
 #define SCREEN_HEIGHT (240)
+
+#define ARRAYLENGTH(arr) (sizeof(arr)/sizeof(arr[0]))
+#define ARRAYEND(arr) arr+ARRAYLENGTH(arr) //for stacks and a few while loops.
 
 #ifndef osInitialize
 #define osInitialize __osInitialize_common
