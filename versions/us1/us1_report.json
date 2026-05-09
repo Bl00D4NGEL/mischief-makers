@@ -1,13 +1,13 @@
 {
   "measures": {
-    "fuzzy_match_percent": 10.059259,
+    "fuzzy_match_percent": 10.130724,
     "total_code": "1992592",
-    "matched_code": "200440",
-    "matched_code_percent": 10.059259,
+    "matched_code": "201864",
+    "matched_code_percent": 10.130724,
     "matched_data_percent": 100.0,
     "total_functions": 4691,
-    "matched_functions": 673,
-    "matched_functions_percent": 14.346621189511833,
+    "matched_functions": 683,
+    "matched_functions_percent": 14.55979535280324,
     "complete_data_percent": 100.0,
     "total_units": 383
   },
@@ -721,91 +721,119 @@
       }
     },
     {
-      "name": "4F80",
+      "name": "font",
       "measures": {
+        "fuzzy_match_percent": 100.0,
         "total_code": "1424",
+        "matched_code": "1424",
+        "matched_code_percent": 100.0,
         "matched_data_percent": 100.0,
         "total_functions": 10,
-        "total_units": 1,
-        "matched_functions": 0,
-        "matched_functions_percent": 0.0
+        "matched_functions": 10,
+        "matched_functions_percent": 100.0,
+        "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
           "size": "1424",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147500928"
+          }
+        },
+        {
+          "name": ".data",
+          "size": "5600",
+          "metadata": {
+            "virtual_address": "2148284672"
+          }
+        },
+        {
+          "name": ".bss",
+          "size": "12928",
+          "metadata": {
+            "virtual_address": "2148984864"
           }
         }
       ],
       "functions": [
         {
-          "name": "func_80004380",
+          "name": "Font_TextSprite",
           "size": "632",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147500928"
           }
         },
         {
-          "name": "func_800045F8",
+          "name": "Font_FindChar",
           "size": "80",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147501560"
           }
         },
         {
-          "name": "func_80004648",
+          "name": "Font_Init",
           "size": "180",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147501640"
           }
         },
         {
-          "name": "func_800046FC",
+          "name": "Font_Finish",
           "size": "60",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147501820"
           }
         },
         {
-          "name": "func_80004738",
+          "name": "Font_SetWindow",
           "size": "20",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147501880"
           }
         },
         {
-          "name": "func_8000474C",
+          "name": "Font_SetPos",
           "size": "20",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147501900"
           }
         },
         {
-          "name": "func_80004760",
+          "name": "Font_SetScale",
           "size": "28",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147501920"
           }
         },
         {
-          "name": "func_8000477C",
+          "name": "Font_SetColor",
           "size": "52",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147501948"
           }
         },
         {
-          "name": "func_800047B0",
+          "name": "Font_SetTransparent",
           "size": "84",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147502000"
           }
         },
         {
-          "name": "func_80004804",
+          "name": "Font_ShowString",
           "size": "268",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147502084"
           }
@@ -815,7 +843,7 @@
         "module_name": ".main",
         "module_id": 2,
         "progress_categories": [
-          "4F80"
+          "font"
         ]
       }
     },
@@ -23478,35 +23506,6 @@
       "functions": []
     },
     {
-      "name": "data/C4500.data",
-      "measures": {
-        "fuzzy_match_percent": 100.0,
-        "matched_code_percent": 100.0,
-        "matched_data_percent": 100.0,
-        "matched_functions_percent": 0.0,
-        "total_units": 1,
-        "total_functions": 0,
-        "matched_functions": 0
-      },
-      "sections": [
-        {
-          "name": ".data",
-          "size": "5600",
-          "metadata": {
-            "virtual_address": "2148284672"
-          }
-        }
-      ],
-      "metadata": {
-        "module_name": ".main",
-        "module_id": 2,
-        "progress_categories": [
-          "data"
-        ]
-      },
-      "functions": []
-    },
-    {
       "name": "C5AE0",
       "measures": {
         "fuzzy_match_percent": 100.0,
@@ -24854,9 +24853,38 @@
       "sections": [
         {
           "name": ".bss",
-          "size": "308720",
+          "size": "227152",
           "metadata": {
             "virtual_address": "2148757712"
+          }
+        }
+      ],
+      "metadata": {
+        "module_name": ".main_bss",
+        "module_id": 3,
+        "progress_categories": [
+          "data"
+        ]
+      },
+      "functions": []
+    },
+    {
+      "name": "data/bss_80171AA0.bss",
+      "measures": {
+        "fuzzy_match_percent": 100.0,
+        "matched_code_percent": 100.0,
+        "matched_data_percent": 100.0,
+        "matched_functions_percent": 0.0,
+        "total_units": 1,
+        "total_functions": 0,
+        "matched_functions": 0
+      },
+      "sections": [
+        {
+          "name": ".bss",
+          "size": "68640",
+          "metadata": {
+            "virtual_address": "2148997792"
           }
         }
       ],
@@ -46948,14 +46976,14 @@
       "id": "total_matching",
       "name": "Total Matching",
       "measures": {
-        "fuzzy_match_percent": 10.059259,
+        "fuzzy_match_percent": 10.130724,
         "total_code": "1992592",
-        "matched_code": "200440",
-        "matched_code_percent": 10.059259,
+        "matched_code": "201864",
+        "matched_code_percent": 10.130724,
         "matched_data_percent": 100.0,
         "total_functions": 4691,
-        "matched_functions": 673,
-        "matched_functions_percent": 14.346621189511833,
+        "matched_functions": 683,
+        "matched_functions_percent": 14.55979535280324,
         "complete_data_percent": 100.0,
         "total_units": 383
       }
@@ -46965,12 +46993,12 @@
       "name": "Main Code Segment",
       "measures": {
         "total_code": "772208",
-        "matched_code": "171560",
-        "matched_code_percent": 22.216812050639206,
+        "matched_code": "172984",
+        "matched_code_percent": 22.40121832459648,
         "total_functions": 2156,
-        "matched_functions": 574,
-        "matched_functions_percent": 26.623376623376622,
-        "total_units": 264
+        "matched_functions": 584,
+        "matched_functions_percent": 27.087198515769945,
+        "total_units": 263
       }
     },
     {
@@ -47113,16 +47141,19 @@
       }
     },
     {
-      "id": "4F80",
-      "name": "4F80",
+      "id": "font",
+      "name": "font",
       "measures": {
+        "fuzzy_match_percent": 100.0,
         "total_code": "1424",
+        "matched_code": "1424",
+        "matched_code_percent": 100.0,
         "matched_data_percent": 100.0,
         "total_functions": 10,
+        "matched_functions": 10,
+        "matched_functions_percent": 100.0,
         "complete_data_percent": 100.0,
-        "total_units": 1,
-        "matched_functions": 0,
-        "matched_functions_percent": 0.0
+        "total_units": 1
       }
     },
     {
