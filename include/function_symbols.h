@@ -30,8 +30,8 @@ extern void Palette_AdjustScenePalettes(
     s16 blue_offset_1, s16 green_offset_1, s16 red_offset_1,
     s16 blue_offset_2, s16 green_offset_2, s16 red_offset_2
 );
-extern void Actor_LoadSpawnTable(void* spawn_table);
-extern void func_80043D30(void* arg0);
+extern void Actor_LoadSpawnTable(ActorSpawnRecord* spawn_table);
+extern void func_80043D30(ActorSpawnRecord* spawn);
 extern void func_80045FA4(void* arg0, s32 arg1);
 extern void func_80046148(void* arg0, s32 arg1);
 extern void func_80046188(void* arg0, void* arg1);

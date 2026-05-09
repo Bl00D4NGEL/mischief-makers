@@ -15,4 +15,9 @@ typedef struct {
     /* 0x78 */ u32 unk_78;
 } UnkStruct_D_801373E0;
 
+typedef struct {
+    /* 0x00 */ u16 flags;
+    /* 0x02 */ u8 unk_02[0xC];
+} ActorSpawnRecord; /* size = 0xE */
+
 #endif
