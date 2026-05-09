@@ -9,13 +9,6 @@ extern u32 D_800D28FC;
 extern u16 D_800D2908;
 extern u8 D_8010692C;
 
-typedef struct {
-    /* 0x00 */ u8 unk_00[0x78];
-    /* 0x78 */ u32 unk_78;
-} UnkStruct_D_801373E0;
-
-extern UnkStruct_D_801373E0 D_801373E0;
-
 u32 D_801B9BC0_7EA690[] = {
     0x05800198,
     0xFFF02090,

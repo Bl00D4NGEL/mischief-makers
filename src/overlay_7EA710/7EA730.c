@@ -32,13 +32,6 @@ extern s16 D_800D2950;
 extern u16 D_80104098[];
 extern u8 D_801376BC[];
 
-typedef struct {
-    /* 0x00 */ u8 unk_00[0x78];
-    /* 0x78 */ u32 unk_78;
-} UnkStruct_D_801373E0;
-
-extern UnkStruct_D_801373E0 D_801373E0;
-
 extern void func_80010C20(u16 arg0);
 extern void func_800255B4(u16 arg0);
 extern void func_80025BFC(void);
