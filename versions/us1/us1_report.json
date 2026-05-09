@@ -1,15 +1,15 @@
 {
   "measures": {
-    "fuzzy_match_percent": 9.804717,
+    "fuzzy_match_percent": 9.963505,
     "total_code": "1992592",
-    "matched_code": "195368",
-    "matched_code_percent": 9.804717,
+    "matched_code": "198532",
+    "matched_code_percent": 9.963505,
     "matched_data_percent": 100.0,
     "total_functions": 4691,
-    "matched_functions": 644,
-    "matched_functions_percent": 13.728416115966747,
+    "matched_functions": 664,
+    "matched_functions_percent": 14.154764442549563,
     "complete_data_percent": 100.0,
-    "total_units": 382
+    "total_units": 383
   },
   "units": [
     {
@@ -3342,21 +3342,21 @@
     {
       "name": "26A00",
       "measures": {
-        "fuzzy_match_percent": 15.670554,
+        "fuzzy_match_percent": 73.323616,
         "total_code": "5488",
-        "matched_code": "860",
-        "matched_code_percent": 15.670554,
+        "matched_code": "4024",
+        "matched_code_percent": 73.323616,
         "matched_data_percent": 100.0,
         "total_functions": 30,
-        "matched_functions": 5,
-        "matched_functions_percent": 16.666666666666664,
+        "matched_functions": 25,
+        "matched_functions_percent": 83.33333333333334,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
           "size": "5488",
-          "fuzzy_match_percent": 15.670554,
+          "fuzzy_match_percent": 73.323616,
           "metadata": {
             "virtual_address": "2147638784"
           }
@@ -3366,6 +3366,7 @@
         {
           "name": "func_80025E00",
           "size": "108",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147638784"
           }
@@ -3373,6 +3374,7 @@
         {
           "name": "func_80025E6C",
           "size": "88",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147638892"
           }
@@ -3427,6 +3429,7 @@
         {
           "name": "func_80026428",
           "size": "108",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147640360"
           }
@@ -3434,6 +3437,7 @@
         {
           "name": "func_80026494",
           "size": "168",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147640468"
           }
@@ -3441,6 +3445,7 @@
         {
           "name": "func_8002653C",
           "size": "72",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147640636"
           }
@@ -3448,6 +3453,7 @@
         {
           "name": "func_80026584",
           "size": "120",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147640708"
           }
@@ -3455,6 +3461,7 @@
         {
           "name": "func_800265FC",
           "size": "152",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147640828"
           }
@@ -3462,6 +3469,7 @@
         {
           "name": "func_80026694",
           "size": "120",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147640980"
           }
@@ -3469,6 +3477,7 @@
         {
           "name": "func_8002670C",
           "size": "120",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147641100"
           }
@@ -3476,6 +3485,7 @@
         {
           "name": "func_80026784",
           "size": "120",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147641220"
           }
@@ -3483,6 +3493,7 @@
         {
           "name": "func_800267FC",
           "size": "120",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147641340"
           }
@@ -3490,6 +3501,7 @@
         {
           "name": "func_80026874",
           "size": "216",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147641460"
           }
@@ -3497,6 +3509,7 @@
         {
           "name": "func_8002694C",
           "size": "204",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147641676"
           }
@@ -3511,6 +3524,7 @@
         {
           "name": "func_80026B04",
           "size": "204",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147642116"
           }
@@ -3518,6 +3532,7 @@
         {
           "name": "func_80026BD0",
           "size": "204",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147642320"
           }
@@ -3532,6 +3547,7 @@
         {
           "name": "func_80026D88",
           "size": "216",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147642760"
           }
@@ -3539,6 +3555,7 @@
         {
           "name": "func_80026E60",
           "size": "204",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147642976"
           }
@@ -3553,6 +3570,7 @@
         {
           "name": "func_80027018",
           "size": "204",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147643416"
           }
@@ -3560,6 +3578,7 @@
         {
           "name": "func_800270E4",
           "size": "204",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147643620"
           }
@@ -3574,6 +3593,7 @@
         {
           "name": "func_8002729C",
           "size": "212",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147644060"
           }
@@ -24854,7 +24874,7 @@
       "sections": [
         {
           "name": ".data",
-          "size": "1009712",
+          "size": "48",
           "metadata": {
             "virtual_address": "2149103520"
           }
@@ -24863,6 +24883,35 @@
       "metadata": {
         "module_name": ".bin_F00D0",
         "module_id": 4,
+        "progress_categories": [
+          "assets"
+        ]
+      },
+      "functions": []
+    },
+    {
+      "name": "assets/bin_F0100.bin",
+      "measures": {
+        "fuzzy_match_percent": 100.0,
+        "matched_code_percent": 100.0,
+        "matched_data_percent": 100.0,
+        "matched_functions_percent": 0.0,
+        "total_units": 1,
+        "total_functions": 0,
+        "matched_functions": 0
+      },
+      "sections": [
+        {
+          "name": ".data",
+          "size": "1009664",
+          "metadata": {
+            "virtual_address": "2149103568"
+          }
+        }
+      ],
+      "metadata": {
+        "module_name": ".bin_F0100",
+        "module_id": 5,
         "progress_categories": [
           "assets"
         ]
@@ -24891,7 +24940,7 @@
       ],
       "metadata": {
         "module_name": ".gfx_common_gfx_resources_1E6900_80200400",
-        "module_id": 5,
+        "module_id": 6,
         "progress_categories": [
           "assets"
         ]
@@ -24920,7 +24969,7 @@
       ],
       "metadata": {
         "module_name": ".gfx_clancer",
-        "module_id": 6,
+        "module_id": 7,
         "progress_categories": [
           "assets"
         ]
@@ -24949,7 +24998,7 @@
       ],
       "metadata": {
         "module_name": ".bin_248F40",
-        "module_id": 7,
+        "module_id": 8,
         "progress_categories": [
           "assets"
         ]
@@ -24978,7 +25027,7 @@
       ],
       "metadata": {
         "module_name": ".gfx_marina",
-        "module_id": 8,
+        "module_id": 9,
         "progress_categories": [
           "assets"
         ]
@@ -25007,7 +25056,7 @@
       ],
       "metadata": {
         "module_name": ".bin_4A15A0",
-        "module_id": 9,
+        "module_id": 10,
         "progress_categories": [
           "assets"
         ]
@@ -25036,7 +25085,7 @@
       ],
       "metadata": {
         "module_name": ".map_collision_4A1FC0",
-        "module_id": 10,
+        "module_id": 11,
         "progress_categories": [
           "assets"
         ]
@@ -25065,7 +25114,7 @@
       ],
       "metadata": {
         "module_name": ".audio_bank_ctl",
-        "module_id": 11,
+        "module_id": 12,
         "progress_categories": [
           "assets"
         ]
@@ -25094,7 +25143,7 @@
       ],
       "metadata": {
         "module_name": ".audio_bank_tbl",
-        "module_id": 12,
+        "module_id": 13,
         "progress_categories": [
           "assets"
         ]
@@ -25123,7 +25172,7 @@
       ],
       "metadata": {
         "module_name": ".audio_seq_bank",
-        "module_id": 13,
+        "module_id": 14,
         "progress_categories": [
           "assets"
         ]
@@ -25152,7 +25201,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_67DBA0_dispatch_table",
-        "module_id": 14,
+        "module_id": 15,
         "progress_categories": [
           "overlay_67DBA0"
         ]
@@ -25721,7 +25770,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_67DBA0",
-        "module_id": 15,
+        "module_id": 16,
         "progress_categories": [
           "overlay_67DBA0"
         ]
@@ -25749,7 +25798,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_68A090_dispatch_table",
-        "module_id": 17,
+        "module_id": 18,
         "progress_categories": [
           "overlay_68A090"
         ]
@@ -26843,7 +26892,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_68A090",
-        "module_id": 18,
+        "module_id": 19,
         "progress_categories": [
           "overlay_68A090"
         ]
@@ -26871,7 +26920,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6A00C0_dispatch_table",
-        "module_id": 20,
+        "module_id": 21,
         "progress_categories": [
           "overlay_6A00C0"
         ]
@@ -27342,7 +27391,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6A00C0",
-        "module_id": 21,
+        "module_id": 22,
         "progress_categories": [
           "overlay_6A00C0"
         ]
@@ -27370,7 +27419,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6AAA80_dispatch_table",
-        "module_id": 23,
+        "module_id": 24,
         "progress_categories": [
           "overlay_6AAA80"
         ]
@@ -28261,7 +28310,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6AAA80",
-        "module_id": 24,
+        "module_id": 25,
         "progress_categories": [
           "overlay_6AAA80"
         ]
@@ -28289,7 +28338,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6BCD80_dispatch_table",
-        "module_id": 26,
+        "module_id": 27,
         "progress_categories": [
           "overlay_6BCD80"
         ]
@@ -29250,7 +29299,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6BCD80",
-        "module_id": 27,
+        "module_id": 28,
         "progress_categories": [
           "overlay_6BCD80"
         ]
@@ -29278,7 +29327,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6D1BF0_dispatch_table",
-        "module_id": 29,
+        "module_id": 30,
         "progress_categories": [
           "overlay_6D1BF0"
         ]
@@ -29367,7 +29416,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6D1BF0",
-        "module_id": 30,
+        "module_id": 31,
         "progress_categories": [
           "overlay_6D1BF0"
         ]
@@ -29395,7 +29444,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6D2750_dispatch_table",
-        "module_id": 31,
+        "module_id": 32,
         "progress_categories": [
           "overlay_6D2750"
         ]
@@ -29747,7 +29796,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6D2750",
-        "module_id": 32,
+        "module_id": 33,
         "progress_categories": [
           "overlay_6D2750"
         ]
@@ -29775,7 +29824,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6D9FB0_dispatch_table",
-        "module_id": 34,
+        "module_id": 35,
         "progress_categories": [
           "overlay_6D9FB0"
         ]
@@ -30120,7 +30169,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6D9FB0",
-        "module_id": 35,
+        "module_id": 36,
         "progress_categories": [
           "overlay_6D9FB0"
         ]
@@ -30148,7 +30197,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6E2AE0_dispatch_table",
-        "module_id": 36,
+        "module_id": 37,
         "progress_categories": [
           "overlay_6E2AE0"
         ]
@@ -30339,7 +30388,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6E2AE0",
-        "module_id": 37,
+        "module_id": 38,
         "progress_categories": [
           "overlay_6E2AE0"
         ]
@@ -30367,7 +30416,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6EE550_dispatch_table",
-        "module_id": 39,
+        "module_id": 40,
         "progress_categories": [
           "overlay_6EE550"
         ]
@@ -30488,7 +30537,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6EE550",
-        "module_id": 40,
+        "module_id": 41,
         "progress_categories": [
           "overlay_6EE550"
         ]
@@ -30516,7 +30565,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6F3DA0_dispatch_table",
-        "module_id": 42,
+        "module_id": 43,
         "progress_categories": [
           "overlay_6F3DA0"
         ]
@@ -30651,7 +30700,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6F3DA0",
-        "module_id": 43,
+        "module_id": 44,
         "progress_categories": [
           "overlay_6F3DA0"
         ]
@@ -30679,7 +30728,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6F7B20_dispatch_table",
-        "module_id": 45,
+        "module_id": 46,
         "progress_categories": [
           "overlay_6F7B20"
         ]
@@ -30744,7 +30793,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6F7B20",
-        "module_id": 46,
+        "module_id": 47,
         "progress_categories": [
           "overlay_6F7B20"
         ]
@@ -30772,7 +30821,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6F9330_dispatch_table",
-        "module_id": 47,
+        "module_id": 48,
         "progress_categories": [
           "overlay_6F9330"
         ]
@@ -32643,7 +32692,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_6F9330",
-        "module_id": 48,
+        "module_id": 49,
         "progress_categories": [
           "overlay_6F9330"
         ]
@@ -32671,7 +32720,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_713600_dispatch_table",
-        "module_id": 50,
+        "module_id": 51,
         "progress_categories": [
           "overlay_713600"
         ]
@@ -33065,7 +33114,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_713600",
-        "module_id": 51,
+        "module_id": 52,
         "progress_categories": [
           "overlay_713600"
         ]
@@ -33093,7 +33142,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_719700_dispatch_table",
-        "module_id": 52,
+        "module_id": 53,
         "progress_categories": [
           "overlay_719700"
         ]
@@ -33375,7 +33424,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_719700",
-        "module_id": 53,
+        "module_id": 54,
         "progress_categories": [
           "overlay_719700"
         ]
@@ -33403,7 +33452,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_722A30_dispatch_table",
-        "module_id": 55,
+        "module_id": 56,
         "progress_categories": [
           "overlay_722A30"
         ]
@@ -33713,7 +33762,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_722A30",
-        "module_id": 56,
+        "module_id": 57,
         "progress_categories": [
           "overlay_722A30"
         ]
@@ -33741,7 +33790,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_72B120_dispatch_table",
-        "module_id": 57,
+        "module_id": 58,
         "progress_categories": [
           "overlay_72B120"
         ]
@@ -34065,7 +34114,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_72B120",
-        "module_id": 58,
+        "module_id": 59,
         "progress_categories": [
           "overlay_72B120"
         ]
@@ -34093,7 +34142,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_731DD0_dispatch_table",
-        "module_id": 59,
+        "module_id": 60,
         "progress_categories": [
           "overlay_731DD0"
         ]
@@ -34795,7 +34844,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_731DD0",
-        "module_id": 60,
+        "module_id": 61,
         "progress_categories": [
           "overlay_731DD0"
         ]
@@ -34823,7 +34872,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_73D070_dispatch_table",
-        "module_id": 61,
+        "module_id": 62,
         "progress_categories": [
           "overlay_73D070"
         ]
@@ -35238,7 +35287,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_73D070",
-        "module_id": 62,
+        "module_id": 63,
         "progress_categories": [
           "overlay_73D070"
         ]
@@ -35266,7 +35315,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_742CA0_dispatch_table",
-        "module_id": 63,
+        "module_id": 64,
         "progress_categories": [
           "overlay_742CA0"
         ]
@@ -35807,7 +35856,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_742CA0",
-        "module_id": 64,
+        "module_id": 65,
         "progress_categories": [
           "overlay_742CA0"
         ]
@@ -35835,7 +35884,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_749C90_dispatch_table",
-        "module_id": 66,
+        "module_id": 67,
         "progress_categories": [
           "overlay_749C90"
         ]
@@ -36222,7 +36271,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_749C90",
-        "module_id": 67,
+        "module_id": 68,
         "progress_categories": [
           "overlay_749C90"
         ]
@@ -36250,7 +36299,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_753860_dispatch_table",
-        "module_id": 68,
+        "module_id": 69,
         "progress_categories": [
           "overlay_753860"
         ]
@@ -36370,7 +36419,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_753860",
-        "module_id": 69,
+        "module_id": 70,
         "progress_categories": [
           "overlay_753860"
         ]
@@ -36398,7 +36447,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_754570_dispatch_table",
-        "module_id": 70,
+        "module_id": 71,
         "progress_categories": [
           "overlay_754570"
         ]
@@ -36778,7 +36827,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_754570",
-        "module_id": 71,
+        "module_id": 72,
         "progress_categories": [
           "overlay_754570"
         ]
@@ -36806,7 +36855,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_75D630_dispatch_table",
-        "module_id": 73,
+        "module_id": 74,
         "progress_categories": [
           "overlay_75D630"
         ]
@@ -37137,7 +37186,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_75D630",
-        "module_id": 74,
+        "module_id": 75,
         "progress_categories": [
           "overlay_75D630"
         ]
@@ -37165,7 +37214,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_766080_dispatch_table",
-        "module_id": 76,
+        "module_id": 77,
         "progress_categories": [
           "overlay_766080"
         ]
@@ -37825,7 +37874,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_766080",
-        "module_id": 77,
+        "module_id": 78,
         "progress_categories": [
           "overlay_766080"
         ]
@@ -37853,7 +37902,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_76F390_dispatch_table",
-        "module_id": 79,
+        "module_id": 80,
         "progress_categories": [
           "overlay_76F390"
         ]
@@ -37957,7 +38006,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_76F390",
-        "module_id": 80,
+        "module_id": 81,
         "progress_categories": [
           "overlay_76F390"
         ]
@@ -37985,7 +38034,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_76FD60_dispatch_table",
-        "module_id": 81,
+        "module_id": 82,
         "progress_categories": [
           "overlay_76FD60"
         ]
@@ -38372,7 +38421,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_76FD60",
-        "module_id": 82,
+        "module_id": 83,
         "progress_categories": [
           "overlay_76FD60"
         ]
@@ -38400,7 +38449,7 @@
       ],
       "metadata": {
         "module_name": "._774DA0",
-        "module_id": 84,
+        "module_id": 85,
         "progress_categories": [
           "assets"
         ]
@@ -38429,7 +38478,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_775460_dispatch_table",
-        "module_id": 85,
+        "module_id": 86,
         "progress_categories": [
           "overlay_775460"
         ]
@@ -39054,7 +39103,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_775460",
-        "module_id": 86,
+        "module_id": 87,
         "progress_categories": [
           "overlay_775460"
         ]
@@ -39082,7 +39131,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_77F240_dispatch_table",
-        "module_id": 87,
+        "module_id": 88,
         "progress_categories": [
           "overlay_77F240"
         ]
@@ -39385,7 +39434,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_77F240",
-        "module_id": 88,
+        "module_id": 89,
         "progress_categories": [
           "overlay_77F240"
         ]
@@ -39413,7 +39462,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7854B0_dispatch_table",
-        "module_id": 89,
+        "module_id": 90,
         "progress_categories": [
           "overlay_7854B0"
         ]
@@ -39884,7 +39933,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7854B0",
-        "module_id": 90,
+        "module_id": 91,
         "progress_categories": [
           "overlay_7854B0"
         ]
@@ -39912,7 +39961,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_78B430_dispatch_table",
-        "module_id": 92,
+        "module_id": 93,
         "progress_categories": [
           "overlay_78B430"
         ]
@@ -40026,7 +40075,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_78B430",
-        "module_id": 93,
+        "module_id": 94,
         "progress_categories": [
           "overlay_78B430"
         ]
@@ -40054,7 +40103,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_78CB60_dispatch_table",
-        "module_id": 94,
+        "module_id": 95,
         "progress_categories": [
           "overlay_78CB60"
         ]
@@ -40931,7 +40980,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_78CB60",
-        "module_id": 95,
+        "module_id": 96,
         "progress_categories": [
           "overlay_78CB60"
         ]
@@ -40959,7 +41008,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7969B0_dispatch_table",
-        "module_id": 97,
+        "module_id": 98,
         "progress_categories": [
           "overlay_7969B0"
         ]
@@ -41122,7 +41171,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7969B0",
-        "module_id": 98,
+        "module_id": 99,
         "progress_categories": [
           "overlay_7969B0"
         ]
@@ -41150,7 +41199,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7986D0_dispatch_table",
-        "module_id": 99,
+        "module_id": 100,
         "progress_categories": [
           "overlay_7986D0"
         ]
@@ -41551,7 +41600,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7986D0",
-        "module_id": 100,
+        "module_id": 101,
         "progress_categories": [
           "overlay_7986D0"
         ]
@@ -41579,7 +41628,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7A13D0_dispatch_table",
-        "module_id": 101,
+        "module_id": 102,
         "progress_categories": [
           "overlay_7A13D0"
         ]
@@ -41980,7 +42029,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7A13D0",
-        "module_id": 102,
+        "module_id": 103,
         "progress_categories": [
           "overlay_7A13D0"
         ]
@@ -42008,7 +42057,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7A6E60_dispatch_table",
-        "module_id": 104,
+        "module_id": 105,
         "progress_categories": [
           "overlay_7A6E60"
         ]
@@ -42430,7 +42479,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7A6E60",
-        "module_id": 105,
+        "module_id": 106,
         "progress_categories": [
           "overlay_7A6E60"
         ]
@@ -42458,7 +42507,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7AC7F0_dispatch_table",
-        "module_id": 106,
+        "module_id": 107,
         "progress_categories": [
           "overlay_7AC7F0"
         ]
@@ -43237,7 +43286,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7AC7F0",
-        "module_id": 107,
+        "module_id": 108,
         "progress_categories": [
           "overlay_7AC7F0"
         ]
@@ -43265,7 +43314,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7B3FC0_dispatch_table",
-        "module_id": 109,
+        "module_id": 110,
         "progress_categories": [
           "overlay_7B3FC0"
         ]
@@ -43687,7 +43736,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7B3FC0",
-        "module_id": 110,
+        "module_id": 111,
         "progress_categories": [
           "overlay_7B3FC0"
         ]
@@ -43715,7 +43764,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7B8760_dispatch_table",
-        "module_id": 111,
+        "module_id": 112,
         "progress_categories": [
           "overlay_7B8760"
         ]
@@ -44025,7 +44074,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7B8760",
-        "module_id": 112,
+        "module_id": 113,
         "progress_categories": [
           "overlay_7B8760"
         ]
@@ -44053,7 +44102,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7BC840_dispatch_table",
-        "module_id": 113,
+        "module_id": 114,
         "progress_categories": [
           "overlay_7BC840"
         ]
@@ -44314,7 +44363,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7BC840",
-        "module_id": 114,
+        "module_id": 115,
         "progress_categories": [
           "overlay_7BC840"
         ]
@@ -44342,7 +44391,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7C0AB0_dispatch_table",
-        "module_id": 116,
+        "module_id": 117,
         "progress_categories": [
           "overlay_7C0AB0"
         ]
@@ -44862,7 +44911,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7C0AB0",
-        "module_id": 117,
+        "module_id": 118,
         "progress_categories": [
           "overlay_7C0AB0"
         ]
@@ -44890,7 +44939,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7C6AB0_dispatch_table",
-        "module_id": 119,
+        "module_id": 120,
         "progress_categories": [
           "overlay_7C6AB0"
         ]
@@ -45032,7 +45081,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7C6AB0",
-        "module_id": 120,
+        "module_id": 121,
         "progress_categories": [
           "overlay_7C6AB0"
         ]
@@ -45060,7 +45109,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7CE060_dispatch_table",
-        "module_id": 121,
+        "module_id": 122,
         "progress_categories": [
           "overlay_7CE060"
         ]
@@ -45251,7 +45300,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7CE060",
-        "module_id": 122,
+        "module_id": 123,
         "progress_categories": [
           "overlay_7CE060"
         ]
@@ -45279,7 +45328,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7D40C0_dispatch_table",
-        "module_id": 123,
+        "module_id": 124,
         "progress_categories": [
           "overlay_7D40C0"
         ]
@@ -45582,7 +45631,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7D40C0",
-        "module_id": 124,
+        "module_id": 125,
         "progress_categories": [
           "overlay_7D40C0"
         ]
@@ -45610,7 +45659,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7DAAA0_dispatch_table",
-        "module_id": 126,
+        "module_id": 127,
         "progress_categories": [
           "overlay_7DAAA0"
         ]
@@ -45874,7 +45923,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7DAAA0",
-        "module_id": 127,
+        "module_id": 128,
         "progress_categories": [
           "overlay_7DAAA0"
         ]
@@ -45902,7 +45951,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7DC7A0_dispatch_table",
-        "module_id": 128,
+        "module_id": 129,
         "progress_categories": [
           "overlay_7DC7A0"
         ]
@@ -46128,7 +46177,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7DC7A0",
-        "module_id": 129,
+        "module_id": 130,
         "progress_categories": [
           "overlay_7DC7A0"
         ]
@@ -46156,7 +46205,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7E2A30_dispatch_table",
-        "module_id": 130,
+        "module_id": 131,
         "progress_categories": [
           "overlay_7E2A30"
         ]
@@ -46326,7 +46375,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7E2A30",
-        "module_id": 131,
+        "module_id": 132,
         "progress_categories": [
           "overlay_7E2A30"
         ]
@@ -46354,7 +46403,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7E6A20_dispatch_table",
-        "module_id": 133,
+        "module_id": 134,
         "progress_categories": [
           "overlay_7E6A20"
         ]
@@ -46498,7 +46547,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7E6A20",
-        "module_id": 134,
+        "module_id": 135,
         "progress_categories": [
           "overlay_7E6A20"
         ]
@@ -46526,7 +46575,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7E7EB0_dispatch_table",
-        "module_id": 135,
+        "module_id": 136,
         "progress_categories": [
           "overlay_7E7EB0"
         ]
@@ -46647,7 +46696,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7E7EB0",
-        "module_id": 136,
+        "module_id": 137,
         "progress_categories": [
           "overlay_7E7EB0"
         ]
@@ -46675,7 +46724,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7EA3C0_dispatch_table",
-        "module_id": 137,
+        "module_id": 138,
         "progress_categories": [
           "overlay_7EA3C0"
         ]
@@ -46724,7 +46773,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7EA3C0",
-        "module_id": 138,
+        "module_id": 139,
         "progress_categories": [
           "overlay_7EA3C0"
         ]
@@ -46752,7 +46801,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7EA710_dispatch_table",
-        "module_id": 139,
+        "module_id": 140,
         "progress_categories": [
           "overlay_7EA710"
         ]
@@ -46848,7 +46897,7 @@
       ],
       "metadata": {
         "module_name": ".overlay_7EA710",
-        "module_id": 140,
+        "module_id": 141,
         "progress_categories": [
           "overlay_7EA710"
         ]
@@ -46876,7 +46925,7 @@
       ],
       "metadata": {
         "module_name": ".trailer",
-        "module_id": 141,
+        "module_id": 142,
         "progress_categories": [
           "assets"
         ]
@@ -46890,16 +46939,16 @@
       "id": "total_matching",
       "name": "Total Matching",
       "measures": {
-        "fuzzy_match_percent": 9.804717,
+        "fuzzy_match_percent": 9.963505,
         "total_code": "1992592",
-        "matched_code": "195368",
-        "matched_code_percent": 9.804717,
+        "matched_code": "198532",
+        "matched_code_percent": 9.963505,
         "matched_data_percent": 100.0,
         "total_functions": 4691,
-        "matched_functions": 644,
-        "matched_functions_percent": 13.728416115966747,
+        "matched_functions": 664,
+        "matched_functions_percent": 14.154764442549563,
         "complete_data_percent": 100.0,
-        "total_units": 382
+        "total_units": 383
       }
     },
     {
@@ -46907,11 +46956,11 @@
       "name": "Main Code Segment",
       "measures": {
         "total_code": "772208",
-        "matched_code": "166488",
-        "matched_code_percent": 21.5599941984543,
+        "matched_code": "169652",
+        "matched_code_percent": 21.96972836334252,
         "total_functions": 2156,
-        "matched_functions": 545,
-        "matched_functions_percent": 25.27829313543599,
+        "matched_functions": 565,
+        "matched_functions_percent": 26.205936920222634,
         "total_units": 264
       }
     },
@@ -46953,7 +47002,7 @@
         "matched_functions_percent": 0.0,
         "complete_code_percent": 100.0,
         "complete_data_percent": 100.0,
-        "total_units": 13,
+        "total_units": 14,
         "total_functions": 0,
         "matched_functions": 0
       }
@@ -47262,14 +47311,14 @@
       "id": "26A00",
       "name": "26A00",
       "measures": {
-        "fuzzy_match_percent": 15.670554,
+        "fuzzy_match_percent": 73.323616,
         "total_code": "5488",
-        "matched_code": "860",
-        "matched_code_percent": 15.670554,
+        "matched_code": "4024",
+        "matched_code_percent": 73.323616,
         "matched_data_percent": 100.0,
         "total_functions": 30,
-        "matched_functions": 5,
-        "matched_functions_percent": 16.666666666666664,
+        "matched_functions": 25,
+        "matched_functions_percent": 83.33333333333334,
         "complete_data_percent": 100.0,
         "total_units": 1
       }

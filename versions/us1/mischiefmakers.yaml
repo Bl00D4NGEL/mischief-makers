@@ -291,8 +291,8 @@ segments:
       - [0x0BB6B0, textbin, rsp/gspFast3D]
       - [0x0BCAB0, textbin, rsp/aspMain]
       # data
-      - [0x0BD8D0,.data,cosineTable]
-      - [0x0BE8D0,.data,floatTable]      
+      - [0x0BD8D0, .data, cosineTable]
+      - [0x0BE8D0, .data, floatTable]      
       - [0x0BF0D0, data] # game globals
       - [0x0BF0F0, data]
       - [0x0BF350, data, music_data] # music names start at BF354; music.s refs tables at C1654/C2280/C26DC
@@ -445,11 +445,16 @@ segments:
       - { name: ultralib/rmon/rmonregs, type: .bss, vram: 0x8018B760 }
       - { name: ultralib/log/log, type: .bss, vram: 0x8018B780 }
 
-  - name: bin_F00D0 # Trouble RLE Type1 graphics resource banks from D_800CEC0C; base is F0100
-    type: Trouble_RLE
-    subtype: Type1
+  - name: bin_F00D0 # header copied before the F0100 Type1 payload pool
+    type: bin
     start: 0xF00D0
     exclusive_ram_id: bin_F00D0
+
+  - name: bin_F0100 # Trouble RLE Type1 graphics resource banks from D_800CEC0C
+    type: Trouble_RLE
+    subtype: Type1
+    start: 0xF0100
+    exclusive_ram_id: bin_F0100
 
   - name: gfx/common_gfx_resources_1E6900_80200400 # Trouble RLE Type1, graphics resources, palette pointer table is at 0x684F8
     type: Trouble_RLE
