@@ -52,7 +52,7 @@ u32 D_801B9C28_7EA6F8[] = {
     0x00000000,
     0x00000000,
 };
-//function appears to be related to "Searin' Swing!" 
+// function appears to be related to "Searin' Swing!"
 void func_801B9900_7EA3D0(void) {
     switch (D_800D28E8) {
         case 0:
@@ -64,7 +64,7 @@ void func_801B9900_7EA3D0(void) {
                 gLetterboxMode = LETTERBOX_HORIZONTAL;
             }
             else {
-                D_800D28E8++;
+                D_800D28E8 = D_800D28E8 + 1;
                 func_80046148(D_801B9BC0_7EA690, 0);
                 Actor_LoadSpawnTable(D_801B9C18_7EA6E8);
                 gLetterboxMode = LETTERBOX_DEFAULT;
@@ -74,7 +74,7 @@ void func_801B9900_7EA3D0(void) {
 
         case 1:
             if (func_80046D5C() != 0) {
-                D_800D28E8++;
+                D_800D28E8 = D_800D28E8 + 1;
                 D_800BE4EC = 1;
             }
             break;
@@ -95,7 +95,7 @@ void func_801B9900_7EA3D0(void) {
 
         case 0x1000:
             Actor_ClearSceneActors();
-            D_800D28E8++;
+            D_800D28E8 = D_800D28E8 + 1;
             func_80045FA4(D_801B9BC0_7EA690, 0);
             Actor_LoadSpawnTable(D_801B9BD0_7EA6A0);
             D_800BE5F4 = 7;
@@ -123,7 +123,7 @@ void func_801B9900_7EA3D0(void) {
 
         case 0x8001:
             if (func_80046D5C() != 0) {
-                D_800D28E8++;
+                D_800D28E8 = D_800D28E8 + 1;
             }
             break;
 

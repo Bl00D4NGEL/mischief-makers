@@ -9,7 +9,7 @@
     "matched_functions": 736,
     "matched_functions_percent": 15.689618418247708,
     "complete_data_percent": 100.0,
-    "total_units": 383
+    "total_units": 384
   },
   "units": [
     {
@@ -2672,11 +2672,11 @@
       }
     },
     {
-      "name": "22290",
+      "name": "letterbox",
       "measures": {
-        "total_code": "5760",
+        "total_code": "3552",
         "matched_data_percent": 100.0,
-        "total_functions": 4,
+        "total_functions": 3,
         "total_units": 1,
         "matched_functions": 0,
         "matched_functions_percent": 0.0
@@ -2684,7 +2684,7 @@
       "sections": [
         {
           "name": ".text",
-          "size": "5760",
+          "size": "3552",
           "metadata": {
             "virtual_address": "2147620496"
           }
@@ -2692,26 +2692,55 @@
       ],
       "functions": [
         {
-          "name": "func_80021690",
+          "name": "Gfx_DrawBorderRect",
           "size": "124",
           "metadata": {
             "virtual_address": "2147620496"
           }
         },
         {
-          "name": "func_8002170C",
+          "name": "Gfx_DrawLetterboxStandard",
           "size": "496",
           "metadata": {
             "virtual_address": "2147620620"
           }
         },
         {
-          "name": "func_800218FC",
+          "name": "Gfx_DrawLetterbox",
           "size": "2932",
           "metadata": {
             "virtual_address": "2147621116"
           }
-        },
+        }
+      ],
+      "metadata": {
+        "module_name": ".main",
+        "module_id": 2,
+        "progress_categories": [
+          "letterbox"
+        ]
+      }
+    },
+    {
+      "name": "lifebar",
+      "measures": {
+        "total_code": "2208",
+        "matched_data_percent": 100.0,
+        "total_functions": 1,
+        "total_units": 1,
+        "matched_functions": 0,
+        "matched_functions_percent": 0.0
+      },
+      "sections": [
+        {
+          "name": ".text",
+          "size": "2208",
+          "metadata": {
+            "virtual_address": "2147624048"
+          }
+        }
+      ],
+      "functions": [
         {
           "name": "func_80022470",
           "size": "2208",
@@ -2724,7 +2753,7 @@
         "module_name": ".main",
         "module_id": 2,
         "progress_categories": [
-          "22290"
+          "lifebar"
         ]
       }
     },
@@ -47038,7 +47067,7 @@
         "matched_functions": 736,
         "matched_functions_percent": 15.689618418247708,
         "complete_data_percent": 100.0,
-        "total_units": 383
+        "total_units": 384
       }
     },
     {
@@ -47051,7 +47080,7 @@
         "total_functions": 2156,
         "matched_functions": 637,
         "matched_functions_percent": 29.545454545454547,
-        "total_units": 263
+        "total_units": 264
       }
     },
     {
@@ -47362,12 +47391,25 @@
       }
     },
     {
-      "id": "22290",
-      "name": "22290",
+      "id": "letterbox",
+      "name": "letterbox",
       "measures": {
-        "total_code": "5760",
+        "total_code": "3552",
         "matched_data_percent": 100.0,
-        "total_functions": 4,
+        "total_functions": 3,
+        "complete_data_percent": 100.0,
+        "total_units": 1,
+        "matched_functions": 0,
+        "matched_functions_percent": 0.0
+      }
+    },
+    {
+      "id": "lifebar",
+      "name": "lifebar",
+      "measures": {
+        "total_code": "2208",
+        "matched_data_percent": 100.0,
+        "total_functions": 1,
         "complete_data_percent": 100.0,
         "total_units": 1,
         "matched_functions": 0,
