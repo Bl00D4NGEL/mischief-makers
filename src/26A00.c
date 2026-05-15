@@ -469,7 +469,7 @@ void func_80026BD0(u16 index) {
 }
 
 #ifdef NON_MATCHING
-https://decomp.me/scratch/HqxM1
+// https://decomp.me/scratch/HqxM1
 void func_80026C9C(u16 index) {
     s32 unused[2];
 

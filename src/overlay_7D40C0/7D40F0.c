@@ -1272,7 +1272,7 @@ extern void func_8002601C(s32 arg0);
 extern void func_800260C8(s32 arg0);
 extern void func_800282F0(s16 arg0, s16 arg1);
 extern void func_80028380(void);
-extern void func_8002865C(void);
+extern void Actor_ClearRange_30To90(void);
 extern void func_80034D80(u16 arg0, void* arg1);
 extern void func_800369A0(u16 arg0, u16 arg1, void* arg2);
 extern void func_8003D628(u16 arg0);
@@ -1511,7 +1511,7 @@ void func_801BA1A4_7D4994(u16 arg0, u16 arg1, u16 arg2, s16 arg3, void* arg4) {
     D_800BE558 = arg0;
     D_800BE55C = arg1;
     func_800282F0((s16)arg2, arg3);
-    func_8002865C();
+    Actor_ClearRange_30To90();
     Actor_LoadSpawnTable(arg4);
     func_801BA040_7D4830();
     D_800BE5F4 = 10;
@@ -2054,7 +2054,7 @@ void func_801BB314_7D5B04(void) {
 
 void func_801BB444_7D5C34(void* arg0, s32 arg1, void* arg2) {
     func_80045FA4(arg0, arg1);
-    func_8002865C();
+    Actor_ClearRange_30To90();
     Actor_LoadSpawnTable(arg2);
     D_800BE5F4 = 10;
     Sound_PlaySfx(0xBA);
@@ -2300,7 +2300,7 @@ void func_801BBB30_7D6320(u16 arg0, u16 arg1, u16 arg2, u16 arg3, void* arg4) {
     D_800BE55C = arg1;
     gActors[0].posX.whole = arg2;
     gActors[0].posY.whole = arg3;
-    func_8002865C();
+    Actor_ClearRange_30To90();
     Actor_LoadSpawnTable(arg4);
     D_800BE5F4 = 10;
     D_800D28E8++;
@@ -2405,7 +2405,7 @@ void func_801BBE90_7D6680(void) {
             break;
 
         case 4:
-            func_8002865C();
+            Actor_ClearRange_30To90();
             func_80045FA4(D_801BFB3C_7DA32C, -7);
             func_801BBDF8_7D65E8(D_801BFF78_7DA768);
             D_800BE5F4 = 10;
