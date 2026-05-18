@@ -129,7 +129,8 @@ void func_8004320C(void) {
 extern u16 func_8004398C(ActorSpawnRecord* spawn);
 
 // https://decomp.me/scratch/oqVJs
-void Actor_LoadSpawnTable(ActorSpawnRecord* spawn) {
+void Actor_LoadSpawnTable(void* spawn_table) {
+    ActorSpawnRecord* spawn;
     u16 flags;
     u16 actor_index;
     u16 jndex;
@@ -140,6 +141,7 @@ void Actor_LoadSpawnTable(ActorSpawnRecord* spawn) {
     index = 0;
     counter = 0;
     jndex = 0;
+    spawn = spawn_table;
     flags = spawn->flags;
     while (flags != 0xFF00) {
         if (!(flags & 0x2000)) {
@@ -185,12 +187,12 @@ void Actor_LoadSpawnTable(ActorSpawnRecord* spawn) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/438E0/func_80043D04.s")
 
-void func_80043D30(ActorSpawnRecord* spawn) {
+void func_80043D30(void* spawn) {
     if (D_800D2908 == 0) {
         func_80043D04(spawn);
     }
 
-    Actor_LoadSpawnTable((void*)spawn);
+    Actor_LoadSpawnTable(spawn);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/438E0/func_80043D6C.s")

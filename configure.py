@@ -16,6 +16,7 @@ import splat.scripts.split as split
 from splat.segtypes.common.codesubsegment import CommonSegCodeSubsegment
 from splat.segtypes.linker_entry import LinkerEntry
 from splat.util import options as splat_options
+from tools import trouble_asset_tool
 
 ROOT = Path(__file__).parent.relative_to(os.getcwd())
 TOOLS_DIR = ROOT / "tools"
@@ -85,6 +86,7 @@ def preferred_tool(programs: List[str]) -> str:
     return ""
 
 YAML_FILE = f"versions/{GAME_VERSION}/{BASENAME}.yaml"
+TROUBLE_ASSETS_YAML_FILE = f"versions/{GAME_VERSION}/trouble_assets.yaml"
 LD_PATH = f"versions/{GAME_VERSION}/{BASENAME}.ld"
 MAP_PATH = f"build/{BASENAME}.map"
 ELF_PATH = f"build/{BASENAME}.elf"
@@ -140,6 +142,34 @@ def remove_file(fpath: str | os.PathLike, verbose: bool = False):
             print(f"Deleting {fpath}")
         os.remove(fpath)
 
+
+def remove_path(path: Path, verbose: bool = False):
+    if verbose:
+        print(f"Deleting {path}")
+
+    if path.is_dir():
+        shutil.rmtree(path, ignore_errors=True)
+    else:
+        path.unlink()
+
+
+def remove_assets(preserve_generated: bool = False, verbose: bool = False):
+    assets_path = Path("assets")
+    generated_path = assets_path / "generated"
+
+    if not assets_path.exists():
+        return
+
+    if preserve_generated and generated_path.exists():
+        for path in assets_path.iterdir():
+            if path == generated_path:
+                continue
+
+            remove_path(path, verbose)
+        return
+
+    remove_path(assets_path, verbose)
+
 def clean(verbose: bool = False):
     files = [
         f"versions/{GAME_VERSION}/.splache",
@@ -148,7 +178,7 @@ def clean(verbose: bool = False):
         remove_file(f, verbose)
 
     shutil.rmtree("asm", ignore_errors=True)
-    shutil.rmtree("assets", ignore_errors=True)
+    remove_assets(preserve_generated=True, verbose=verbose)
     shutil.rmtree("build", ignore_errors=True)
 
 def fullclean(verbose: bool = False):
@@ -164,6 +194,7 @@ def fullclean(verbose: bool = False):
     for f in files:
         remove_file(f, verbose)
     clean(verbose)
+    remove_assets(preserve_generated=False, verbose=verbose)
 
 def obtain_ido_recomp(version: str):
     download_dir = TOOLS_DIR / f"ido{version}"
@@ -233,6 +264,80 @@ NULL = "int"
 "{IDO_CC}" = "ido{IDO_VER}"
 """
         )
+
+
+def generated_asset_references_exist(path: Path, seen: set[Path] | None = None) -> bool:
+    if seen is None:
+        seen = set()
+    if path in seen:
+        return True
+    seen.add(path)
+
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line.startswith('#include "'):
+            include_path = line.split('"', 2)[1]
+            candidates = [path.parent / include_path]
+        elif line.startswith('.include "') or line.startswith('.incbin "'):
+            include_path = line.split('"', 2)[1]
+            candidates = [Path(include_path), path.parent / include_path]
+        else:
+            continue
+
+        resolved_path = next(
+            (candidate for candidate in candidates if candidate.exists()),
+            None,
+        )
+        if resolved_path is None:
+            return False
+
+        if resolved_path.suffix in (
+            ".h",
+            ".s",
+        ) and not generated_asset_references_exist(resolved_path, seen):
+            return False
+
+    return True
+
+
+def trouble_asset_output_paths(config: Dict, generated_root: Path):
+    for pool in config.get("rle_pools", []):
+        generated_dir = generated_root / pool["segment"]
+        yield generated_dir / "rle.h"
+        yield generated_dir / "rle.inc.s"
+
+    for group in config.get("assets", []):
+        generated_dir = generated_root / group["segment"]
+        yield generated_dir / f"{group['name']}.h"
+        yield generated_dir / f"{group['name']}.inc.s"
+
+
+def trouble_asset_headers_exist(config_path: Path, generated_root: Path = Path("assets/generated")) -> bool:
+    config = trouble_asset_tool.load_yaml(config_path)
+
+    for path in trouble_asset_output_paths(config, generated_root):
+        if not path.exists():
+            return False
+        if not generated_asset_references_exist(path):
+            return False
+
+    return True
+
+
+def generate_trouble_asset_headers():
+    config_path = Path(TROUBLE_ASSETS_YAML_FILE)
+
+    if not config_path.exists():
+        print(f"warning: {config_path} missing; skipping asset generation")
+        return
+
+    if trouble_asset_headers_exist(config_path):
+        return
+
+    trouble_asset_tool.generate_headers_from_yaml(
+        config_path,
+        Path(f"baserom.{GAME_VERSION}.z64"),
+    )
 
 
 def get_libultra_c_flags(c_path: Path) -> Dict[str, str]:
@@ -553,6 +658,13 @@ if __name__ == "__main__":
         help="Verbose",
         action="store_true",
     )
+    parser.add_argument(
+        "--skip-trouble-assets",
+        "--skip-trle-headers",
+        dest="skip_trouble_assets",
+        help="Skip generation of Trouble asset asm wrappers and headers",
+        action="store_true",
+    )
     args = parser.parse_args()
 
     if args.fullclean:
@@ -577,6 +689,9 @@ if __name__ == "__main__":
             verbose=False,
             use_cache=not (args.clean or args.fullclean),
         )
+        if not args.skip_trouble_assets:
+            generate_trouble_asset_headers()
+
         linker_entries = split.linker_writer.entries
         create_build_script(linker_entries)
         write_permuter_settings()

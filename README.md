@@ -1,5 +1,5 @@
 # Mischief Makers
-[![Total Matching](https://img.shields.io/badge/Total%20Matching-10.57%25-brightgreen.svg)]()
+[![Total Matching](https://img.shields.io/badge/Total%20Matching-10.56%25-brightgreen.svg)]()
 [![Main Code Segment](https://img.shields.io/badge/Main%20Code%20Segment-23.53%25-yellow.svg)]()
 [![Overlays](https://img.shields.io/badge/Overlays-2.37%25-orange.svg)]()
 
@@ -87,6 +87,15 @@ python3 configure.py --clean
 python3 configure.py --fullclean
 python3 configure.py --split
 ```
+
+## Python tools
+Use the venv Python for repository tools:
+
+- `tools/checksum.py`: compare the checksum of binfile to sha1file. ex: `python3 tools/checksum.py [binfile] [sha1file]`
+- `tools/progress.py`: generate  progress report. `--output [path]`, `--map [mapfile path]`, `--update-readme`, `--quiet`
+- `tools/m2ctx.py`: generate m2c context from a C file. ex: `python3 tools/m2ctx.py [path to c_file]`
+- `tools/trouble_rle.py`: decode an extracted `.rle1` or `.rle2` file to a raw `.bin`. ex: `python3 tools/trouble_rle.py file.rle1 file.bin` or `python3 tools/trouble_rle.py file.rle2 file.bin --decoded-size 0x1000`
+- `tools/trouble_asset_tool.py`: extract static segment assets. A bit complex, check the usage in `configure.py` and the source for more info on how to use it. Otherwise see [trouble_assets.yaml](versions/us1/trouble_assets.yaml)
 
 ## Contributing
 Contributions are welcome. If you would like to reserve a function, open a PR with the function or file name(s).

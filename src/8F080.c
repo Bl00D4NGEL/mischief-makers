@@ -27,7 +27,6 @@ extern void func_800902B0(u16 actor_index);
 extern void func_80090558(u16 actor_index);
 extern void func_80003380(s32 arg0);
 extern s32 func_80092FD4(u16);
-extern void func_8005DFC8(s32);
 extern void func_80003380(s32);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_8008E480.s")
