@@ -463,6 +463,7 @@ segments:
     vram: 0x04000000
     start: 0xF0100
     exclusive_ram_id: Segment_04
+    extract: False
     subsegments:
       - { start: 0xF0100, type: .data, name: Segment_04/F0100 }
 
@@ -471,6 +472,7 @@ segments:
     vram: 0x06000000
     start: 0x1E6900
     exclusive_ram_id: Segment_06
+    extract: False
     subsegments:
       - { start: 0x1E6900, type: .data, name: Segment_06/1E6900 }
 
@@ -479,6 +481,7 @@ segments:
     vram: 0x07000000
     start: 0x214B40
     exclusive_ram_id: Segment_07
+    extract: False
     subsegments:
       - { start: 0x214B40, type: .data, name: Segment_07/214B40 }
 
@@ -487,6 +490,7 @@ segments:
     vram: 0x01000000
     start: 0x248F40
     exclusive_ram_id: Segment_01
+    extract: False
     subsegments:
       - { start: 0x248F40, type: .data, name: Segment_01/248F40 }
       - [0x40AC70, pad]
@@ -496,6 +500,7 @@ segments:
     vram: 0x05000000
     start: 0x40AC80
     exclusive_ram_id: Segment_05
+    extract: False
     subsegments:
       - { start: 0x40AC80, type: .data, name: Segment_05/40AC80 }
 
@@ -504,6 +509,7 @@ segments:
     vram: 0x02000000
     start: 0x4A15A0
     exclusive_ram_id: Segment_02
+    extract: False
     subsegments:
       - { start: 0x4A15A0, type: .data, name: Segment_02/4A15A0 }
 
@@ -512,6 +518,7 @@ segments:
     vram: 0x03000000
     start: 0x4A1FC0
     exclusive_ram_id: Segment_03
+    extract: False
     subsegments:
       - { start: 0x4A1FC0, type: .data, name: Segment_03/4A1FC0 }
       - [0x4B9980, pad]
@@ -551,10 +558,10 @@ segments:
     start: 0x67DC20
     bss_size: 0x20
     subsegments:
-      - [0x67DC20, asmtu, overlay_67DBA0/67DC20] # object segment 67DC20->68A090 (0xC470)
-      - [0x686BB0, .data, overlay_67DBA0/67DC20]
-      - [0x689200, .rodata, overlay_67DBA0/67DC20] # guess
-      - { name: overlay_67DBA0/67DC20, type: .bss, vram: 0x8019E570 }
+      - [0x67DC20, c, overlay_0/overlay_67DBA0/67DC20] # object segment 67DC20->68A090 (0xC470)
+      - [0x686BB0, data, overlay_0/overlay_67DBA0/67DC20]
+      - [0x689200, rodata, overlay_0/overlay_67DBA0/67DC20_rodata]
+      - { name: overlay_0/overlay_67DBA0/67DC20, type: bss, vram: 0x8019E570 }
 
   - name: overlay_68A090_dispatch_table # blackgamma7: CerberusAlpha
     exclusive_ram_id: overlay_68A090_dispatch_table
@@ -1042,8 +1049,8 @@ segments:
     vram: 0x801A6900
     start: 0x774DB0
     subsegments:
-      - [0x774DB0, asmtu, overlay_774DA0/774DB0] # object segment 774DB0->775460 (0x6B0)
-      - [0x775430, rodata, overlay_774DA0/774DB0]
+      - [0x774DB0, c, overlay_2/overlay_774DA0/774DB0] # object segment 774DB0->775460 (0x6B0)
+      - [0x775430, .rodata, overlay_2/overlay_774DA0/774DB0]
 
   - name: overlay_775460_dispatch_table # blackgamma7: World4
     exclusive_ram_id: overlay_775460_dispatch_table
@@ -1272,10 +1279,10 @@ segments:
     start: 0x7BC850
     bss_size: 0x20
     subsegments:
-      - [0x7BC850, asmtu, overlay_7BC840/7BC850] # object segment 7BC850->7C0AB0 (0x4260)
-      - [0x7C0640, .data, overlay_7BC840/7BC850]
-      - [0x7C0680, .rodata, overlay_7BC840/7BC850]
-      - { name: overlay_7BC840/7BC850, type: .bss, vram: 0x801B4B60 }
+      - [0x7BC850, c, overlay_3/overlay_7BC840/7BC850] # object segment 7BC850->7C0AB0 (0x4260)
+      - [0x7C0640, data, overlay_3/overlay_7BC840/7BC850]
+      - [0x7C0680, rodata, overlay_3/overlay_7BC840/7BC850_rodata]
+      - { name: overlay_3/overlay_7BC840/7BC850, type: bss, vram: 0x801B4B60 }
 
   - name: overlay_7C0AB0_dispatch_table # blackgamma7: World5
     exclusive_ram_id: overlay_7C0AB0_dispatch_table
@@ -1327,9 +1334,9 @@ segments:
     vram: 0x801B9900
     start: 0x7CE090
     subsegments:
-      - [0x7CE090, asmtu, overlay_7CE060/7CE090] # object segment 7CE090->7D40C0 (0x6030)
-      - [0x7D0390, .data, overlay_7CE060/7CE090]
-      - [0x7D3F60, .rodata, overlay_7CE060/7CE090]
+      - [0x7CE090, c, overlay_4/overlay_7CE060/7CE090] # object segment 7CE090->7D40C0 (0x6030)
+      - [0x7D0390, data, overlay_4/overlay_7CE060/7CE090]
+      - [0x7D3F60, .rodata, overlay_4/overlay_7CE060/7CE090]
 
   - name: overlay_7D40C0_dispatch_table # blackgamma7: World3
     exclusive_ram_id: overlay_7D40C0_dispatch_table
@@ -1380,9 +1387,9 @@ segments:
     vram: 0x801B9900
     start: 0x7DC7D0
     subsegments:
-      - [0x7DC7D0, asmtu, overlay_7DC7A0/7DC7D0] # object segment 7DC7D0->7E2A30 (0x6260)
-      - [0x7DF860, .data, overlay_7DC7A0/7DC7D0]
-      - [0x7E2790, .rodata, overlay_7DC7A0/7DC7D0]
+      - [0x7DC7D0, c, overlay_4/overlay_7DC7A0/7DC7D0] # object segment 7DC7D0->7E2A30 (0x6260)
+      - [0x7DF860, data, overlay_4/overlay_7DC7A0/7DC7D0]
+      - [0x7E2790, .rodata, overlay_4/overlay_7DC7A0/7DC7D0]
 
   - name: overlay_7E2A30_dispatch_table
     exclusive_ram_id: overlay_7E2A30_dispatch_table
