@@ -3,10 +3,6 @@
 #include "function_symbols.h"
 
 extern void func_8002AC30(u16 actor_index, s16 val);
-extern void func_8007CE24(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-extern void func_8007CEB8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8);
-extern void func_8007CFE0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6);
-extern u16 D_800BE544;
 extern s32 D_800BE5D8;
 extern s32 D_80102928;
 extern s16 D_8010345C;

@@ -634,10 +634,10 @@ segments:
     start: 0x6BCDD0
     bss_size: 0x40
     subsegments:
-      - [0x6BCDD0, asmtu, overlay_6BCD80/6BCDD0] # object segment 6BCDD0->6D1BF0 (0x14E20)
-      - [0x6CBC50, .data, overlay_6BCD80/6BCDD0]
-      - [0x6D1670, .rodata, overlay_6BCD80/6BCDD0]
-      - { name: overlay_6BCD80/6BCDD0, type: .bss, vram: 0x801A6F20 }
+      - [0x6BCDD0, c, overlay_0/overlay_6BCD80/6BCDD0] # object segment 6BCDD0->6D1BF0 (0x14E20)
+      - [0x6CBC50, data, overlay_6BCD80/6BCDD0]
+      - [0x6D1670, rodata, overlay_6BCD80/6BCDD0]
+      - { name: overlay_6BCD80/6BCDD0, type: bss, vram: 0x801A6F20 }
 
   - name: overlay_6D1BF0_dispatch_table # Clancer Commander mech
     exclusive_ram_id: overlay_6D1BF0_dispatch_table
@@ -1136,10 +1136,10 @@ segments:
     start: 0x78CBF0
     bss_size: 0x10
     subsegments:
-      - [0x78CBF0, asmtu, overlay_78CB60/78CBF0] # object segment 78CBF0->7969B0 (0x9DC0)
-      - [0x7958C0, .data, overlay_78CB60/78CBF0] # has the "Foul!", "100M", "Jump", etc. strings
-      - [0x7963E0, .rodata, overlay_78CB60/78CBF0]
-      - { name: overlay_78CB60/78CBF0, type: .bss, vram: 0x801B06C0 }
+      - [0x78CBF0, c, overlay_2/overlay_78CB60/78CBF0] # object segment 78CBF0->7969B0 (0x9DC0)
+      - [0x7958C0, data, overlay_78CB60/78CBF0] # has the "Foul!", "100M", "Jump", etc. strings
+      - [0x7963E0, rodata, overlay_78CB60/78CBF0]
+      - { name: overlay_78CB60/78CBF0, type: bss, vram: 0x801B06C0 }
 
   # Overlay slot 3: dispatch table -> 0x801B0800, object -> 0x801B0900
   - name: overlay_7969B0_dispatch_table # blackgamma7: World1

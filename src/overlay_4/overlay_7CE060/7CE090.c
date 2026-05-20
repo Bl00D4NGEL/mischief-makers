@@ -2,47 +2,17 @@
 #include "actor.h"
 #include "function_symbols.h"
 
-extern u16 D_800BE4E0;
-extern u16 D_800BE4EC;
-extern u16 D_800BE544;
-extern s32 D_800BE548;
-extern s32 D_800BE54C;
-extern u16 D_800BE5D0;
-extern s32 D_800BE5E8;
-extern s32 D_800BE5EC;
-extern f32 D_800BE5AC;
-extern f32 D_800BE5B0;
+extern s16 D_800D2920;
+extern s16 D_800D2924;
+extern s16 D_80104098[];
+extern void func_80064AA0(s32 arg0, void* arg1);
 extern s16 D_800BE5D8;
-extern s16 D_800BE5DC;
 extern s32 D_800BE5F4;
 extern s16 D_800BE550;
 extern s16 D_800BE554;
-extern s16 D_800BE558;
-extern s16 D_800BE55C;
-extern s16 D_800D2920;
-extern s16 D_800D2924;
-extern u16 D_800D2960;
-extern u16 D_800BE6A8;
-extern u16 D_800D28E4;
-extern u16 D_800D28E8;
-extern u16 D_800D28F0;
 extern s16 D_800D28F8;
-extern u32 D_800D28FC;
-extern s32 D_800D2938;
-extern s16 D_80104098[];
 
-extern s32 func_80048CE4(void);
-extern void func_8005739C(s32 arg0, s32 arg1);
-extern void func_8008BFB0(void);
 extern void func_800032C4(u32 arg0);
-extern void func_80045E58(void* arg0);
-extern void func_80045F08(s32 arg0);
-extern void func_8003D628(u16 arg0);
-extern void func_80064AA0(s32 arg0, void* arg1);
-extern void func_80042DBC(void* arg0);
-extern void func_80010C20(u16 arg0);
-extern void func_8005CA34(s32 arg0, s32 arg1);
-extern void Actor_ClearRange_30To90(void);
 
 extern u32 D_801BBC00_7D0390[];
 extern u32 D_801BBC2C_7D03BC[];
@@ -179,13 +149,9 @@ void func_801B9B08_7CE298(void) {
 void func_801B9B94_7CE324(void) {
     if (func_801B9900_7CE090() != 0) {
         // FAKEMATCH
-        D_800BE5EC = (D_800BE5EC * 0) +
-                     (gActors[0].velocityX = ((((gActors[0].velocityY = 0) & 0xFFFFFFFFFFFFFFFFULL) &
-                                                0xFFFFFFFFFFFFFFFFULL) &
-                                               0xFFFFFFFFFFFFFFFFULL) &
-                                              0xFFFFFFFFFFFFFFFFULL);
-        D_800BE5E8 = 0;
+        D_800BE5EC = (D_800BE5EC * 0) + (gActors[0].velocityX = (((gActors[0].velocityY = 0) & 0xFFFFFFFFFFFFFFFFULL)));
         // FAKEMATCH
+        D_800BE5E8 = 0;
         func_801B9A0C_7CE19C(D_800D28E8 + 1);
     }
 }

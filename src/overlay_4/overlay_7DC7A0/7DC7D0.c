@@ -2,28 +2,14 @@
 #include "actor.h"
 #include "function_symbols.h"
 
-extern u16 D_800D28E4;
-extern u16 D_800D28E8;
-extern u16 D_800D28F0;
 extern s16 D_800D2918;
 extern s16 D_800D291C;
 extern s16 D_800D2920;
 extern s16 D_800D2924;
-extern s32 D_800D2928;
-extern s32 D_800D2938;
-extern u32 D_800D28FC;
-extern u16 D_800D2950;
-extern u16 D_800D2954;
-extern u16 D_800BE544;
-extern s16 D_800BE558;
-extern s16 D_800BE55C;
-extern s32 D_800BE5F4;
-extern u8 D_801781F8[];
 extern s16 D_80104098[];
-extern void Actor_ClearRange_30To90(void);
-extern void func_8005739C(s32 arg0, s32 arg1);
-extern void func_8003D628(u16 arg0);
 extern void func_80064AA0(u16 arg0, void* arg1);
+extern u16 D_800D2950;
+extern s32 D_800BE5F4;
 extern u32 D_801BDB60_7E0A30[];
 extern u16 D_801BDA7C_7E094C;
 extern u32 D_801BE0C4_7E0F94[];
@@ -203,7 +189,44 @@ void func_801B9EA0_7DCD70(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_4/overlay_7DC7A0/7DC7D0/func_801B9ED4_7DCDA4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay_4/overlay_7DC7A0/7DC7D0/func_801BA774_7DD644.s")
+void func_801BA774_7DD644(void) {
+    switch (D_800D28E8) {
+        case 0:
+            func_80045FA4(D_801BD984_7E0854, 0);
+            Palette_AdjustScenePalettes(2, -1, -6, 0, -4, -9, -2, -6, -0xC);
+            Actor_LoadSpawnTable(D_801BC990_7DF860);
+            Actor_LoadSpawnTable(D_801BD994_7E0864);
+            D_800D28E8++;
+
+        case 1:
+            if (func_80046D5C() != 0) {
+                D_800D28E8++;
+                D_800D28FC |= 8;
+                D_80104098[5188] = -0x58;
+                D_80104098[5268] = -0x55;
+            }
+            break;
+
+        case 3:
+            func_8003D628(0);
+            Sound_StartFade(0x81, 0x168);
+            D_800D28E8++;
+            break;
+
+        case 5:
+            func_80064AA0(1, D_801BD9A4_7E0874);
+            D_800D28E8++;
+            break;
+
+        case 2:
+        case 4:
+        case 6:
+        case 7:
+            break;
+    }
+
+    Camera_UpdateViewBounds();
+}
 
 void func_801BA8CC_7DD79C(void* arg0) {
     func_80045FA4(arg0, (s32)D_801BDB60_7E0A30);
@@ -214,7 +237,60 @@ void func_801BA8CC_7DD79C(void* arg0) {
     D_800D28E8++;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay_4/overlay_7DC7A0/7DC7D0/func_801BA92C_7DD7FC.s")
+s32 func_801BA92C_7DD7FC(void) {
+    s32 flags = D_801BDA7C_7E094C;
+
+    if (!(flags & 1) && (D_800D28E8 == 0xA) && (D_800BE558 == 0x782) && (D_800BE55C == 0x27C)) {
+        D_800D28E8 = 0x100;
+        D_800BE544 = 0x8000;
+        Actor_LoadSpawnTable(D_801BDA80_7E0950);
+        return 1;
+    }
+
+    if (!(flags & 2) && (D_800D28E8 == 6) && (D_800BE558 == 0x682) && (D_800BE55C == 0x47C)) {
+        D_800D28E8 = 0x200;
+        D_800BE544 = 0x8000;
+        Actor_LoadSpawnTable(D_801BDAA0_7E0970);
+        return 1;
+    }
+
+    if (!(flags & 4) && (D_800D28E8 == 6) && (D_800BE558 == 0x192) && (D_800BE55C == 0x47C)) {
+        D_800D28E8 = 0x300;
+        D_800BE544 = 0x8000;
+        Actor_LoadSpawnTable(D_801BDAC0_7E0990);
+        return 1;
+    }
+
+    if (!(flags & 8) && (D_800D28E8 == 2) && (D_800BE558 == 0x92) && (D_800BE55C == 0x17C)) {
+        D_800D28E8 = 0x400;
+        D_800BE544 = 0x8000;
+        Actor_LoadSpawnTable(D_801BDAE0_7E09B0);
+        return 1;
+    }
+
+    if (!(flags & 0x10) && (D_800D28E8 == 0xE) && (D_800BE558 == 0x592) && (D_800BE55C == 0x17C)) {
+        D_800D28E8 = 0x500;
+        D_800BE544 = 0x8000;
+        Actor_LoadSpawnTable(D_801BDB00_7E09D0);
+        return 1;
+    }
+
+    if (!(flags & 0x20) && (D_800D28E8 == 0xE) && (D_800BE558 == 0x982) && (D_800BE55C == 0x17C)) {
+        D_800D28E8 = 0x600;
+        D_800BE544 = 0x8000;
+        Actor_LoadSpawnTable(D_801BDB20_7E09F0);
+        return 1;
+    }
+
+    if (!(flags & 0x40) && (D_800D28E8 == 0x12) && (D_800BE558 == 0x692) && (D_800BE55C == 0x57C)) {
+        D_800D28E8 = 0x700;
+        D_800BE544 = 0x8000;
+        Actor_LoadSpawnTable(D_801BDB40_7E0A10);
+        return 1;
+    }
+
+    return 0;
+}
 
 void func_801BABFC_7DDACC(void) {
     s32 flags;
@@ -369,5 +445,37 @@ void func_801BC7C4_7DF694(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/overlay_4/overlay_7DC7A0/7DC7D0/func_801BC828_7DF6F8.s")
+void func_801BC828_7DF6F8(void) {
+    switch (D_800D28E8) {
+        case 0:
+            D_800D28E8++;
+            Palette_AdjustScenePalettes(2, 1, 0, 0, -5, -8, 4, 7, 0);
+            func_801BC75C_7DF62C(D_801BEC24_7E1AF4, (s32)D_801BEC4C_7E1B1C);
 
+        case 1:
+            D_800D28E8++;
+            func_801BC75C_7DF62C(D_801BEC24_7E1AF4, -7);
+
+        case 2:
+            if (func_80046D5C() != 0) {
+                D_800D28E8++;
+                D_800D28FC |= 8;
+            }
+            break;
+
+        case 3:
+            if ((D_800BE55C + gActors->posY.whole) < 0xA0) {
+                func_8005739C(0, 0x64);
+                func_801BC7C4_7DF694();
+            }
+            break;
+
+        case 4:
+            if (D_800D28FC & 0x200) {
+                func_801BC7C4_7DF694();
+            }
+            break;
+    }
+
+    Camera_UpdateViewBounds();
+}
