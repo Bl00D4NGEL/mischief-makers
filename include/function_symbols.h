@@ -3,6 +3,8 @@
 
 #include "common.h"
 
+extern int sprintf(char* str, const char* fmt, ...);
+
 extern void Sound_InitPlayers(void);
 extern void Sound_SetEventMesg(void);
 extern void Sound_Update(void);

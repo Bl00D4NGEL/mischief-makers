@@ -1,5 +1,6 @@
 #include "common.h"
 #include "actor.h"
+#include "debug_level_select.h"
 
 extern s16 func_8005DEFC(void);
 extern s16 D_800D2918;
@@ -18,7 +19,6 @@ extern s16 D_800BE5D8;
 extern s32 D_800BE5F4;
 extern s16 D_800D28F8;
 extern u32 D_80137458;
-extern u16 D_80178162;
 
 Unk_801BC140_7D40F0 D_801BC140_7D6930 = { 0 };
 Unk_801BC140_7D40F0 D_801BC144_7D6934 = { 0 };
@@ -2381,7 +2381,7 @@ s32 func_801BC01C_7D680C(u16 actor_index) {
     u16 actor_count;
     u16 index;
 
-    if (D_800D24F0 >= 2) { if (func_8001C7F0(D_80178162) == 0) {
+    if (D_800D24F0 >= 2) { if (func_8001C7F0(gDebugStageSelectSelectedIndex) == 0) {
             index = 0; actor_count = 1; while (actor_count < 3) {
                 if ((actor_type = D_800D22BC[index + 3]) == 8) {
                     if ((D_800D22BC[index + 1] & 3) == 3) {
