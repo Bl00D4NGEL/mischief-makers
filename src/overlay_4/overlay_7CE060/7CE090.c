@@ -87,7 +87,7 @@ s32 func_801B9900_7CE090(void) {
             if (gGameState == 6) {
                 gGameState = 7;
                 gGameStateSubState = 0;
-                gActors[0].velocityX = gActors[0].velocityY = D_800BE5EC = 0;
+                gActors[0].velocityX.raw = gActors[0].velocityY.raw = D_800BE5EC = 0;
                 D_800BE5E8 = 0;
             }
 
@@ -99,7 +99,7 @@ s32 func_801B9900_7CE090(void) {
 }
 
 void func_801B99AC_7CE13C(s16 arg0, s16 arg1) {
-    gActors[0].flags &= ~0x20;
+    gActors[0].flags &= ~ACTOR_FLAG_FLIPPED;
     D_800BE5D8 = D_800BE558 + arg0;
     D_800BE5DC = D_800BE55C + arg1;
     gActors[0].posX.whole = arg0;
@@ -123,11 +123,11 @@ void func_801B9A40_7CE1D0(void) {
 
 void func_801B9A98_7CE228(u16 actor_index) {
     gActors[actor_index].flags = 0x28A;
-    gActors[actor_index].unk_0E4 = 0;
-    gActors[actor_index].unk_0A6 = 0;
-    gActors[actor_index].unk_0A8 = -0x20;
-    gActors[actor_index].unk_0A2 = -0x100;
-    gActors[actor_index].unk_0A4 = 0x100;
+    gActors[actor_index].damage = 0;
+    gActors[actor_index].hitboxAY0 = 0;
+    gActors[actor_index].hitboxAY1 = -0x20;
+    gActors[actor_index].hitboxAX0 = -0x100;
+    gActors[actor_index].hitboxAX1 = 0x100;
     gActors[actor_index].unk_0DB = 0x13;
     gActors[actor_index].posX.whole = 0;
     gActors[actor_index].posY.whole = -0x50;
@@ -149,7 +149,7 @@ void func_801B9B08_7CE298(void) {
 void func_801B9B94_7CE324(void) {
     if (func_801B9900_7CE090() != 0) {
         // FAKEMATCH
-        D_800BE5EC = (D_800BE5EC * 0) + (gActors[0].velocityX = (((gActors[0].velocityY = 0) & 0xFFFFFFFFFFFFFFFFULL)));
+        D_800BE5EC = (D_800BE5EC * 0) + (gActors[0].velocityX.raw = (((gActors[0].velocityY.raw = 0) & 0xFFFFFFFFFFFFFFFFULL)));
         // FAKEMATCH
         D_800BE5E8 = 0;
         func_801B9A0C_7CE19C(D_800D28E8 + 1);

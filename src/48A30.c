@@ -52,13 +52,13 @@ void func_80047ED4(u16 _actor_index) {
     }
     actor_index = _actor_index;
     actor = &gActors[actor_index];
-    actor->unk_150 = actor->flags & ~0x1B80;
+    actor->var_150 = actor->flags & ~0x1B80;
 
     if ((D_800BE5F4.dirty & 0xFF) == 4) {
-        actor->unk_150 &= ~1;
+        actor->var_150 &= ~1;
     }
 
-    actor->velocityX = actor->velocityY = 0;
+    actor->velocityX.raw = actor->velocityY.raw = 0;
     actor->unk_12E_u8 |= 0x41;
     actor->stateUpper = D_800BE5F4.unk_01;
     actor->stateLower = 1;
@@ -169,7 +169,7 @@ void func_80048238(u16 actor_index) {
 void func_80048320(u16 actor_index) {
     if (D_800BE5F4.unk_02 == 0) {
         func_8005C550(actor_index, 0x1E);
-        gActors[actor_index].flags |= 0x8000;
+        gActors[actor_index].flags |= ACTOR_FLAG_UNK15;
         gActors[actor_index].state = 0x38;
         gActors[actor_index].unk_12E_u8 |= 0x41;
         D_800BE5F4.unk_02 = 1;
@@ -180,7 +180,7 @@ void func_80048320(u16 actor_index) {
 
 void func_800483B4(u16 actor_index) {
     if (gActors[actor_index].stateLower == 3) {
-        gActors[actor_index].unk_150 = 0x258;
+        gActors[actor_index].var_150 = 0x258;
     }
 
     D_800BE5F4.dirty = 1;
@@ -189,10 +189,9 @@ void func_800483B4(u16 actor_index) {
 void func_80048408(u16 actor_index) {
     switch (D_800BE5F4.unk_02) {
         case 0:
-            if (gActors[actor_index].flags & 0x2000000) {
+            if (gActors[actor_index].flags & ACTOR_FLAG_ATTACHED) {
                 func_8004F514(actor_index, gActors[actor_index].unk_0D6);
-
-                if (gActors[actor_index].flags & 0x810000) {
+                if (gActors[actor_index].flags & (ACTOR_FLAG_UNK23 | ACTOR_FLAG_UNK16)) {
                     gActors[actor_index].state = 3;
                 }
                 else {
@@ -201,11 +200,11 @@ void func_80048408(u16 actor_index) {
             }
 
             if (func_8005D338(actor_index) == 1) {
-                if (gActors[actor_index].velocityX == 0) {
-                    if (gActors[actor_index].velocityY == 0) {
+                if (gActors[actor_index].velocityX.raw == 0) {
+                    if (gActors[actor_index].velocityY.raw == 0) {
                         gActors[actor_index].unk_170 = 0xA1;
                         gActors[actor_index].state = 1;
-                        gActors[actor_index].unk_150 = gActors[actor_index].flags;
+                        gActors[actor_index].var_150 = gActors[actor_index].flags;
                         D_800BE5F4.unk_02 = 1;
                     }
                 }
@@ -221,7 +220,7 @@ void func_80048408(u16 actor_index) {
 
             if (func_8005D418(actor_index) != 0) {
                 gActors[actor_index].unk_170 = 0xA3;
-                gActors[actor_index].flags |= 0x40;
+                gActors[actor_index].flags |= ACTOR_FLAG_UNK6;
                 gActors[actor_index].state = 3;
                 D_800BE5F4.dirty = 0;
             }

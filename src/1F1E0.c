@@ -136,45 +136,45 @@ void func_8001E808(s32 arg0, s32 arg1) {
 }
 
 void func_8001E814(u16 arg0, u16 arg1) {
-    if ((gActors[arg0].velocityX != 0) || (gActors[arg0].velocityY != 0)) {
-        gActors[arg1].unk_0F8 = gActors[arg0].velocityX;
-        gActors[arg1].unk_0FC = gActors[arg0].velocityY;
+    if ((gActors[arg0].velocityX.raw != 0) || (gActors[arg0].velocityY.raw != 0)) {
+        gActors[arg1].unk_0F8.raw = gActors[arg0].velocityX.raw;
+        gActors[arg1].unk_0FC.raw = gActors[arg0].velocityY.raw;
     }
     else {
-        gActors[arg1].unk_0F8 = func_8001E5E0(arg0, arg1, 0x2000);
-        gActors[arg1].unk_0FC = func_8001E6F4(arg0, arg1, 0x2000);
+        gActors[arg1].unk_0F8.raw = func_8001E5E0(arg0, arg1, 0x2000);
+        gActors[arg1].unk_0FC.raw = func_8001E6F4(arg0, arg1, 0x2000);
     }
 }
 
 void func_8001E8E4(u16 arg0, u16 arg1) {
-    if (!(gActors[arg0].flags & 0x20)) {
-        gActors[arg1].unk_0F8 = gActors[arg0].unk_0F8;
+    if (!(gActors[arg0].flags & ACTOR_FLAG_FLIPPED)) {
+        gActors[arg1].unk_0F8.raw = gActors[arg0].unk_0F8.raw;
     }
     else {
-        gActors[arg1].unk_0F8 = -gActors[arg0].unk_0F8;
+        gActors[arg1].unk_0F8.raw = -gActors[arg0].unk_0F8.raw;
     }
-    gActors[arg1].unk_0FC = gActors[arg0].unk_0FC;
+    gActors[arg1].unk_0FC.raw = gActors[arg0].unk_0FC.raw;
 }
 
 void func_8001E964(u16 arg0, u16 arg1) {
     if (gActors[arg1].posX.whole < gActors[arg0].posX.whole) {
-        gActors[arg1].unk_0F8 = -gActors[arg0].unk_0F8;
+        gActors[arg1].unk_0F8.raw = -gActors[arg0].unk_0F8.raw;
     }
     else {
-        gActors[arg1].unk_0F8 = gActors[arg0].unk_0F8;
+        gActors[arg1].unk_0F8.raw = gActors[arg0].unk_0F8.raw;
     }
-    gActors[arg1].unk_0FC = gActors[arg0].unk_0FC;
+    gActors[arg1].unk_0FC.raw = gActors[arg0].unk_0FC.raw;
 }
 
 void func_8001E9DC(u16 arg0, u16 arg1) {
-    gActors[arg1].unk_0F8 = gActors[arg0].unk_0F8 * COS(func_8000178C() * 4);
-    gActors[arg1].unk_0FC = gActors[arg0].unk_0FC * COS(func_8000178C());
+    gActors[arg1].unk_0F8.raw = gActors[arg0].unk_0F8.raw * COS(func_8000178C() * 4);
+    gActors[arg1].unk_0FC.raw = gActors[arg0].unk_0FC.raw * COS(func_8000178C());
 }
 
 void func_8001EADC(u16 arg0, u16 arg1) {
     if ((gActors[arg1].unk_0DE == 0xB) || (gActors[arg1].unk_0DE == 0xE) || (gActors[arg1].unk_0DE == 0xF)) {
-        gActors[arg1].unk_098 &= ~0x2;
-        gActors[arg0].unk_098 ^= 0x3;
+        gActors[arg1].flags_098 &= ~ACTOR_FLAG3_UNK1;
+        gActors[arg0].flags_098 ^= (ACTOR_FLAG3_UNK1 | ACTOR_FLAG3_UNK0);
         gActors[arg0].unk_0DC = gActors[arg0].unk_0DA;
         gActors[arg0].unk_0DD = gActors[arg0].unk_0DB;
     }
@@ -197,20 +197,20 @@ void func_8001F88C(void) {
 
     if (!(D_80137458 & 0x10)) {
         for (index = 0, D_800BE4D0 = 0, D_800BE4D4 = 0; index < 144; index++) {
-            if (gActors[index].flags & 0x40000) {
+            if (gActors[index].flags & ACTOR_FLAG_UNK18) {
                 D_8011CF20[D_800BE4D0] = index;
-                D_8011D170[D_800BE4D0] = gActors[index].posX.whole + gActors[index].unk_0AC;
-                D_8011D3D0[D_800BE4D0] = gActors[index].posX.whole + gActors[index].unk_0AA;
-                D_8011D610[D_800BE4D0] = gActors[index].posY.whole + gActors[index].unk_0AE;
-                D_8011D850[D_800BE4D0] = gActors[index].posY.whole + gActors[index].unk_0B0;
+                D_8011D170[D_800BE4D0] = gActors[index].posX.whole + gActors[index].hitboxBX1;
+                D_8011D3D0[D_800BE4D0] = gActors[index].posX.whole + gActors[index].hitboxBX0;
+                D_8011D610[D_800BE4D0] = gActors[index].posY.whole + gActors[index].hitboxBY0;
+                D_8011D850[D_800BE4D0] = gActors[index].posY.whole + gActors[index].hitboxBY1;
                 D_800BE4D0++;
             }
-            if (gActors[index].flags & 0x2000) {
+            if (gActors[index].flags & ACTOR_FLAG_UNK13) {
                 D_8011CDF8[D_800BE4D4] = index;
-                D_8011D048[D_800BE4D4] = gActors[index].posX.whole + gActors[index].unk_0AC;
-                D_8011D290[D_800BE4D4] = gActors[index].posX.whole + gActors[index].unk_0AA;
-                D_8011D4F0[D_800BE4D4] = gActors[index].posY.whole + gActors[index].unk_0AE;
-                D_8011D730[D_800BE4D4] = gActors[index].posY.whole + gActors[index].unk_0AE - 8;
+                D_8011D048[D_800BE4D4] = gActors[index].posX.whole + gActors[index].hitboxBX1;
+                D_8011D290[D_800BE4D4] = gActors[index].posX.whole + gActors[index].hitboxBX0;
+                D_8011D4F0[D_800BE4D4] = gActors[index].posY.whole + gActors[index].hitboxBY0;
+                D_8011D730[D_800BE4D4] = gActors[index].posY.whole + gActors[index].hitboxBY0 - 8;
                 D_800BE4D4++;
             }
         }
@@ -222,7 +222,7 @@ u8 func_8001FA78(u16 arg0, s16 arg1, s16 arg2) {
     u16 index;
 
     var_a3 = arg0;
-    if ((gActors[arg0].flags & 0x02000000) || (gActors[arg0].unk_098 & 0x600)) {
+    if ((gActors[arg0].flags & ACTOR_FLAG_ATTACHED) || (gActors[arg0].flags_098 & (ACTOR_FLAG3_UNK9 | ACTOR_FLAG3_UNK10))) {
         var_a3 = gActors[arg0].unk_0D6;
     }
     
@@ -299,14 +299,14 @@ void func_8001FF28(void) {
 }
 
 void func_8001FF30(void) {
-    gActors[0].unk_098 &= 0x80600;
+    gActors[0].flags_098 &= 0x80600;
 }
 
 void func_8001FF50(void) {
     u16 index;
 
     for (index = 1; index < 192; index++) {
-        gActors[index].unk_098 &= 0x380600;
+        gActors[index].flags_098 &= 0x380600;
     }
 }
 
@@ -465,19 +465,18 @@ void func_8002092C(void) {
     u16 index;
 
     for (index = 200; index < 204; index++) {
-        gActors[index].actorType = 0;
-        func_8001E2D0(index);
-        gActors[index].unk_094 |= 0x800;
-        gActors[index].flags |= 8;
+        ACTOR_INIT(index,0);
+        gActors[index].graphicFlags |= ACTOR_GFLAG_UNK11;
+        gActors[index].flags |= ACTOR_FLAG_FREEZE_POS;
         gActors[index].unk_188 = 0;
-        gActors[index].unk_084 = 0x8000;
+        gActors[index].graphicIndex = 0x8000;
         gActors[index].posX.whole = -2;
         gActors[index].posY.whole = 3;
         gActors[index].posZ.whole = 1025;
-        gActors[index].unk_0AA = D_800C7CA4[index + 0];
-        gActors[index].unk_0AC = D_800C7CAC[index + 0];
-        gActors[index].unk_0B0 = D_800C7CB4[index + 0];
-        gActors[index].unk_0AE = D_800C7CBC[index + 0];
+        gActors[index].hitboxBX0 = D_800C7CA4[index + 0];
+        gActors[index].hitboxBX1 = D_800C7CAC[index + 0];
+        gActors[index].hitboxBY1 = D_800C7CB4[index + 0];
+        gActors[index].hitboxBY0 = D_800C7CBC[index + 0];
         gActors[index].colorR = 0;
         gActors[index].colorG = 0;
         gActors[index].colorB = 0;

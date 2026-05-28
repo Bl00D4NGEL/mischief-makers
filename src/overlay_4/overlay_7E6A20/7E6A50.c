@@ -280,7 +280,7 @@ void func_801BA3C4_7E7514(void);
 void func_801BA480_7E75D0(void);
 
 void func_801B9900_7E6A50(u16 actor_index) {
-    gActors[actor_index].unk_094 |= 0x200;
+    gActors[actor_index].graphicFlags |= ACTOR_GFLAG_PALETTE;
     gActors[actor_index].unk_18C = (s32)D_801BA56C_7E76BC;
     Actor_SetColorRgb(actor_index, 8);
 }
@@ -288,7 +288,7 @@ void func_801B9900_7E6A50(u16 actor_index) {
 void func_801B996C_7E6ABC(void) {
     s32 temp;
 
-    if ((gActors[0x90].actorType == 0xD) && ((gActors[0x90].flags & 2) != 0)) {
+    if ((gActors[0x90].actorType == 0xD) && ((gActors[0x90].flags & ACTOR_FLAG_ACTIVE) != 0)) {
         func_801B9900_7E6A50(0x90);
         func_801B9900_7E6A50(0x91);
     }
@@ -407,17 +407,17 @@ void func_801B9A08_7E6B58(void) {
 
 s32 func_801B9DAC_7E6EFC(void) {
     if (D_801BA6B0_7E7800[D_800D2928].unk_10 < D_800BE558) {
-        gActors[0x31].unk_15C |= 2;
+        gActors[0x31].var_15C |= 2;
     }
 
     if (D_801BA6B0_7E7800[D_800D2928].unk_00 < D_800BE558) {
         Actor_LoadSpawnTable(D_801BA6B0_7E7800[D_800D2928].unk_08);
         D_800BE568 = D_801BA6B0_7E7800[D_800D2928].unk_00 - 0x90;
-        gActors[0x31].unk_15C |= 1;
-        return 1;
+        gActors[0x31].var_15C |= 1;
+        return TRUE;
     }
 
-    return 0;
+    return FALSE;
 }
 
 void func_801B9E7C_7E6FCC(void) {
