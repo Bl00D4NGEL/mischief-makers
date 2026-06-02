@@ -1,7 +1,7 @@
 #include "common.h"
 #include "actor.h"
+#include "music.h"
 
-extern void func_8002AC30(u16 actor_index, s16 val);
 extern s16 D_801A2110_6CCDE0;
 extern s16 D_801A2190_6CCE60;
 extern s16 D_801A2924_6CD5F4;
@@ -15,10 +15,10 @@ extern s16 D_801A5F9C_6D0C6C;
 extern u16 D_801A6F60;
 extern u16 D_801A6F62;
 extern u16 D_801A6F64;
-extern u16 D_801A6820_6D14F0[];
-extern u16 D_801A68C4_6D1594[];
-extern u16 D_801A68CC_6D159C[];
-extern u16 D_801A68D4_6D15A4[];
+extern s16 D_801A6820_6D14F0[];
+extern s16 D_801A68C4_6D1594[];
+extern s16 D_801A68CC_6D159C[];
+extern s16 D_801A68D4_6D15A4[];
 extern u8 D_801A51FC_6CFECC;
 extern u8 D_801A5214_6CFEE4;
 extern u16 D_801A6794_6D1464[];
@@ -59,7 +59,6 @@ extern u32 D_801A55AC_6D027C[];
 extern u32 D_801A5E68_6D0B38[];
 extern u32 D_801A5F38_6D0C08[];
 extern u32 D_801A68EC_6D15BC[];
-extern s32 func_800032C4(u32 arg0);
 extern s32 Math_Atan2(s32 arg0, s32 arg1);
 
 void func_801932DC_6BDFAC(u16 actor_index);

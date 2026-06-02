@@ -33,8 +33,8 @@ extern u8 D_8019C884_6883A4[];
 extern u32 D_8019C8D8_6883F8[];
 extern u8 D_8019D6E0_689200[];
 extern u32 D_8019D784_6892A4[];
-extern u16 D_8019DB80_6896A0[];
-extern u16 D_8019DC14_689734[];
+extern s16 D_8019DB80_6896A0[];
+extern s16 D_8019DC14_689734[];
 extern f32 D_8019DD98_6898B8;
 extern f32 D_8019DD9C_6898BC;
 extern f64 D_8019E378_689E98;
@@ -58,10 +58,7 @@ void func_800816AC(u16 actor_index, void* arg1, s32 arg2);
 void func_80081720(u16 actor_index, void* arg1, s32 arg2);
 void func_8002ACFC(u16 actor_index, s16 arg1, s16 arg2);
 void func_8002AC7C(u16 actor_index, s16 arg1, s16 arg2);
-void func_8002AC30(u16 actor_index, s16 val);
 s32 func_800036C8(u32 arg0, u16 actor_index);
-u16 func_8003123C(void* arg0, s32 arg1, s32 arg2, s32 arg3);
-u16 func_80031284(s32 arg0, s16 arg1, s16 arg2, s32 arg3);
 s32 func_80048C94(s32 arg0);
 
 void func_80192100_67DC20(s32 arg0) {

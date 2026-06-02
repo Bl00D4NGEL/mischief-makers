@@ -20,7 +20,7 @@ extern s16 D_800BE55C;
 extern s16 D_800BE5D8;
 extern s16 D_800BE5DC;
 extern s32 D_800BE5F4;
-extern u32 D_800E1C84[];
+extern s16 D_800E1C84[];
 extern u16 gDebugStageSelectSelectedIndex;
 
 extern u32 D_801BC620_7C9800[];
@@ -92,7 +92,6 @@ extern void func_80045544(s32 arg0, s32 arg1);
 extern void func_80045610(s32 arg0, s32 arg1);
 extern void func_80043D30(void* arg0);
 extern void func_800472D4(void);
-extern s32 func_8005DEFC(void);
 extern s32 func_800032C4(u32 arg0);
 extern void func_80025EC4(u16 index);
 extern void func_801BB6AC_7C888C(u16 arg0);
@@ -1111,8 +1110,7 @@ void func_801BB6D0_7C88B0(void) {
 
                     case 0xC:
                     {
-                        gActors[0x50].graphicList = (u16*)D_800E1C84;\
-                        gActors[0x50].graphicTimer = 1;
+                        ACTOR_GFX_INIT(0x50, D_800E1C84);
                         Sound_PlaySfx(0x2B);
                         func_801BB6AC_7C888C(0);
                         D_800D28F8 = 0xB4;
