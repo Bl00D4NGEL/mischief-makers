@@ -2,6 +2,8 @@
 #include "actor.h"
 #include "function_symbols.h"
 
+extern u16 func_80031284(u16 graphic_index, s32 pos_x, s32 pos_y, s32 pos_z);
+
 typedef union {
     u32 dirty;
     struct {
