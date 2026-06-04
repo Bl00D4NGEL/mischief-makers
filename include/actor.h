@@ -31,12 +31,12 @@ enum ActorFlags {
     ACTOR_FLAG_UNK10 = (1U << 10U), 
     ACTOR_FLAG_UNK11 = (1U << 11U),
     ACTOR_FLAG_UNK12 = (1U << 12U),
-    ACTOR_FLAG_UNK13 = (1U << 13U),
+    ACTOR_FLAG_PLATFORM0 = (1U << 13U), // platform actor?
     ACTOR_FLAG_UNK14 = (1U << 14U),
     ACTOR_FLAG_UNK15 = (1U << 15U), // something with damage (instakill if set?)
     ACTOR_FLAG_UNK16 = (1U << 16U),
     ACTOR_FLAG_UNK17 = (1U << 17U),
-    ACTOR_FLAG_UNK18 = (1U << 18U), // 3d platfom actor?
+    ACTOR_FLAG_PLATFORM1 = (1U << 18U), // platfom actor?
     ACTOR_FLAG_UNK19 = (1U << 19U),
     ACTOR_FLAG_UNK20 = (1U << 20U),
     ACTOR_FLAG_UNK21 = (1U << 21U),
@@ -44,7 +44,7 @@ enum ActorFlags {
     ACTOR_FLAG_UNK23 = (1U << 23U), // something with physics?
     ACTOR_FLAG_UNK24 = (1U << 24U), // unused?
     ACTOR_FLAG_ATTACHED = (1U << 25U),      // might be holding, or held. This bit is on for Marina when she is holding an actor (see Marina's update function)
-    ACTOR_FLAG_ALWAYS_UPDATE = (1U << 26U), // if this bit is set, the actor will always update, despite the state of D_800BE670
+    ACTOR_FLAG_ALWAYS_UPDATE = (1U << 26U), // if this bit is set, the actor will always update, despite the state of gActorStall
     ACTOR_FLAG_UNK27 = (1U << 27U), // set but not checked?
     ACTOR_FLAG_UNK28 = (1U << 28U), // set but not checked?
     ACTOR_FLAG_UNK29 = (1U << 29U), // set but not checked?
@@ -285,7 +285,7 @@ extern Actor gActors[];
  gActors[index].actorType = type;\
  func_8001E2D0(index)
 
-// a common macro for initalizing grpahic lists
+// a common macro for initalizing graphic lists
 // can cause mismatches.
 #define ACTOR_GFX_INIT(index, graphicsP)\
  gActors[index].graphicList = (s16*)graphicsP;\

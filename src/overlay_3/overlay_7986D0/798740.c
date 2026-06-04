@@ -2,7 +2,6 @@
 #include "actor.h"
 
 extern s32 Math_PlaneHalf(s32 x, s32 y);
-extern DEFAULT_INT func_8002EBB8(s32 actor_index, s32 pos_x, s32 pos_y, s32 vel_x, s32 vel_y); // TODO: prototype
 
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_3/overlay_7986D0/798740/func_801B0900_798740.s")
@@ -79,8 +78,8 @@ void func_801B2828_79A668(u16 actor_index) {
 void func_801B36FC_79B53C(u16 arg0, u16 actor_index) {
     gActors[actor_index].actorType = 0x508;
     func_8001E2D0(actor_index);
-    gActors[actor_index].posX.whole = 0x190 - D_800BE558.whole;
-    gActors[actor_index].posY.whole = (arg0 << 6) - (D_800BE55C.whole & 0x3F) - 0xC0;
+    gActors[actor_index].posX.whole = 0x190 - gScreenPosCurrentX.whole;
+    gActors[actor_index].posY.whole = (arg0 << 6) - (gScreenPosCurrentY.whole & 0x3F) - 0xC0;
     gActors[actor_index].graphicFlags |= 0x2900;
     gActors[actor_index].unk_188 = 0;
     gActors[actor_index].posZ.whole = -0x100;

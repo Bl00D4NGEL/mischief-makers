@@ -1,6 +1,8 @@
 #include "common.h"
 #include "actor.h"
 
+// overlay code used in "Sasqutach Beta"
+
 extern u16 D_801A80DE_6A00DE;
 extern s16 D_801A80EE_6A00EE;
 extern s16 D_801A80F0_6A00F0;
@@ -13,22 +15,20 @@ extern u16 D_801A682A_69E82A[];
 extern u16 D_801A6876_69E876[];
 extern u16 D_801A68C2_69E8C2[];
 
-extern u16 func_80031284(s32 arg0, s16 arg1, s32 arg2, s32 arg3); // TODO: prototype
-extern DEFAULT_INT func_800036C8(s32 arg0, u32 actor_index); // TODO: prototype
-extern DEFAULT_INT func_80031E38(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6,
-                                 s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, s32 arg13,
-                                 s32 arg14, s32 arg15, s32 arg16, s32 arg17, s32 arg18, s32 arg19, s32 arg20,
-                                 s32 arg21, s32 arg22, s32 arg23, s32 arg24, s32 arg25, s32 arg26, s32 arg27,
-                                 s32 arg28, s32 arg29); // TODO: prototype
 void func_8002AC30(u16 actor_index, s16 val);
 void func_80194DC4_68CDC4(u16 arg0, f32 arg1, f32 arg2);
+
+extern u16 func_80031E38(u16 arg0, u16 arg1, u16 arg2, u16 arg3, s32 arg4, u16 arg5, u16 arg6,
+     s32 arg7, s32 arg8, s16 arg9, s16 arg10, s16 arg11, s16 arg12, s16 arg13, s16 arg14, s16 arg15,
+      s16 arg16, s16 arg17, s16 arg18, s16 arg19, s16 arg20, s16 arg21, s16 arg22, u16 arg23,
+       u16 arg24, u16 arg25, u16 arg26, s16 arg27, s16 arg28,s32 arg29); // TODO: prototype
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_0/overlay_68A090/68A100/func_80192100_68A100.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_0/overlay_68A090/68A100/func_80192198_68A198.s")
 
-void func_8019226C_68A26C(u16 arg0, u16 arg1) {
-    func_800036C8(arg0, (u32)arg1);
+s32 func_8019226C_68A26C(u16 arg0, u16 arg1) {
+    return Sound_PlaySfxAtActor2((s32)arg0, arg1);
 }
 
 void func_801922A0_68A2A0(s32 arg0) {
@@ -40,7 +40,7 @@ void func_801922A0_68A2A0(s32 arg0) {
     gActors[0xC1].posX.whole = 0;
     gActors[0xC1].posY.whole = 0;
     gActors[0xC1].posZ.whole = 0x80;
-    gActors[0xC1].unk_18C = (s32)D_800D8588;
+    gActors[0xC1].palette_18C = D_800D8588;
     gActors[0xC1].scaleX = 20.0f;
     gActors[0xC1].scaleY = 20.0f;
 }
@@ -136,7 +136,7 @@ void func_80194754_68C754(u16 actor_index) {
 
     saved_actor_index[0] = actor_index;
 
-    func_80031E38(0x80, 0x90, (actor_index + 0x14) & 0xFFFF, 0xF, 0x200, 0x84, 8, 0x50000, 0x20000, 0xA, 0, -0x18, 0,
+    func_80031E38(0x80, 0x90, (actor_index + 0x14), 0xF, 0x200, 0x84, 8, 0x50000, 0x20000, 0xA, 0, -0x18, 0,
         0x10, -8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x28, 0, 0x6E, 0x46, 0, 0);
     final_actor_index = saved_actor_index[0];
     gActors[final_actor_index + 0x14].unk_18C = 2;
@@ -150,7 +150,7 @@ void func_801949B4_68C9B4(u16 actor_index) {
 
     saved_actor_index[0] = actor_index;
 
-    func_80031E38(0x80, 0x90, (actor_index + 6) & 0xFFFF, 0xF, 0x200, 0x84, 8, 0x80000, 0x40000, 0xA, 0, -0x16, 0x10,
+    func_80031E38(0x80, 0x90, (actor_index + 6), 0xF, 0x200, 0x84, 8, 0x80000, 0x40000, 0xA, 0, -0x16, 0x10,
         0x16, -0x16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x14, 0, 0x2D, 0x50, 0, 0);
     final_actor_index = saved_actor_index[0];
     gActors[final_actor_index + 6].unk_18C = 2;
@@ -315,7 +315,7 @@ void func_80196F98_68EF98(s32 arg0) {
     func_8002AC30(0x3C, 0x12);
     func_80196F48_68EF48(0x38);
     func_8002AC30(0x38, 0x12);
-    gActors[0x38].flags &= ~0x1000;
+    gActors[0x38].flags &= ~ACTOR_FLAG_UNK12;
     func_80196F48_68EF48(0x3A);
     func_8002AC30(0x3A, 0xE);
     func_80196F48_68EF48(0x45);

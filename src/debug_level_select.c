@@ -23,8 +23,8 @@ extern u8 D_801376B5;
 extern u8 D_801376B9;
 extern u8 D_801376BD;
 
-void func_80003A38(void);
-s32 func_80003380(u32 arg0);
+void Sound_StopMusic(void);
+s32 Sound_PlaySfx2(u32 arg0);
 void func_80043918(void);
 void func_8008391C(char* text, s32 x, s32 y, s32 red, s32 green, s32 blue, s32 alpha, f32 scale_x, f32 scale_y);
 
@@ -39,16 +39,16 @@ const char* gDebugStageSelectRowPrefixes[] = {
     "4-2", "5-d", "5-0", "end", "e-0", "---",
 };
 
-u16 gDebugStageSelectRowOptionCounts[] = {
+u16 gStageRowCounts[] = {
     0x0001, 0x0001, 0x000A, 0x000A, 0x0001, 0x0001, 0x0009, 0x0002, 0x0001, 0x0001, 0x0005,
     0x0005, 0x0001, 0x0001, 0x0003, 0x0002, 0x0001, 0x0001, 0x0002, 0x0002, 0x0003, 0x0000,
 };
 
-u16 gDebugStageSelectGroupOptionStartOffsets[] = {
+u16 gStageGroupOptionOffsets[] = {
     0x0002, 0x000C, 0x0018, 0x0025,
 };
 
-u16 gDebugStageSelectGroupOptionStartOffsetsTail[] = {
+u16 gStageGroupOptionOffsetsTail[] = {
     0x0031, 0x003A, 0x0000, 0x0000,
 };
 
@@ -63,7 +63,8 @@ const char* gDebugStageSelectOptionSuffixes[] = {
     "0", "1", "0", "1", "0", "1", "2", "0",
 };
 
-u16 gDebugStageSelectSceneIds[] = {
+// list of scene indecies in order of game progress.
+u16 gStageScenes[] = {
     0x000B, 0x000E, 0x0000, 0x0044, 0x0035, 0x0037, 0x0034, 0x0043, 0x0038, 0x003A, 0x0036,
     0x0039, 0x0001, 0x0045, 0x0025, 0x003C, 0x0026, 0x003B, 0x003D, 0x0046, 0x003E, 0x000D,
     0x0005, 0x001C, 0x0048, 0x000C, 0x0023, 0x0047, 0x0020, 0x001F, 0x0024, 0x0009, 0x0021,
@@ -81,7 +82,8 @@ u16 gDebugStageSelectStageIds[] = {
     0x005E, 0x0056, 0x0058, 0x005F, 0x0060, 0x0066, 0x0067, 0x0066, 0x0000,
 };
 
-u16 gStageTransitionTimeThresholds[] = {
+// times to beat per stage to get S-rank.
+u16 gStageTimesToBeat[] = {
     0x0000, 0x0000, 0x0438, 0x03FC, 0x05DC, 0x01E0, 0x07BC, 0x0870, 0x0528, 0x0A14, 0x06CC,
     0x02D0, 0x0870, 0x0618, 0x0294, 0x08E8, 0x02D0, 0x0654, 0x0690, 0x0528, 0x05DC, 0x05DC,
     0x1A04, 0x0000, 0x0780, 0x0708, 0x0BB8, 0x0528, 0x10E0, 0x0528, 0x0E10, 0x0438, 0x08AC,
@@ -90,7 +92,7 @@ u16 gStageTransitionTimeThresholds[] = {
     0x0000, 0x1194, 0x1428,
 };
 
-// Unreferenced, maybe intended to be default
+// referenced in char*[] at 0x800c8d80. incomplete split?
 char D_800C84EC[] = "1-1";
 
 //  one caller passes arg but it is unused
@@ -122,7 +124,7 @@ void DebugStageSelect_DrawMenu() {
         }
     }
 
-    sprintf((char*)stage_text - 4, "%02x", D_800BE5D0 + 0x11);
+    sprintf((char*)stage_text - 4, "%02x", gCurrentScene + 0x11);
     func_8008391C((char*)stage_text - 4, -0x8C, 0x10, 0x60, 0x40, 0x20, 0xFF, scale, scale);
 
     if (D_800D28E4 < 0x15) {
@@ -170,12 +172,12 @@ void GameState_DebugStageSelect(void) {
                 gDebugStageSelectOptionBaseOffsets[index] = 0;
 
                 for (jndex = 0; jndex < index; jndex++) {
-                    gDebugStageSelectOptionBaseOffsets[index] += gDebugStageSelectRowOptionCounts[jndex];
+                    gDebugStageSelectOptionBaseOffsets[index] += gStageRowCounts[jndex];
                 }
             }
 
             gActors[DEBUG_STAGE_SELECT_CURSOR_ACTOR_INDEX].colorB = 0;
-            D_800BE5D0 = 0;
+            gCurrentScene = 0;
             DebugStageSelect_DrawMenu();
             D_801376BD = 0;
             D_801376B9 = 1;
@@ -189,51 +191,51 @@ void GameState_DebugStageSelect(void) {
         case 1:
             DebugMenu_UpdateCursorFlash();
 
-            if (Input_CheckButtonRepeat(D_800BE504, &gActors[DEBUG_STAGE_SELECT_REPEAT_UP_ACTOR_INDEX].colorB) != 0) {
+            if (Input_CheckButtonRepeat(gButton_DUp, &gActors[DEBUG_STAGE_SELECT_REPEAT_UP_ACTOR_INDEX].colorB) != 0) {
                 gActors[DEBUG_STAGE_SELECT_CURSOR_ACTOR_INDEX].colorB--;
                 if (gActors[DEBUG_STAGE_SELECT_CURSOR_ACTOR_INDEX].colorB == 0xFF) {
                     gActors[DEBUG_STAGE_SELECT_CURSOR_ACTOR_INDEX].colorB = DEBUG_STAGE_SELECT_ROW_COUNT - 1;
                 }
-                func_80003380(0x22);
+                Sound_PlaySfx2(SFX_MENU_BLIP);
             }
 
-            if (Input_CheckButtonRepeat(D_800BE508, &gActors[DEBUG_STAGE_SELECT_REPEAT_DOWN_ACTOR_INDEX].colorB) != 0) {
+            if (Input_CheckButtonRepeat(gButton_DDown, &gActors[DEBUG_STAGE_SELECT_REPEAT_DOWN_ACTOR_INDEX].colorB) != 0) {
                 gActors[DEBUG_STAGE_SELECT_CURSOR_ACTOR_INDEX].colorB++;
                 if (gActors[DEBUG_STAGE_SELECT_CURSOR_ACTOR_INDEX].colorB == DEBUG_STAGE_SELECT_ROW_COUNT) {
                     gActors[DEBUG_STAGE_SELECT_CURSOR_ACTOR_INDEX].colorB = 0;
                 }
-                func_80003380(0x22);
+                Sound_PlaySfx2(SFX_MENU_BLIP);
             }
 
-            if (Input_CheckButtonRepeat(D_800BE50C, &gActors[DEBUG_STAGE_SELECT_REPEAT_LEFT_ACTOR_INDEX].colorB) != 0) {
+            if (Input_CheckButtonRepeat(gButton_DLeft, &gActors[DEBUG_STAGE_SELECT_REPEAT_LEFT_ACTOR_INDEX].colorB) != 0) {
                 selected_entry = &gDebugStageSelectSelectedOptions[gActors[DEBUG_STAGE_SELECT_CURSOR_ACTOR_INDEX].colorB];
                 selected_value = *selected_entry;
                 if (selected_value > 0) {
                     *selected_entry = selected_value - 1;
-                    func_80003380(0x22);
+                    Sound_PlaySfx2(SFX_MENU_BLIP);
                 }
             }
 
-            if (Input_CheckButtonRepeat(D_800BE510, &gActors[DEBUG_STAGE_SELECT_REPEAT_RIGHT_ACTOR_INDEX].colorB) != 0) {
+            if (Input_CheckButtonRepeat(gButton_DRight, &gActors[DEBUG_STAGE_SELECT_REPEAT_RIGHT_ACTOR_INDEX].colorB) != 0) {
                 selected_entry = &gDebugStageSelectSelectedOptions[gActors[DEBUG_STAGE_SELECT_CURSOR_ACTOR_INDEX].colorB];
                 selected_value = *selected_entry;
                 if (selected_value <
-                    (gDebugStageSelectRowOptionCounts[gActors[DEBUG_STAGE_SELECT_CURSOR_ACTOR_INDEX].colorB] - 1)) {
+                    (gStageRowCounts[gActors[DEBUG_STAGE_SELECT_CURSOR_ACTOR_INDEX].colorB] - 1)) {
                     *selected_entry = selected_value + 1;
-                    func_80003380(0x22);
+                    Sound_PlaySfx2(SFX_MENU_BLIP);
                 }
             }
 
             index = gDebugStageSelectOptionBaseOffsets[gActors[DEBUG_STAGE_SELECT_CURSOR_ACTOR_INDEX].colorB] +
                     gDebugStageSelectSelectedOptions[gActors[DEBUG_STAGE_SELECT_CURSOR_ACTOR_INDEX].colorB];
             selected_index = index + 0;
-            gDebugStageSelectSelectedIndex = index;
-            D_800BE5D0 = gDebugStageSelectSceneIds[selected_index];
+            gCurrentStage = index;
+            gCurrentScene = gStageScenes[selected_index];
             D_800D28E4 = gDebugStageSelectStageIds[selected_index];
-            DebugStageSelect_DrawMenu(&gDebugStageSelectSelectedIndex);
+            DebugStageSelect_DrawMenu(&gCurrentStage);
 
-            if (gButtonPress & D_800BE500) {
-                func_80003A38();
+            if (gButtonPress & gButton_Start) {
+                Sound_StopMusic();
                 func_80043918();
                 gGameStateSubState++;
             }
@@ -241,7 +243,7 @@ void GameState_DebugStageSelect(void) {
 
         case 2:
             D_800C5008 = 0;
-            D_80171B18 = gDebugStageSelectSelectedIndex;
+            D_80171B18 = gCurrentStage;
             gGameState = GAMESTATE_TRANSITION;
             gGameStateSubState = 0x41;
             break;

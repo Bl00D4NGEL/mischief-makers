@@ -6,18 +6,18 @@
 void func_800012F0(void);
 void func_8000147C(void);
 void func_80001670(void);
-u16 func_8000178C(void);
+u16 Rand(void);
 
 void func_800012F0(void) {
     if (gGameState == GAMESTATE_GAMEPLAY) {
-        if ((gDebugBitfield & 0x200) && (gGamePaused == 0)) {
-            gGamePaused = 1;
+        if ((gDebugBitfield & DEBUGFLAG_FORCEPAUSE) && (gGamePaused == 0)) {
+            gGamePaused = TRUE;
         }
 
         if (gGamePaused != 0 && gGameStateSubState == 0x10) {
-            if ((gButtonPress & D_800BE500) || (gButtonPress & D_800BE518)) {
+            if ((gButtonPress & gButton_Start) || (gButtonPress & gButton_A)) {
                 // if this is true, you can pause while not drawing the pause screen (it still processes though?)
-                if (gDebugBitfield & 0x100) {
+                if (gDebugBitfield & DEBUGFLAG_BLANKPAUSE) {
                     func_80020844(); // PauseGame_RestoreVolume ?
                     func_800208D4(); // PauseGame_Unpause ?
                 }
@@ -26,12 +26,12 @@ void func_800012F0(void) {
                 }
             }
         }
-        else if ((gButtonPress & D_800BE500) && (D_800BE4EC == 0) && (gGameStateSubState == 0)) {
+        else if ((gButtonPress & gButton_Start) && (gCannotPause == 0) && (gGameStateSubState == 0)) {
             // player->health >= 0
             if (gActors[0].health >= 0) {
-                gGamePaused = 1;
-                gDebugBitfield &= ~0x10;
-                if (gDebugBitfield & 0x100) {
+                gGamePaused = TRUE;
+                gDebugBitfield &= ~DEBUGFLAG_UNK4;
+                if (gDebugBitfield & DEBUGFLAG_BLANKPAUSE) {
                     gGameStateSubState = 0x10;
                 }
                 else {
@@ -39,7 +39,7 @@ void func_800012F0(void) {
                 }
             }
         }
-        if (gGamePaused == 0) {
+        if (gGamePaused == FALSE) {
             func_800838E0(); // DebugText_Reset ?
         }
     }
@@ -59,51 +59,51 @@ void func_8000147C(void) {
     func_800821B0(); // MarinaGraphics_Load
     func_80009940();
     func_80082F10();
-    func_80009BE8(D_80171B30); // DrawActors
+    func_80009BE8(gActorsBack); // DrawActors
 
     // "Snowstorm Maze" and "Lunar"
     if (D_800BE674) {
-        func_80082CFC(); // DrawForeground
+        func_80082CFC(); // DrawMidground
         func_8000DD6C(); // DrawClanBlocks
-        func_80009BE8(&D_80171D30); // DrawActors
+        func_80009BE8(gActorsFront); // DrawActors
         func_80082E04(); // DrawEnvLayer
     }
     else {
         func_80082E04(); // DrawEnvLayer
-        func_80009BE8(D_80171C30); // DrawActors
-        func_80082CFC(); // DrawForeground
-        func_80009BE8(&D_80171D30); // DrawActors
+        func_80009BE8(gActorsMiddle); // DrawActors
+        func_80082CFC(); // DrawMidground
+        func_80009BE8(gActorsFront); // DrawActors
         func_8000DD6C(); // DrawClanBlocks
     }
 
     if (D_8013747C != 0) {
         func_8000EA88(); // DrawPortraits
-        func_80009BE8(D_80171F10); // DrawActors
+        func_80009BE8(gActorsTop); // DrawActors
     }
     else {
-        func_80009BE8(D_80171F10); // DrawActors
+        func_80009BE8(gActorsTop); // DrawActors
         func_8000EA88(); // DrawPortraits
     }
 
-    func_8000178C(); // update rng
+    Rand(); // update rng
     func_800822B8(); // MarinaGraphics_Decrypt
     Gfx_DrawLetterbox();
     func_8000F290(); // DrawLifeBar
     func_80009BE0();
 
-    if (gDebugBitfield & 0x1) {
+    if (gDebugBitfield & DEBUGFLAG_STUB1) {
         func_8002167C();
     }
 
-    if (gDebugBitfield & 0x8000) {
+    if (gDebugBitfield & DEBUGFLAG_STUB15) {
         func_8001FF28();
     }
 
-    if (gDebugBitfield & 0x40) {
+    if (gDebugBitfield & DEBUGFLAG_STUB6) {
         func_80021658();
     }
 
-    if ((gDebugBitfield & 0x1020) == 0x1000) {
+    if ((gDebugBitfield & (DEBUGFLAG_STUB12 | DEBUGFLAG_UNK5)) == DEBUGFLAG_STUB12) {
         func_80021660();
     }
 
@@ -191,10 +191,8 @@ void func_80001670(void) {
     }
 }
 
-extern u16 gRngSeed;
-
 // LCG rng
-u16 func_8000178C(void) {
+u16 Rand(void) {
     gRngSeed = (gRngSeed * 0x85) + 1;
     return gRngSeed / 0x100;
 }

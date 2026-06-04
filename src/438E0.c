@@ -1,13 +1,9 @@
 #include "common.h"
 #include "actor.h"
 #include "input.h"
+#include "globalData.h"
 #include "music.h"
 
-extern u16 D_800BE52C;
-extern s16 D_800BE570;
-extern s16 D_800BE574;
-extern u16 D_800BE4EC;
-extern u16 D_800BE5D0;
 extern u16 D_800D28E4;
 extern u16 D_800D28E8;
 extern u16 D_800D28F0;
@@ -186,8 +182,8 @@ void func_80043D30(void* spawn) {
 #pragma GLOBAL_ASM("asm/nonmatchings/438E0/func_800441F4.s")
 
 void func_80044360(void) {
-    D_801069E0[D_801782C0].unk_080 = 0xA;
-    D_801069E0[D_801782C0].unk_08C = 0;
+    D_801069E0[D_801782C0].graphicIndex = 0xA;
+    D_801069E0[D_801782C0].palette = 0;
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/438E0/func_80044390.s")
@@ -207,10 +203,10 @@ void func_80044360(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/438E0/func_8004495C.s")
 
 void func_800449A8(void) {
-    D_801069E0[D_801782C0].unk_080 = 0x20;
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D19A8[D_801782C2 & 3];
+    D_801069E0[D_801782C0].graphicIndex = 0x20;
+    D_801069E0[D_801782C0].palette = D_800D19A8[D_801782C2 & 3];
 
-    if ((func_80012AB4(D_801069E0[D_801782C0].unk_084, D_801069E0[D_801782C0].unk_088) & 0xC0) == 0) {
+    if ((func_80012AB4(D_801069E0[D_801782C0].posX.whole, D_801069E0[D_801782C0].posY.whole) & 0xC0) == 0) {
         *D_801782BC |= 0x8000;
     }
 }
@@ -218,121 +214,121 @@ void func_800449A8(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/438E0/func_80044A38.s")
 
 void func_80044A84(void) {
-    D_801069E0[D_801782C0].unk_080 = 0x24;
-    D_801069E0[D_801782C0].unk_08C = 0x80203050;
+    D_801069E0[D_801782C0].graphicIndex = 0x24;
+    D_801069E0[D_801782C0].palette = (void*)0x80203050;
 
-    if ((func_80012AB4(D_801069E0[D_801782C0].unk_084, D_801069E0[D_801782C0].unk_088) & 0xC0) == 0) {
+    if ((func_80012AB4(D_801069E0[D_801782C0].posX.whole, D_801069E0[D_801782C0].posY.whole) & 0xC0) == 0) {
         *D_801782BC |= 0x8000;
     }
 }
 
 void func_80044B00(void) {
-    D_801069E0[D_801782C0].unk_080 = 0x25;
-    D_801069E0[D_801782C0].unk_08C = 0x80203050;
+    D_801069E0[D_801782C0].graphicIndex = 0x25;
+    D_801069E0[D_801782C0].palette = (void*)0x80203050;
 
-    if ((func_80012AB4(D_801069E0[D_801782C0].unk_084, D_801069E0[D_801782C0].unk_088) & 0xC0) == 0) {
+    if ((func_80012AB4(D_801069E0[D_801782C0].posX.whole, D_801069E0[D_801782C0].posY.whole) & 0xC0) == 0) {
         *D_801782BC |= 0x8000;
     }
 }
 
 void func_80044B7C(void) {
-    D_801069E0[D_801782C0].unk_080 = D_800D3740[D_800D37A8];
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D1968[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = D_800D3740[D_800D37A8];
+    D_801069E0[D_801782C0].palette = D_800D1968[D_801782C2];
 }
 
 void func_80044BD8(void) {
-    D_801069E0[D_801782C0].unk_080 = D_800D3748[D_800D37A8];
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D1968[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = D_800D3748[D_800D37A8];
+    D_801069E0[D_801782C0].palette = D_800D1968[D_801782C2];
 }
 
 void func_80044C34(void) {
-    D_801069E0[D_801782C0].unk_080 = D_800D3750[D_800D37A8];
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D1968[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = D_800D3750[D_800D37A8];
+    D_801069E0[D_801782C0].palette = D_800D1968[D_801782C2];
 }
 
 void func_80044C90(void) {
-    D_801069E0[D_801782C0].unk_080 = D_800D3758[D_800D37A8];
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D1968[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = D_800D3758[D_800D37A8];
+    D_801069E0[D_801782C0].palette = D_800D1968[D_801782C2];
 }
 
 void func_80044CEC(void) {
-    D_801069E0[D_801782C0].unk_080 = D_800D3760[D_800D37A8];
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D1968[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = D_800D3760[D_800D37A8];
+    D_801069E0[D_801782C0].palette = D_800D1968[D_801782C2];
 }
 
 void func_80044D48(void) {
-    D_801069E0[D_801782C0].unk_080 = D_800D3768[D_800D37A8];
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D1968[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = D_800D3768[D_800D37A8];
+    D_801069E0[D_801782C0].palette = D_800D1968[D_801782C2];
 }
 
 void func_80044DA4(void) {
-    D_801069E0[D_801782C0].unk_080 = 0x2F;
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D19B8[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = 0x2F;
+    D_801069E0[D_801782C0].palette = D_800D19B8[D_801782C2];
 }
 
 void func_80044DEC(void) {
-    D_801069E0[D_801782C0].unk_080 = 0x30;
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D19B8[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = 0x30;
+    D_801069E0[D_801782C0].palette = D_800D19B8[D_801782C2];
 }
 
 void func_80044E34(void) {
-    D_801069E0[D_801782C0].unk_080 = 0x31;
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D19B8[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = 0x31;
+    D_801069E0[D_801782C0].palette = D_800D19B8[D_801782C2];
 }
 
 void func_80044E7C(void) {
-    D_801069E0[D_801782C0].unk_080 = 0x32;
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D19B8[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = 0x32;
+    D_801069E0[D_801782C0].palette = D_800D19B8[D_801782C2];
 }
 
 void func_80044EC4(void) {
-    D_801069E0[D_801782C0].unk_080 = 0x33;
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D19B8[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = 0x33;
+    D_801069E0[D_801782C0].palette = D_800D19B8[D_801782C2];
 }
 
 void func_80044F0C(void) {
-    D_801069E0[D_801782C0].unk_080 = 0x34;
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D19B8[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = 0x34;
+    D_801069E0[D_801782C0].palette = D_800D19B8[D_801782C2];
 }
 
 void func_80044F54(void) {
-    D_801069E0[D_801782C0].unk_080 = 0x35;
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D19B8[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = 0x35;
+    D_801069E0[D_801782C0].palette = D_800D19B8[D_801782C2];
 }
 
 void func_80044F9C(void) {
-    D_801069E0[D_801782C0].unk_080 = 0x36;
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D19B8[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = 0x36;
+    D_801069E0[D_801782C0].palette = D_800D19B8[D_801782C2];
 }
 
 void func_80044FE4(void) {
-    D_801069E0[D_801782C0].unk_080 = 0x37;
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D19B8[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = 0x37;
+    D_801069E0[D_801782C0].palette = D_800D19B8[D_801782C2];
 }
 
 void func_8004502C(void) {
-    D_801069E0[D_801782C0].unk_080 = 0x38;
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D19B8[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = 0x38;
+    D_801069E0[D_801782C0].palette = D_800D19B8[D_801782C2];
 }
 
 void func_80045074(void) {
-    D_801069E0[D_801782C0].unk_080 = D_800D3780[D_800D37A4];
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D1968[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = D_800D3780[D_800D37A4];
+    D_801069E0[D_801782C0].palette = D_800D1968[D_801782C2];
 }
 
 void func_800450D0(void) {
-    D_801069E0[D_801782C0].unk_080 = D_800D3788[D_800D37A4];
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D1968[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = D_800D3788[D_800D37A4];
+    D_801069E0[D_801782C0].palette = D_800D1968[D_801782C2];
 }
 
 void func_8004512C(void) {
-    D_801069E0[D_801782C0].unk_080 = D_800D3790[D_800D37A4];
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D1968[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = D_800D3790[D_800D37A4];
+    D_801069E0[D_801782C0].palette = D_800D1968[D_801782C2];
 }
 
 void func_80045188(void) {
-    D_801069E0[D_801782C0].unk_080 = D_800D3798[D_800D37A4];
-    D_801069E0[D_801782C0].unk_08C = (s32)D_800D1968[D_801782C2];
+    D_801069E0[D_801782C0].graphicIndex = D_800D3798[D_800D37A4];
+    D_801069E0[D_801782C0].palette = D_800D1968[D_801782C2];
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/438E0/func_800451E4.s")
@@ -367,7 +363,7 @@ u16 func_8004571C(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/438E0/func_800457C8.s")
 
 void func_80045D84(u32 arg0, u32 arg1) {
-    D_800D28E4 = 0x64;
+    D_800D28E4 = 100;
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/438E0/func_80045D9C.s")
@@ -395,39 +391,39 @@ void func_80046274(u32 arg0, u32 arg1) {
 
 void Camera_UpdateViewBounds(void) {
     if (D_800D28E4 < 0x68) {
-        if ((D_800D2918 - 0x70) < D_800BE55C.whole) {
-            D_800BE570 = D_800BE55C.whole + 0x70;
+        if ((D_800D2918 - 0x70) < gScreenPosCurrentY.whole) {
+            D_800BE570.whole  = gScreenPosCurrentY.whole + 0x70;
         }
         else {
-            D_800BE570 = D_800D2918;
+            D_800BE570.whole  = D_800D2918;
         }
 
-        if (D_800BE55C.whole < (D_800D291C + 0x70)) {
-            D_800BE574 = D_800BE55C.whole - 0x70;
+        if (gScreenPosCurrentY.whole < (D_800D291C + 0x70)) {
+            D_800BE574.whole = gScreenPosCurrentY.whole - 0x70;
         }
         else {
-            D_800BE574 = D_800D291C;
+            D_800BE574.whole = D_800D291C;
         }
 
-        if ((D_800BE558.whole - 0x90) < D_800D2920) {
-            D_800BE568 = D_800BE558.whole - 0x90;
+        if ((gScreenPosCurrentX.whole - 0x90) < D_800D2920) {
+            D_800BE568.whole  = gScreenPosCurrentX.whole - 0x90;
         }
         else {
-            D_800BE568 = D_800D2920;
+            D_800BE568.whole  = D_800D2920;
         }
 
-        if (D_800D2924 < (D_800BE558.whole + 0x90)) {
-            D_800BE56C = D_800BE558.whole + 0x90;
+        if (D_800D2924 < (gScreenPosCurrentX.whole + 0x90)) {
+            D_800BE56C.whole  = gScreenPosCurrentX.whole + 0x90;
         }
         else {
-            D_800BE56C = D_800D2924;
+            D_800BE56C.whole  = D_800D2924;
         }
     }
 }
 
 void func_800463C0(void) {
     Camera_UpdateViewBounds();
-    D_800BE568 = D_800BE558.whole - 0x90;
+    D_800BE568.whole  = gScreenPosCurrentX.whole - 0x90;
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/438E0/func_800463F0.s")
@@ -459,9 +455,9 @@ void func_8004664C(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/438E0/func_80046D5C.s")
 
 s32 Cutscene_CheckSkipInput(void) {
-    if (gButtonPress & D_800BE52C) {
+    if (gButtonPress & gButton_ZTrig) {
         D_800D28F0 = D_800D28E4;
-        D_800D28E4 = 0x63;
+        D_800D28E4 = 99;
         D_800D2938 = 0;
         return TRUE;
     }
@@ -497,8 +493,8 @@ void func_80047674(void) {
 void func_80047958(void) {
     u16 index = D_800D28F0 - 0x1F;
 
-    D_800BE5D0 = D_800D28D0[index];
-    gGameState = 5;
+    gCurrentScene = D_800D28D0[index];
+    gGameState = GAMESTATE_LOADING;
     gGameStateSubState = 0;
 }
 

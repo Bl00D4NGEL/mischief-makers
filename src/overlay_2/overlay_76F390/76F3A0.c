@@ -1,7 +1,6 @@
 #include "common.h"
 #include "actor.h"
 
-extern u16 func_80031284(u16 graphic_index, s32 pos_x, s32 pos_y, s32 pos_z);
 
 // determines spawn position and velocity of flame arches in "Sea of Lava"
 typedef struct {
@@ -49,8 +48,8 @@ void func_801A6980_76F420(u16 actor_index) {
     u16 temp_index;
     FlameArchInit* temp_v1;
 
-    if ((D_800BE4E0 & 3) == 0) {
-        temp_v0 = Actor_RangeFindFlag2(0x30, 0x90);
+    if ((gActiveFrames & 3) == 0) {
+        temp_v0 = Actor_RangeFindInactive(0x30, 0x90);
         if (temp_v0 != 0) {
             temp_index = gActors[actor_index].unk_0D8 * 5;
             temp_v1 = (FlameArchInit*)&((s16*)D_801A7250_76FCF0)[temp_index];
@@ -58,7 +57,7 @@ void func_801A6980_76F420(u16 actor_index) {
             gActors[actor_index].posZ.whole = temp_v1->posZ;
             ACTOR_INIT(temp_v0,0x2502);
             gActors[temp_v0].graphicFlags = ACTOR_GFLAG_SCALE;
-            gActors[temp_v0].flags = (func_8000178C() & ACTOR_FLAG_FLIPPED) + (ACTOR_FLAG_DRAW | ACTOR_FLAG_ACTIVE);
+            gActors[temp_v0].flags = (Rand() & ACTOR_FLAG_FLIPPED) + (ACTOR_FLAG_DRAW | ACTOR_FLAG_ACTIVE);
             gActors[temp_v0].damage = 100;
             gActors[temp_v0].unk_0DA = 0x84;
             gActors[temp_v0].unk_0DB = 0xB;
@@ -67,7 +66,7 @@ void func_801A6980_76F420(u16 actor_index) {
             gActors[temp_v0].scaleX = gActors[actor_index].unk_114;
             gActors[temp_v0].scaleY = gActors[temp_v0].scaleX;
 
-            if (D_800BE4E0 & 4) {
+            if (gActiveFrames & 4) {
                 gActors[temp_v0].graphicIndex = 0xD4;
             }
             else {
@@ -80,8 +79,8 @@ void func_801A6980_76F420(u16 actor_index) {
             gActors[temp_v0].velocityX.whole = temp_v1->velX;
             gActors[temp_v0].velocityY.whole = temp_v1->velY;
             gActors[temp_v0].velocityZ.whole = temp_v1->velZ;
-            gActors[temp_v0].posX.whole = gActors[actor_index].posX.whole - (func_8000178C() & 0xF) + 8;
-            gActors[temp_v0].posY.whole = gActors[actor_index].posY.whole - (func_8000178C() & 0xF) + 8;
+            gActors[temp_v0].posX.whole = gActors[actor_index].posX.whole - (Rand() & 0xF) + 8;
+            gActors[temp_v0].posY.whole = gActors[actor_index].posY.whole - (Rand() & 0xF) + 8;
             gActors[temp_v0].posZ.whole = gActors[actor_index].posZ.whole;
         }
     }
@@ -92,7 +91,7 @@ void func_801A6B28_76F5C8(u16 actor_index) {
     u16 temp_index;
     FlameArchInit* temp_v1;
 
-    if ((D_800BE4E0 & 3) == 0) {
+    if ((gActiveFrames & 3) == 0) {
         func_8005CA34(4, 5);
         temp_index = gActors[actor_index].unk_0D8 * 5;
         temp_v1 = (FlameArchInit*)&((s16*)D_801A7250_76FCF0)[temp_index];
@@ -100,10 +99,10 @@ void func_801A6B28_76F5C8(u16 actor_index) {
 
         if (temp_v0 != 0) {
             gActors[temp_v0].graphicFlags = (ACTOR_GFLAG_PALETTE | ACTOR_GFLAG_SCALE | ACTOR_GFLAG_ROTZ);
-            gActors[temp_v0].scaleX = (1.0 - ((func_8000178C() & 0xF) / 28.0f));
-            gActors[temp_v0].scaleY = (((func_8000178C() & 0xF) / 18.0f) + 2.5);
+            gActors[temp_v0].scaleX = (1.0 - ((Rand() & 0xF) / 28.0f));
+            gActors[temp_v0].scaleY = (((Rand() & 0xF) / 18.0f) + 2.5);
             gActors[temp_v0].timer_110 = 0.2f;
-            gActors[temp_v0].var_160 = ((func_8000178C() & 0x1F) << 0x10) + 0x2F00000;
+            gActors[temp_v0].var_160 = ((Rand() & 0x1F) << 0x10) + 0x2F00000;
             gActors[temp_v0].palette_18C = (u16*)0x8022D4E8;
             gActors[temp_v0].unk_148 = 3.0f;
         }
@@ -113,7 +112,7 @@ void func_801A6B28_76F5C8(u16 actor_index) {
 void func_801A6CAC_76F74C(u16 actor_index) {
     u16 temp_v0;
 
-    if ((D_800BE4E0 % 5) == 0) {
+    if ((gActiveFrames % 5) == 0) {
         temp_v0 = func_80031284(0x1B4, 0, 0, 0);
         if (temp_v0 != 0) {
             u16 temp_v1;
@@ -123,7 +122,7 @@ void func_801A6CAC_76F74C(u16 actor_index) {
             gActors[temp_v0].scaleX = 0.3f;
             gActors[temp_v0].scaleY = 2.0f;
             gActors[temp_v0].colorR = 0x7F;
-            temp_v1 = func_8000178C();
+            temp_v1 = Rand();
             gActors[temp_v0].palette_18C = (u16*)0x8022D4E8;
             gActors[temp_v0].var_160 = ((((temp_v1 * 4) & 0x1F0) + 0x200) << 2) << 14;
             gActors[temp_v0].unk_130 = actor_index;
@@ -149,8 +148,8 @@ void func_801A6E4C_76F8EC(u16 actor_index) {
 
     if ((temp_v1 >= 0x1E) && (temp_v1 < 0xD3)) {
         if (Actor_IsOutsideRegion(actor_index, 0x40) == 0) {
-            if ((D_800BE4E0 & 7) == 0) {
-                func_80003778(0x4B, actor_index);
+            if ((gActiveFrames & 7) == 0) {
+                Sound_PlaySfxAtActor3(0x4B, actor_index);
             }
         }
     }
@@ -182,7 +181,7 @@ void func_801A6E4C_76F8EC(u16 actor_index) {
         return;
     }
 
-    if ((D_800BE4E0 & 3) == 0) {
+    if ((gActiveFrames & 3) == 0) {
         func_8005CA34(2, 4);
     }
 

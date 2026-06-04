@@ -24,9 +24,9 @@ extern void func_8008FD08(u16 actor_index);
 extern void func_80090064(u16 actor_index);
 extern void func_800902B0(u16 actor_index);
 extern void func_80090558(u16 actor_index);
-extern void func_80003380(s32 arg0);
+extern void Sound_PlaySfx2(s32 arg0);
 extern s32 func_80092FD4(u16);
-extern void func_80003380(s32);
+extern void Sound_PlaySfx2(s32);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/8F080/func_8008E480.s")
 
@@ -75,7 +75,7 @@ s32 func_8008F168(u16 actor_index) {
     if (func_8008EDB0(actor_index)) {
         return 2;
     }
-    if (gActors[actor_index].flags_098 & 0x40) {
+    if (gActors[actor_index].flags_098 & ACTOR_FLAG3_UNK6) {
         gActors[actor_index].state = 0x150;
         return 3;
     }
@@ -239,7 +239,7 @@ void func_800930E4(u32 arg0) {
 
 void func_80094EB8(u16 actor_index) {
     if (func_80029B00(0x50, 0x40, -0x40)) {
-        gActors[actor_index].flags_098 |= 0x40000;
+        gActors[actor_index].flags_098 |= ACTOR_FLAG3_UNK18;
     }
 }
 
@@ -255,7 +255,7 @@ void func_80095A10(u16 actor_index) {
     gActors[actor_index].unk_118 += gActors[actor_index].unk_114;
     if (gActors[actor_index].unk_118 > 360.0f) {
         gActors[actor_index].unk_118 -= 360.0f;
-        func_80003380(0x116);
+        Sound_PlaySfx2(0x116);
     }
 }
 

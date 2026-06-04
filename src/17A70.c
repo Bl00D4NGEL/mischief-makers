@@ -10,7 +10,6 @@ extern ActorFunc D_801A6800[];
 extern ActorFunc D_801B0800[];
 extern ActorFunc D_800C7FE0[];
 
-extern u16 D_800BE670;
 extern s16 D_800C9694[];
 extern u16* D_800C96A0[];
 extern u8 D_800C5008;
@@ -18,7 +17,7 @@ extern u16 D_80171AD0[];
 extern u16 D_80171AD4[];
 extern u64 D_80171AD8[];
 extern u8 D_80171B18;
-extern u16 D_80178136;
+extern u16 gRedGems;
 extern u16 D_80178156;
 extern u16 D_8017815A;
 extern u16 D_8017815C;
@@ -60,8 +59,8 @@ void func_8001ACA8(s32 arg0, s32 arg1, s32 arg2);
 void func_8001B02C(void);
 void func_8001B1A0(void);
 u16 func_8001B244(void);
-void func_80003A38(void);
-s32 func_80003380(u32 arg0);
+void Sound_StopMusic(void);
+s32 Sound_PlaySfx2(u32 arg0);
 s32 func_80027588(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 u16 func_800276DC(u16 actor_index, char* str, u16 x, u16 y, u16 z, s32 arg5);
 void func_80043918(void);
@@ -281,7 +280,7 @@ void func_80016E70(u16 actor_index) {
 void func_8001751C(void) {
     u16 actor_index;
 
-    if (D_800BE670 != 0) {
+    if (gActorStall) {
         for (actor_index = 1; actor_index < 0xD0; actor_index++) {
             if ((gActors[actor_index].flags & ACTOR_FLAG_ACTIVE) && (gActors[actor_index].flags & ACTOR_FLAG_ALWAYS_UPDATE)) {
                 if (gActors[actor_index].actorType < 0x100) {

@@ -1,13 +1,40 @@
 gCosineLookup = 0x800BCCD0; // size:0x1000
 gUnusedFloatTable = 0x800BDCD0; // size:0x800
+gActiveFrames = 0x800BE4E0; // size:0x2
 gFramesInScene = 0x800BE4E4; // size:0x2
 gGamePaused = 0x800BE4E8; // size:0x2
-D_800BE4EC = 0x800BE4EC; // size:0x2
+gCannotPause = 0x800BE4EC; // size:0x2
 gGameState = 0x800BE4F0; // size:0x2
 gGameStateSubState = 0x800BE4F4; // size:0x2
+
+gPlatform1ActorCount = 0x800BE4D0; // type:u16 size:0x2
+gPlatform0ActorCount = 0x800BE4D4; // type:u16 size:0x2
+gPlatformHit = 0x800BE4D8; // type:u16 size:0x2
+gPlatformHitActor = 0x800BE4DC; // type:u16 size:0x2
+
+gCamShakeTime = 0x800be590; // type:s16 size:0x2 rom:0xbf190
+gCamShakeV = 0x800be594; // type:s16 size:0x2 rom:0xbf194
+gCamShakeType = 0x800be598; // type:s16 size:0x2 rom:0xbf198
+gCamShakeMag = 0x800be59c; // type:s32 size:0x4 rom:0xbf19c
+gCamShakeMagDelta = 0x800be5a0; // type:s32 size:0x4 rom:0xbf1a0
+
+gLookatEyeX = 0x800be5a8; // type:f32 size:0x4 rom:0xbf1a8
+gLookatEyeY = 0x800be5ac; // type:f32 size:0x4 rom:0xbf1ac
+gLookatEyeZ = 0x800be5b0; // type:f32 size:0x4 rom:0xbf1b0
+gLookatAtX = 0x800be5b4; // type:f32 size:0x4 rom:0xbf1b4
+gLookatAtY = 0x800be5b8; // type:f32 size:0x4 rom:0xbf1b8
+gLookatAtZ = 0x800be5bc; // type:f32 size:0x4 rom:0xbf1bc
+gLookatUpX = 0x800be5c0; // type:f32 size:0x4 rom:0xbf1c0
+gLookatUpY = 0x800be5c4; // type:f32 size:0x4 rom:0xbf1c4
+gLookatUpZ = 0x800be5c8; // type:f32 size:0x4 rom:0xbf1c8
+
+
+gCurrentScene = 0x800be5d0; // type:u16 size:0x2 rom:0xbf1d0
+
 D_800BE544 = 0x800BE544; // size:0x2
 
 gLetterboxMode = 0x800CBF58; //size:0x2
+gSceneBgm = 0x800CCFDC; // size:0x58
 D_800CEC0C = 0x800CEC0C; // size:0x4
 D_800CEC10 = 0x800CEC10; // size:0x2C0
 D_800D0E84 = 0x800D0E84; // size:0x840
@@ -16,6 +43,7 @@ D_800D18F8 = 0x800D18F8;
 D_800D1918 = 0x800D1918;
 D_800D292C = 0x800D292C;
 D_800D2930 = 0x800D2930;
+gNoHit = 0x800D2958; // size:0x2
 D_800D74E0 = 0x800D74E0;
 D_800D8468 = 0x800D8468;
 D_800D8488 = 0x800D8488;
@@ -91,14 +119,47 @@ D_800E8F7C = 0x800E8F7C;
 gRngSeed = 0x800BE5A4; // size:0x2
 D_800BE5F4 = 0x800BE5F4; // size:0x4
 
+gScreenXLock = 0x800be62C; // type:u16 size:0x2
+gScreenYLock = 0x800be630; // type:u16 size:0x2
+gHealthDisplayed = 0x800be63C; // type:u16 size:0x2
+gActorStall = 0x800be670; // type:u16 size:0x2
+
 gDebugBitfield = 0x800BE6AC; // size:0x2
+gDebugThrottle = 0x800BE6B4; // size:0x2
+gDebugOSDTint = 0x800BE6B8; // size:0x2
+
+gActorDepthFront = 0x800BE6C0; // type:s32 size:0x4
+gActorDepthMiddle = 0x800BE6CC; // type:s32 size:0x4
+gActorDepthBack = 0x800BE6D8; // type:s32 size:0x4
+
+gDrawMidground = 0x800BE6E4; // type:u8 size:0x1
+gDrawEnvLayer = 0x800BE6E8; // type:u8 size:0x1
+gDrawBackground = 0x800BE6EC; // type:u8 size:0x1
 
 gCurrentFramebufferIndex = 0x800BE700; // size:0x2
+
+gCameraRot = 0x800be72c; // type:s32 size:0x4 rom:0xbf32c
+gCameraRotDelta = 0x800be730; // type:s32 size:0x4 rom:0xbf330
+
 gCurrentDisplayListBase = 0x800EF4F4; // size:0x4
 gActors = 0x800EF510; // size:0x14B80
 
+gPlatform0Actors = 0x8011CDF8; // size:0x120
+gPlatform1Actors = 0x8011CF20; // size:0x120
+gPlatforms0X1 = 0x8011D048; // size:0x120
+gPlatforms1X1 = 0x8011D170; // size:0x120
+gPlatforms0X0 = 0x8011D290; // size:0x120
+gPlatforms1X0 = 0x8011D3D0; // size:0x120
+gPlatforms0Y0 = 0x8011D4F0; // size:0x120
+gPlatforms1Y0 = 0x8011D610; // size:0x120
+gPlatforms0Y1 = 0x8011D730; // size:0x120
+gPlatforms1Y1 = 0x8011D850; // size:0x120
+
+
 gDramStack = 0x8011D970; // size:0x400
-gYeildData = 0x8011DDF0; // size:0xDA0
+gButtonPressHistory = 0x8011DD70; // size:0x80
+gYeildData = 0x8011DDF0; // size:0x4800
+gButtonHoldHistory = 0x801225F0; // size:0x80
 
 gAudioCustomFxParams = 0x800C3858; // size:0xA8
 gMusicPlayerFlags = 0x800EF4D0; // size:0x1
@@ -119,6 +180,7 @@ gSfxBankIds = 0x800C2280;
 gSfxSoundIds = 0x800C26DC;
 gSfxSampleParams = 0x800C2E00;
 gSfxPanOverrides = 0x801069D8; // size:0x4
+gPortraits = 0x80104098; // size:0x2940
 gSfxActorIndices = 0x80108DE0; // size:0x8
 gSfxStopTimers = 0x8010CDE8; // size:0x8
 gSfxChannelVolumes = 0x8011CDF0; // size:0x4
@@ -198,22 +260,61 @@ gFramesInPlayTime = 0x801370C8; // size:0x2
 gButtonHold = 0x800BE4F8; // size:0x2
 gButtonPress = 0x800BE4FC; // size:0x2
 gButtonLast = 0x800BE538; // size:0x2
+gButton_Start = 0x800be500; // type:u16 size:0x2 rom:0xbf100
+gButton_DUp = 0x800be504; // type:u16 size:0x2 rom:0xbf104
+gButton_DDown = 0x800be508; // type:u16 size:0x2 rom:0xbf108
+gButton_DLeft = 0x800be50c; // type:u16 size:0x2 rom:0xbf10c
+gButton_DRight = 0x800be510; // type:u16 size:0x2 rom:0xbf110
+gButton_B = 0x800be514; // type:u16 size:0x2 rom:0xbf114
+gButton_A = 0x800be518; // type:u16 size:0x2 rom:0xbf118
+gButton_CLeft = 0x800be51c; // type:u16 size:0x2 rom:0xbf11c
+gButton_CDown = 0x800be520; // type:u16 size:0x2 rom:0xbf120
+gButton_CUp = 0x800be524; // type:u16 size:0x2 rom:0xbf124
+gButton_CRight = 0x800be528; // type:u16 size:0x2 rom:0xbf128
+gButton_ZTrig = 0x800be52c; // type:u16 size:0x2 rom:0xbf12c
+gButton_LTrig = 0x800be530; // type:u16 size:0x2 rom:0xbf130
+gButton_RTrig = 0x800be534; // type:u16 size:0x2 rom:0xbf134
 gJoyX = 0x800BE53C; // size:0x1
 gJoyY = 0x800BE540; // size:0x1
 
+gScreenPosTargetX = 0x800be550; // size:0x4 rom:0xbf150
+gScreenPosTargetY = 0x800be554; // size:0x4 rom:0xbf154
+gScreenPosCurrentX = 0x800be558; // size:0x4 rom:0xbf158
+gScreenPosCurrentY = 0x800be55c; // size:0x4 rom:0xbf15c
+gScreenPosNextX = 0x800be560; // size:0x4 rom:0xbf160
+gScreenPosNextY = 0x800be564; // size:0x4 rom:0xbf164
+
+gPlayerPosX = 0x800be5d8; // type:s32 size:0x4 rom:0xbf1d8
+gPlayerPosY = 0x800be5dc; // type:s32 size:0x4 rom:0xbf1dc
+gPlayerVelXMirror = 0x800be5e8; // type:s32 size:0x4 rom:0xbf1e8
+gPlayerVelYMirror = 0x800be5ec; // type:s32 size:0x4 rom:0xbf1ec
+
+gPortraitTint= 0x800be6f0; // type:u8 size:0x1 rom:0xbf2f0
+
+gRedGems = 0x80178136; //type:u16 size:0x2
+
 // debug_level_select.c
 gDebugStageSelectRowPrefixes = 0x800C81E4;
-gDebugStageSelectRowOptionCounts = 0x800C823C;
-gDebugStageSelectGroupOptionStartOffsets = 0x800C8268;
-gDebugStageSelectGroupOptionStartOffsetsTail = 0x800C8270;
+gStageRowCounts = 0x800C823C;
+gStageGroupOptionOffsets = 0x800C8268;
+gStageGroupOptionOffsetsTail = 0x800C8270;
 gDebugStageSelectOptionSuffixes = 0x800C8278;
-gDebugStageSelectSceneIds = 0x800C8378;
+gStageScenes = 0x800C8378;
 gDebugStageSelectStageIds = 0x800C83F8;
-gStageTransitionTimeThresholds = 0x800C8478;
-gDebugStageSelectSelectedIndex = 0x80178162;
+gStageTimesToBeat = 0x800C8478;
+gStageTimeBest = 0x80178150;// type:u16 size:0x2
+gCurrentStage = 0x80178162;
 gDebugStageSelectSelectedOptions = 0x80178170;
 gDebugStageSelectOptionBaseOffsets = 0x80178188;
 gDebugMenuCursorFlash = 0x801781A0;
+
+gStageTime = 0x801781E0;// type:u16 size:0x2
+
+gActorsBack = 0x80171B30; // size:0x100
+gActorsMiddle = 0x80171C30; //size:0x100
+gActorsFront = 0x80171D30; // size:0x1e0
+gActorsTop = 0x80171F10; // size:0x1e0
+
 
 // TODO:
 rle_0024_317270_010CE330 = 0x010CE330;

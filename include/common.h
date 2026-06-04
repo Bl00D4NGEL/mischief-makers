@@ -1,10 +1,11 @@
 #ifndef COMMON_INCLUDE_H
 #define COMMON_INCLUDE_H
 
-#include <PR/ultratypes.h>
-#include <ultra64.h>
+#include "music.h"
+#include "input.h"
 #include "inttypes.h"
 #include "common_structs.h"
+#include "globalData.h"
 #include "linker.h"
 #include "cosine.h"
 #include "letterbox.h"
@@ -30,29 +31,7 @@ typedef s32 DEFAULT_INT; // use this to explicitly show when the original progra
 #define osInitialize __osInitialize_common
 #endif
 
-enum {
-    GAMESTATE_SOFTRESET,
-    GAMESTATE_INTRO,
-    GAMESTATE_TITLESCREEN,
-    GAMESTATE_DEBUG_SOUNDTEST,
-    GAMESTATE_DEBUG_STAGESELECT,
-    GAMESTATE_LOADING,
-    GAMESTATE_GAMEPLAY,
-    GAMESTATE_CONTINUE, // game over
-    GAMESTATE_UNKNOWN0,
-    GAMESTATE_UNKNOWN1,
-    GAMESTATE_ATTRACT,
-    GAMESTATE_FILESELECT,
-    GAMESTATE_TRANSITION,
-    GAMESTATE_NONE,
-    GAMESTATE_RECORDS
-};
 
-extern u16 gFramesInScene;
-extern u16 gGamePaused;
-extern u16 gGameState;
-extern u16 gGameStateSubState;
-extern u16 gDebugBitfield;
 
 extern u32 gFramesInPlayTime;
 

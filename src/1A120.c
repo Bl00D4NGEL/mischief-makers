@@ -15,8 +15,9 @@ extern u8 D_800C5008;
 extern u16 D_80171AD0[];
 extern u16 D_80171AD4[];
 extern u64 D_80171AD8[];
+extern u64 D_80171B10; // bitfeild of yellow gem collection.
 extern u8 D_80171B18;
-extern u16 D_80178136;
+extern u16 gRedGems;
 extern u16 D_80178156;
 extern u16 D_8017815A;
 extern u16 D_8017815C;
@@ -52,8 +53,8 @@ void func_8001ACA8(s32 arg0, s32 arg1, s32 arg2);
 void func_8001B02C(void);
 void func_8001B1A0(void);
 u16 func_8001B244(void);
-void func_80003A38(void);
-s32 func_80003380(u32 arg0);
+void Sound_StopMusic(void);
+s32 Sound_PlaySfx2(u32 arg0);
 void func_80043918(void);
 void func_8008310C(void);
 void func_80083454(void);
@@ -95,30 +96,34 @@ void func_80019EC4(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/1A120/func_8001A584.s")
 
-s16 func_8001A758(u16 arg0, u16 arg1) {
-    if (arg0 < gStageTransitionTimeThresholds[arg1]) {
+// returns the time rank of (stage) compared to (time)
+// 0=S Rank, 1=A, 2=B, 3=C, 4=D
+s16 func_8001A758(u16 time, u16 stage) {
+    if (time < gStageTimesToBeat[stage]) {
         return 0;
     }
 
-    if (arg0 < gStageTransitionTimeThresholds[arg1] + 1800) {
+    if (time < gStageTimesToBeat[stage] + 1800) {
         return 1;
     }
 
-    if (arg0 < gStageTransitionTimeThresholds[arg1] + 7200) {
+    if (time < gStageTimesToBeat[stage] + 7200) {
         return 2;
     }
 
-    if (arg0 < gStageTransitionTimeThresholds[arg1] + 18000 && arg0 < 36000) {
+    if (time < gStageTimesToBeat[stage] + 18000 && time < 36000) {
         return 3;
     }
 
     return 4;
 }
 
-void func_8001A7E0(s16 arg0, s16 arg1, u16 arg2, u16 arg3, s16 arg4) {
-    func_8008379C(arg0, arg1, D_800C9694[func_8001A758(arg2, arg3)], arg4);
+// print the Rank letter for (stage) based on (time)
+void func_8001A7E0(s16 arg0, s16 arg1, u16 time, u16 stage, s16 arg4) {
+    func_8008379C(arg0, arg1, D_800C9694[func_8001A758(time, stage)], arg4);
 }
 
+// print the Rank review for (stage) based on (time)
 void func_8001A838(s16 arg0, s16 arg1, u16 arg2, u16 arg3, s16 arg4) {
     func_80083810(arg0, arg1, D_800C96A0[func_8001A758(arg2, arg3)], arg4);
 }
@@ -134,9 +139,9 @@ void func_8001B004(void) {
 }
 
 void func_8001B02C(void) {
-    if ((s32)gDebugStageSelectSelectedIndex >= (s32)D_80171B18 && D_80171B18 < 0x3B) {
-        gDebugStageSelectSelectedIndex = gDebugStageSelectSelectedIndex + 1;
-        D_80171B18 = gDebugStageSelectSelectedIndex;
+    if ((s32)gCurrentStage >= (s32)D_80171B18 && D_80171B18 < 0x3B) {
+        gCurrentStage = gCurrentStage + 1;
+        D_80171B18 = gCurrentStage;
         D_80178152 = 1;
     }
 }
@@ -163,8 +168,8 @@ void func_8001B3D0(void) {
     u16 yellow_gem_count;
     u32 save_slot_index;
 
-    D_80171B18 = gDebugStageSelectSelectedIndex;
-    D_80171AD0[D_800C5008] = D_80178136;
+    D_80171B18 = gCurrentStage;
+    D_80171AD0[D_800C5008] = gRedGems;
     yellow_gem_count = func_8001B244();
     save_slot_index = D_800C5008;
     D_80171AD4[save_slot_index] = yellow_gem_count;
@@ -174,12 +179,14 @@ void func_8001B3D0(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/1A120/GameState_Transition.s")
 
-void func_8001C7A4(void) {
-    D_80171B10 |= (u64)1 << gDebugStageSelectSelectedIndex;
+// sets bit if yellow gem was collected in this stage
+void YellowGem_SetFlag(void) {
+    D_80171B10 |= (u64)1 << gCurrentStage;
 }
 
-u64 func_8001C7F0(u16 arg0) {
-    u64 mask = (u64)1 << arg0;
+// returns bit if yellow gem was collected in this stage
+u64 YellowGem_GetFlag(u16 stage) {
+    u64 mask = (u64)1 << stage;
 
     return D_80171B10 & mask;
 }

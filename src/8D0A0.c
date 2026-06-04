@@ -3,13 +3,12 @@
 #include "music.h"
 
 extern s32 D_80137420;
-extern s32 D_800BE5F4;
 extern u16 D_800D28E4;
 extern u32 D_800D28FC;
 
 extern u8 D_800D44F4[];
 extern u8 D_800D4518[];
-extern u8 D_800D46A8[];
+extern u16 D_800D46A8[];
 extern u8 D_800D4958[];
 
 extern s32 func_8008CC00(void);
@@ -151,7 +150,7 @@ void func_8008D39C(u16 actor_index) {
 }
 
 s32 func_8008D418(u16 actor_index) {
-    if (gActors[actor_index].flags_098 & 0x40) {
+    if (gActors[actor_index].flags_098 & ACTOR_FLAG3_UNK6) {
         func_8008D0A8(actor_index);
         return TRUE;
     }
@@ -163,7 +162,7 @@ s32 func_8008D480(u16 actor_index) {
     func_8008D39C(actor_index);
 
     if (gActors[actor_index].unk_188 < 0) {
-        if (gActors[actor_index].flags_098 & 0x20) {
+        if (gActors[actor_index].flags_098 & ACTOR_FLAG3_UNK5) {
             func_8008CFE4(actor_index);
             return TRUE;
         }
@@ -243,8 +242,8 @@ void func_8008DE28(u16 arg0) {
 }
 
 void func_8008DE30(u16 actor_index) {
-    func_800032C4(0xB5);
-    func_800032C4(0xB4);
+    Sound_StopSfx(0xB5);
+    Sound_StopSfx(0xB4);
 
     if (gActors[actor_index].velocityY.raw > FIXED_UNIT(-6.5)) {
         gActors[actor_index].velocityY.raw -= FIXED_UNIT(0.1953125);
@@ -271,16 +270,16 @@ void func_8008DEBC(u16 actor_index) {
 #pragma GLOBAL_ASM("asm/nonmatchings/8D0A0/func_8008E310.s")
 
 void func_8008E3C0(u16 actor_index) {
-    D_800BE5F4 = 4;
+    D_800BE5F4.unk_00_u32 = 4;
     func_8008DF20(actor_index);
     if (gActors[actor_index].state == 0x10) {
-        D_800BE5F4 = 4;
+        D_800BE5F4.unk_00_u32 = 4;
         gActors[actor_index].state = 0x30;
-        gActors[actor_index].unk_18C = (s32)D_800D46A8;
+        gActors[actor_index].palette_18C = D_800D46A8;
         gActors[actor_index].velocityY.raw = FIXED_UNIT(2.0);
         gActors[actor_index].unk_118 = 1.0f;
-        func_800032C4(0xB5);
-        func_800032C4(0xB4);
-        Sound_PlaySfx(0xCD);
+        Sound_StopSfx(SFX_MARINA_OW1);
+        Sound_StopSfx(SFX_MARINA_YELL1);
+        Sound_PlaySfx(SFX_MARINA_OHNO);
     }
 }

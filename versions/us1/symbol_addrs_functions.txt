@@ -9,6 +9,7 @@ DMA_AwaitMessage = 0x80001264; // type:func
 DMA_Read = 0x80001290; // type:func
 
 Sound_DmaCallback = 0x800017D0; // type:func
+Rand = 0x8000178c; // type:func rom:0x238c
 Sound_DmaNew = 0x80001988; // type:func
 Sound_CleanDmaBuffers = 0x80001A80; // type:func
 Sound_InitPlayers = 0x80001B38; // type:func
@@ -19,7 +20,29 @@ Sound_StartTask = 0x800029EC; // type:func
 Sound_LoadSequence = 0x80002A2C; // type:func
 Sound_DmaReadSync = 0x80002AE0; // type:func
 Sound_PlayMusic = 0x80002B50; // type:func
+Sound_SetSfxChannel = 0x80002F48; // type:func
+Sound_AddSfx = 0x800033020; // type:func
+Sound_StopSfx = 0x800032C4; // type:func
 Sound_PlaySfx = 0x8000334C; // type:func
+Sound_PlaySfx2 = 0x80003380; // type:func
+Sound_PlaySfxAtVol = 0x800033B4; // type:func
+Sound_PlaySfxAtPan = 0x800033F0; // type:func
+Sound_PlaySfxAtVolPan = 0x80003430; // type:func
+Sound_PlaySfxAtVolPan2 = 0x80003474; // type:func
+Sound_PlaySfxAtVolPan3 = 0x800034B8; // type:func
+Sound_PlaySfxAtVolPan4 = 0x800034FC; // type:func
+Sound_CalculatePanVol = 0x80003540; // type:func
+Sound_PlaySfxAtActor = 0x800035F8; // type:func
+Sound_PlaySfxAtActor2 = 0x800036C8; // type:func
+Sound_PlaySfxAtActor3 = 0x80003778; // type:func
+Sound_PlaySfxAtObject = 0x80003828; // type:func
+Sound_PlaySfxAtActorTimed = 0x800038C8; // type:func
+Sound_PlaySfxAtActorPanning = 0x80003980; // type:func
+Sound_PlaySfx3 = 0x800039b8; // type:func
+Sound_StopAll = 0x80003A10; // type:func
+Sound_StopMusic = 0x80003A38; // type:func
+Sound_StopAllSfx = 0x80003A64; // type:func
+Sound_ActorPanVol = 0x80003AD4; // type:func
 Sound_StartFade = 0x80003F24; // type:func
 Font_TextSprite = 0x80004380; // type:func
 Font_FindChar = 0x800045F8; // type:func
@@ -34,6 +57,9 @@ Font_ShowString = 0x80004804; // type:func
 Trouble_RLE_Type1 = 0x80004910; // type:func
 
 LookAt_Update = 0x80010898; // type:func
+
+YellowGem_SetFlag = 0x8001C7A4; // type:func
+YellowGem_GetFlag = 0x8001C7F0; // type:func
 
 Gfx_DrawBorderRect = 0x80021690; // type:func
 Gfx_DrawLetterboxStandard = 0x8002170C; // type:func
@@ -71,11 +97,19 @@ Palette_SetRgbTableIndexArray = 0x8002B7F4; // type:func
 Actor_ReduceHealth = 0x8002B8F0; // type:func
 Palette_AdjustRgb5551Array = 0x8002B82C; // type:func
 
+SpawnGemActor = 0x8002EFE4; // type:func
+SpawnGemRing = 0x8002F2A8; // type:func
+GemRing_MakeGems = 0x8002F420; //type:func
+RedGems_Clamp = 0x8002F6AC; // type:func
+Crosshair_SetPos = 0x8003E640; //type:func
+SpawnCrosshair = 0x8003E6A4; // type:func
 
 Palette_AdjustScenePalettes = 0x80042E84; // type:func
 Actor_LoadSpawnTable = 0x80043A68; // type:func
 Camera_UpdateViewBounds = 0x800462F0; // type:func
 Cutscene_CheckSkipInput = 0x80046E6C; // type:func
+
+SpawnTextBubble = 0x8007D0DC; // type:func
 
 GameState_SoftReset = 0x80022F48; // type:func
 GameState_Intro = 0x80017800; // type:func
@@ -92,8 +126,8 @@ GameState_FileSelect = 0x80007C8C; // type:func
 GameState_Transition = 0x8001B460; // type:func
 GameState_Records = 0x8001D654; // type:func
 Trouble_RLE_Type2 = 0x80098B50; // type:func
-Actor_RangeFindFlag2 = 0x800284B8; // type:func
-Actor_RangeFindFlag2_90ToC0 = 0x80028528; // type:func
+Actor_RangeFindInactive = 0x800284B8; // type:func
+Actor_RangeFindInactive_90ToC0 = 0x80028528; // type:func
 Actor_ClearRange_10To20 = 0x80028638; // type:func
 Actor_ClearRange_30To90 = 0x8002865C; // type:func
 Actor_ClearRange_90ToC0 = 0x80028680; // type:func

@@ -4,22 +4,6 @@
 #include "common.h"
 #include "inttypes.h"
 
-extern Gfx* gCurrentDisplayListBase;
-extern u16 gCurrentFramebufferIndex;
-extern u16 D_800BE4E0;
-extern u16 D_800BE544;
-extern s32 D_800BE548;
-extern s16 D_800BE568;
-extern s16 D_800BE56C;
-extern s16 D_800BE570;
-extern s16 D_800BE574;
-extern s16 D_800BE580;
-extern f32 D_800BE5AC;
-extern f32 D_800BE5B0; //lookat eyeZ
-extern u16 D_800BE5D0;
-extern u8 D_800BE6E4;
-extern u8 D_800BE6E8;
-extern u8 D_800BE6EC;
 extern u16 D_800D28E4;
 extern u16 D_800D28E8;
 extern u16 D_800D28F0;
@@ -28,7 +12,7 @@ extern u16 D_800D2908;
 extern s32 D_800D2928;
 extern s32 D_800D2938;
 extern s16 D_800D294C;
-extern u32 D_800D8588[];
+extern u16 D_800D8588[];
 extern u16 D_800E3580;
 extern u32 D_800E3584; // nearest actor facing
 extern u8 D_801376BC[];
@@ -36,33 +20,6 @@ extern u64 D_80171B10;
 extern u64 D_801781F0;
 extern u8 D_801781F8[];
 extern u16 gAudioFadeMode;
-extern u16 D_800BE52C;
-extern u16 D_800BE530;
-extern s32 D_800BE54C;
-extern FixedCoord D_800BE550;
-extern FixedCoord D_800BE554;
-extern FixedCoord D_800BE558;
-extern FixedCoord D_800BE55C;
-extern FixedCoord D_800BE560;
-extern FixedCoord D_800BE564;
-extern FixedCoord D_800BE5D8;
-extern FixedCoord D_800BE5DC;
-extern s16 D_800BE578;
-extern f32 D_800BE5A8;
-extern f32 D_800BE5B4;
-extern f32 D_800BE5B8;
-extern s32 D_800BE5E8;
-extern s32 D_800BE5EC;
-extern u16 D_800BE648;
-extern u16 D_800BE658;
-extern u16 D_800BE65C;
-extern u16 D_800BE660;
-extern u16 D_800BE6A8;
-extern s32 D_800BE6CC;
-extern s32 D_800BE6D8;
-extern u16 D_800BE704;
-extern u16 D_800BE708;
-extern u8 D_800BE710;
 extern s32 D_800BE73C;
 extern u16 D_800CA230;
 extern u8 D_800CC428;
@@ -80,7 +37,7 @@ extern u16 D_800D2960;
 extern s16 D_800D5830;
 extern s16 D_800D5834;
 extern u16 D_800D88B8[]; // guess
-extern u32 D_800D8A98[];
+extern u16 D_800D8A98[];
 extern u16 D_800D8C78[]; // guess
 extern u32 D_800E0648[];
 extern u8 D_800E1180[];
@@ -89,7 +46,7 @@ extern s16 D_800E1540[];
 extern s16 D_800E154C[];
 extern s16 D_800E156C[];
 extern s16 D_800E158C[];
-extern s16 D_800E164C[];
+extern s16 D_800E164C[]; // gem graphics list
 extern s16 D_800E1700[];
 extern u8 D_800E19FC[];
 extern u8 D_800E1A20[];
@@ -110,23 +67,15 @@ extern s16 D_800F4268;
 extern s32 D_800F43A8;
 extern s16 D_800F43B0;
 extern s32 D_800F7510;
-extern u16 gButtonPress;
 extern u16 gLetterboxMode;
-extern s32 gMusicSequenceId;
-
-// func_800012F0
-extern u16 D_800BE4EC;
-extern u16 D_800BE500;
-extern u16 D_800BE518;
 
 // func_8000147C
-extern u16 D_800BE674;
 extern s8 D_801373F0;
-extern u16 D_8013747C;
-extern u16 D_80171B30[128];
-extern u16 D_80171C30[128];
-extern UNK_TYPE D_80171D30;
-extern u16 D_80171F10[240];
+extern u16 D_8013747C; // determines if "top" group of actors are drawn before or after portraits (i.e during world map)
+extern u16 gActorsBack[128]; // indecies of actors to draw in the "back" 
+extern u16 gActorsMiddle[128]; // indecies of actors to draw in middle (not drawn if D_800be674 is set)
+extern u16 gActorsFront[240]; // indecies of actors to draw in "front"
+extern u16 gActorsTop[240]; // indecies of actors to draw at the "top" (either before or after "portraits", depending on D_8013747c)
 
 extern UnkStruct_D_801373E0 D_801373E0;
 

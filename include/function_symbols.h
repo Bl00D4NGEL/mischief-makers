@@ -5,22 +5,10 @@
 
 extern int sprintf(char* str, const char* fmt, ...);
 
-extern void Sound_InitPlayers(void);
-extern void Sound_SetEventMesg(void);
-extern void Sound_Update(void);
-extern void Sound_NextBuffer(void);
-extern void Sound_StartTask(void);
-extern void Sound_PlayMusic(u32 sequence_id);
-extern s32 Sound_PlaySfx(u32 sound_id);
-extern void Sound_StartFade(u16 mode, u16 duration);
-
-extern u16 func_8000178C(void);
+extern u16 Rand(void);
 extern void func_80012288(void);
 extern u8 func_80012AB4(s16 arg0, s16 arg1);
 extern u8 func_80012C04(s16, s16);
-
-extern void func_8001C7A4(void);
-extern u64 func_8001C7F0(u16);
 
 extern void func_80010C20(u16 arg0);
 extern void func_800282F0(s16 arg0, s16 arg1);
@@ -29,6 +17,7 @@ extern s32 Math_Atan2(s32 x, s32 y);
 extern void func_8002AA20(u16 actor_index, s32 unused);
 extern void func_8002AC30(u16 actor_index, s16 val);
 extern u16 func_8003123C(s16* graphic_list, s32 pos_x, s32 pos_y, s32 pos_z);
+extern u16 func_80031284(u16 graphic_index, s32 pos_x, s32 pos_y, s32 pos_z);
 extern void Actor_ClearRange_30To90(void);
 extern u16 func_8003D628(u16);
 extern void func_80042DBC(void* arg0);
@@ -47,10 +36,10 @@ extern void func_8006CD5C(u16);
 extern void func_8008BFB0(void);
 
 extern void Actor_ClearRange_10To20(void);
-extern s32 func_800033B4(u32 arg0, s16 arg1);
-extern s32 func_800033F0(u32 arg0, s8 arg1);
-extern s32 func_80003778(u32 arg0, u16 actor_index);
-extern void func_80003980(u32 arg0, u16 arg1);
+extern s32 Sound_PlaySfxAtVol(u32 arg0, s16 arg1);
+extern s32 Sound_PlaySfxAtPan(u32 arg0, s8 arg1);
+extern s32 Sound_PlaySfxAtActor3(u32 arg0, u16 actor_index);
+extern void Sound_PlaySfxAtActorPanning(u32 arg0, u16 arg1);
 extern void func_800255B4(u16 arg0);
 extern void func_80025BFC(void);
 extern void func_80025E00(void);
@@ -91,13 +80,15 @@ extern u32 func_80029B74(s16 arg0);
 extern s32 func_800298D0(s32 arg0, s32 arg1, s32 arg2);
 extern void Actor_Clamp_0F8_0FC(u16 actor_index, s32 max_val);
 extern void func_8002ABE4(u16 actor_index, s16 val);
+extern void func_8002EBB8(u16 actor_index, s16 pos_x, s16 pos_y, s32 vel_x, s32 vel_y);
 extern void func_8002ED34(u16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
 extern s32 func_8002F154(u16 arg0, u16 arg1, u16 arg2);
+extern void SpawnGemRing(u16 arg0);
 extern void func_80030A24(u16 actor_index);
 extern void func_80033204(u16 arg0, u16 arg1, u16 arg2, f32 arg3, u16 arg4);
 extern void func_800369A0(u16 actor_index, u16 arg1, u16* arg2);
 extern void func_80039134(u16 actor_index);
-extern void func_8003E6A4(u16 arg0, u16 actor_index);
+extern void SpawnCrosshair(u16 arg0, u16 actor_index);
 extern u16 func_8003EEC0(f32, s16 x, s16 y, s16 z);
 extern void func_8003F138(f32 arg0, s16 arg1, s16 arg2, s16 arg3);
 extern void func_80040858(u16 actor_index);
@@ -120,7 +111,7 @@ extern void func_8005DF40(s32 arg0, s32 arg1);
 extern void func_8007CE24(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern void func_8007CEB8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8);
 extern void func_8007CFE0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
-extern void func_8007D0DC(u16, void*, u16, u16, s32); // guess
+extern u16 SpawnTextBubble(u16, u16*, s16, s16, s32);
 extern void func_8007EA14(void*, u16, s16, s32, s32, void*, s32, s32, s32, s32, s32, f32);
 extern void func_8007F9E0(u16 actor_index);
 extern void func_80081720(u16 arg0, void* arg1, s32 arg2);
@@ -133,8 +124,8 @@ extern void func_80022D10(void);
 #endif
 extern FUNC_8001E2D0_RET func_8001E2D0(u16 actor_index);
 extern void func_80026E60(u16 arg0);
-extern u16 Actor_RangeFindFlag2(u16 actor_index, u16 end);
-extern u16 Actor_RangeFindFlag2_90ToC0(void);
+extern u16 Actor_RangeFindInactive(u16 actor_index, u16 end);
+extern u16 Actor_RangeFindInactive_90ToC0(void);
 extern void Actor_ClearRange(u16 start, u16 end);
 extern void Actor_ClearSceneActors(void);
 extern s32 Math_ApproachS32(s32 current, s32 target, s32 step);
@@ -183,11 +174,18 @@ extern void func_80021658(void);
 extern void func_80021660(void);
 extern void func_8002167C(void);
 extern void func_800218FC(void);
+u16 SpawnGemActor(u16 actor_index, u16 flags, u16 unused_arg2);
 extern void func_800821B0(void);
 extern void func_800822B8(void);
 extern void func_80082CFC(void);
 extern void func_80082E04(void);
 extern void func_80082F10(void);
 extern void func_80083E74(void);
+
+extern void func_8005CA34(s32, s32);
+
+void YellowGem_SetFlag(void);
+
+u64 YellowGem_GetFlag(u16 stage);
 
 #endif

@@ -1,6 +1,8 @@
 #include "common.h"
 #include "actor.h"
 
+// "Overlay 3" code for world 1
+
 extern f32 D_801B2428_7984F8[];
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_3/overlay_7969B0/7969D0/func_801B0900_7969D0.s")
@@ -21,7 +23,7 @@ void func_801B1000_7970D0(u16 actor_index) {
     actor->unk_0F8.raw = (s32)(81920.0f * scale);
     actor->unk_0FC.raw = (s32)(212992.0f * scale);
     func_8002ABE4(actor_index, (s16)(s32)(16.0f * scale));
-    actor->posX.whole = actor->var_15C - D_800BE558.whole;
+    actor->posX.whole = actor->var_15C - gScreenPosCurrentX.whole;
     actor->velocityX.raw = 0;
     actor->unk_16C = 0x10;
 }

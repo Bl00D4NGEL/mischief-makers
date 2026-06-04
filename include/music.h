@@ -1,9 +1,15 @@
 #ifndef MUSIC_H
 #define MUSIC_H
 
-#include "common.h"
+#include <PR/ultratypes.h>
+#include <ultra64.h>
+#include "BGM.h"
+#include "SFX.h"
 
 #define AUDIO_CHANNEL_COUNT 16
+
+
+
 
 typedef struct {
     /* 0x00 */ u8 volume;
@@ -23,29 +29,48 @@ typedef struct {
     /* 0x06 */ u16 unk_3842[11];
 } AudioBufferSampleCounts; /* size = 0x1C */
 
-typedef struct {
-    /* 0x00 */ u8 unk_000[0x80];
-    /* 0x80 */ s16 unk_080;
-    /* 0x82 */ u8 unk_082[0x2];
-    /* 0x84 */ s16 unk_084;
-    /* 0x86 */ u8 unk_086[0x2];
-    /* 0x88 */ s16 unk_088;
-    /* 0x8A */ u8 unk_08A[0x2];
-    /* 0x8C */ s32 unk_08C;
-} UnkStruct_801069E0; /* size = 0x90 */
+// in globals .bss
 
-extern s16 D_800EF4D4;
+extern u8 gMusicPlayerFlags;
 extern s16 gMusicVolume;
-extern s16 gSfxPlayerVolumes[];
-extern u8 gSfxPlayerFlags[];
-extern u16 gSfxSequenceIds[];
-extern UnkStruct_801069E0 D_801069E0[];
+extern s16 D_800EF4D4;
+extern s32 gMusicSequenceId;
+extern s32 D_800EF4DC; // unused.
+extern u8 gMusicChannelFxMixes[16];
+extern u8 gSfxPlayerFlags[4];
+extern s16 gSfxPlayerVolumes[4];
+extern s8 gSfxPanOverrides[];
+extern u16 gSfxSequenceIds[4];
+extern u16 gSfxActorIndices[4];
+extern u16 gSfxStopTimers[4];
+extern u8 gSfxChannelVolumes[8];
+extern u8 gSfxChannelPans[8];
 
-s32 func_800032C4(u32);
-s32 func_80003430(u32, s16, s8);
-s32 func_80003474(u32, s16, s8);
-s32 func_800036C8(u32 arg0, u16 actor_index);
-s32 func_80003778(u32 arg0, u16 actor_index);
-s32 func_80003828(u32 arg0, u16 actor_index);
+
+s32 Sound_AddSfx(u32 arg0, s16 arg1, s8 arg2, u8 arg3, u16 arg4, u16 arg5);
+void Sound_DmaReadSync(u32 rom_addr, void* vram_addr, u32 length);
+void Sound_LoadSequence(u32 sequence_id, void* sequence_buffer);
+void Sound_PlayMusic(u32 sequence_id);
+s32 Sound_PlaySfx(u32 sound_id);
+s32 Sound_StopSfx(u32 arg0);
+void Sound_ActorPanVol(u8 arg0);
+void func_80003D64(u8 arg0);
+void Sound_StopMusic(void);
+void Sound_StopAllSfx(void);
+void func_800040A0(void);
+
+s32 Sound_PlaySfxAtVolPan(u32, s16, s8);
+s32 Sound_PlaySfxAtVolPan2(u32, s16, s8);
+s32 Sound_PlaySfxAtActor2(u32 sfx_id, u16 actor_index);
+s32 Sound_PlaySfxAtObject(u32 sfx_id, u16 index);
+s32 Sound_PlaySfx3(u32 sfx_id, s32 volume, s32 pan);
+extern void Sound_InitPlayers(void);
+extern void Sound_SetEventMesg(void);
+extern void Sound_Update(void);
+extern void Sound_NextBuffer(void);
+extern void Sound_StartTask(void);
+extern void Sound_PlayMusic(u32 sequence_id);
+extern void Sound_StartFade(u16 mode, u16 duration);
+
 
 #endif

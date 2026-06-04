@@ -10,7 +10,6 @@ extern s8 D_801B4B61_7C0AB1;
 extern u16 D_801B46F8_7C0648[];
 
 extern void func_800339BC(s32 arg0, s32 arg1, s32 arg2, u16 arg3);
-extern s32 func_800036C8(u32 arg0, u16 actor_index);
 
 void func_801B0900_7BC850(u16 actor_index) {
     gActors[actor_index].flags &= ~ACTOR_FLAG_UNK11;
@@ -24,8 +23,8 @@ s32 func_801B0944_7BC894(u16 actor_index) {
         func_801B0900_7BC850(actor_index);
         D_801B4B64_7C0AB4 = 0;
         func_80081790(actor_index, D_800E3488);
-        func_800036C8(0x2F, actor_index);
-        func_800036C8(0xA4, actor_index);
+        Sound_PlaySfxAtActor2(0x2F, actor_index);
+        Sound_PlaySfxAtActor2(0xA4, actor_index);
         return 1;
     }
 
@@ -49,7 +48,7 @@ void func_801B0A7C_7BC9CC(u16 actor_index) {
             func_801B0900_7BC850(actor_index);
             if (gActors[actor_index].unk_0DD < 0x15) {
                 gActors[actor_index].colorR = 0x7F;
-                func_800036C8(0x9D, actor_index);
+                Sound_PlaySfxAtActor2(0x9D, actor_index);
                 func_801B0A10_7BC960(actor_index);
             }
 
@@ -80,7 +79,7 @@ void func_801B0C00_7BCB50(u16 actor_index) {
     gActors[actor_index].flags &= ~ACTOR_FLAG_UNK16;
     gActors[actor_index].velocityX.raw /= 2;
     gActors[actor_index].velocityY.raw = 0;
-    func_800036C8(0x91, actor_index);
+    Sound_PlaySfxAtActor2(0x91, actor_index);
     gActors[actor_index].unk_170 = 0;
     func_80081790(actor_index, D_800E3518);
 }
@@ -92,7 +91,7 @@ void func_801B0CBC_7BCC0C(u16 actor_index) {
     func_801B0900_7BC850(actor_index);
     gActors[actor_index].velocityX.raw /= 2;
     gActors[actor_index].velocityY.raw = 0;
-    func_800036C8(0x94, actor_index);
+    Sound_PlaySfxAtActor2(0x94, actor_index);
     gActors[actor_index].unk_170 = 0;
     func_80081790(actor_index, D_800E352C);
 }
@@ -200,8 +199,8 @@ s32 func_801B141C_7BD36C(u16 actor_index) {
 
 void func_801B14AC_7BD3FC(s32 arg0) {
     if ((D_801B4B60_7C0AB0 & 3) == 0) {
-        if (D_800BE5D8.whole >= 0x209) {
-            if (D_800BE5DC.whole < 0x170) {
+        if (gPlayerPosX.whole >= 0x209) {
+            if (gPlayerPosY.whole < 0x170) {
                 if (D_801B4B70_7C0AC0 == 0) {
                     D_801B4B70_7C0AC0 = 1;
                 }
@@ -213,7 +212,7 @@ void func_801B14AC_7BD3FC(s32 arg0) {
 
 void func_801B1510_7BD460(u16 actor_index) {
     if (gActors[actor_index].unk_16C & 1) {
-        func_800036C8(0x53, actor_index);
+        Sound_PlaySfxAtActor2(0x53, actor_index);
     }
 }
 
@@ -337,7 +336,7 @@ void func_801B34E4_7BF434(u16 actor_index, s16 target_x) {
         }
     }
 
-    screen_x = gActors[actor_index].posX.whole + D_800BE558.whole;
+    screen_x = gActors[actor_index].posX.whole + gScreenPosCurrentX.whole;
     if (screen_x == target_x) {
         gActors[actor_index].state = 0x30;
         ACTOR_GFX_INIT(actor_index, D_800E1700);

@@ -10,7 +10,17 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/7D8E0/func_8007CFE0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/7D8E0/func_8007D0DC.s")
+// spawns a text box over an actor for a few moments.
+// ...in the japanese version.
+// @param index index of "speaking" actor
+// @param text "string" to display
+// @param off_x x-position offset of text.
+// @param off_y y-position offset of text.
+// @param arg4 unused(?)
+// @returns index of actor, 0 if failed or English version.
+u16 SpawnTextBubble(u16 index, u16* text, s16 off_x, s16 off_y, s32 arg4) {
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/7D8E0/func_8007D0F4.s")
 
