@@ -26,6 +26,8 @@ extern void func_80078CC8(u16 actor_index, s32 arg1);
 extern void func_800358DC(u16 actor_index);
 extern void func_80035A20(u16 actor_index);
 extern s32 func_80029044(u16 actor_index);
+extern void func_80028B90(u16 actor_index);
+extern void func_8007A84C(u16 actor_index);
 
 extern s16 D_800D2918;
 extern s16 D_800D291C;
@@ -974,7 +976,74 @@ void func_80079760(u16 actor_index) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8007A84C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8007A8B0.s")
+void func_8007A8B0(u16 actor_index) {
+    u16 sp1E;
+
+    if (!(gActors[actor_index].flags_098 & 2) || (gActors[actor_index].var_150 & 0x100000)) {
+        return;
+    }
+
+    if ((gActors[actor_index].var_150 & 0x200000) || (gActors[actor_index].flags & ACTOR_FLAG_UNK15)) {
+        return;
+    }
+
+    sp1E = gActors[actor_index].unk_0D6;
+    gActors[actor_index].graphicFlags &= ~8;
+    switch (gActors[actor_index].unk_0DD) {
+    case 23:
+    case 20:
+        break;
+    case 4:
+        func_80028B90(actor_index);
+        /* fallthrough */
+    case 3:
+        gActors[actor_index].unk_0FC.raw = gActors[sp1E].unk_0FC.raw;
+        /* fallthrough */
+    case 2:
+    default:
+        gActors[actor_index].unk_114 = 0.0f;
+        func_8007A84C(actor_index);
+        break;
+    case 8:
+        func_80028B90(actor_index);
+        /* fallthrough */
+    case 7:
+        gActors[actor_index].unk_0FC.raw = gActors[sp1E].unk_0FC.raw;
+        /* fallthrough */
+    case 6:
+        gActors[actor_index].unk_114 = 1.0f;
+        func_8007A84C(actor_index);
+        Sound_PlaySfx(0x9DU);
+        break;
+    case 11:
+        func_80028B90(actor_index);
+        /* fallthrough */
+    case 10:
+        gActors[actor_index].unk_0FC.raw = gActors[sp1E].unk_0FC.raw;
+        /* fallthrough */
+    case 9:
+        gActors[actor_index].unk_114 = 1.0f;
+        func_8007A84C(actor_index);
+        Sound_PlaySfx(0x9DU);
+        break;
+    case 14:
+        func_80028B90(actor_index);
+        /* fallthrough */
+    case 13:
+        gActors[actor_index].unk_0FC.raw = gActors[sp1E].unk_0FC.raw;
+        /* fallthrough */
+    case 12:
+        gActors[actor_index].unk_114 = 1.0f;
+        func_8007A84C(actor_index);
+        Sound_PlaySfx(0x9DU);
+        break;
+    case 19:
+        Sound_PlaySfx(0x9DU);
+        gActors[actor_index].flags = 0;
+        gActors[actor_index].health = 0;
+        break;
+    }
+}
 
 s32 func_8007AB44(u16 arg0) {
     f32 var_f0;
