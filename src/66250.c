@@ -27,8 +27,6 @@ extern void func_800358DC(u16 actor_index);
 extern void func_80035A20(u16 actor_index);
 extern s32 func_80029044(u16 actor_index);
 extern void func_80028B90(u16 actor_index);
-extern void func_8007A84C(u16 actor_index);
-extern void func_8007A7C4(u16 actor_index);
 
 // data of this TU
 extern s32 D_800D1938[];
@@ -981,9 +979,30 @@ void func_80079760(u16 actor_index) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8007A6A8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8007A720.s")
+void func_8007A720(u16 actor_index) {
+    Actor *actor = &gActors[actor_index];
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8007A7C4.s")
+    actor->iFrames = 5;
+    actor->flags |= 0x1000;
+    actor->var_150 |= 0x200000;\
+    actor->var_150 &= ~0x100000;
+    actor->velocityX.raw = 0;
+    actor->velocityY.raw = 0;
+    if (
+        actor->unk_0F8.raw != 0 &&
+        ((!(actor->flags & ACTOR_FLAG_FLIPPED) && actor->unk_0F8.raw > 0) || ((actor->flags & ACTOR_FLAG_FLIPPED) && actor->unk_0F8.raw < 0))
+    ) {
+        actor->flags ^= 0x20;
+    }
+}
+
+void func_8007A7C4(u16 actor_index) {
+    func_8007A720(actor_index);
+    gActors[actor_index].state = 0x400;
+    gActors[actor_index].flags |= ACTOR_FLAG_UNK17;
+    gActors[actor_index].flags &= ~ACTOR_FLAG_UNK16;\
+    gActors[actor_index].flags_098 &= ~0x20;
+}
 
 void func_8007A84C(u16 actor_index) {
     func_8007A7C4(actor_index);
