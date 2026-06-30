@@ -1,13 +1,13 @@
 {
   "measures": {
-    "fuzzy_match_percent": 25.5618,
+    "fuzzy_match_percent": 25.604523,
     "total_code": "1994304",
-    "matched_code": "509780",
-    "matched_code_percent": 25.5618,
+    "matched_code": "510632",
+    "matched_code_percent": 25.604523,
     "matched_data_percent": 100.0,
     "total_functions": 4708,
-    "matched_functions": 1839,
-    "matched_functions_percent": 39.061172,
+    "matched_functions": 1842,
+    "matched_functions_percent": 39.124893,
     "complete_data_percent": 100.0,
     "total_units": 419
   },
@@ -10143,21 +10143,21 @@
     {
       "name": "66250",
       "measures": {
-        "fuzzy_match_percent": 9.402637,
+        "fuzzy_match_percent": 10.291173,
         "total_code": "95888",
-        "matched_code": "9016",
-        "matched_code_percent": 9.402637,
+        "matched_code": "9868",
+        "matched_code_percent": 10.291173,
         "matched_data_percent": 100.0,
         "total_functions": 311,
-        "matched_functions": 87,
-        "matched_functions_percent": 27.974277,
+        "matched_functions": 90,
+        "matched_functions_percent": 28.938908,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
           "size": "95888",
-          "fuzzy_match_percent": 9.402637,
+          "fuzzy_match_percent": 10.291173,
           "metadata": {
             "virtual_address": "2147898960"
           }
@@ -12354,6 +12354,7 @@
         {
           "name": "func_8007A3CC",
           "size": "228",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147984332"
           }
@@ -12361,6 +12362,7 @@
         {
           "name": "func_8007A4B0",
           "size": "504",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147984560"
           }
@@ -12368,6 +12370,7 @@
         {
           "name": "func_8007A6A8",
           "size": "120",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147985064"
           }
@@ -48903,14 +48906,14 @@
       "id": "segment_main",
       "name": "Main segment",
       "measures": {
-        "fuzzy_match_percent": 47.900394,
+        "fuzzy_match_percent": 48.011894,
         "total_code": "764144",
-        "matched_code": "366028",
-        "matched_code_percent": 47.9004,
+        "matched_code": "366880",
+        "matched_code_percent": 48.011894,
         "matched_data_percent": 100.0,
         "total_functions": 2140,
-        "matched_functions": 1231,
-        "matched_functions_percent": 57.523365,
+        "matched_functions": 1234,
+        "matched_functions_percent": 57.663555,
         "complete_data_percent": 100.0,
         "total_units": 271
       }

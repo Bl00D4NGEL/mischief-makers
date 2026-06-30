@@ -27,6 +27,8 @@ extern void func_800358DC(u16 actor_index);
 extern void func_80035A20(u16 actor_index);
 extern s32 func_80029044(u16 actor_index);
 extern void func_80028B90(u16 actor_index);
+extern void func_80079810(u16, u16);
+extern void func_80079F50(u16, u16);
 
 // data of this TU
 extern s32 D_800D1938[];
@@ -973,11 +975,50 @@ void func_80079760(u16 actor_index) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8007A190.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8007A3CC.s")
+u16 func_8007A3CC(u16 actor_index) {
+    u16 sp26;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8007A4B0.s")
+    gActors[actor_index].unk_128 -= 1.0f;
+    sp26 = Actor_RangeFindInactive(0x70, 0x7A);
+    if (sp26 != 0) {
+        gActors[sp26].actorType = 0;
+        func_8001E2D0(sp26);
+        gActors[sp26].posX.whole = gActors[actor_index].posX.whole;
+        gActors[sp26].posY.whole = gActors[actor_index].posY.whole;
+        gActors[sp26].posZ.whole = gActors[actor_index].posZ.whole - 1;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8007A6A8.s")
+    return sp26;
+}
+
+s32 func_8007A4B0(u16 actor_index) {
+    Actor* temp_v0;
+    Actor* temp_v1;
+
+    temp_v0 = &gActors[actor_index];
+    temp_v1 = &gActors[(u16)temp_v0->unk_118];
+    if (!(temp_v1->flags & 2) || (u16)(temp_v0->unk_11C) != temp_v1->actorType) {
+        func_80079810(actor_index, temp_v0->unk_118);
+        return 1;
+    }
+
+    if ((temp_v0->graphicIndex == 0x303E) && (temp_v0->graphicTimer == 1)) {
+        temp_v0->state += 1;
+        temp_v1->flags_098 |= 0x400;
+        temp_v1->unk_0F8.raw = temp_v0->var_154;
+        temp_v1->unk_0FC.raw = temp_v0->var_158;
+        Sound_PlaySfxAtActor2(0x2AU, actor_index);
+        return 1;
+    }
+
+    func_80079F50(actor_index, temp_v0->unk_118);
+    return 0;
+}
+
+void func_8007A6A8(u16 actor_index) {
+    gActors[actor_index].velocityX.raw = Math_ApproachS32(gActors[actor_index].velocityX.raw, 0, 0x4000);
+    gActors[actor_index].velocityY.raw = Math_ApproachS32(gActors[actor_index].velocityY.raw, 0, 0x4000);
+}
 
 void func_8007A720(u16 actor_index) {
     Actor *actor = &gActors[actor_index];
