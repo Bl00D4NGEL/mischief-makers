@@ -7,7 +7,12 @@ extern int sprintf(char* str, const char* fmt, ...);
 
 extern u16 Rand(void);
 extern void func_80012288(void);
-extern u8 func_80012AB4(s16 arg0, s16 arg1);
+
+// hacky workaround as we need the default proto of a func for func_80012AB4 in 66250.c
+#ifndef func_80012AB4_ARGS
+#define func_80012AB4_ARGS s16 arg0, s16 arg1
+#endif
+extern u8 func_80012AB4(func_80012AB4_ARGS);
 extern u8 func_80012C04(s16, s16);
 
 extern void func_80010C20(u16 arg0);

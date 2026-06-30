@@ -48,8 +48,8 @@ extern u16* D_800CBDFC[];
 extern u16* D_800CBE0C[];
 
 extern u16 D_800D28E4;
-extern u16 D_800D2918;
-extern u16 D_800D291C;
+extern s16 D_800D2918;
+extern s16 D_800D291C;
 extern u16 D_800D2920;
 extern u16 D_800D2924;
 extern u16 D_800D2978[];

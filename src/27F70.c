@@ -6464,7 +6464,7 @@ void func_8003AC30(u16 actor_index) {
         }
 
         gActors[actor_index].unk_170 &= 0x03FFFFFF;
-        gActors[actor_index].unk_16C = func_800298D0(gActors[actor_index].unk_170, gActors[actor_index].unk_16C, 0xC0000);
+        gActors[actor_index].unk_16C = func_800298D0(gActors[actor_index].unk_170, gActors[actor_index].unk_16C, FIXED_UNIT(12));
         angle = gActors[actor_index].unk_16C / 65536;
         index = actor_index - 1;
 
@@ -6831,7 +6831,7 @@ void func_8003C328(u16 actor_index) {
         /* fallthrough */
     case 1:
         if (gActors[actor_index].var_150 & 0x800) {
-            gActors[actor_index].var_15C = func_800298D0(gActors[actor_index].unk_170, gActors[actor_index].var_15C, 0x100000);
+            gActors[actor_index].var_15C = func_800298D0(gActors[actor_index].unk_170, gActors[actor_index].var_15C, FIXED_UNIT(16));
         }
         pos_x = 0;
         angle = gActors[actor_index].var_15C / 65536;
