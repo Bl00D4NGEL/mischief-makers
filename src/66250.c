@@ -28,20 +28,31 @@ extern void func_80035A20(u16 actor_index);
 extern s32 func_80029044(u16 actor_index);
 extern void func_80028B90(u16 actor_index);
 extern void func_8007A84C(u16 actor_index);
+extern void func_8007A7C4(u16 actor_index);
 
-extern s16 D_800D2918;
-extern s16 D_800D291C;
+// data of this TU
+extern s32 D_800D1938[];
+extern s16 D_800D2918; // = 0;
+extern s16 D_800D291C; // = 0;
+extern s16 D_800D2920; // = 0;
+extern u16 D_800D2950; // = 0;
+extern ActorFunc D_800D7F00[];
+extern s16 D_800D81F8[]; /* = {
+GINDEX_3044, 4,
+GINDEX_3046, 4,
+GINDEX_3048, 4,
+GINDEX_304A, 3,
+GINDEX_WM_STAGEICONMERCO, 2,
+0, 0
+}; */
 extern u8 D_800E1750[];
 extern u8 D_800E223C[];
 extern u8 D_800E2250[];
 extern u8 D_800E2274[];
 extern u8 D_800E2564[];
-extern u16 D_800D2950;
-extern ActorFunc D_800D7F00[];
 extern u8 D_800E1788[];
 extern u16 D_800E3580;
 extern u32 D_800E3584;
-extern s32 D_800D1938[];
 
 void func_80065650(u16 actor_index) {
     u16 rand_x[2];
@@ -974,7 +985,11 @@ void func_80079760(u16 actor_index) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8007A7C4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8007A84C.s")
+void func_8007A84C(u16 actor_index) {
+    func_8007A7C4(actor_index);
+    gActors[actor_index].graphicList = D_800D81F8;
+    gActors[actor_index].graphicTimer = 1;
+}
 
 void func_8007A8B0(u16 actor_index) {
     u16 sp1E;
