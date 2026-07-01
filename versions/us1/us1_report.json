@@ -1,13 +1,13 @@
 {
   "measures": {
-    "fuzzy_match_percent": 25.604523,
+    "fuzzy_match_percent": 25.633204,
     "total_code": "1994304",
-    "matched_code": "510632",
-    "matched_code_percent": 25.604523,
+    "matched_code": "511204",
+    "matched_code_percent": 25.633204,
     "matched_data_percent": 100.0,
     "total_functions": 4708,
-    "matched_functions": 1842,
-    "matched_functions_percent": 39.124893,
+    "matched_functions": 1843,
+    "matched_functions_percent": 39.146133,
     "complete_data_percent": 100.0,
     "total_units": 420
   },
@@ -10183,21 +10183,21 @@
     {
       "name": "66250",
       "measures": {
-        "fuzzy_match_percent": 10.291173,
+        "fuzzy_match_percent": 10.887703,
         "total_code": "95888",
-        "matched_code": "9868",
-        "matched_code_percent": 10.291173,
+        "matched_code": "10440",
+        "matched_code_percent": 10.887703,
         "matched_data_percent": 100.0,
         "total_functions": 311,
-        "matched_functions": 90,
-        "matched_functions_percent": 28.938908,
+        "matched_functions": 91,
+        "matched_functions_percent": 29.26045,
         "total_units": 1
       },
       "sections": [
         {
           "name": ".text",
           "size": "95888",
-          "fuzzy_match_percent": 10.291173,
+          "fuzzy_match_percent": 10.887703,
           "metadata": {
             "virtual_address": "2147898960"
           }
@@ -12387,6 +12387,7 @@
         {
           "name": "func_8007A190",
           "size": "572",
+          "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2147983760"
           }
@@ -48946,14 +48947,14 @@
       "id": "segment_main",
       "name": "Main segment",
       "measures": {
-        "fuzzy_match_percent": 39.23546,
+        "fuzzy_match_percent": 39.32295,
         "total_code": "653776",
-        "matched_code": "256512",
-        "matched_code_percent": 39.23546,
+        "matched_code": "257084",
+        "matched_code_percent": 39.32295,
         "matched_data_percent": 100.0,
         "total_functions": 1799,
-        "matched_functions": 893,
-        "matched_functions_percent": 49.638687,
+        "matched_functions": 894,
+        "matched_functions_percent": 49.694275,
         "complete_data_percent": 100.0,
         "total_units": 269
       }
