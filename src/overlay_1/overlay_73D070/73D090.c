@@ -178,13 +178,13 @@ void func_8019C120_73E0B0(u16 actor_index) {
     s32 temp_t0;
 
     temp_t0 = (gActors[actor_index].unk_168/0x10000) & (s32)(COSLEN);
-    if ((temp_t0 > (s32)(COSPiOver2)) && (temp_t0 < (s32)(COSPiOver2*3))) {
+    if ((temp_t0 > (s32)(COSPiOver4)) && (temp_t0 < (s32)(COSPiOver4*3))) {
         gActors[actor_index+1].rotateY=0.0;
-        gActors[actor_index+1].rotateZ= (f32) ((f64) ((s32)(COSPiOver2*4) - ((temp_t0 + (s32)(COSPiOver2*2)) & (s32)(COSLEN))) *  RadStep);
+        gActors[actor_index+1].rotateZ= (f32) ((f64) ((s32)(COSPiOver4*4) - ((temp_t0 + (s32)(COSPiOver4*2)) & (s32)(COSLEN))) *  RadStep);
     }
     else{
       gActors[actor_index+1].rotateY = 180.0f;
-      gActors[actor_index+1].rotateZ = (f32) ((f64) ((s32)(COSPiOver2*4) - temp_t0) *  RadStep);
+      gActors[actor_index+1].rotateZ = (f32) ((f64) ((s32)(COSPiOver4*4) - temp_t0) *  RadStep);
     }
 }
 

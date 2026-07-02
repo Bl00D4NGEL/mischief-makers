@@ -425,8 +425,8 @@ void func_80024428(void) {
     func_800240E8();
     func_800235F4();
     angle = gCameraRot / 0x10000;
-    D_800E3C48[0x10] = SIN(angle + COSPiOver4) * 128.0f;
-    D_800E3C48[0x11] = COS(angle + COSPiOver4) * 128.0f;
+    D_800E3C48[0x10] = SIN(angle + COSPiOver8) * 128.0f;
+    D_800E3C48[0x11] = COS(angle + COSPiOver8) * 128.0f;
 }
 
 void func_800244F8(void) {
