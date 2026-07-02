@@ -5,8 +5,7 @@
 #include "debug_level_select.h"
 #include "input.h"
 #include "music.h"
-
-
+#include "28EF0.h"
 
 extern u16* D_800D1810[];
 extern u16 D_800D1898[]; // "からっぽ..."/"Empty.."
@@ -100,7 +99,6 @@ void Actor_Clamp_0FC(u16 actor_index, s32 max_val);
 void func_80030B0C(u16);
 void func_80031D58(u16 arg0, u16 arg1);
 void SpawnParticle_SineUp(s16 x, s16 y, s16 z, u16 arg3);
-s16 func_8003526C(u16 actor_index, u16 arg1, u16 arg2, u16 arg3, u16 arg4);
 void func_800358DC(u16 actor_index);
 void func_80035A20(u16 actor_index);
 u16 func_8003D68C(s32 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4, s32 pos_x, s32 pos_y, s32 pos_z, u16 red, u16 green, u16 blue);
@@ -510,11 +508,11 @@ s32 func_800291AC(u16 actor_index, u16 state1, s32 flags1, u16 state2, s32 flags
         }
         if (func_80028E1C(actor_index) != 0) {
             gActors[actor_index].state = state2;
-            gActors[actor_index].flags = (gActors[actor_index].flags & ACTOR_FLAG_FLIPPED) + (flags2 & 0x6B503);
+            gActors[actor_index].flags = (gActors[actor_index].flags & ACTOR_FLAG_FLIPPED) + (flags2 & (0x40000 | 0x20000 | 0x8000 | 0x2000 | 0x1000 | 0x400 | 0x100 | 2 | 1));
             return 3;
         }
         else {
-            if (flags1 & 0x20) {
+            if (flags1 & ACTOR_FLAG_FLIPPED) {
                 gActors[actor_index].flags &= ~ACTOR_FLAG_FLIPPED;
                 gActors[actor_index].flags |= (gActors[gActors[actor_index].unk_0D6].flags & ACTOR_FLAG_FLIPPED);
             }
@@ -538,7 +536,7 @@ s32 func_800291AC(u16 actor_index, u16 state1, s32 flags1, u16 state2, s32 flags
     }
     else if (gActors[actor_index].flags_098 & ACTOR_FLAG3_UNK10) {
         gActors[actor_index].state = state1;
-        gActors[actor_index].flags = (gActors[actor_index].flags & ACTOR_FLAG_FLIPPED) + (flags1 & 0x6B503);
+        gActors[actor_index].flags = (gActors[actor_index].flags & ACTOR_FLAG_FLIPPED) + (flags1 & (0x40000 | 0x20000 | 0x8000 | 0x2000 | 0x1000 | 0x400 | 0x100 | 2 | 1));
         gActors[actor_index].velocityX.raw = gActors[actor_index].unk_0F8.raw;
         gActors[actor_index].velocityY.raw = gActors[actor_index].unk_0FC.raw;
         if (flags1 & 0x280) {
@@ -562,7 +560,7 @@ s32 func_800291AC(u16 actor_index, u16 state1, s32 flags1, u16 state2, s32 flags
         return 2;
     }
     gActors[actor_index].state = state2;
-    gActors[actor_index].flags = (gActors[actor_index].flags & ACTOR_FLAG_FLIPPED) + (flags2 & 0x6B503);
+    gActors[actor_index].flags = (gActors[actor_index].flags & ACTOR_FLAG_FLIPPED) + (flags2 & (0x40000 | 0x20000 | 0x8000 | 0x2000 | 0x1000 | 0x400 | 0x100 | 2 | 1));
     return 3;
 }
 
