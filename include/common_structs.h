@@ -6,7 +6,7 @@ typedef union {
     /* 0x00 */ s32 raw;
     struct {
     /* 0x00 */ s16 whole;
-    /* 0x02 */ u16 frac;
+    /* 0x02 */ s16 frac;
     };
 } FixedCoord;
 
@@ -110,5 +110,6 @@ typedef struct {
 } ActorSpawnRecord; /* size = 0xE */
 
 #define FIXED_UNIT(value) ((s32)((value) * 0x10000))
+#define FROM_FIXED(value) ((value) / FIXED_UNIT(1.0))
 
 #endif
