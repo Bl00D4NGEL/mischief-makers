@@ -38,11 +38,11 @@ extern s16 D_800D2920; // = 0;
 extern u16 D_800D2950; // = 0;
 extern ActorFunc D_800D7F00[];
 extern s16 D_800D81F8[]; /* = {
-GINDEX_3044, ACTOR_GFLAG_ROTY,
-GINDEX_3046, ACTOR_GFLAG_ROTY,
-GINDEX_3048, ACTOR_GFLAG_ROTY,
-GINDEX_304A, ACTOR_GFLAG_ROTX | ACTOR_GFLAG_SCALE,
-GINDEX_WM_STAGEICONMERCO, ACTOR_GFLAG_ROTX,
+GINDEX_3044, 4,
+GINDEX_3046, 4,
+GINDEX_3048, 4,
+GINDEX_304A, 3,
+GINDEX_WM_STAGEICONMERCO, 2,
 0, 0
 }; */
 extern u8 D_800E1750[];
@@ -996,22 +996,22 @@ s32 func_8007A4B0(u16 actor_index) {
     Actor* temp_v1;
 
     temp_v0 = &gActors[actor_index];
-    temp_v1 = &gActors[(u16)temp_v0->unk_118];
-    if (!(temp_v1->flags & ACTOR_FLAG_ACTIVE) || (u16)(temp_v0->unk_11C) != temp_v1->actorType) {
-        func_80079810(actor_index, temp_v0->unk_118);
+    temp_v1 = &gActors[(u16)gActors[actor_index].unk_118];
+    if (!(temp_v1->flags & ACTOR_FLAG_ACTIVE) || (u16)(gActors[actor_index].unk_11C) != temp_v1->actorType) {
+        func_80079810(actor_index, gActors[actor_index].unk_118);
         return 1;
     }
 
-    if ((temp_v0->graphicIndex == GINDEX_303E) && (temp_v0->graphicTimer == 1)) {
-        temp_v0->state += 1;
+    if ((gActors[actor_index].graphicIndex == GINDEX_303E) && (gActors[actor_index].graphicTimer == 1)) {
+        gActors[actor_index].state += 1;
         temp_v1->flags_098 |= ACTOR_FLAG3_UNK10;
-        temp_v1->unk_0F8.raw = temp_v0->var_154;
-        temp_v1->unk_0FC.raw = temp_v0->var_158;
+        temp_v1->unk_0F8.raw = gActors[actor_index].var_154;
+        temp_v1->unk_0FC.raw = gActors[actor_index].var_158;
         Sound_PlaySfxAtActor2(0x2AU, actor_index);
         return 1;
     }
 
-    func_80079F50(actor_index, temp_v0->unk_118);
+    func_80079F50(actor_index, gActors[actor_index].unk_118);
     return 0;
 }
 
@@ -1021,19 +1021,17 @@ void func_8007A6A8(u16 actor_index) {
 }
 
 void func_8007A720(u16 actor_index) {
-    Actor *actor = &gActors[actor_index];
-
-    actor->iFrames = 5;
-    actor->flags |= ACTOR_FLAG_UNK12;
-    actor->var_150 |= 0x200000;\
-    actor->var_150 &= ~0x100000;
-    actor->velocityX.raw = 0;
-    actor->velocityY.raw = 0;
+    gActors[actor_index].iFrames = 5;
+    gActors[actor_index].flags |= ACTOR_FLAG_UNK12;
+    gActors[actor_index].var_150 |= 0x200000;\
+    gActors[actor_index].var_150 &= ~0x100000;
+    gActors[actor_index].velocityX.raw = 0;
+    gActors[actor_index].velocityY.raw = 0;
     if (
-        actor->unk_0F8.raw != 0 &&
-        ((!(actor->flags & ACTOR_FLAG_FLIPPED) && actor->unk_0F8.raw > 0) || ((actor->flags & ACTOR_FLAG_FLIPPED) && actor->unk_0F8.raw < 0))
+        gActors[actor_index].unk_0F8.raw != 0 &&
+        ((!(gActors[actor_index].flags & ACTOR_FLAG_FLIPPED) && gActors[actor_index].unk_0F8.raw > 0) || ((gActors[actor_index].flags & ACTOR_FLAG_FLIPPED) && gActors[actor_index].unk_0F8.raw < 0))
     ) {
-        actor->flags ^= ACTOR_FLAG_FLIPPED;
+        gActors[actor_index].flags ^= ACTOR_FLAG_FLIPPED;
     }
 }
 
