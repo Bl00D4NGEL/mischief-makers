@@ -46,11 +46,14 @@ gEngTextKerning = 0x800D17c8; // size:0x34
 gTextPaletteBase = 0x800D17fc; // size:0x8
 D_800D18F8 = 0x800D18F8;
 D_800D1918 = 0x800D1918;
-gStageCinemaState = 0x800D28E8; // type:u16 size:0x2
+gClanpotItems = 0x800D22BC; // size:0x140
+gClanpotItemCount = 0x800D24D8; //size:0x1A
+gStageState = 0x800D28E8; // type:u16 size:0x2
 gCrosshairPalette = 0x800D27F8; // size:0x1A
 gSkipStageIntro = 0x800D2908; // type:u16 size:0x2
 D_800D292C = 0x800D292C;
 D_800D2930 = 0x800D2930;
+gGuestActorIndex = 0x800d2950; // type:u16 size:0x2
 gNoHit = 0x800D2958; // size:0x2
 D_800D74E0 = 0x800D74E0;
 D_800D8468 = 0x800D8468;
@@ -156,7 +159,7 @@ gCurrentFramebufferIndex = 0x800BE700; // size:0x2
 gCameraRot = 0x800be72c; // type:s32 size:0x4 rom:0xbf32c
 gCameraRotDelta = 0x800be730; // type:s32 size:0x4 rom:0xbf330
 
-gCurrentDisplayListBase = 0x800EF4F4; // size:0x4
+gCurrentGfxData = 0x800EF4F4; // size:0x4
 gActors = 0x800EF510; // size:0x14B80
 
 gPlatform0Actors = 0x8011CDF8; // size:0x120
@@ -173,7 +176,7 @@ gPlatforms1Y1 = 0x8011D850; // size:0x120
 
 gDramStack = 0x8011D970; // size:0x400
 gButtonPressHistory = 0x8011DD70; // size:0x80
-gYeildData = 0x8011DDF0; // size:0x4800
+gYieldData = 0x8011DDF0; // size:0x4800
 gButtonHoldHistory = 0x801225F0; // size:0x80
 
 gAudioCustomFxParams = 0x800C3858; // size:0xA8
@@ -327,6 +330,10 @@ gDebugMenuCursorFlash = 0x801781A0;
 
 gStageTime = 0x801781E0;// type:u16 size:0x2
 gFestivalData =  0x801781F8; // size:0xB4
+
+gActorInitStats = 0x800C9700; // size:0x6d8
+gActorInitFlags = 0x800C9DD8; // size:0x1F4
+gActorInitGraphics = 0x800C9FCC; // size:0x1F4
 
 gActorsBack = 0x80171B30; // size:0x100
 gActorsMiddle = 0x80171C30; //size:0x100

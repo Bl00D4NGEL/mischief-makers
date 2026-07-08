@@ -44,12 +44,14 @@
 #define GINDEX_RAILANGLELT     0x00B0
 #define GINDEX_RAILANGLETR     0x00B2
 #define GINDEX_RAILANGLEBR     0x00B4
-#define GINDEX_RAILSTOP        0x00B6 // rail with an (X) in it.
+
+#define GINDEX_BOMB_ELLIPSE    0x00B6 // elliptical bomb.
 
 #define GINDEX_GEM             0x00B8 // 6 animation frames
 
 #define GINDEX_MINEROUND       0x00C6
 
+#define GINDEX_CIRCLEEFFECT    0x00CA
 #define GINDEX_CLANBLOB        0x00CC
 #define GINDEX_PARTICLERING    0x00CE
 
@@ -111,7 +113,7 @@
 #define GINDEX_GROUNDFLAME     0x016C
 #define GINDEX_MUSHROOMCLOUD   0x016E // 8 animation frames
 
-#define GINDEX_WARPSTAR        0x01A8
+#define GINDEX_WARPGATE        0x01A8
 
 #define GINDEX_SPARKLESMALL    0x01AE // 2 animation frames
 #define GINDEX_DASHEFFECT      0x01B2 // 2 animation frames
@@ -183,6 +185,8 @@
 
 #define GINDEX_CLANCERGHOST    0x02A2 // 6 animation frames
 
+#define GINDEX_MOCHI           0x02c2
+
 #define GINDEX_CATHEAD         0x02CC // 6 animation frames
 #define GINDEX_TEXTBOX         0x02CE // index of the textbox 
 #define GINDEX_SOLIDSQARE      0x02D0 // used as a fill for transisions
@@ -248,6 +252,6 @@
 #define GINDEX_WM_STAGEICONENDING   0X303A
 #define GINDEX_WM_STAGEICONVERTICAL 0X303C
 
-#define GINDEX_PAUSEBAR 0x8000
+#define GINDEX_BLACKBAR 0x8000
 
 #endif

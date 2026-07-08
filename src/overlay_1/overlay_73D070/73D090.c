@@ -121,7 +121,7 @@ void func_8019BC64_73DBF4(u16 actor_index) {
     index2 = actor_index + 1;
     for (index = actor_index + 1, var_s2 = 0; var_s2 < 11; index++, var_s2++) {
         gActors[index].actorType = 0x21;
-        func_8001E2D0(index);
+        Actor_Initialize(index);
         gActors[index].graphicFlags = ACTOR_GFLAG_UNK11 | ACTOR_GFLAG_ROTZ | ACTOR_GFLAG_SCALE;
         gActors[index].flags = sWormSegFlags[var_s2];
         gActors[index].graphicIndex = sWormSegGraphics[var_s2];
@@ -132,7 +132,7 @@ void func_8019BC64_73DBF4(u16 actor_index) {
         gActors[index].colorA = 0xFE;
         gActors[actor_index].unk_18C |= 0x200;
         gActors[index].unk_0CE = 8;
-        func_8002AC30(index, 6);
+        Actor_SetHitboxB(index, 6);
     }
     
     gActors[index2].graphicFlags |= 4;
@@ -142,7 +142,7 @@ void func_8019BC64_73DBF4(u16 actor_index) {
     gActors[index2].hitboxBX1 = 0xC;
 
     index3 = actor_index + 2;
-    func_8002AC30(index3, 0x10);
+    Actor_SetHitboxB(index3, 0x10);
     D_800BE678 = 0x68;
     D_800BE67C = 0xB8;
     D_800BE680 = 0xB8;

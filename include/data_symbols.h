@@ -5,7 +5,7 @@
 #include "inttypes.h"
 
 extern u16 D_800D28E4;
-extern u16 gStageCinemaState; // state for cinematics (intro/dialog/outro) for stages.
+extern u16 gStageState; // state for stages, determining cinematics, actor spawns, level logic, etc.
 extern u16 gStageTime; // time in current stage. does not count time during cutscenes.
 extern u16 gStageTimeBest;
 extern u16 D_800D28F0;
@@ -14,15 +14,15 @@ extern u16 gSkipStageIntro; // skip stage intros. set during "continue" and "att
 extern s32 D_800D2928;
 extern s32 D_800D2938;
 extern s16 D_800D294C;
-extern u16 D_800D8588[];
+extern u16 D_800D8588[]; // all-white palette
 extern u16 D_800E3580;
 extern u32 D_800E3584; // nearest actor facing
-extern s16 D_801370D0;
+extern s16 D_801370D0; //index for position/graphic arrays in unused after-image state
 extern s16 D_801370D2;
 extern u16 D_801370D4;
-extern u16 D_801370D8[];
-extern s16 D_801371D8[];
-extern s16 D_801372D8[];
+extern u16 D_801370D8[]; // Marina graphic history. used for unused after-image state
+extern s16 D_801371D8[]; // Marina X-position history. used for unused after-image state
+extern s16 D_801372D8[]; // Marina Y-position history. used for unused after-image state
 extern u16* D_801376A0;
 extern u8 D_801376BC[];
 extern u32 D_801376D4;
@@ -34,18 +34,32 @@ extern FestivalStruct gFestivalData; // data related mostly to Festival Games.
 extern u16 gAudioFadeMode;
 extern s32 D_800BE73C;
 extern u16 D_800CA230;
-extern u16 D_800CA26C[];
+extern u16 D_800CA254[]; // "d  h  m  s"
+extern u16 D_800CA26C[]; // "Continue"
 extern u16 D_800CBF40;
 extern u16 D_800CBF50;
-extern u8 D_800CC428;
+extern u8 D_800CC428; // boolean used in camera function for "Counterattack"
 extern u16 D_800D16C4[];
 extern u16 D_800D1A04[];
-extern u16 D_800D22BC[];
-extern u8 D_800D24D8[];
-extern u8 D_800D24F0;
-extern s32 D_800D2504[];
-extern u16 D_800D2690[]; // grouped by step count 3 (0x6 bytes)
+extern u16 D_800D2690[]; // LUT of digging spot items.
 extern s16 D_800D26F4[];
+extern u16 D_800D2714[];
+extern s16 D_800D271C[];
+extern u16 gClanpotItems[0xa0]; // clanpot storage. written backwards, starting from last 5 spaces. {index+flags, var_110, var_0D8, type, icon}
+
+// counts for items in clanpot. checked for mixing.
+// indecies of items counted:
+// 0x00: rocketeers needed for rideable rocketeer.
+// 0x10: round bomb
+// 0x11: elliptical bomb
+// 0x12: flower
+// 0x13: hat
+// 0x14: shuriken
+// 0x15: red gem
+// 0x16: blue gem
+// 0x17: yellow gem
+// 0x18: green gem
+extern u8 gClanpotItemCount[26];
 extern f32 D_800D2904;
 extern s16 D_800D2924;
 extern s32 D_800D292C;

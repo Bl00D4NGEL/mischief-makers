@@ -59,7 +59,7 @@ ActorFunc D_801A6800_766080[] = {
     func_801AD534_76CD44,
     func_801AB058_76A868,
     func_801AB2AC_76AABC,
-    func_801AB574_76AD84,
+    func_801AB574_76AD84, // Celes in "Wormin' Up"?
     func_801ABA44_76B254,
     func_801ABDB4_76B5C4,
     func_801ACC38_76C448,
@@ -67,7 +67,7 @@ ActorFunc D_801A6800_766080[] = {
     func_801A98B0_7690C0,
     func_801A99CC_7691DC,
     func_801A78DC_7670EC,
-    func_801AE1B4_76D9C4,
+    func_801AE1B4_76D9C4, // Blockman?
     func_801AED40_76E550,
     func_801AEE40_76E650,
     func_801AA0AC_7698BC,

@@ -84,7 +84,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80086B74.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80086C7C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/ActorUpdate_Clanbomb.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80087568.s")
 
@@ -96,13 +96,13 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80087BDC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80087D2C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/ActorUpdate_Spikeball_OrbitXY.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80087EAC.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80088010.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80088164.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/ActorUpdate_Spikeball_77.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_800882E8.s")
 
@@ -110,7 +110,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80088518.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_8008855C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/ActorUpdate_Spikeball_78.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_800886E0.s")
 
@@ -128,13 +128,13 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80088B08.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80088CB0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/ActorUpdate_Spikeball_OrbitYZ.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80088E38.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80088E90.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80089084.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/ActorUpdate_Spikeball_80.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_800891EC.s")
 
@@ -144,9 +144,9 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_800896AC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80089814.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/DiggingSpot_SpawnActor.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80089984.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/DiggingSpot_SpawnActorCheck.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_80089A10.s")
 
@@ -160,7 +160,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_8008A50C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_8008A6E4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/84BB0/ActorUpdate_DiggingSpot.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/84BB0/func_8008AA28.s")
 

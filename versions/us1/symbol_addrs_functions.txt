@@ -8,8 +8,9 @@ DMA_ReadSync = 0x800011F0; // type:func
 DMA_AwaitMessage = 0x80001264; // type:func 
 DMA_Read = 0x80001290; // type:func
 
-Sound_DmaCallback = 0x800017D0; // type:func
 Rand = 0x8000178c; // type:func rom:0x238c
+
+Sound_DmaCallback = 0x800017D0; // type:func
 Sound_DmaNew = 0x80001988; // type:func
 Sound_CleanDmaBuffers = 0x80001A80; // type:func
 Sound_InitPlayers = 0x80001B38; // type:func
@@ -44,6 +45,7 @@ Sound_StopMusic = 0x80003A38; // type:func
 Sound_StopAllSfx = 0x80003A64; // type:func
 Sound_ActorPanVol = 0x80003AD4; // type:func
 Sound_StartFade = 0x80003F24; // type:func
+
 Font_TextSprite = 0x80004380; // type:func
 Font_FindChar = 0x800045F8; // type:func
 Font_Init = 0x80004648; // type:func
@@ -54,6 +56,7 @@ Font_SetScale = 0x80004760; // type:func
 Font_SetColor = 0x8000477C; // type:func
 Font_SetTransparent = 0x800047B0; // type:func
 Font_ShowString = 0x80004804; // type:func
+
 Trouble_RLE_Type1 = 0x80004910; // type:func
 
 LookAt_Update = 0x80010898; // type:func
@@ -61,9 +64,11 @@ LookAt_Update = 0x80010898; // type:func
 YellowGem_SetFlag = 0x8001C7A4; // type:func
 YellowGem_GetFlag = 0x8001C7F0; // type:func
 
+Actor_Initialize = 0x8001E2D0; // type:func
+
 Gfx_DrawBorderRect = 0x80021690; // type:func
 Gfx_DrawLetterboxStandard = 0x8002170C; // type:func
-Gfx_DrawLetterbox = 0x800218FC; //type:func
+Gfx_DrawLetterbox = 0x800218FC; // type:func
 
 Actor_ClearRange = 0x800285E4; // type:func
 Actor_ClearSceneActors = 0x80028744; // type:func
@@ -89,6 +94,10 @@ Actor_IncrementRgb = 0x8002AEF8; // type:func
 Actor_ApproachRgb = 0x8002B1D0; // type:func
 Math_ApproachS32 = 0x8002981C; // type:func
 Math_ApproachF32 = 0x80029860; // type:func
+Actor_SetHitboxA = 0x8002ABE4; // type:func
+Actor_SetHitboxB = 0x8002AC30; // type:func
+Actor_SetHitboxAX = 0x8002AC7C; // type:func
+Actor_SetHitboxBX = 0x8002ACFC; // type:func
 Actor_SetColorRgb = 0x8002AEB4; // type:func
 Palette_AdjustRgb5551 = 0x8002B5A0; // type:func
 Palette_AdjustRgbIndexArray = 0x8002B6E8; // type:func
@@ -97,13 +106,27 @@ Palette_SetRgbTableIndexArray = 0x8002B7F4; // type:func
 Actor_ReduceHealth = 0x8002B8F0; // type:func
 Palette_AdjustRgb5551Array = 0x8002B82C; // type:func
 
+ActorUpdate_Type27 = 0x8002C1D8; // type:func
+ActorUpdate_Type30 = 0x8002C6DC; // type:func
+ActorUpdate_Type1 = 0x8002D260; // type:func
+
+Landmine_TriggerEffect = 0x8002D5E4; // type:func
+ActorUpdate_Landmine = 0x8002D670; // type:func
+
 SpawnGemActor = 0x8002EFE4; // type:func
 SpawnGemRing = 0x8002F2A8; // type:func
-GemRing_MakeGems = 0x8002F420; //type:func
+GemRing_MakeGems = 0x8002F420; // type:func
 RedGems_Clamp = 0x8002F6AC; // type:func
-SpawnParticle_SineUp = 0x800337F4; // type:func
-SpawnParticle_SineUpHeart = 0x800338F4; // type:func
-SpawnParticle_SineUpNotes = 0x80033948; // type:func
+ActorUpdate_GemRing = 0x8002F6D4; // type:func
+GemCollect = 0x8002F93C; // type:func
+GemCollect_Actor = 0x8002FC30; // type:func
+GemCollect_Static = 0x8002FD48; // type:func
+ActorUpdate_GemIcon = 0x8002FEF8; // type:func
+ActorUpdate_Gem124 = 0x80030008; // type:func
+ActorUpdate_Gem = 0x800303A8; // type:func
+ActorUpdate_Gem61 = 0x80030964; // type:func
+
+
 SpawnParticle_List = 0x80030F94; // type:func
 SpawnParticle_Image = 0x800310A4; // type:func
 SpawnParticle_List_102D_16 = 0x8003119C; // type:func
@@ -115,7 +138,93 @@ SpawnParticle_Image_102D_32 = 0x80031324; // type:func
 SpawnParticle_List_90C0_32 = 0x8003137C; // type:func
 SpawnParticle_Image_90C0_32 = 0x800313CC; // type:func
 ActorUpdate_Particle = 0x8003141C; // type:func
-Crosshair_SetPos = 0x8003E640; //type:func
+SpawnAfterImage = 0x80033428; // type:func
+ActorUpdate_AfterImage = 0x8003358C; // type:func
+ActorUpdate_Type5 = 0x80033DE4; // type:func
+SpawnDizzyStar = 0x800335E4; // type:func
+ActorUpdate_DizzyStar = 0x800336B8; // type:func
+SpawnParticle_SineUp = 0x800337F4; // type:func
+SpawnParticle_SineUpHeart = 0x800338F4; // type:func
+SpawnParticle_SineUpNotes = 0x80033948; // type:func
+
+Clanpot_InitItems = 0x80034D80; // type:func
+Clanpot_AddItem = 0x80034E10; // type:func
+Clanpot_AddItemCheck = 0x8003510C; // type:func
+Clanpot_AddItemCheck1 = 0x800351C8; // type:func
+Clanpot_AddItemCheck2 = 0x80035218; // type:func
+Clanpot_AddItemCheck3 = 0x8003526C; // type:func
+Clanpot_MoveItems = 0x800352C0; // type:func
+Clanpot_SpawnNow = 0x80035394; // type:func
+Clanpot_TakeItem = 0x80035524; // type:func
+Clanpot_SetHitboxA = 0x80035824; // type:func
+Clanpot_SetHitboxB = 0x80035878; // type:func
+ClanpotIcon_State1 = 0x80035A20; // type:func
+ActorUpdate_ClanpotMenu = 0x80035E90; // type:func
+Clanpot_SpawnMenu = 0x800366E4; // type:func
+Clanpot_Tilt = 0x800367D0; // type:func
+Clanpot_SetMixedItem = 0x800369A0; // type:func
+Clanpot_MixClanbomb = 0x80036A60; // type:func
+Clanpot_MixBoomerang = 0x80036B44; // type:func
+Clanpot_MixShuriken = 0x80036C14; // type:func
+Clanpot_MixGreenGem = 0x80036CE4; // type:func
+Clanpot_TryMix = 0x80036DC8; // type:func
+Clanpot_EraseItem = 0x8003707C; // type:func
+Clanpot_AddMixedItem = 0x800370AC; // type:func
+Clanpot_MixSequenceIcon = 0x800374D8; // type:func
+ActorUpdate_ClanpotMixSequence = 0x8003766C; // type:func
+Clanpot_SpawnMixSequence = 0x80037B18; // type:func
+ActorUpdate_Clanpot = 0x80037B90; // type:func
+
+Spikeball_MoveX = 0x800384FC; // type:func
+Spikeball_MoveY = 0x80038600; // type:func
+Spikeball_Jitter = 0x80038704; // type:func
+Spikeball_ScaleWave = 0x80038794; // type:func
+Spikeball_State1End = 0x80038868; // type:func
+Spikeball_Update = 0x80038C94; // type:func
+Spikeball_UpdateHitbox = 0x80038D1C; // type:func
+Spikeball_State0 = 0x80038E1C; // type:func
+ActorUpdate_Spikeball_Static = 0x80039134; // type:func
+ActorUpdate_Spikeball_Hori = 0x8003929c; // type:func
+ActorUpdate_Spikeball_Vert = 0x80039468; // type:func
+
+
+ActorUpdate_Clanbomb = 0x80086c7c; // type:func
+
+ActorUpdate_Spikeball_77 = 0x80088164; // type:func
+ActorUpdate_Spikeball_78 = 0x8008855C; // type:func
+ActorUpdate_Spikeball_OrbitYZ = 0x80088cb0; // type:func
+ActorUpdate_Spikeball_80 = 0x80089084; // type:func
+ActorUpdate_Spikeball_81 = 0x800645f4; // type:func
+ActorUpdate_Spikeball_82 = 0x8006475c; // type:func
+
+ActorUpdate_Type15 = 0x8008C4A0; // type:func
+ActorUpdate_Type16 = 0x8008C4A8; // type:func
+ActorUpdate_Type37 = 0x8008C4C0; // type:func
+ActorUpdate_Type43 = 0x8008C4C8; // type:func
+ActorUpdate_Type65 = 0x8008C4D0; // type:func
+ActorUpdate_Type83 = 0x8008C4D8; // type:func
+
+ActorUpdate_MsHint = 0x80065270; // type:func
+
+DiggingSpot_SpawnActor = 0x80089814; // type:func
+DiggingSpot_SpawnActorCheck = 0x80089984; // type:func
+ActorUpdate_DiggingSpot = 0x8008A6E4; // type:func
+
+ActorUpdate_Spikeball_OrbitXY = 0x80087D2C; // type:func
+
+SpawnMarinaOhNo = 0x8008e310; // type:func
+ActorUpdate_MarinaOhNo = 0x8008e3c0; // type:func
+
+ActorUpdate_Clanball_28 = 0x8003A120; // type:func
+ActorUpdate_ClanballSpring = 0x8003C328; // type:func
+
+SpawnAreaClear = 0x8003d628; // type:func
+AreaClear_State0 = 0x8003D794; // type:func
+ActorUpdate_AreaClear = 0x8003DBD0; // type:func
+
+BossDeathExplode = 0x8003DF78; // type:func
+
+Crosshair_SetPos = 0x8003E640; // type:func
 SpawnCrosshair = 0x8003E6A4; // type:func
 SpawnParticle_Exclamation = 0x8003F6A4; // type:func
 SpawnParticle_HeartBubble = 0x8003F8B0; // type:func
@@ -126,13 +235,34 @@ SpawnParticle_RingWaveGreen = 0x8003FE90; // type:func
 SpawnParticle_RingWaveYellow = 0x8003FED8; // type:func
 SpawnParticle_RingWaveRed = 0x8003FF20; // type:func
 
+WarpGate_Init = 0x80040ab4; // type:func
+WarpGate_UpdateAppearance = 0x80041018; // type:func
+WarpGate_IsGuestUsing = 0x8004151C; // type:func
+WarpGate_IsGuestsUsing = 0x8004168C; // type:func
+WarpGate_MoveUser = 0x8004172C; // type:func
+WarpGate_MoveFaceUser = 0x8004178C; // type:func
+WarpGate_StarRing = 0x80040B4C; // type:func
+WarpGate_Sparkle = 0x80040E08; // type:func
+WarpGate_IsGrabbed = 0x8004185C; // type:func
+ActorUpdate_WarpGate = 0x800418A8; // type:func
 
 Palette_AdjustScenePalettes = 0x80042E84; // type:func
 Actor_LoadSpawnTable = 0x80043A68; // type:func
 Camera_UpdateViewBounds = 0x800462F0; // type:func
 Cutscene_CheckSkipInput = 0x80046E6C; // type:func
 
+
+ActorType2_Noop = 0x8006C1A4; // type:func
+ActorUpdate_Type2 = 0x800732F8; // type:func
+
+ActorUpdate_CatTank = 0x80075dc4; // type:func
+
+Clanblob_Update = 0x80076d40; // type:func
+ActorUpdate_Clanblob = 0x80077c18; // type:func
+
+ActorUpdate_Type3 = 0x8007CCD0; // type:func
 SpawnTextBubble = 0x8007D0DC; // type:func
+
 
 GameState_SoftReset = 0x80022F48; // type:func
 GameState_Intro = 0x80017800; // type:func
@@ -160,6 +290,12 @@ Actor_RegionCheckAudio = 0x80028980; // type:func
 Actor_NearestFromList = 0x800289E4; // type:func
 Actor_UpdateNearest = 0x80028AE8; // type:func
 Actor_UpdateNearestTo0 = 0x80028B1C; // type:func
+ActorUpdate_Type4 = 0x80042308; // type:func
+ActorUpdate_Type10 = 0x80042338; // type:func
+ActorUpdate_Type23 = 0x80042340; // type:func
+ActorUpdate_Type25 = 0x80042348; // type:func
+ActorUpdate_Type26 = 0x80042350; // type:func
+ActorUpdate_Type71 = 0x80042358; // type:func
 Actor_AdvanceState = 0x80042360; // type:func
 
 // debug_level_select.c
@@ -186,6 +322,11 @@ Text_PrintStringRGBScale = 0x80027D94; // type:func
 Text_PrintStringGray = 0x8002801C; // type:func
 Text_PrintString2 = 0x80028150; // type:func
 Text_SetHCColor = 0x80028260; // type:func
+
+UpdateCameraShake = 0x8005C8A4; // type:func
+CameraShake = 0x8005CA34; // type:func
+GetCameraShakeTime = 0x8005CA98; // type:func
+
 
 // 5E230.c
 OverlayABI_Slot1_fn3_u16        = 0x8005D630; // type:func

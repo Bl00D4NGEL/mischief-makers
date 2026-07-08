@@ -27,7 +27,7 @@ extern u8 D_800E223C[];
 extern u8 D_800E2250[];
 extern u8 D_800E2274[];
 extern u8 D_800E2564[];
-extern u16 D_800D2950;
+extern u16 gGuestActorIndex;
 extern ActorFunc D_800D7F00[];
 extern u8 D_800E1788[];
 extern u16 D_800E3580;
@@ -447,7 +447,7 @@ void func_8006A06C(u16 actor_index, f32 arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006C0F4.s")
 
-void func_8006C1A4(u16 arg0) {
+void ActorType2_Noop(u16 arg0) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8006C1AC.s")
@@ -465,7 +465,7 @@ void func_8006C5A4(u16 actor_index) {
             gActors[actor_index].iFrames--;
         }
 
-        func_80066964(actor_index, (gActors[actor_index].unk_0D8 & 0x7000) / 0x1000);
+        func_80066964(actor_index, (gActors[actor_index].var_0D8 & 0x7000) / 0x1000);
         func_80066A10(actor_index);
 
         if (gActors[actor_index].flags & ACTOR_FLAG_FLIPPED) {
@@ -475,7 +475,7 @@ void func_8006C5A4(u16 actor_index) {
             gActors[actor_index].unk_148 = gActors[actor_index].scaleX;
         }
 
-        if (((gActors[actor_index].flags_098 & ACTOR_FLAG3_UNK9) == 0) && (D_800D2950 != actor_index)) {
+        if (((gActors[actor_index].flags_098 & ACTOR_FLAG3_UNK9) == 0) && (gGuestActorIndex != actor_index)) {
             func_80028C00(actor_index);
         }
     }
@@ -734,8 +734,9 @@ void func_8007325C(u16 actor_index) {
     func_8006C5A4(actor_index);
 }
 
-void func_800732F8(u16 arg0) {
-    func_8006C1A4(arg0);
+
+void ActorUpdate_Type2(u16 arg0) {
+    ActorType2_Noop(arg0);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80073320.s")
@@ -770,7 +771,7 @@ void func_800732F8(u16 arg0) {
 
 void func_8007406C(u16 actor_index, u16 arg1, s32 arg2) {
     func_80073EF4(actor_index);
-    gActors[actor_index].unk_0D8 = arg1 & 0x7000;
+    gActors[actor_index].var_0D8 = arg1 & 0x7000;
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_800740C8.s")
@@ -836,7 +837,7 @@ void func_800756FC(u16 actor_index){
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80075D50.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80075DC4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/66250/ActorUpdate_CatTank.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80076228.s")
 
@@ -860,9 +861,9 @@ void func_800756FC(u16 actor_index){
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80076BF4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80076D40.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/66250/Clanblob_Update.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80077C18.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/66250/ActorUpdate_Clanblob.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_80077D24.s")
 
@@ -972,7 +973,10 @@ void func_80079760(u16 actor_index) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8007B60C.s")
 
+// update function of Rocketeer Clancers.
 #pragma GLOBAL_ASM("asm/nonmatchings/66250/func_8007B73C.s")
 
-void func_8007CCD0(s32 arg0) {
+
+// update for actor type 3
+void ActorUpdate_Type3(u16 arg0) {
 }

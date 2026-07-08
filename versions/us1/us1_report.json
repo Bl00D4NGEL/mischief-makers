@@ -1,9 +1,9 @@
 {
   "measures": {
-    "fuzzy_match_percent": 29.556734,
-    "total_code": "1994280",
-    "matched_code": "589444",
-    "matched_code_percent": 29.556734,
+    "fuzzy_match_percent": 29.557579,
+    "total_code": "1994304",
+    "matched_code": "589468",
+    "matched_code_percent": 29.557579,
     "matched_data_percent": 100.0,
     "total_functions": 4708,
     "matched_functions": 2068,
@@ -2478,6 +2478,13 @@
           "metadata": {
             "virtual_address": "2147605408"
           }
+        },
+        {
+          "name": ".data",
+          "size": "2752",
+          "metadata": {
+            "virtual_address": "2148308736"
+          }
         }
       ],
       "functions": [
@@ -2503,7 +2510,7 @@
           }
         },
         {
-          "name": "func_8001E2D0",
+          "name": "Actor_Initialize",
           "size": "784",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -4799,7 +4806,7 @@
           }
         },
         {
-          "name": "func_8002ABE4",
+          "name": "Actor_SetHitboxA",
           "size": "76",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -4807,7 +4814,7 @@
           }
         },
         {
-          "name": "func_8002AC30",
+          "name": "Actor_SetHitboxB",
           "size": "76",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -4815,7 +4822,7 @@
           }
         },
         {
-          "name": "func_8002AC7C",
+          "name": "Actor_SetHitboxAX",
           "size": "128",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -4823,7 +4830,7 @@
           }
         },
         {
-          "name": "func_8002ACFC",
+          "name": "Actor_SetHitboxBX",
           "size": "128",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5047,7 +5054,7 @@
           }
         },
         {
-          "name": "func_8002C1D8",
+          "name": "ActorUpdate_Type27",
           "size": "8",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5103,7 +5110,7 @@
           }
         },
         {
-          "name": "func_8002C6DC",
+          "name": "ActorUpdate_Type30",
           "size": "8",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5135,7 +5142,7 @@
           }
         },
         {
-          "name": "func_8002D260",
+          "name": "ActorUpdate_Type1",
           "size": "148",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5167,7 +5174,7 @@
           }
         },
         {
-          "name": "func_8002D5E4",
+          "name": "Landmine_TriggerEffect",
           "size": "140",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5175,7 +5182,7 @@
           }
         },
         {
-          "name": "func_8002D670",
+          "name": "ActorUpdate_Landmine",
           "size": "660",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5327,7 +5334,7 @@
           }
         },
         {
-          "name": "func_8002F6D4",
+          "name": "ActorUpdate_GemRing",
           "size": "616",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5335,7 +5342,7 @@
           }
         },
         {
-          "name": "func_8002F93C",
+          "name": "GemCollect",
           "size": "756",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5343,7 +5350,7 @@
           }
         },
         {
-          "name": "func_8002FC30",
+          "name": "GemCollect_Actor",
           "size": "280",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5351,7 +5358,7 @@
           }
         },
         {
-          "name": "func_8002FD48",
+          "name": "GemCollect_Static",
           "size": "432",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5359,7 +5366,7 @@
           }
         },
         {
-          "name": "func_8002FEF8",
+          "name": "ActorUpdate_GemIcon",
           "size": "272",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5367,7 +5374,7 @@
           }
         },
         {
-          "name": "func_80030008",
+          "name": "ActorUpdate_Gem124",
           "size": "928",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5375,7 +5382,7 @@
           }
         },
         {
-          "name": "func_800303A8",
+          "name": "ActorUpdate_Gem",
           "size": "1468",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5383,7 +5390,7 @@
           }
         },
         {
-          "name": "func_80030964",
+          "name": "ActorUpdate_Gem61",
           "size": "92",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5631,7 +5638,7 @@
           }
         },
         {
-          "name": "func_80033428",
+          "name": "SpawnAfterImage",
           "size": "356",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5639,7 +5646,7 @@
           }
         },
         {
-          "name": "func_8003358C",
+          "name": "ActorUpdate_AfterImage",
           "size": "88",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5647,7 +5654,7 @@
           }
         },
         {
-          "name": "func_800335E4",
+          "name": "SpawnDizzyStar",
           "size": "212",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5655,7 +5662,7 @@
           }
         },
         {
-          "name": "func_800336B8",
+          "name": "ActorUpdate_DizzyStar",
           "size": "316",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5719,7 +5726,7 @@
           }
         },
         {
-          "name": "func_80033DE4",
+          "name": "ActorUpdate_Type5",
           "size": "152",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5791,7 +5798,7 @@
           }
         },
         {
-          "name": "func_80034D80",
+          "name": "Clanpot_InitItems",
           "size": "144",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5799,7 +5806,7 @@
           }
         },
         {
-          "name": "func_80034E10",
+          "name": "Clanpot_AddItem",
           "size": "764",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5807,7 +5814,7 @@
           }
         },
         {
-          "name": "func_8003510C",
+          "name": "Clanpot_AddItemCheck",
           "size": "188",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5815,7 +5822,7 @@
           }
         },
         {
-          "name": "func_800351C8",
+          "name": "Clanpot_AddItemCheck1",
           "size": "80",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5823,7 +5830,7 @@
           }
         },
         {
-          "name": "func_80035218",
+          "name": "Clanpot_AddItemCheck2",
           "size": "84",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5831,7 +5838,7 @@
           }
         },
         {
-          "name": "func_8003526C",
+          "name": "Clanpot_AddItemCheck3",
           "size": "84",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5839,7 +5846,7 @@
           }
         },
         {
-          "name": "func_800352C0",
+          "name": "Clanpot_MoveItems",
           "size": "212",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5847,7 +5854,7 @@
           }
         },
         {
-          "name": "func_80035394",
+          "name": "Clanpot_SpawnNow",
           "size": "400",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5855,7 +5862,7 @@
           }
         },
         {
-          "name": "func_80035524",
+          "name": "Clanpot_TakeItem",
           "size": "768",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5863,7 +5870,7 @@
           }
         },
         {
-          "name": "func_80035824",
+          "name": "Clanpot_SetHitboxA",
           "size": "84",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5871,7 +5878,7 @@
           }
         },
         {
-          "name": "func_80035878",
+          "name": "Clanpot_SetHitboxB",
           "size": "84",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5903,7 +5910,7 @@
           }
         },
         {
-          "name": "func_80035A20",
+          "name": "ClanpotIcon_State1",
           "size": "548",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5927,7 +5934,7 @@
           }
         },
         {
-          "name": "func_80035E90",
+          "name": "ActorUpdate_ClanpotMenu",
           "size": "2028",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5943,7 +5950,7 @@
           }
         },
         {
-          "name": "func_800366E4",
+          "name": "Clanpot_SpawnMenu",
           "size": "236",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5951,7 +5958,7 @@
           }
         },
         {
-          "name": "func_800367D0",
+          "name": "Clanpot_Tilt",
           "size": "464",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5959,7 +5966,7 @@
           }
         },
         {
-          "name": "func_800369A0",
+          "name": "Clanpot_SetMixedItem",
           "size": "192",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5967,7 +5974,7 @@
           }
         },
         {
-          "name": "func_80036A60",
+          "name": "Clanpot_MixClanbomb",
           "size": "228",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5975,7 +5982,7 @@
           }
         },
         {
-          "name": "func_80036B44",
+          "name": "Clanpot_MixBoomerang",
           "size": "208",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5983,7 +5990,7 @@
           }
         },
         {
-          "name": "func_80036C14",
+          "name": "Clanpot_MixShuriken",
           "size": "208",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5991,7 +5998,7 @@
           }
         },
         {
-          "name": "func_80036CE4",
+          "name": "Clanpot_MixGreenGem",
           "size": "228",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -5999,7 +6006,7 @@
           }
         },
         {
-          "name": "func_80036DC8",
+          "name": "Clanpot_TryMix",
           "size": "692",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6007,7 +6014,7 @@
           }
         },
         {
-          "name": "func_8003707C",
+          "name": "Clanpot_EraseItem",
           "size": "48",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6015,7 +6022,7 @@
           }
         },
         {
-          "name": "func_800370AC",
+          "name": "Clanpot_AddMixedItem",
           "size": "1068",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6023,7 +6030,7 @@
           }
         },
         {
-          "name": "func_800374D8",
+          "name": "Clanpot_MixSequenceIcon",
           "size": "404",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6031,7 +6038,7 @@
           }
         },
         {
-          "name": "func_8003766C",
+          "name": "ActorUpdate_ClanpotMixSequence",
           "size": "1196",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6039,7 +6046,7 @@
           }
         },
         {
-          "name": "func_80037B18",
+          "name": "Clanpot_SpawnMixSequence",
           "size": "120",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6047,7 +6054,7 @@
           }
         },
         {
-          "name": "func_80037B90",
+          "name": "ActorUpdate_Clanpot",
           "size": "2056",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6063,7 +6070,7 @@
           }
         },
         {
-          "name": "func_800384FC",
+          "name": "Spikeball_MoveX",
           "size": "260",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6071,7 +6078,7 @@
           }
         },
         {
-          "name": "func_80038600",
+          "name": "Spikeball_MoveY",
           "size": "260",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6079,7 +6086,7 @@
           }
         },
         {
-          "name": "func_80038704",
+          "name": "Spikeball_Jitter",
           "size": "144",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6087,7 +6094,7 @@
           }
         },
         {
-          "name": "func_80038794",
+          "name": "Spikeball_ScaleWave",
           "size": "212",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6095,7 +6102,7 @@
           }
         },
         {
-          "name": "func_80038868",
+          "name": "Spikeball_State1End",
           "size": "1068",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6103,7 +6110,7 @@
           }
         },
         {
-          "name": "func_80038C94",
+          "name": "Spikeball_Update",
           "size": "136",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6111,7 +6118,7 @@
           }
         },
         {
-          "name": "func_80038D1C",
+          "name": "Spikeball_UpdateHitbox",
           "size": "256",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6119,7 +6126,7 @@
           }
         },
         {
-          "name": "func_80038E1C",
+          "name": "Spikeball_State0",
           "size": "472",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6143,7 +6150,7 @@
           }
         },
         {
-          "name": "func_80039134",
+          "name": "ActorUpdate_Spikeball_Static",
           "size": "360",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6151,7 +6158,7 @@
           }
         },
         {
-          "name": "func_8003929C",
+          "name": "ActorUpdate_Spikeball_Hori",
           "size": "460",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6159,7 +6166,7 @@
           }
         },
         {
-          "name": "func_80039468",
+          "name": "ActorUpdate_Spikeball_Vert",
           "size": "476",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6255,7 +6262,7 @@
           }
         },
         {
-          "name": "func_8003A120",
+          "name": "ActorUpdate_Clanball_28",
           "size": "2104",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6327,7 +6334,7 @@
           }
         },
         {
-          "name": "func_8003C328",
+          "name": "ActorUpdate_ClanballSpring",
           "size": "4592",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6351,7 +6358,7 @@
           }
         },
         {
-          "name": "func_8003D628",
+          "name": "SpawnAreaClear",
           "size": "100",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6367,7 +6374,7 @@
           }
         },
         {
-          "name": "func_8003D794",
+          "name": "AreaClear_State0",
           "size": "1084",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6375,7 +6382,7 @@
           }
         },
         {
-          "name": "func_8003DBD0",
+          "name": "ActorUpdate_AreaClear",
           "size": "936",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6383,7 +6390,7 @@
           }
         },
         {
-          "name": "func_8003DF78",
+          "name": "BossDeathExplode",
           "size": "696",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6695,7 +6702,7 @@
           }
         },
         {
-          "name": "func_80040AB4",
+          "name": "WarpGate_Init",
           "size": "152",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6703,7 +6710,7 @@
           }
         },
         {
-          "name": "func_80040B4C",
+          "name": "WarpGate_StarRing",
           "size": "700",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6711,7 +6718,7 @@
           }
         },
         {
-          "name": "func_80040E08",
+          "name": "WarpGate_Sparkle",
           "size": "528",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6719,7 +6726,7 @@
           }
         },
         {
-          "name": "func_80041018",
+          "name": "WarpGate_UpdateAppearance",
           "size": "1284",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6727,7 +6734,7 @@
           }
         },
         {
-          "name": "func_8004151C",
+          "name": "WarpGate_IsGuestUsing",
           "size": "368",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6735,7 +6742,7 @@
           }
         },
         {
-          "name": "func_8004168C",
+          "name": "WarpGate_IsGuestsUsing",
           "size": "160",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6743,7 +6750,7 @@
           }
         },
         {
-          "name": "func_8004172C",
+          "name": "WarpGate_MoveUser",
           "size": "96",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6751,7 +6758,7 @@
           }
         },
         {
-          "name": "func_8004178C",
+          "name": "WarpGate_MoveFaceUser",
           "size": "208",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6759,7 +6766,7 @@
           }
         },
         {
-          "name": "func_8004185C",
+          "name": "WarpGate_IsGrabbed",
           "size": "76",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6767,7 +6774,7 @@
           }
         },
         {
-          "name": "func_800418A8",
+          "name": "ActorUpdate_WarpGate",
           "size": "2536",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6823,7 +6830,7 @@
           }
         },
         {
-          "name": "func_80042308",
+          "name": "ActorUpdate_Type4",
           "size": "8",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6847,7 +6854,7 @@
           }
         },
         {
-          "name": "func_80042338",
+          "name": "ActorUpdate_Type10",
           "size": "8",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6855,7 +6862,7 @@
           }
         },
         {
-          "name": "func_80042340",
+          "name": "ActorUpdate_Type23",
           "size": "8",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6863,7 +6870,7 @@
           }
         },
         {
-          "name": "func_80042348",
+          "name": "ActorUpdate_Type25",
           "size": "8",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6871,7 +6878,7 @@
           }
         },
         {
-          "name": "func_80042350",
+          "name": "ActorUpdate_Type26",
           "size": "8",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -6879,7 +6886,7 @@
           }
         },
         {
-          "name": "func_80042358",
+          "name": "ActorUpdate_Type71",
           "size": "8",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -9342,7 +9349,7 @@
           }
         },
         {
-          "name": "func_8005C8A4",
+          "name": "UpdateCameraShake",
           "size": "400",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -9350,7 +9357,7 @@
           }
         },
         {
-          "name": "func_8005CA34",
+          "name": "CameraShake",
           "size": "100",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -9358,7 +9365,7 @@
           }
         },
         {
-          "name": "func_8005CA98",
+          "name": "GetCameraShakeTime",
           "size": "16",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -10367,7 +10374,7 @@
           }
         },
         {
-          "name": "func_800645F4",
+          "name": "ActorUpdate_Spikeball_81",
           "size": "360",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -10375,7 +10382,7 @@
           }
         },
         {
-          "name": "func_8006475C",
+          "name": "ActorUpdate_Spikeball_82",
           "size": "360",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -10447,7 +10454,7 @@
           }
         },
         {
-          "name": "func_80065270",
+          "name": "ActorUpdate_MsHint",
           "size": "992",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -11412,7 +11419,7 @@
           }
         },
         {
-          "name": "func_8006C1A4",
+          "name": "ActorType2_Noop",
           "size": "8",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -12078,7 +12085,7 @@
           }
         },
         {
-          "name": "func_800732F8",
+          "name": "ActorUpdate_Type2",
           "size": "40",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -12364,7 +12371,7 @@
           }
         },
         {
-          "name": "func_80075DC4",
+          "name": "ActorUpdate_CatTank",
           "size": "1124",
           "metadata": {
             "virtual_address": "2147966404"
@@ -12448,14 +12455,14 @@
           }
         },
         {
-          "name": "func_80076D40",
+          "name": "Clanblob_Update",
           "size": "3800",
           "metadata": {
             "virtual_address": "2147970368"
           }
         },
         {
-          "name": "func_80077C18",
+          "name": "ActorUpdate_Clanblob",
           "size": "268",
           "metadata": {
             "virtual_address": "2147974168"
@@ -12738,7 +12745,7 @@
           }
         },
         {
-          "name": "func_8007CCD0",
+          "name": "ActorUpdate_Type3",
           "size": "16",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -13923,7 +13930,7 @@
           }
         },
         {
-          "name": "func_80086C7C",
+          "name": "ActorUpdate_Clanbomb",
           "size": "2284",
           "metadata": {
             "virtual_address": "2148035708"
@@ -13965,7 +13972,7 @@
           }
         },
         {
-          "name": "func_80087D2C",
+          "name": "ActorUpdate_Spikeball_OrbitXY",
           "size": "384",
           "metadata": {
             "virtual_address": "2148039980"
@@ -13986,7 +13993,7 @@
           }
         },
         {
-          "name": "func_80088164",
+          "name": "ActorUpdate_Spikeball_77",
           "size": "388",
           "metadata": {
             "virtual_address": "2148041060"
@@ -14014,7 +14021,7 @@
           }
         },
         {
-          "name": "func_8008855C",
+          "name": "ActorUpdate_Spikeball_78",
           "size": "388",
           "metadata": {
             "virtual_address": "2148042076"
@@ -14077,7 +14084,7 @@
           }
         },
         {
-          "name": "func_80088CB0",
+          "name": "ActorUpdate_Spikeball_OrbitYZ",
           "size": "392",
           "metadata": {
             "virtual_address": "2148043952"
@@ -14098,7 +14105,7 @@
           }
         },
         {
-          "name": "func_80089084",
+          "name": "ActorUpdate_Spikeball_80",
           "size": "360",
           "metadata": {
             "virtual_address": "2148044932"
@@ -14133,14 +14140,14 @@
           }
         },
         {
-          "name": "func_80089814",
+          "name": "DiggingSpot_SpawnActor",
           "size": "368",
           "metadata": {
             "virtual_address": "2148046868"
           }
         },
         {
-          "name": "func_80089984",
+          "name": "DiggingSpot_SpawnActorCheck",
           "size": "140",
           "metadata": {
             "virtual_address": "2148047236"
@@ -14189,7 +14196,7 @@
           }
         },
         {
-          "name": "func_8008A6E4",
+          "name": "ActorUpdate_DiggingSpot",
           "size": "836",
           "metadata": {
             "virtual_address": "2148050660"
@@ -14369,7 +14376,7 @@
       ],
       "functions": [
         {
-          "name": "func_8008C4A0",
+          "name": "ActorUpdate_Type15",
           "size": "8",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -14377,7 +14384,7 @@
           }
         },
         {
-          "name": "func_8008C4A8",
+          "name": "ActorUpdate_Type16",
           "size": "8",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -14393,7 +14400,7 @@
           }
         },
         {
-          "name": "func_8008C4C0",
+          "name": "ActorUpdate_Type37",
           "size": "8",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -14401,7 +14408,7 @@
           }
         },
         {
-          "name": "func_8008C4C8",
+          "name": "ActorUpdate_Type43",
           "size": "8",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -14409,7 +14416,7 @@
           }
         },
         {
-          "name": "func_8008C4D0",
+          "name": "ActorUpdate_Type65",
           "size": "8",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -14417,7 +14424,7 @@
           }
         },
         {
-          "name": "func_8008C4D8",
+          "name": "ActorUpdate_Type83",
           "size": "8",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -14686,14 +14693,14 @@
           }
         },
         {
-          "name": "func_8008E310",
+          "name": "SpawnMarinaOhNo",
           "size": "176",
           "metadata": {
             "virtual_address": "2148066064"
           }
         },
         {
-          "name": "func_8008E3C0",
+          "name": "ActorUpdate_MarinaOhNo",
           "size": "192",
           "fuzzy_match_percent": 100.0,
           "metadata": {
@@ -16437,8 +16444,8 @@
       "name": "ultralib/os/writebackdcacheall",
       "measures": {
         "fuzzy_match_percent": 100.0,
-        "total_code": "40",
-        "matched_code": "40",
+        "total_code": "48",
+        "matched_code": "48",
         "matched_code_percent": 100.0,
         "matched_data_percent": 100.0,
         "total_functions": 1,
@@ -16449,7 +16456,7 @@
       "sections": [
         {
           "name": ".text",
-          "size": "40",
+          "size": "48",
           "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2148118176"
@@ -16459,7 +16466,7 @@
       "functions": [
         {
           "name": "osWritebackDCacheAll",
-          "size": "40",
+          "size": "48",
           "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2148118176"
@@ -23145,8 +23152,8 @@
       "name": "ultralib/os/setcompare",
       "measures": {
         "fuzzy_match_percent": 100.0,
-        "total_code": "12",
-        "matched_code": "12",
+        "total_code": "16",
+        "matched_code": "16",
         "matched_code_percent": 100.0,
         "matched_data_percent": 100.0,
         "total_functions": 1,
@@ -23157,7 +23164,7 @@
       "sections": [
         {
           "name": ".text",
-          "size": "12",
+          "size": "16",
           "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2148226416"
@@ -23167,7 +23174,7 @@
       "functions": [
         {
           "name": "__osSetCompare",
-          "size": "12",
+          "size": "16",
           "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2148226416"
@@ -24295,8 +24302,8 @@
       "name": "ultralib/os/getcause",
       "measures": {
         "fuzzy_match_percent": 100.0,
-        "total_code": "12",
-        "matched_code": "12",
+        "total_code": "16",
+        "matched_code": "16",
         "matched_code_percent": 100.0,
         "matched_data_percent": 100.0,
         "total_functions": 1,
@@ -24307,7 +24314,7 @@
       "sections": [
         {
           "name": ".text",
-          "size": "12",
+          "size": "16",
           "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2148247120"
@@ -24317,7 +24324,7 @@
       "functions": [
         {
           "name": "__osGetCause",
-          "size": "12",
+          "size": "16",
           "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2148247120"
@@ -24336,8 +24343,8 @@
       "name": "ultralib/rmon/rmonrcp",
       "measures": {
         "fuzzy_match_percent": 100.0,
-        "total_code": "168",
-        "matched_code": "168",
+        "total_code": "176",
+        "matched_code": "176",
         "matched_code_percent": 100.0,
         "matched_data_percent": 100.0,
         "total_functions": 4,
@@ -24348,7 +24355,7 @@
       "sections": [
         {
           "name": ".text",
-          "size": "168",
+          "size": "176",
           "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2148247136"
@@ -24382,7 +24389,7 @@
         },
         {
           "name": "__rmonRunRCP",
-          "size": "40",
+          "size": "48",
           "fuzzy_match_percent": 100.0,
           "metadata": {
             "virtual_address": "2148247264"
@@ -24925,7 +24932,7 @@
       }
     },
     {
-      "name": "CA300.data",
+      "name": "CADC0.data",
       "measures": {
         "fuzzy_match_percent": 100.0,
         "matched_code_percent": 100.0,
@@ -24936,9 +24943,9 @@
       "sections": [
         {
           "name": ".data",
-          "size": "14720",
+          "size": "11968",
           "metadata": {
-            "virtual_address": "2148308736"
+            "virtual_address": "2148311488"
           }
         }
       ],
@@ -24946,7 +24953,7 @@
         "module_name": ".main",
         "module_id": 2,
         "progress_categories": [
-          "segment_main"
+          "CADC0.data"
         ]
       }
     },
@@ -49138,16 +49145,16 @@
       "id": "segment_main",
       "name": "Main segment",
       "measures": {
-        "fuzzy_match_percent": 51.292233,
-        "total_code": "653752",
-        "matched_code": "335324",
-        "matched_code_percent": 51.292236,
+        "fuzzy_match_percent": 51.29402,
+        "total_code": "653776",
+        "matched_code": "335348",
+        "matched_code_percent": 51.29402,
         "matched_data_percent": 100.0,
         "total_functions": 1799,
         "matched_functions": 1119,
         "matched_functions_percent": 62.201225,
         "complete_data_percent": 100.0,
-        "total_units": 265
+        "total_units": 264
       }
     },
     {
@@ -49297,6 +49304,19 @@
     {
       "id": "globals",
       "name": "globals",
+      "measures": {
+        "fuzzy_match_percent": 100.0,
+        "matched_code_percent": 100.0,
+        "matched_data_percent": 100.0,
+        "matched_functions_percent": 100.0,
+        "complete_code_percent": 100.0,
+        "complete_data_percent": 100.0,
+        "total_units": 1
+      }
+    },
+    {
+      "id": "CADC0.data",
+      "name": "CADC0.data",
       "measures": {
         "fuzzy_match_percent": 100.0,
         "matched_code_percent": 100.0,
