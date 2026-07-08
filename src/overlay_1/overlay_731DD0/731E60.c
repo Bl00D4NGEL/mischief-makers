@@ -4,7 +4,7 @@
 // "Overlay 1" code used in most scenes.
 
 void func_8002CCD0(u16 actor_index, s16 pos_x, s16 pos_y, u16 arg3);
-void func_8002ABE4(u16 actor_index, s16 val);
+void Actor_SetHitboxA(u16 actor_index, s16 val);
 void Actor_UpdateVelocityX(u16 actor_index, s32 dvx);
 void func_8007B73C(u16 actor_index);
 
@@ -82,7 +82,7 @@ void func_8019C1C4_732F24(u16 actor_index) {
     gActors[actor_index].unk_0FC.raw = 0x40000;
     gActors[actor_index].unk_0F8.raw = 0x48000;
     gActors[actor_index].damage = 0x14;
-    func_8002ABE4(actor_index, 0xC);
+    Actor_SetHitboxA(actor_index, 0xC);
 }
 
 
@@ -145,7 +145,7 @@ void func_8019DD08_734A68(u16 actor_index) {
 void func_8019EB14_735874(u16 actor_index) {
     gActors[actor_index].graphicFlags |= ACTOR_GFLAG_SCALE;
     func_8008105C(actor_index, D_801A5280_73BFE0, D_801A5200_73BF60);
-    gActors[actor_index].unk_178 = (s32)D_801A54C4_73C224;
+    gActors[actor_index].unk_178 = (intptr_t)D_801A54C4_73C224;
     func_80081790(actor_index, D_801A54B4_73C214);
 }
 
@@ -216,9 +216,9 @@ void func_8019EBA8_735908(u16 actor_index) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_1/overlay_731DD0/731E60/func_801A1E74_738BD4.s")
 
 void func_801A206C_738DCC(u16 arg0) {
-    gActors[0].flags_098 |= ACTOR_FLAG3_UNK16;
-    gActors[0].unk_0F8.raw = 0;
-    gActors[0].unk_0FC.raw = FIXED_UNIT(-1.0);
+    gPlayerActor.flags_098 |= ACTOR_FLAG3_UNK16;
+    gPlayerActor.unk_0F8.raw = 0;
+    gPlayerActor.unk_0FC.raw = FIXED_UNIT(-1.0);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_1/overlay_731DD0/731E60/func_801A2098_738DF8.s")
@@ -241,6 +241,7 @@ void func_801A206C_738DCC(u16 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_1/overlay_731DD0/731E60/func_801A3290_739FF0.s")
 
+// change gun's effect (and in japan, describe it)
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_1/overlay_731DD0/731E60/func_801A3664_73A3C4.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_1/overlay_731DD0/731E60/func_801A37C0_73A520.s")
@@ -257,8 +258,10 @@ void func_801A206C_738DCC(u16 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_1/overlay_731DD0/731E60/func_801A3C6C_73A9CC.s")
 
+// fire from gun?
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_1/overlay_731DD0/731E60/func_801A3EE8_73AC48.s")
 
+// behavior of rifles and missle launchers
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_1/overlay_731DD0/731E60/func_801A406C_73ADCC.s")
 
 void func_801A4730_73B490(u16 arg0){

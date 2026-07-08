@@ -29,7 +29,9 @@ extern f32 D_8019DD98_6898B8;
 extern f32 D_8019DD9C_6898BC;
 extern f64 D_8019E378_689E98;
 extern f32 D_8019E4C8_689FE8;
-extern s16 D_8019E570_68A090;
+extern s16 D_8019E570_68A090; // red gems in Migen's face
+extern s16 D_8019E572_68A092; // blue gems in platform
+extern s16 D_8019E574_68A094; // times caught fireballs
 extern s32 D_8019E578_68A098;
 extern s32 D_8019E57C_68A09C;
 extern s16 D_8019DB1C_68963C[];
@@ -46,9 +48,9 @@ void func_80193B4C_67F66C(u16 actor_index);
 void func_80193C14_67F734(u16 actor_index);
 void func_800816AC(u16 actor_index, void* arg1, s32 arg2);
 void func_80081720(u16 actor_index, void* arg1, s32 arg2);
-void func_8002ACFC(u16 actor_index, s16 arg1, s16 arg2);
-void func_8002AC7C(u16 actor_index, s16 arg1, s16 arg2);
-void func_8002AC30(u16 actor_index, s16 val);
+void Actor_SetHitboxBX(u16 actor_index, s16 arg1, s16 arg2);
+void Actor_SetHitboxAX(u16 actor_index, s16 arg1, s16 arg2);
+void Actor_SetHitboxB(u16 actor_index, s16 val);
 s32 func_80048C94(s32 arg0);
 
 void func_80192100_67DC20(s32 arg0) {
@@ -147,7 +149,7 @@ void func_801928A8_67E3C8(s32 arg0) {
         gActors[actor_index].velocityZ.raw = FIXED_UNIT(2);
         gActors[actor_index].velocityY.raw = FIXED_UNIT(-4.0);
         gActors[actor_index].var_154 = -0xE;
-        gActors[actor_index].timer_110 = 1.0f;
+        gActors[actor_index].var_110 = 1.0f;
         gActors[actor_index].unk_114 = D_8019DD9C_6898BC;
     }
 }
@@ -156,14 +158,15 @@ void func_801928A8_67E3C8(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_0/overlay_67DBA0/67DC20/func_80192C4C_67E76C.s")
 
+// Migen Jr spits fireball
 void func_80192E68_67E988(u16 actor_index, u16 arg1) {
     u16 new_actor_index;
 
     new_actor_index = Actor_RangeFindInactive(0x68, 0x70);
     if (new_actor_index != 0) {
-        ACTOR_INIT(new_actor_index,0x609);
+        ACTOR_INIT(new_actor_index, ACTORTYPE_OVL0_MIGEN_JRFIREBALL);
         gActors[new_actor_index].graphicFlags = ACTOR_GFLAG_SCALE;
-        gActors[new_actor_index].flags = 0x8403;
+        gActors[new_actor_index].flags = ACTOR_FLAG_UNK15 | ACTOR_FLAG_UNK10 | ACTOR_FLAG_ENABLED;
         gActors[new_actor_index].graphicList = D_800E1540;
         gActors[new_actor_index].graphicTimer = 1;
         gActors[new_actor_index].posX.whole = gActors[0x50].posX.whole;
@@ -189,7 +192,7 @@ void func_80192E68_67E988(u16 actor_index, u16 arg1) {
             gActors[new_actor_index].velocityY.raw = FIXED_UNIT(5.0);
         }
 
-        if (gActors[0].posY.whole >= 9) {
+        if (gPlayerActor.posY.whole >= 9) {
             gActors[new_actor_index].velocityY.raw += FIXED_UNIT(1.25);
         }
 
@@ -197,10 +200,11 @@ void func_80192E68_67E988(u16 actor_index, u16 arg1) {
     }
 }
 
+// Migen Jr. fireball behavior
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_0/overlay_67DBA0/67DC20/func_80192FE4_67EB04.s")
 
 void func_801934F0_67F010(void) {
-    ACTOR_INIT(0x5E,0x2F);
+    ACTOR_INIT(0x5E, ACTORTYPE_47);
     gActors[0x5E].flags = (ACTOR_FLAG_UNK15 | ACTOR_FLAG_PLATFORM0 | ACTOR_FLAG_UNK8 | ACTOR_FLAG_UNK9 | ACTOR_FLAG_ACTIVE);
     gActors[0x5E].health = 1;
     gActors[0x5E].hitboxBY0 = -0xC;
@@ -223,8 +227,9 @@ void func_80193594_67F0B4(void) {
 void func_8019359C_67F0BC(void) {
 }
 
+// init platform 
 void func_801935A4_67F0C4(void) {
-    ACTOR_INIT(0x61,0x607);
+    ACTOR_INIT(0x61, ACTORTYPE_OVL0_MIGEN_PLATFORM);
     gActors[0x61].flags = (ACTOR_FLAG_ACTIVE | ACTOR_FLAG_PLATFORM0);
     gActors[0x61].hitboxBY0 = 0x10;
     gActors[0x61].hitboxBY1 = -0x10;
@@ -235,23 +240,23 @@ void func_801935A4_67F0C4(void) {
 void func_80193600_67F120(u16 actor_index) {
     gActors[actor_index].hitboxBY0 = 8;
     gActors[actor_index].hitboxBY1 = -0x18;
-    func_8002ACFC(actor_index, -0xE, 0x14);
+    Actor_SetHitboxBX(actor_index, -0xE, 0x14);
     gActors[actor_index].hitboxAY0 = 0x12;
     gActors[actor_index].hitboxAY1 = -8;
-    func_8002AC7C(actor_index, -0xC, 0xA);
+    Actor_SetHitboxAX(actor_index, -0xC, 0xA);
 }
 
 void func_80193694_67F1B4(u16 actor_index) {
     gActors[actor_index].hitboxBY0 = 0x10;
     gActors[actor_index].hitboxBY1 = -0xC;
-    func_8002ACFC(actor_index, -4, 0x1A);
+    Actor_SetHitboxBX(actor_index, -4, 0x1A);
     gActors[actor_index].hitboxAY0 = 0xC;
     gActors[actor_index].hitboxAY1 = -0xC;
-    func_8002AC7C(actor_index, -0x10, 6);
+    Actor_SetHitboxAX(actor_index, -0x10, 6);
 }
 
 void func_80193728_67F248(u16 actor_index) {
-    ACTOR_INIT(actor_index,0x1D);
+    ACTOR_INIT(actor_index, ACTORTYPE_GRAPHICONLY);
     gActors[actor_index].graphicFlags |= ACTOR_GFLAG_SCALE;
 }
 
@@ -260,8 +265,8 @@ void func_80193790_67F2B0(u16 actor_index) {
 
     func_80193728_67F248(0x31);
     func_8008105C(0x31, D_8019B200_686D20, D_8019B1DC_686CFC);
-    gActors[0x31].unk_178 = (s32)D_8019BF20_687A40;
-    temp[0] = (s32)D_8019BF20_687A40;
+    gActors[0x31].unk_178 = (intptr_t)D_8019BF20_687A40;
+    temp[0] = (intptr_t)D_8019BF20_687A40;
 
     func_80193728_67F248(0x38);
     func_8008105C(0x38, D_8019B200_686D20, D_8019B1DC_686CFC);
@@ -270,21 +275,21 @@ void func_80193790_67F2B0(u16 actor_index) {
 
     func_80193728_67F248(0x3F);
     func_8008105C(0x3F, D_8019C054_687B74, D_8019C010_687B30);
-    gActors[0x3F].unk_178 = (s32)D_8019C830_688350;
+    gActors[0x3F].unk_178 = (intptr_t)D_8019C830_688350;
     gActors[0x3F].unk_168 = 0x2980;
     gActors[0x3F].unk_128 = 67.0f;
     gActors[0x3F].unk_12C = 66.0f;
 
     func_80193728_67F248(0x4D);
     func_8008105C(0x4D, D_8019C8D8_6883F8, D_8019C884_6883A4);
-    gActors[0x4D].unk_178 = (s32)D_8019D6E0_689200;
+    gActors[0x4D].unk_178 = (intptr_t)D_8019D6E0_689200;
     gActors[0x52].graphicFlags |= ACTOR_GFLAG_ROTY;
     gActors[0x53].graphicFlags |= ACTOR_GFLAG_ROTY;
     gActors[0x5B].flags |= ACTOR_FLAG_FLIPPED;
 
     func_80193728_67F248(0x5C);
     func_8008105C(0x5C, D_8019B194_686CB4, D_8019B18C_686CAC);
-    gActors[0x5C].unk_178 = (s32)D_8019B1D4_686CF4;
+    gActors[0x5C].unk_178 = (intptr_t)D_8019B1D4_686CF4;
 
     func_80081478(0x31, D_8019B200_686D20, 0);
     func_80081478(0x38, D_8019B200_686D20, 0);
@@ -481,7 +486,7 @@ void func_8019487C_68039C(s32 arg0) {
     }
 
     gActors[0x45].unk_180 = Math_ApproachS32(gActors[0x45].unk_180, target, 0x1000);
-    gActors[0x40].unk_180 = Math_ApproachS32(gActors[0x40].unk_180, gActors[0].posX.raw + arg0, gActors[0x45].unk_180);
+    gActors[0x40].unk_180 = Math_ApproachS32(gActors[0x40].unk_180, gPlayerActor.posX.raw + arg0, gActors[0x45].unk_180);
 
     if (gActors[0x40].unk_180 >= 0x700001) {
         gActors[0x40].unk_180 = 0x700000;
@@ -513,7 +518,7 @@ void func_801949B8_6804D8(s32 arg0) {
 }
 
 void func_80194A38_680558(void) {
-    ACTOR_INIT(0x60,0x1D);
+    ACTOR_INIT(0x60, ACTORTYPE_GRAPHICONLY);
     gActors[0x60].flags = (ACTOR_FLAG_FREEZE_POS | ACTOR_FLAG_ENABLED);
     gActors[0x60].colorR = 0x4F;
     gActors[0x60].colorG = 0x7F;
@@ -564,21 +569,21 @@ s32 func_80194D3C_68085C(u16 actor_index) {
 
     if (gActors[0x37].flags_098 & ACTOR_FLAG3_UNK9) {
         gActors[0x37].flags &= ~(ACTOR_FLAG_UNK12 | ACTOR_FLAG_UNK9);
-        if (gActors[0].unk_140_u8[0] == 0) {
+        if (gPlayerActor.unk_140_u8[0] == 0) {
             gActors[index].state = 0x400;
             func_80193DF0_67F910(index, 0x10);
             return 1;
         }
         gActors[index].state = 0x30;
-        gActors[index].timer_110 = 50.0f;
+        gActors[index].var_110 = 50.0f;
         func_80193DF0_67F910(index, 0);
-        gActors[0].flags_098 |= ACTOR_FLAG3_UNK16;
-        gActors[0].unk_0FC.raw = FIXED_UNIT(-2.0);
-        if (gActors[0x37].posX.whole < gActors[0].posX.whole) {
-            gActors[0].unk_0F8.raw = FIXED_UNIT(1.5);
+        gPlayerActor.flags_098 |= ACTOR_FLAG3_UNK16;
+        gPlayerActor.unk_0FC.raw = FIXED_UNIT(-2.0);
+        if (gActors[0x37].posX.whole < gPlayerActor.posX.whole) {
+            gPlayerActor.unk_0F8.raw = FIXED_UNIT(1.5);
         }
         else {
-            gActors[0].unk_0F8.raw = FIXED_UNIT(-1.5);
+            gPlayerActor.unk_0F8.raw = FIXED_UNIT(-1.5);
         }
         D_800D294C = 2;
         return 2;
@@ -587,7 +592,7 @@ s32 func_80194D3C_68085C(u16 actor_index) {
 }
 
 void func_80194E64_680984(u16 actor_index, u16 arg1) {
-    gActors[actor_index].timer_110 =
+    gActors[actor_index].var_110 =
         (f32)(arg1 + (gActors[actor_index].health / 30) - (Rand() & 0x2F) + 0x14);
 }
 
@@ -658,8 +663,8 @@ void func_80198708_684228(u16 actor_index) {
         gActors[new_actor_index].scaleX = gActors[actor_index].unk_118;
         gActors[new_actor_index].colorA = 0x80;
         gActors[new_actor_index].var_154 = -0x21;
-        gActors[new_actor_index].unk_178 = (s32)D_800E0648;
-        gActors[new_actor_index].timer_110 = 0.5f;
+        gActors[new_actor_index].unk_178 = (intptr_t)D_800E0648;
+        gActors[new_actor_index].var_110 = 0.5f;
         gActors[new_actor_index].unk_114 = 0.5f;
         gActors[new_actor_index].scaleY = gActors[new_actor_index].scaleX;
         if (Rand() & 1) {
@@ -668,22 +673,24 @@ void func_80198708_684228(u16 actor_index) {
     }
 }
 
+// get a free index for Migen Sr.'s energy ball.
 u16 func_8019882C_68434C(void) {
     return Actor_RangeFindInactive(0x67, 0x68);
 }
 
+// Migen Sr. Fires an energy ball.
 void func_80198850_684370(u16 actor_index) {
     u16 new_actor_index;
 
     new_actor_index = func_8019882C_68434C();
     if (new_actor_index != 0) {
-        ACTOR_INIT(new_actor_index,0x606);
+        ACTOR_INIT(new_actor_index, ACTORTYPE_OVL0_MIGEN_SRBALL);
         gActors[new_actor_index].graphicFlags = ACTOR_GFLAG_ROTX;
         gActors[new_actor_index].posX.whole = gActors[actor_index].posX.whole;
         gActors[new_actor_index].posY.whole = gActors[actor_index].posY.whole;
         gActors[new_actor_index].posZ.whole = gActors[actor_index].posZ.whole + 1;
-        gActors[new_actor_index].unk_16C = Math_Atan2(gActors[0].posX.raw - gActors[new_actor_index].posX.raw,
-                          gActors[0].posY.raw - gActors[new_actor_index].posY.raw) << 16;
+        gActors[new_actor_index].unk_16C = Math_Atan2(gPlayerActor.posX.raw - gActors[new_actor_index].posX.raw,
+                          gPlayerActor.posY.raw - gActors[new_actor_index].posY.raw) << 16;
         gActors[new_actor_index].var_154 = 0x1FFFCC;
     }
 }
@@ -712,7 +719,7 @@ void func_80198F70_684A90(u16 actor_index) {
     gActors[actor_index].graphicTimer = 1;
     gActors[actor_index].graphicFlags = ACTOR_GFLAG_SCALE;
     gActors[actor_index].flags = (ACTOR_FLAG_UNK12 | ACTOR_FLAG3_UNK10 | ACTOR_FLAG_ENABLED);
-    func_8002AC30(actor_index, 0xC);
+    Actor_SetHitboxB(actor_index, 0xC);
     gActors[actor_index].posX.whole = 0;
     gActors[actor_index].unk_170 = gActors[actor_index].posX.whole + gScreenPosCurrentX.whole;
     gActors[actor_index].unk_174 = gActors[actor_index].posY.whole + gScreenPosCurrentY.whole;
@@ -721,14 +728,15 @@ void func_80198F70_684A90(u16 actor_index) {
 
     next_actor_index = actor_index + 1;
     //ACTOR_INIT macro causes mismatch here.
-    gActors[next_actor_index].actorType = 0x1D;
-    func_8001E2D0(next_actor_index);
+    gActors[next_actor_index].actorType = ACTORTYPE_GRAPHICONLY;
+    Actor_Initialize(next_actor_index);
     gActors[next_actor_index].graphicFlags = ACTOR_GFLAG_SCALE;
     gActors[next_actor_index].flags = ACTOR_FLAG_ENABLED;
     gActors[next_actor_index].graphicList = D_8019DC14_689734;
     gActors[next_actor_index].graphicTimer = 1;
 }
 
+// copy Migen Sr.'s position, scale and opacity to his cape
 void func_80199094_684BB4(u16 actor_index) {
     u16 next_actor_index = actor_index + 1;
 

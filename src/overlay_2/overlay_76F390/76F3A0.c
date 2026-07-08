@@ -39,7 +39,7 @@ void func_801A6900_76F3A0(u16 actor_index) {
 }
 
 void func_801A694C_76F3EC(u16 actor_index) {
-    func_80039134(actor_index);
+    ActorUpdate_Spikeball_Static(actor_index);
     func_801A6900_76F3A0(actor_index);
 }
 
@@ -51,11 +51,11 @@ void func_801A6980_76F420(u16 actor_index) {
     if ((gActiveFrames & 3) == 0) {
         temp_v0 = Actor_RangeFindInactive(0x30, 0x90);
         if (temp_v0 != 0) {
-            temp_index = gActors[actor_index].unk_0D8 * 5;
+            temp_index = gActors[actor_index].var_0D8 * 5;
             temp_v1 = (FlameArchInit*)&((s16*)D_801A7250_76FCF0)[temp_index];
             gActors[actor_index].posY.whole = temp_v1->posY;
             gActors[actor_index].posZ.whole = temp_v1->posZ;
-            ACTOR_INIT(temp_v0,0x2502);
+            ACTOR_INIT(temp_v0, ACTORTYPE_OVL2_SOL_ARCHFLAME);
             gActors[temp_v0].graphicFlags = ACTOR_GFLAG_SCALE;
             gActors[temp_v0].flags = (Rand() & ACTOR_FLAG_FLIPPED) + (ACTOR_FLAG_DRAW | ACTOR_FLAG_ACTIVE);
             gActors[temp_v0].damage = 100;
@@ -73,7 +73,7 @@ void func_801A6980_76F420(u16 actor_index) {
                 gActors[temp_v0].graphicIndex = GRAPHIC_FRAME(FIREBALL,1);
             }
 
-            func_8002ABE4(temp_v0, 0x10);
+            Actor_SetHitboxA(temp_v0, 0x10);
             Actor_SetColorRgb(temp_v0, ((u16*)&gActors[actor_index].var_158)[1]);
             gActors[temp_v0].colorA = gActors[actor_index].var_154;
             gActors[temp_v0].velocityX.whole = temp_v1->velX;
@@ -92,16 +92,16 @@ void func_801A6B28_76F5C8(u16 actor_index) {
     FlameArchInit* temp_v1;
 
     if ((gActiveFrames & 3) == 0) {
-        func_8005CA34(4, 5);
-        temp_index = gActors[actor_index].unk_0D8 * 5;
+        CameraShake(4, 5);
+        temp_index = gActors[actor_index].var_0D8 * 5;
         temp_v1 = (FlameArchInit*)&((s16*)D_801A7250_76FCF0)[temp_index];
-        temp_v0 = SpawnParticle_Image_90C0_16(0x1B4, gActors[actor_index].posX.whole, temp_v1->posY, temp_v1->posZ + 1);
+        temp_v0 = SpawnParticle_Image_90C0_16(GRAPHIC_FRAME(DASHEFFECT, 1), gActors[actor_index].posX.whole, temp_v1->posY, temp_v1->posZ + 1);
 
         if (temp_v0 != 0) {
             gActors[temp_v0].graphicFlags = (ACTOR_GFLAG_PALETTE | ACTOR_GFLAG_SCALE | ACTOR_GFLAG_ROTZ);
             gActors[temp_v0].scaleX = (1.0 - ((Rand() & 0xF) / 28.0f));
             gActors[temp_v0].scaleY = (((Rand() & 0xF) / 18.0f) + 2.5);
-            gActors[temp_v0].timer_110 = 0.2f;
+            gActors[temp_v0].var_110 = 0.2f;
             gActors[temp_v0].var_160 = ((Rand() & 0x1F) << 0x10) + 0x2F00000;
             gActors[temp_v0].palette_18C = PALETTE_8022D4E8;
             gActors[temp_v0].unk_148 = 3.0f;
@@ -113,7 +113,7 @@ void func_801A6CAC_76F74C(u16 actor_index) {
     u16 temp_v0;
 
     if ((gActiveFrames % 5) == 0) {
-        temp_v0 = SpawnParticle_Image_90C0_16(0x1B4, 0, 0, 0);
+        temp_v0 = SpawnParticle_Image_90C0_16(GRAPHIC_FRAME(DASHEFFECT, 1), 0, 0, 0);
         if (temp_v0 != 0) {
             u16 temp_v1;
 
@@ -132,7 +132,7 @@ void func_801A6CAC_76F74C(u16 actor_index) {
             gActors[temp_v0].var_154 = -0x10;
             gActors[temp_v0].unk_138 = -16.0f;
             gActors[temp_v0].unk_13C_f32 = 16.0f;
-            gActors[temp_v0].timer_110 = 0.55f;
+            gActors[temp_v0].var_110 = 0.55f;
             gActors[temp_v0].unk_118 = -0.02f;
             gActors[temp_v0].unk_11C = -0.02f;
             gActors[temp_v0].unk_140_f32 = -20.0f;
@@ -143,8 +143,8 @@ void func_801A6CAC_76F74C(u16 actor_index) {
 void func_801A6E4C_76F8EC(u16 actor_index) {
     u16 temp_v1;
 
-    gActors[actor_index].timer_110 += 1.0f;
-    temp_v1 = (u16)gActors[actor_index].timer_110 % 0xF0;
+    gActors[actor_index].var_110 += 1.0f;
+    temp_v1 = (u16)gActors[actor_index].var_110 % 0xF0;
 
     if ((temp_v1 >= 0x1E) && (temp_v1 < 0xD3)) {
         if (Actor_IsOutsideRegion(actor_index, 0x40) == 0) {
@@ -182,7 +182,7 @@ void func_801A6E4C_76F8EC(u16 actor_index) {
     }
 
     if ((gActiveFrames & 3) == 0) {
-        func_8005CA34(2, 4);
+        CameraShake(2, 4);
     }
 
     gActors[actor_index].unk_114 = 0.1f;

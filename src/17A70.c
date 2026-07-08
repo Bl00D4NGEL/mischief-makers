@@ -1,13 +1,9 @@
-#define FUNC_8001E2D0_RET void
+#define Actor_Initialize_RET void
 #include "common.h"
 #include "17A70.h"
 #include "actor.h"
 
 
-extern ActorFunc D_80192000[];
-extern ActorFunc D_8019B000[];
-extern ActorFunc D_801A6800[];
-extern ActorFunc D_801B0800[];
 extern ActorFunc D_800C7FE0[];
 
 extern u8 D_800E9634[];
@@ -53,179 +49,179 @@ void func_80016E70(u16 actor_index) {
     u8 index = gActors[actor_index].actorType & 0xFFFF;
 
     switch (gActors[actor_index].actorType >> 8) {
-        case 1:
+        case ACTOR_OVL3_1:
             D_801B0800[index](actor_index);
             break;
 
-        case 2:
+        case ACTOR_OVL1_WORM:
             D_8019B000[index](actor_index);
             break;
 
-        case 3:
+        case ACTOR_OVL1_DOG:
             D_8019B000[index](actor_index);
             break;
 
-        case 4:
+        case ACTOR_OVL3_4:
             D_801B0800[index](actor_index);
             break;
 
-        case 5:
+        case ACTOR_OVL3_WORLD2:
             D_801B0800[index](actor_index);
             break;
 
-        case 6:
+        case ACTOR_OVL0_MIGEN:
             D_80192000[index](actor_index);
             break;
 
-        case 7:
+        case ACTOR_OVL3_7:
             D_801B0800[index](actor_index);
             break;
 
-        case 8:
+        case ACTOR_MAIN_8:
             D_800E5AC0[index](actor_index);
             break;
 
-        case 9:
+        case ACTOR_OVL1_GEN:
             D_8019B000[index](actor_index);
             break;
 
-        case 10:
+        case ACTOR_OVL1_10:
             D_8019B000[index](actor_index);
             break;
 
-        case 11:
+        case ACTOR_OVL1_11:
             D_8019B000[index](actor_index);
             break;
 
-        case 12:
+        case ACTOR_OVL1_BEE:
             D_8019B000[index](actor_index);
             break;
 
-        case 13:
+        case ACTOR_OVL1_13:
             D_8019B000[index](actor_index);
             break;
 
-        case 14:
+        case ACTOR_OVL3_14:
             D_801B0800[index](actor_index);
             break;
 
-        case 15:
+        case ACTOR_OVL0_CALPHA:
             D_80192000[index](actor_index);
             break;
 
-        case 16:
+        case ACTOR_OVL0_WORLD1:
             D_80192000[index](actor_index);
             break;
 
-        case 17:
+        case ACTOR_OVL1_MOLE:
             D_8019B000[index](actor_index);
             break;
 
-        case 18:
+        case ACTOR_OVL1_18:
             D_8019B000[index](actor_index);
             break;
 
-        case 19:
+        case ACTOR_OVL1_19:
             D_8019B000[index](actor_index);
             break;
 
-        case 20:
+        case ACTOR_OVL0_SBETA:
             D_80192000[index](actor_index);
             break;
 
-        case 21:
+        case ACTOR_OVL0_21:
             D_80192000[index](actor_index);
             break;
 
-        case 22:
+        case ACTOR_OVL0_FINALBAT:
             D_80192000[index](actor_index);
             break;
 
-        case 23:
+        case ACTOR_OVL2_23:
             D_801A6800[index](actor_index);
             break;
 
-        case 24:
+        case ACTOR_OVL2_WORLD1:
             D_801A6800[index](actor_index);
             break;
 
-        case 25:
+        case ACTOR_OVL0_25:
             D_80192000[index](actor_index);
             break;
 
-        case 26:
+        case ACTOR_OVL2_FESTIVAL:
             D_801A6800[index](actor_index);
             break;
 
-        case 27:
+        case ACTOR_OVL3_WORLD3:
             D_801B0800[index](actor_index);
             break;
 
-        case 28:
+        case ACTOR_OVL2_WORLD3:
             D_801A6800[index](actor_index);
             break;
 
-        case 29:
+        case ACTOR_OVL2_WORLD4:
             D_801A6800[index](actor_index);
             break;
 
-        case 30:
+        case ACTOR_OVL2_30:
             D_801A6800[index](actor_index);
             break;
 
-        case 31:
+        case ACTOR_OVL2_31:
             D_801A6800[index](actor_index);
             break;
 
-        case 32:
+        case ACTOR_OVL2_STAGE_5_5:
             D_801A6800[index](actor_index);
             break;
 
-        case 33:
+        case ACTOR_OVL0_33:
             D_80192000[index](actor_index);
             break;
 
-        case 34:
+        case ACTOR_OVL0_34:
             D_80192000[index](actor_index);
             break;
 
-        case 35:
+        case ACTOR_OVL0_35:
             D_80192000[index](actor_index);
             break;
 
-        case 36:
+        case ACTOR_OVL0_36:
             D_80192000[index](actor_index);
             break;
 
-        case 37:
+        case ACTOR_OVL2_STAGE_2_1:
             D_801A6800[index](actor_index);
             break;
 
-        case 38:
+        case ACTOR_OVL0_GEN:
             D_80192000[index](actor_index);
             break;
 
-        case 39:
+        case ACTOR_OVL3_39:
             D_801B0800[index](actor_index);
             break;
 
-        case 40:
+        case ACTOR_OVL3_40:
             D_801B0800[index](actor_index);
             break;
 
-        case 41:
+        case ACTOR_OVL3_WORLD5B:
             D_801B0800[index](actor_index);
             break;
 
-        case 42:
+        case ACTOR_OVL3_42:
             D_801B0800[index](actor_index);
             break;
 
-        case 43:
+        case ACTOR_OVL0_INTRO:
             D_80192000[index](actor_index);
             break;
 
-        case 44:
+        case ACTOR_OVL0_ENDING:
             D_80192000[index](actor_index);
             break;
     }

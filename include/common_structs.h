@@ -11,8 +11,8 @@ typedef union {
 } FixedCoord;
 
 typedef struct {
-    /* 0x0000 */ u8 unk_000[0x180];
-    /* 0x0180 */ Gfx dlist[3072];
+    /* 0x0000 */ Mtx matrices[6]; // {ortho, ?, ortho, lookAt, ?, ?}
+    /* 0x0180 */ Gfx dlist[0xC00];
 } GfxData; /* sizeof = 0x6180 */
 
 // portraits seem to use the same graphic flags as actors with this one exception.
@@ -97,17 +97,6 @@ typedef union {
 } UnkStruct_D_800BE5F4;
 
 #define SPAWNRECORD_END 0xff00 // u16[] actor spawn tables end with 0xFF00
-
-// data for setting actors in a stage (may actually be u16[] - often ending with a 0xff00.)
-typedef struct {
-    /* 0x00 */ u16 flags; 
-    /* 0x02 */ u16 index; // index of actor to set
-    /* 0x04 */ u16 posX;  // x-position of actor in stage
-    /* 0x06 */ u16 posY;  // y-position of actor in stage
-    /* 0x08 */ u16 timer_110; // value of actor->timer_110
-    /* 0x0A */ u16 unk_0D8; // value of actor->unk_0D8
-    /* 0x0C */ u16 type; // value of actor->actorType
-} ActorSpawnRecord; /* size = 0xE */
 
 #define FIXED_UNIT(value) ((s32)((value) * 0x10000))
 #define FROM_FIXED(value) ((value) / FIXED_UNIT(1.0))

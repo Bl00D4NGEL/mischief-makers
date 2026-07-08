@@ -38,7 +38,7 @@ enum DebugFlags {
     DEBUGFLAG_THROTTLE = (1U << 1U), 
     
     // game runs with perspective view when set, orthographic when unset
-    // set during initalization.
+    // set during initialization.
     DEBUGFLAG_PERSPECTIVE = (1U << 2U), 
     DEBUGFLAG_UNK3 = (1U << 3U), // unknown/unused
     DEBUGFLAG_UNK4 = (1U << 4U), // unset in func_800012F0
@@ -60,7 +60,7 @@ enum DebugFlags {
 // has mix of types of data (sound, collision, etc.), for some reason.
 
 
-extern Gfx* gCurrentDisplayListBase;
+extern GfxData* gCurrentGfxData;
 extern u32 D_800EF500; // unknown/unused
 extern u32 D_800EF504; // unknown/unused
 extern u8 D_80104090[4];
@@ -99,7 +99,7 @@ extern u16 gGamePaused; // set when game is paused.
 extern u16 gCannotPause; // if set, prevents pausing game.
 extern u16 gGameState; // main state of game. uses GameState enum
 extern u16 gGameStateSubState; // sub state of game state.
-extern u16 D_800BE544; // bitfeild determining camera scroll?
+extern u16 D_800BE544; // bitfield determining camera scroll?
 extern FixedCoord D_800BE548; // max horizonal camera scroll speed?
 extern FixedCoord D_800BE54C; // max vertical camera scroll speed?
 extern FixedCoord gScreenPosTargetX; // target x-position of camera in stage

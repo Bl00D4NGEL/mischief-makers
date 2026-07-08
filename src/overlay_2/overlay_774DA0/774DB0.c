@@ -4,7 +4,7 @@
 
 // unused "Overlay 2" script. Not listed in LUT.
 
-extern void func_8002AC30(u16 actor_index, s16 val);
+extern void Actor_SetHitboxB(u16 actor_index, s16 val);
 extern s32 D_80102928;
 extern s16 D_8010345C;
 extern f32 D_80103504;
@@ -26,12 +26,12 @@ void func_801A6C80_775130(u16 actor_index) {
 
     switch (gActors[actor_index].state) {
         case 0:
-            func_8001E2D0(actor_index);
+            Actor_Initialize(actor_index);
             gActors[actor_index].state++;
             gActors[actor_index].graphicFlags = ACTOR_GFLAG_SCALE;
             gActors[actor_index].flags = 0x69503;
             gActors[actor_index].graphicIndex = GINDEX_MINEROUND;
-            func_8002AC30(actor_index, 8);
+            Actor_SetHitboxB(actor_index, 8);
             gActors[actor_index].unk_0CE = 0;
             gActors[actor_index].unk_0DF = 1;\
             gActors[actor_index].unk_0DB = 0x17;
@@ -92,7 +92,7 @@ void func_801A6C80_775130(u16 actor_index) {
                 gActors[actor_index].var_150 = 0x10;
                 gActors[actor_index].unk_114 = 5.0f;
 
-                if (gActors[actor_index].unk_0D6 == 0) {
+                if (gActors[actor_index].parentIndex == 0) {
                     gActors[actor_index].flags |= 0x21080;
                 }
                 else {

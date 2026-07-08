@@ -70,6 +70,17 @@
 #define SFX_TUARUS_TAUNT1   0x007D // "IIIII am a warrior!"
 #define SFX_TUARUS_TAUNT2   0x007E // "Charge!"
 
+// "grunts"/chirps for dialouge.
+
+#define SFX_TXTGRUNT_DEFAULT 0x0077
+#define SFX_TXTGRUNT_CLANCER 0x0079
+#define SFX_TXTGRUNT_MARINA  0x010F
+#define SFX_TXTGRUNT_THEOLEO 0x0110
+#define SFX_TXTGRUNT_MERCO   0x0111
+#define SFX_TXTGRUNT_LUNAR   0x0112
+#define SFX_TXTGRUNT_TAURUS  0x0113
+
+
 #define SFX_MENU_BLIP  0x0022
 #define SFX_MENU_DING  0x0023
 
@@ -85,6 +96,8 @@
 #define SFX_GEM_YELLOW 0x003B
 
 #define SFX_STAR_TP 0x0123
+#define SFX_STAR_APPEAR 0x0136
+
 #define SFX_STAGE_TILES 0x00BB
 
 #define SFX_LIFEBAR 0x0141
@@ -92,6 +105,6 @@
 #define SFX_POP            0x005A
 #define SFX_GRABDEFLECT    0x0062
 #define SFX_CROSSHAIR      0x00C7
-#define SFX_TURMPATFANFARE 0x0130
+#define SFX_TURMPETFANFARE 0x0130
 
 #endif

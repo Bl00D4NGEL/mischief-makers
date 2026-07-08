@@ -51,7 +51,8 @@ extern u8 func_80012AB4(s16 arg0, s16 arg1);
 extern void func_800472D4(void);
 extern void func_80047994(void);
 
-void func_80043D04(ActorSpawnRecord* spawn);
+void func_80043D04(u16* spawn);
+void func_80042D84(u16 arg0);
 void func_800451E4(void* arg0);
 
 void func_80042CE0(void) {
@@ -122,7 +123,7 @@ void func_8004320C(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/438E0/func_8004398C.s")
 
 #ifdef NON_MATCHING
-extern u16 func_8004398C(ActorSpawnRecord* spawn);
+extern u16 func_8004398C(u16* spawn);
 
 // https://decomp.me/scratch/oqVJs
 void Actor_LoadSpawnTable(void* spawn_table) {
@@ -398,7 +399,7 @@ s32 func_80045F08(u32 arg0) {
 
 void func_80046148(void* arg0, u16* arg1){
     func_80045FA4(arg0,arg1);
-    gActors[0].flags &= ~ACTOR_FLAG_DRAW;
+    gPlayerActor.flags &= ~ACTOR_FLAG_DRAW;
     D_800BE5F4.unk_00_s32 = 4;
 }
 
@@ -509,7 +510,7 @@ void func_8004732C(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/438E0/func_800475EC.s")
 
 void func_80047648(s16 arg0){
-    D_800D2914 = (arg0 - gActors[0].health / 10) + 100;
+    D_800D2914 = (arg0 - gPlayerActor.health / 10) + 100;
 }
 
 void func_80047674(void) {

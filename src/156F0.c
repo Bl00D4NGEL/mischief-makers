@@ -28,8 +28,8 @@ void func_80014AF0(void) {
             }
         }
     }
-    gPlayerPosX.raw = gActors[0].posX.raw + gScreenPosCurrentX.raw;
-    gPlayerPosY.raw = gActors[0].posY.raw + gScreenPosCurrentY.raw;
+    gPlayerPosX.raw = gPlayerActor.posX.raw + gScreenPosCurrentX.raw;
+    gPlayerPosY.raw = gPlayerActor.posY.raw + gScreenPosCurrentY.raw;
 }
 
 void func_80014C44(void) {
@@ -52,33 +52,33 @@ void func_80014C44(void) {
             }
         }
     }
-    gPlayerPosX.raw = gActors[0].posX.raw + gScreenPosCurrentX.raw;
-    gPlayerPosY.raw = gActors[0].posY.raw + gScreenPosCurrentY.raw;
-    if (((gActors[0].hitboxBX0 << 0x10) + gPlayerPosX.raw) < D_800BE568.raw) {
+    gPlayerPosX.raw = gPlayerActor.posX.raw + gScreenPosCurrentX.raw;
+    gPlayerPosY.raw = gPlayerActor.posY.raw + gScreenPosCurrentY.raw;
+    if (((gPlayerActor.hitboxBX0 << 0x10) + gPlayerPosX.raw) < D_800BE568.raw) {
         if (D_801373E0.unk_78 & 4) {
             D_801373E0.unk_78 &= ~6;
         }
         if (D_801373E0.unk_78 & 2) {
-            gPlayerPosX.raw = D_800BE568.raw - (gActors[0].hitboxBX0 << 0x10);
-            gActors[0].posX.raw = gPlayerPosX.raw - gScreenPosCurrentX.raw;
-            if (gActors[0].velocityX.raw < 0) {
-                gPlayerVelXMirror.raw = gActors[0].velocityX.raw = 0;
+            gPlayerPosX.raw = D_800BE568.raw - (gPlayerActor.hitboxBX0 << 0x10);
+            gPlayerActor.posX.raw = gPlayerPosX.raw - gScreenPosCurrentX.raw;
+            if (gPlayerActor.velocityX.raw < 0) {
+                gPlayerVelXMirror.raw = gPlayerActor.velocityX.raw = 0;
             }
-            gActors[0].flags_098 |= ACTOR_FLAG3_UNK2;
+            gPlayerActor.flags_098 |= ACTOR_FLAG3_UNK2;
         }
     }
     else {
-        if (D_800BE56C.raw < ((gActors[0].hitboxBX1 << 0x10) + gPlayerPosX.raw)) {
+        if (D_800BE56C.raw < ((gPlayerActor.hitboxBX1 << 0x10) + gPlayerPosX.raw)) {
             if (D_801373E0.unk_78 & 4) {
                 D_801373E0.unk_78 &= ~6;
             }
             if (D_801373E0.unk_78 & 2) {
-                gPlayerPosX.raw = D_800BE56C.raw - (gActors[0].hitboxBX1 << 0x10);
-                gActors[0].posX.raw = gPlayerPosX.raw - gScreenPosCurrentX.raw;
-                if (gActors[0].velocityX.raw > 0) {
-                    gPlayerVelXMirror.raw = gActors[0].velocityX.raw = 0;
+                gPlayerPosX.raw = D_800BE56C.raw - (gPlayerActor.hitboxBX1 << 0x10);
+                gPlayerActor.posX.raw = gPlayerPosX.raw - gScreenPosCurrentX.raw;
+                if (gPlayerActor.velocityX.raw > 0) {
+                    gPlayerVelXMirror.raw = gPlayerActor.velocityX.raw = 0;
                 }
-                gActors[0].flags_098 |= ACTOR_FLAG3_UNK3;
+                gPlayerActor.flags_098 |= ACTOR_FLAG3_UNK3;
             }
         }
         else {
@@ -558,8 +558,8 @@ void func_80016CB4(void) {
             func_800160EC(index);
             gActors[index].flags_098 &= ~ACTOR_FLAG3_UNK19;
         }
-        gPlayerPosX.raw = gActors[0].posX.raw + gScreenPosCurrentX.raw;
-        gPlayerPosY.raw = gActors[0].posY.raw + gScreenPosCurrentY.raw;
+        gPlayerPosX.raw = gPlayerActor.posX.raw + gScreenPosCurrentX.raw;
+        gPlayerPosY.raw = gPlayerActor.posY.raw + gScreenPosCurrentY.raw;
     }
 }
 

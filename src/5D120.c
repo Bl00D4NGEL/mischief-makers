@@ -3,7 +3,7 @@
 extern s16 D_800CCC78[];
 
 void func_8005C520(s8 arg0, s8 arg1) {
-    gActors[0].unk_0DC |= 0x40;
+    gPlayerActor.unk_0DC |= 0x40;
     D_801373E0.unk_0A = arg0;
     D_801373E0.unk_0B = arg1;
 }
@@ -100,7 +100,7 @@ u8 func_8005C870(u8 arg0) {
     return arg0;
 }
 
-void func_8005C8A4(void) {
+void UpdateCameraShake(void) {
     if (gCamShakeTime == 0) {
         gCamShakeV = 0;
     }
@@ -134,7 +134,7 @@ void func_8005C8A4(void) {
     }
 }
 
-void func_8005CA34(s32 shake_time, s32 shake_time_div) {
+void CameraShake(s32 shake_time, s32 shake_time_div) {
     gCamShakeType = 0;
     gCamShakeTime = shake_time_div;
     gCamShakeMag = shake_time << 0x10;
@@ -142,7 +142,7 @@ void func_8005CA34(s32 shake_time, s32 shake_time_div) {
     gCamShakeV = 0;
 }
 
-s16 func_8005CA98(void) {
+s16 GetCameraShakeTime(void) {
     return gCamShakeTime;
 }
 
@@ -171,63 +171,63 @@ void func_8005CAA8(u16 actor_index, s8* arg1) {
             }
             gActors[actor_index].hitboxBY0 = arg1[index + 2];
             gActors[actor_index].hitboxBY1 = arg1[index + 3];
-            gActors[actor_index].hitboxBX0 *= gActors[0].unk_120;
-            gActors[actor_index].hitboxBX1 *= gActors[0].unk_120;
-            gActors[actor_index].hitboxBY0 *= gActors[0].unk_120;
-            gActors[actor_index].hitboxBY1 *= gActors[0].unk_120;
+            gActors[actor_index].hitboxBX0 *= gPlayerActor.unk_120;
+            gActors[actor_index].hitboxBX1 *= gPlayerActor.unk_120;
+            gActors[actor_index].hitboxBY0 *= gPlayerActor.unk_120;
+            gActors[actor_index].hitboxBY1 *= gPlayerActor.unk_120;
         }
         else {
             if (!(gActors[actor_index].flags & ACTOR_FLAG_FLIPPED)) {
-                if (gActors[actor_index].hitboxBX0 < arg1[index + 0] * gActors[0].unk_120) {
+                if (gActors[actor_index].hitboxBX0 < arg1[index + 0] * gPlayerActor.unk_120) {
                     count = 1;
-                    gActors[actor_index].hitboxBX0 += (1 * gActors[0].unk_120);
+                    gActors[actor_index].hitboxBX0 += (1 * gPlayerActor.unk_120);
                 }
-                if (gActors[actor_index].hitboxBX0 > arg1[index + 0] * gActors[0].unk_120) {
+                if (gActors[actor_index].hitboxBX0 > arg1[index + 0] * gPlayerActor.unk_120) {
                     count++;
-                    gActors[actor_index].hitboxBX0 += -(1 * gActors[0].unk_120);
+                    gActors[actor_index].hitboxBX0 += -(1 * gPlayerActor.unk_120);
                 }
-                if (gActors[actor_index].hitboxBX1 < arg1[index + 1] * gActors[0].unk_120) {
+                if (gActors[actor_index].hitboxBX1 < arg1[index + 1] * gPlayerActor.unk_120) {
                     count++;
-                    gActors[actor_index].hitboxBX1 += (1 * gActors[0].unk_120);
+                    gActors[actor_index].hitboxBX1 += (1 * gPlayerActor.unk_120);
                 }
-                if (gActors[actor_index].hitboxBX1 > arg1[index + 1] * gActors[0].unk_120) {
+                if (gActors[actor_index].hitboxBX1 > arg1[index + 1] * gPlayerActor.unk_120) {
                     count++;
-                    gActors[actor_index].hitboxBX1 += -(1 * gActors[0].unk_120);
+                    gActors[actor_index].hitboxBX1 += -(1 * gPlayerActor.unk_120);
                 }
             }
             else {
-                if (gActors[actor_index].hitboxBX0 < -arg1[index + 1] * gActors[0].unk_120) {
+                if (gActors[actor_index].hitboxBX0 < -arg1[index + 1] * gPlayerActor.unk_120) {
                     count = 1;
-                    gActors[actor_index].hitboxBX0 += (1 * gActors[0].unk_120);
+                    gActors[actor_index].hitboxBX0 += (1 * gPlayerActor.unk_120);
                 }
-                if (gActors[actor_index].hitboxBX0 > -arg1[index + 1] * gActors[0].unk_120) {
+                if (gActors[actor_index].hitboxBX0 > -arg1[index + 1] * gPlayerActor.unk_120) {
                     count++;
-                    gActors[actor_index].hitboxBX0 += -(1 * gActors[0].unk_120);
+                    gActors[actor_index].hitboxBX0 += -(1 * gPlayerActor.unk_120);
                 }
-                if (gActors[actor_index].hitboxBX1 < -arg1[index + 0] * gActors[0].unk_120) {
+                if (gActors[actor_index].hitboxBX1 < -arg1[index + 0] * gPlayerActor.unk_120) {
                     count++;
-                    gActors[actor_index].hitboxBX1 += (1 * gActors[0].unk_120);
+                    gActors[actor_index].hitboxBX1 += (1 * gPlayerActor.unk_120);
                 }
-                if (gActors[actor_index].hitboxBX1 > -arg1[index + 0] * gActors[0].unk_120) {
+                if (gActors[actor_index].hitboxBX1 > -arg1[index + 0] * gPlayerActor.unk_120) {
                     count++;
-                    gActors[actor_index].hitboxBX1 += -(1 * gActors[0].unk_120);
+                    gActors[actor_index].hitboxBX1 += -(1 * gPlayerActor.unk_120);
                 }
             }
-            if (gActors[actor_index].hitboxBY0 < arg1[index + 2] * gActors[0].unk_120) {
+            if (gActors[actor_index].hitboxBY0 < arg1[index + 2] * gPlayerActor.unk_120) {
                 count++;
-                gActors[actor_index].hitboxBY0 += (1 * gActors[0].unk_120);
+                gActors[actor_index].hitboxBY0 += (1 * gPlayerActor.unk_120);
             }
-            if (gActors[0].unk_120 * arg1[index + 2] < gActors[actor_index].hitboxBY0) {
+            if (gPlayerActor.unk_120 * arg1[index + 2] < gActors[actor_index].hitboxBY0) {
                 count++;
-                gActors[actor_index].hitboxBY0 += -(1 * gActors[0].unk_120);
+                gActors[actor_index].hitboxBY0 += -(1 * gPlayerActor.unk_120);
             }
-            if (gActors[actor_index].hitboxBY1 < arg1[index + 3] * gActors[0].unk_120) {
+            if (gActors[actor_index].hitboxBY1 < arg1[index + 3] * gPlayerActor.unk_120) {
                 count++;
-                gActors[actor_index].hitboxBY1 += (1 * gActors[0].unk_120);
+                gActors[actor_index].hitboxBY1 += (1 * gPlayerActor.unk_120);
             }
-            if (gActors[actor_index].hitboxBY1 > arg1[index + 3] * gActors[0].unk_120) {
+            if (gActors[actor_index].hitboxBY1 > arg1[index + 3] * gPlayerActor.unk_120) {
                 count++;
-                gActors[actor_index].hitboxBY1 += -(1 * gActors[0].unk_120);
+                gActors[actor_index].hitboxBY1 += -(1 * gPlayerActor.unk_120);
             }
         }
         if (count == 0) {
@@ -242,17 +242,17 @@ u8 func_8005D1B0(u16 actor_index) {
 }
 
 s32 func_8005D1E8(u16 actor_index) {
-    if (((gActors[actor_index].hitboxAX1 + gActors[actor_index].posX.whole) >= (gActors[0].hitboxBX0 + gActors[0].posX.whole)) &&
-        ((gActors[0].posX.whole + gActors[0].hitboxBX1) >= (gActors[actor_index].posX.whole + gActors[actor_index].hitboxAX0)) &&
-        ((gActors[0].posY.whole + gActors[0].hitboxBY0) >= (gActors[actor_index].posY.whole + gActors[actor_index].hitboxAY1)) &&
-        ((gActors[actor_index].hitboxAY0 + gActors[actor_index].posY.whole) >= (gActors[0].hitboxBY1 + gActors[0].posY.whole))) {
+    if (((gActors[actor_index].hitboxAX1 + gActors[actor_index].posX.whole) >= (gPlayerActor.hitboxBX0 + gPlayerActor.posX.whole)) &&
+        ((gPlayerActor.posX.whole + gPlayerActor.hitboxBX1) >= (gActors[actor_index].posX.whole + gActors[actor_index].hitboxAX0)) &&
+        ((gPlayerActor.posY.whole + gPlayerActor.hitboxBY0) >= (gActors[actor_index].posY.whole + gActors[actor_index].hitboxAY1)) &&
+        ((gActors[actor_index].hitboxAY0 + gActors[actor_index].posY.whole) >= (gPlayerActor.hitboxBY1 + gPlayerActor.posY.whole))) {
         return 1;
     }
-    if ((gActors[0].flags & ACTOR_FLAG_UNK11) && 
-        ((gActors[actor_index].posX.whole + gActors[actor_index].hitboxAX1) >= (gActors[0].hitboxAX0 + gActors[0].posX.whole)) &&
-        ((gActors[0].posX.whole + gActors[0].hitboxAX1) >= (gActors[actor_index].posX.whole + gActors[actor_index].hitboxAX0)) &&
-        ((gActors[0].posY.whole + gActors[0].hitboxAY0) >= (gActors[actor_index].posY.whole + gActors[actor_index].hitboxAY1)) &&
-        ((gActors[actor_index].hitboxAY0 + gActors[actor_index].posY.whole) >= (gActors[0].hitboxAY1 + gActors[0].posY.whole))) {
+    if ((gPlayerActor.flags & ACTOR_FLAG_UNK11) && 
+        ((gActors[actor_index].posX.whole + gActors[actor_index].hitboxAX1) >= (gPlayerActor.hitboxAX0 + gPlayerActor.posX.whole)) &&
+        ((gPlayerActor.posX.whole + gPlayerActor.hitboxAX1) >= (gActors[actor_index].posX.whole + gActors[actor_index].hitboxAX0)) &&
+        ((gPlayerActor.posY.whole + gPlayerActor.hitboxAY0) >= (gActors[actor_index].posY.whole + gActors[actor_index].hitboxAY1)) &&
+        ((gActors[actor_index].hitboxAY0 + gActors[actor_index].posY.whole) >= (gPlayerActor.hitboxAY1 + gPlayerActor.posY.whole))) {
         return 2;
     }
     return 0;
