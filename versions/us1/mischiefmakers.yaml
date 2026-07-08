@@ -319,7 +319,7 @@ segments:
       - [0x0CADC0, data]
       - [0x0CDC80, .data, 26A00]
       - [0x0D22D0, .data, text]
-      - [0x0D2410, data]
+      - [0x0D2410, data] # 62250
       - [0x0E44A0, .data, E44A0] # previously placed in boot.c
       - [0x0E4760, data]
       - [0x0E4920, data] # 84BB0?
@@ -379,7 +379,7 @@ segments:
       - [0x0ECB90, .rodata, 5E230]
       - [0x0ECCF0, .rodata, 60CF0]
       - [0x0ECD80, .rodata, 61B80]
-      - [0x0ED0E0, rodata] # 66250?
+      - [0x0ED0E0, .rodata, 66250]
       - [0x0EDBC0, rodata] # 7D8E0?
       - [0x0EDC10, rodata] # 805E0?
       - [0x0EDC20, rodata] # 80D90?
