@@ -1980,7 +1980,7 @@ void func_8005457C(u16 actor_0, u16 actor_1) {
     if (gActors[actor_0].flags & ACTOR_FLAG_FLIPPED) {
         sp28 = -sp28;
     }
-    temp_f18 = gActors[actor_0].rotateZ / 0.3515625;
+    temp_f18 = gActors[actor_0].rotateZ / RadStep;
     sp34 = sp28 * COS(temp_f18);
     sp30 = sp24 * COS(temp_f18);
     sp34 -= sp24 * SIN(temp_f18);

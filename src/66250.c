@@ -1016,7 +1016,7 @@ void func_80078F54(u16 actor_index) {
     if (gActors[actor_index].flags & ACTOR_FLAG_FLIPPED) {
         var_v1 = (var_v1 + COSPiOver2) & COSLEN;
     }
-    gActors[actor_index].rotateZ = var_v1 * 0.3515625;
+    gActors[actor_index].rotateZ = var_v1 * RadStep;
 }
 
 void func_80078FF0(u16 actor_index, s32 arg1, s32 arg2) {
@@ -1324,7 +1324,7 @@ u16 func_8007A190(u16 actor_index) {
         gActors[temp_v0].posX.whole = gActors[actor_index].posX.whole;
         gActors[temp_v0].posY.whole = gActors[actor_index].posY.whole;
         gActors[temp_v0].posZ.whole = gActors[actor_index].posZ.whole - 1;
-        ((void (*)(u16, u16)) gActors[actor_index].var_154)(actor_index, temp_v0);
+        ((Actor2Func) gActors[actor_index].var_154)(actor_index, temp_v0);
         gActors[actor_index].unk_118 = temp_v0;
         gActors[actor_index].unk_11C = gActors[temp_v0].actorType;
         gActors[temp_v0].parentIndex = actor_index;
@@ -1544,10 +1544,10 @@ s32 func_8007AB44(u16 actor_index) {
     }
     gActors[actor_index].rotateZ = var_f0;
     if (gActors[actor_index].flags & ACTOR_FLAG_FLIPPED) {
-        var_v0_2 = (s32) (var_f0 / 0.3515625) + 0xD0;
+        var_v0_2 = (s32) (var_f0 / RadStep) + 0xD0;
     }
     else {
-        var_v0_2 = (s32) (var_f0 / 0.3515625) + 0x130;
+        var_v0_2 = (s32) (var_f0 / RadStep) + 0x130;
     }
     gActors[actor_index].var_160 = func_800298D0(var_v0_2 << 0x10, gActors[actor_index].var_160, FIXED_UNIT(8));
     angle = (gActors[actor_index].var_160 / FIXED_UNIT(1));
