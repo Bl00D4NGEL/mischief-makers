@@ -1,13 +1,13 @@
 {
   "measures": {
-    "fuzzy_match_percent": 26.135033,
+    "fuzzy_match_percent": 31.137478,
     "total_code": "1994304",
-    "matched_code": "521212",
-    "matched_code_percent": 26.135033,
+    "matched_code": "620976",
+    "matched_code_percent": 31.137478,
     "matched_data_percent": 100.0,
     "total_functions": 4708,
-    "matched_functions": 1862,
-    "matched_functions_percent": 39.5497,
+    "matched_functions": 2120,
+    "matched_functions_percent": 45.029736,
     "complete_data_percent": 100.0,
     "total_units": 415
   },
@@ -25076,32 +25076,6 @@
         "module_name": ".main",
         "module_id": 2,
         "progress_categories": [
-          "segment_main"
-        ]
-      }
-    },
-    {
-      "name": "D2410.data",
-      "measures": {
-        "fuzzy_match_percent": 100.0,
-        "matched_code_percent": 100.0,
-        "matched_data_percent": 100.0,
-        "matched_functions_percent": 100.0,
-        "total_units": 1
-      },
-      "sections": [
-        {
-          "name": ".data",
-          "size": "73872",
-          "metadata": {
-            "virtual_address": "2148341776"
-          }
-        }
-      ],
-      "metadata": {
-        "module_name": ".main",
-        "module_id": 2,
-        "progress_categories": [
           "D2410.data"
         ]
       }
@@ -25485,110 +25459,6 @@
           "size": "112",
           "metadata": {
             "virtual_address": "2148449632"
-          }
-        }
-      ],
-      "metadata": {
-        "module_name": ".main",
-        "module_id": 2,
-        "progress_categories": [
-          "segment_main"
-        ]
-      }
-    },
-    {
-      "name": "ECAC0.rodata",
-      "measures": {
-        "fuzzy_match_percent": 100.0,
-        "matched_code_percent": 100.0,
-        "matched_data_percent": 100.0,
-        "matched_functions_percent": 100.0,
-        "total_units": 1
-      },
-      "sections": [
-        {
-          "name": ".rodata",
-          "size": "208",
-          "metadata": {
-            "virtual_address": "2148449984"
-          }
-        }
-      ],
-      "metadata": {
-        "module_name": ".main",
-        "module_id": 2,
-        "progress_categories": [
-          "segment_main"
-        ]
-      }
-    },
-    {
-      "name": "ECB90.rodata",
-      "measures": {
-        "fuzzy_match_percent": 100.0,
-        "matched_code_percent": 100.0,
-        "matched_data_percent": 100.0,
-        "matched_functions_percent": 100.0,
-        "total_units": 1
-      },
-      "sections": [
-        {
-          "name": ".rodata",
-          "size": "352",
-          "metadata": {
-            "virtual_address": "2148450192"
-          }
-        }
-      ],
-      "metadata": {
-        "module_name": ".main",
-        "module_id": 2,
-        "progress_categories": [
-          "segment_main"
-        ]
-      }
-    },
-    {
-      "name": "ECCF0.rodata",
-      "measures": {
-        "fuzzy_match_percent": 100.0,
-        "matched_code_percent": 100.0,
-        "matched_data_percent": 100.0,
-        "matched_functions_percent": 100.0,
-        "total_units": 1
-      },
-      "sections": [
-        {
-          "name": ".rodata",
-          "size": "144",
-          "metadata": {
-            "virtual_address": "2148450544"
-          }
-        }
-      ],
-      "metadata": {
-        "module_name": ".main",
-        "module_id": 2,
-        "progress_categories": [
-          "segment_main"
-        ]
-      }
-    },
-    {
-      "name": "ECD80.rodata",
-      "measures": {
-        "fuzzy_match_percent": 100.0,
-        "matched_code_percent": 100.0,
-        "matched_data_percent": 100.0,
-        "matched_functions_percent": 100.0,
-        "total_units": 1
-      },
-      "sections": [
-        {
-          "name": ".rodata",
-          "size": "864",
-          "metadata": {
-            "virtual_address": "2148450688"
           }
         }
       ],
@@ -49346,16 +49216,16 @@
       "id": "segment_main",
       "name": "Main segment",
       "measures": {
-        "fuzzy_match_percent": 40.85375,
+        "fuzzy_match_percent": 56.113407,
         "total_code": "653776",
-        "matched_code": "267092",
-        "matched_code_percent": 40.85375,
+        "matched_code": "366856",
+        "matched_code_percent": 56.11341,
         "matched_data_percent": 100.0,
         "total_functions": 1799,
-        "matched_functions": 913,
-        "matched_functions_percent": 50.750416,
+        "matched_functions": 1171,
+        "matched_functions_percent": 65.09172,
         "complete_data_percent": 100.0,
-        "total_units": 269
+        "total_units": 262
       }
     },
     {
@@ -49505,6 +49375,32 @@
     {
       "id": "globals",
       "name": "globals",
+      "measures": {
+        "fuzzy_match_percent": 100.0,
+        "matched_code_percent": 100.0,
+        "matched_data_percent": 100.0,
+        "matched_functions_percent": 100.0,
+        "complete_code_percent": 100.0,
+        "complete_data_percent": 100.0,
+        "total_units": 1
+      }
+    },
+    {
+      "id": "C8910.data",
+      "name": "C8910.data",
+      "measures": {
+        "fuzzy_match_percent": 100.0,
+        "matched_code_percent": 100.0,
+        "matched_data_percent": 100.0,
+        "matched_functions_percent": 100.0,
+        "complete_code_percent": 100.0,
+        "complete_data_percent": 100.0,
+        "total_units": 1
+      }
+    },
+    {
+      "id": "CADC0.data",
+      "name": "CADC0.data",
       "measures": {
         "fuzzy_match_percent": 100.0,
         "matched_code_percent": 100.0,
