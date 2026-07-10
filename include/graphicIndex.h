@@ -258,13 +258,6 @@
 #define GINDEX_WM_STAGEICONPLAINS   0X3038
 #define GINDEX_WM_STAGEICONENDING   0X303A
 #define GINDEX_WM_STAGEICONVERTICAL 0X303C
-#define GINDEX_303E                 0x303E
-#define GINDEX_3040                 0x3040
-#define GINDEX_3042                 0x3042
-#define GINDEX_3044                 0x3044
-#define GINDEX_3046                 0x3046
-#define GINDEX_3048                 0x3048
-#define GINDEX_304A                 0x304A
 
 #define GINDEX_BLACKBAR 0x8000
 
