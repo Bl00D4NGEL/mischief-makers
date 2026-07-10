@@ -1,5 +1,7 @@
 #include "common.h"
+#include "game_state.h"
 #include "stage.h"
+#include "1F1E0.h"
 
 extern s16 D_800C7D10;
 extern char D_800C7D1C[];

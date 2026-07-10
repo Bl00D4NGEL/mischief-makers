@@ -9,7 +9,7 @@
 
 typedef void (*ActorFunc)(u16 actor_index);
 typedef void (*Actor2Func)(u16 actor_0, u16 actor_1);
-typedef void (*ClanpotTally)(u16 item_type,u16 actor_index);
+typedef void (*ClanpotTally)(u16 item_type, u16 actor_index);
 typedef s32 (*ClanpotCheck)(u16 actor_index);
 
 // the Actor struct has 3 "flag" fields,

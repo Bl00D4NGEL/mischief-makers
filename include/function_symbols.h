@@ -232,8 +232,6 @@ extern void func_800819A8(u16 actor_index, void* arg1);
 extern void LookAt_Update(void);
 
 // func_800012F0
-extern void func_80020844(void);
-extern void func_800208D4(void);
 extern void func_800838E0(void);
 
 // func_8000147C
@@ -244,7 +242,6 @@ extern void func_8000DD6C(void);
 extern void func_8000EA88(void);
 extern void func_8000F290(void);
 extern void func_8001FF28(void);
-extern void func_80021620(void);
 extern void func_80021658(void);
 extern void func_80021660(void);
 extern void func_8002167C(void);
@@ -259,8 +256,6 @@ extern void func_80083E74(void);
 
 void YellowGem_SetFlag(void);
 u64 YellowGem_GetFlag(u16 stage);
-
-extern void GameState_Gameplay(void);
 
 void OverlayABI_Slot2_fn32_void(void);
 
