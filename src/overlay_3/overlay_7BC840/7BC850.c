@@ -169,7 +169,7 @@ s32 func_801B11F0_7BD140(u16 actor_index) {
 }
 
 s32 func_801B1390_7BD2E0(u16 actor_index) {
-    if (gActors[actor_index].posX.whole < gActors[0].posX.whole) {
+    if (gActors[actor_index].posX.whole < gPlayerActor.posX.whole) {
         if (gActors[actor_index].flags & ACTOR_FLAG_FLIPPED) {
             gActors[actor_index].state = 0x22;
             return 1;
@@ -184,7 +184,7 @@ s32 func_801B1390_7BD2E0(u16 actor_index) {
 }
 
 s32 func_801B141C_7BD36C(u16 actor_index) {
-    if (gActors[actor_index].posX.whole < gActors[0].posX.whole) {
+    if (gActors[actor_index].posX.whole < gPlayerActor.posX.whole) {
         if (gActors[actor_index].flags & ACTOR_FLAG_FLIPPED) {
             gActors[actor_index].flags &= ~ACTOR_FLAG_FLIPPED;
             return 1;
@@ -292,7 +292,7 @@ s32 func_801B3068_7BEFB8(u16 actor_index, s32 arg1) {
     u16 source_index;
 
     source_index = actor_index + 5;
-    target_index = gActors[source_index].unk_0D6 & 0x7FFF;
+    target_index = gActors[source_index].parentIndex & 0x7FFF;
 
     if (func_80028C08(actor_index) != 0) {
         if ((u8)arg1 == 0) {
@@ -300,7 +300,7 @@ s32 func_801B3068_7BEFB8(u16 actor_index, s32 arg1) {
             gActors[target_index].unk_108 = gActors[source_index].posY.raw + FIXED_UNIT(8.0);
             gActors[target_index].unk_10C = gActors[source_index].posZ.raw - 4;
             gActors[target_index].flags_098 |= ACTOR_FLAG3_UNK9;
-            gActors[target_index].unk_0D6 = source_index;
+            gActors[target_index].parentIndex = source_index;
             return FALSE;
         }
 
@@ -314,7 +314,7 @@ s32 func_801B3068_7BEFB8(u16 actor_index, s32 arg1) {
         return FALSE;
     }
 
-    gActors[source_index].unk_0D6 = 0;
+    gActors[source_index].parentIndex = 0;
     return TRUE;
 }
 
@@ -368,7 +368,7 @@ void func_801B35E0_7BF530(u16 actor_index) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_3/overlay_7BC840/7BC850/func_801B3648_7BF598.s")
 
 void func_801B3F18_7BFE68(u16 actor_index) {
-    u16 temp = gActors[actor_index].unk_0D8 & 7;
+    u16 temp = gActors[actor_index].var_0D8 & 7;
 
     if (gActors[actor_index].state == 0) {
         gActors[actor_index].state++;

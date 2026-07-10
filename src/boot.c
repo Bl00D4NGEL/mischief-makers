@@ -168,8 +168,8 @@ void Graphics_Begin_Frame(u16 buffer_index) {
     u16* framebuffer;
 
     gCurrentGraphicsTask = &gGraphicsTasks[buffer_index];
-    gCurrentDisplayListBase = gDisplayListData[buffer_index].unk_000;
-    gDisplayListHead = gCurrentDisplayListBase + 48;
+    gCurrentGfxData = &gDisplayListData[buffer_index];
+    gDisplayListHead = gCurrentGfxData->dlist;
 
     if (buffer_index) {
         framebuffer = FRAMEBUFFER0;
@@ -179,7 +179,7 @@ void Graphics_Begin_Frame(u16 buffer_index) {
     }
 
     gSPSegment(gDisplayListHead++, 0, 0);
-    gSPSegment(gDisplayListHead++, 6, osVirtualToPhysical(gCurrentDisplayListBase));
+    gSPSegment(gDisplayListHead++, 6, osVirtualToPhysical(gCurrentGfxData));
     gSPDisplayList(gDisplayListHead++, gDefaultViewportSetupDisplayList);
     gSPDisplayList(gDisplayListHead++, gDefaultRenderSetupDisplayList);
     gDPPipeSync(gDisplayListHead++);
@@ -243,7 +243,7 @@ void Thread_MainProc(void* unused) {
         gCurrentGraphicsTask->t.data_size = (u32)(
             (gDisplayListHead - gDisplayListData[gCurrentFramebufferIndex].dlist) * sizeof(Gfx)
         );
-        gCurrentGraphicsTask->t.yield_data_ptr = gYeildData;
+        gCurrentGraphicsTask->t.yield_data_ptr = gYieldData;
         gCurrentGraphicsTask->t.yield_data_size = YEILD_DATA_SIZE; // SHOULD be this big.
 
         osWritebackDCacheAll();

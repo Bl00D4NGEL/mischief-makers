@@ -9,7 +9,7 @@ s32 gMusicSequenceId;
 s32 D_800EF4DC; // unused.
 u8 gMusicChannelFxMixes[16];
 u8 gSfxPlayerFlags[4];
-Gfx* gCurrentDisplayListBase;
+GfxData* gCurrentGfxData;
 s16 gSfxPlayerVolumes[4];
 u32 D_800EF500; // unknown/unused
 u32 D_800EF504; // unknown/unused
@@ -42,7 +42,7 @@ s16 gPlatforms0Y1[144];
 s16 gPlatforms1Y1[144];
 u64 gDramStack[DRAM_STACK_SIZE / sizeof(u64)];
 u16 gButtonPressHistory[64];
-u64 gYeildData[0x900];
+u64 gYieldData[0x900];
 u16 gButtonHoldHistory[64];
 
 // initial values of global data near start of .data
@@ -100,7 +100,7 @@ s16 D_800BE57C = 0;
 s16 D_800BE580 = 0;
 s16 D_800BE584 = 0;
 u16 D_800BE588 = 0;
-s16 D_800BE58C = 0;
+u16 D_800BE58C = 0;
 
 s16 gCamShakeTime = 0;
 s16 gCamShakeV = 0;
@@ -149,8 +149,8 @@ u32 D_800BE60C = 0;
 u32 D_800BE610 = 0;
 u32 D_800BE614 = 0;
 u32 D_800BE618 = 0;
-u32 D_800BE61C = 0;
-u32 D_800BE620 = 0;
+s32 D_800BE61C = 0;
+s32 D_800BE620 = 0;
 u32 D_800BE624 = 0;
 u32 D_800BE628 = 0;
 
@@ -239,6 +239,3 @@ s32 D_800BE740 = 2;
 s32 D_800BE744 = 0;
 s32 D_800BE748 = 0;
 s32 D_800BE74C = 0;
-
-
-

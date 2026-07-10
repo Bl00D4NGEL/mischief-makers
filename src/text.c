@@ -76,7 +76,7 @@ u16 gTextPaletteBase[]={0,0x001,0x39cf,0x7bdf};
 // @param z z-position of actor.
 void Text_InitActor(u16 actor_index, u16 x, u16 y, u16 z) {
     gActors[actor_index].actorType = 0;
-    func_8001E2D0(actor_index);
+    Actor_Initialize(actor_index);
     gActors[actor_index].graphicFlags |= ACTOR_GFLAG_UNK11;
     gActors[actor_index].unk_188 = 0;
     gActors[actor_index].posX.whole = x;
@@ -428,7 +428,7 @@ u16 Text_PrintString2(u16 actor_index, u16* str, u16 x, u16 y, u16 z) {
 void Text_SetHCColor(u16 arg0, u16 arg1, u8 red, u8 green, u8 blue) {
     u16* sp4;
     if ((arg0 == 0) || (arg0 == 1) || (arg0 == 2)) {
-        sp4 = (u16*)0x80380400;
+        sp4 = PALETTE_80380400;
     }
     sp4[arg1] =  GPACK_RGBA5551(red, green, blue, 1);
 }

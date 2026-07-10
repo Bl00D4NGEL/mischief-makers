@@ -1,10 +1,6 @@
 #include "common.h"
 #include "actor.h"
 
-extern void func_80038868(u16 actor_index, u16 arg1);
-extern void func_80038D1C(u16 actor_index);
-extern void func_80038C94(u16 actor_index);
-extern void func_80038E1C(u16 actor_index);
 extern u16 SpawnParticle_RingWaveBlue(f32 arg0, s16 x, s16 y, s16 z);
 
 // "overlay 2" code for "Trapped", "Merco!!" and 2 unused scenes.
@@ -50,8 +46,8 @@ void func_801A6908_78B448(u16 actor_index) {
 void func_801A6968_78B4A8(u16 actor_index, u16 new_actor_index, u16 graphic_index) {
     f32 scale;
 
-    gActors[new_actor_index].actorType = 0x1D;
-    func_8001E2D0(new_actor_index);
+    gActors[new_actor_index].actorType = ACTORTYPE_GRAPHICONLY;
+    Actor_Initialize(new_actor_index);
 
     scale = 0.7;
     gActors[new_actor_index].graphicFlags = ACTOR_GFLAG_SCALE;
@@ -102,10 +98,10 @@ void func_801A6E48_78B988(u16 arg0) {
     
     actor_index = Actor_RangeFindInactive(0x49, 0x4C);
     if (actor_index != 0) {
-        gActors[actor_index].actorType = 0x2002;
-        func_8001E2D0(actor_index);
-        gActors[actor_index].timer_110 = (Rand() & 19) << 8;
-        gActors[actor_index].unk_0D8 = 0;
+        gActors[actor_index].actorType = ACTORTYPE_OVL2_W5B_SPIKEBALL;
+        Actor_Initialize(actor_index);
+        gActors[actor_index].var_110 = (Rand() & 19) << 8;
+        gActors[actor_index].var_0D8 = 0;
         gActors[actor_index].posX.whole = gActors[arg0].posX.whole;
         gActors[actor_index].posY.whole = gActors[arg0].posY.whole + 0x10;
         switch (gActors[arg0].health & 0x300) {
@@ -138,11 +134,11 @@ void func_801A6E48_78B988(u16 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_2/overlay_78B430/78B440/func_801A7100_78BC40.s")
 
 // behavior of pirate's spike balls.
-// unk_12C: number of bounces.
+// 0x12C: number of bounces.
 void func_801A7C78_78C7B8(u16 actor_index) {
-    func_80038C94(actor_index);
+    Spikeball_Update(actor_index);
     if (gActors[actor_index].state == 0) {
-        func_80038E1C(actor_index);
+        Spikeball_State0(actor_index);
         gActors[actor_index].flags |= ACTOR_FLAG_UNK17;
     }
     else {
@@ -164,7 +160,7 @@ void func_801A7C78_78C7B8(u16 actor_index) {
         gActors[actor_index].velocityY.raw = (s32) ((f64) -(f32) gActors[actor_index].velocityY.raw * 0.75);
         gActors[actor_index].unk_12C -= 1.0f;
       }
-      func_80038868(actor_index, 0);
+      Spikeball_State1End(actor_index, 0);
       if ((gActors[actor_index].unk_190 & 1) || (gActors[actor_index].unk_12C < 0.0f)) {
         // ball is done bouncing, pops.
         gActors[actor_index].flags = 0;
@@ -173,7 +169,7 @@ void func_801A7C78_78C7B8(u16 actor_index) {
         return;
       }
     }
-    func_80038D1C(actor_index);
-    func_8002ABE4(actor_index, 2);
+    Spikeball_UpdateHitbox(actor_index);
+    Actor_SetHitboxA(actor_index, 2);
     gActors[actor_index].flags &= ~ACTOR_FLAG_UNK7;
 }

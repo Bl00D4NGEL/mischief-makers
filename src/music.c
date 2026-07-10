@@ -56,7 +56,6 @@ typedef struct {
 
 extern u8 D_800EF4D0; // folded addr required for fakematching
 extern u16 gAudioFadeMode;
-extern u32 gAudioUpdateCounter;
 extern u8 gAudioHeapBuffer[];
 
 extern u8 gAudioInitialized;
@@ -625,7 +624,7 @@ void Sound_DmaReadSync(u32 rom_addr, void* vram_addr, u32 length) {
 
 // start next song
 // @param sequence_id ID of new song (should use BGM_*)
-void Sound_PlayMusic(u32 sequence_id) {
+void Sound_PlayMusic(s32 sequence_id) {
     MusicSequenceParams* params;
     u16 patch_index;
     u8 channel_index;
@@ -917,7 +916,7 @@ void Sound_CalculatePanVol(s16 x_in, s16 y_in, s8* x_out, s16* y_out) {
     }
 }
 
-// play sound with position of actor changing pan and volume
+// play sound with position of actor changing pan and volume.
 // will not play if actor is outside x and y boundaries.
 // @param sfx_id ID of sound effect (should use SFX_* where applicable)
 // @param actor_index actor whose position effects volume/pan of sound.
@@ -943,7 +942,7 @@ s32 Sound_PlaySfxAtActor(u32 sfx_id, u16 actor_index) {
     }
 }
 
-// play sound with position of actor changing pan and volume
+// play sound with position of actor changing pan and volume.
 // will not play if actor is outside x boundaries.
 // @param sfx_id ID of sound effect (should use SFX_* where applicable)
 // @param actor_index actor whose position effects volume/pan of sound.
@@ -965,7 +964,7 @@ s32 Sound_PlaySfxAtActor2(u32 sfx_id, u16 actor_index) {
     }
 }
 
-// play sound with position of actor changing pan and volume
+// play sound with position of actor changing pan and volume.
 // will not play if actor is outside x boundaries.
 // @param sfx_id ID of sound effect (should use SFX_* where applicable)
 // @param actor_index actor whose position effects volume/pan of sound.
@@ -987,7 +986,7 @@ s32 Sound_PlaySfxAtActor3(u32 arg0, u16 actor_index) {
     }
 }
 
-// play sound with position of object changing pan and volume
+// play sound with position of object changing pan and volume.
 // will not play if object is outside x boundaries.
 // @param sfx_id ID of sound effect (should use SFX_* where applicable)
 // @param index index of object at position effects volume/pan of sound.
@@ -1009,7 +1008,7 @@ s32 Sound_PlaySfxAtObject(u32 sfx_id, u16 index) {
     }
 }
 
-// play timed sound with position of actor changing pan and volume
+// play timed sound with position of actor changing pan and volume.
 // will not play if actor is outside x boundaries.
 // @param sfx_id ID of sound effect (should use SFX_* where applicable)
 // @param actor_index actor whose position effects volume/pan of sound.
@@ -1039,7 +1038,7 @@ void Sound_PlaySfxAtActorPanning(u32 sfx_id, u16 actor_index) {
     Sound_AddSfx(sfx_id, -1, -1, 0xC1, actor_index, 0);
 }
 
-// play sound. other 2 args are ignored
+// play sound. other 2 args are ignored.
 // @param sfx_id ID of sound effect (should use SFX_* where applicable)
 // @param volume unused.
 // @param pan unused.

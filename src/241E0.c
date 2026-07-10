@@ -44,9 +44,6 @@ extern s8 D_800E3C48[];
 extern s16 D_801373DC;
 extern s16 D_801373DE;
 extern s32* D_8013746C; // guess, related to type of D_800C71A0
-extern u16* D_8013769C;
-extern u16* D_801376A0;
-extern u16* D_801376A4;
 
 #define D_80201B48 ((Unk80201B48*)0x80201B48)
 
@@ -303,7 +300,7 @@ void func_80023EB4(void) {
 void func_80023EDC(void) {
     if (!(gDebugBitfield & DEBUGFLAG_CAMERALOCK)) {
         D_800BE544 = 0x8000;
-        if (gActors[0].flags & ACTOR_FLAG_FLIPPED) {
+        if (gPlayerActor.flags & ACTOR_FLAG_FLIPPED) {
             gScreenPosTargetX.raw = gPlayerPosX.raw - 0x300000;
         }
         else {
@@ -317,7 +314,7 @@ void func_80023F5C(void) {
     if (!(gDebugBitfield & DEBUGFLAG_CAMERALOCK)) {
         D_800BE544 = 0x8000;
         gScreenPosTargetX.raw = gPlayerPosX.raw;
-        if ((gActors[0].unk_0D6 == 0x31) && (gActors[0x30].actorType == 0x907) && (gActors[0x32].unk_180 & 0x8000)) {
+        if ((gPlayerActor.parentIndex == 0x31) && (gActors[0x30].actorType == 0x907) && (gActors[0x32].unk_180 & 0x8000)) {
             gScreenPosTargetY.raw = gActors[0x30].posY.raw + gScreenPosCurrentY.raw + 0x180000;
         }
         else {
@@ -329,7 +326,7 @@ void func_80023F5C(void) {
 void func_80024004(void) {
     if (!(gDebugBitfield & DEBUGFLAG_CAMERALOCK)) {
         D_800BE544 = 0x8000;
-        if (gStageCinemaState < 3) {
+        if (gStageState < 3) {
             gScreenPosTargetY.raw = gPlayerPosY.raw + 0x280000;
         }
         else {
@@ -507,7 +504,7 @@ void func_80024854(void) {
     D_800BE704 = 1;
     D_800BE708 = 1;
     D_800BE588 = 3;
-    D_800CC428 = 0;
+    D_800CC428 = FALSE;
 }
 
 void func_8002488C(void) {
@@ -525,8 +522,8 @@ void func_800249B8(void) {
     switch (D_800BE634) {
     case 0:
         temp_f10 = gScreenPosCurrentX.raw / 1.55;
-        if ((D_800CC428 != 0) && (temp_f10 > 0x06000000)) {
-            D_800CC428 = 0;
+        if ((D_800CC428) && (temp_f10 > 0x06000000)) {
+            D_800CC428 = FALSE;
             temp_f10 = (temp_f10 & 0x01FFFFFF) + 0x12000000;
             gScreenPosCurrentX.whole = (temp_f10 * 1.55) / 65536.0;
             gScreenPosTargetX.raw = gScreenPosCurrentX.raw + D_800BE73C;
@@ -543,10 +540,10 @@ void func_800249B8(void) {
         break;
     case 1:
         temp_f10 = gScreenPosCurrentX.raw / 1.55;
-        if ((D_800CC428 != 0) && (temp_f10 > 0x16000000)) {
+        if ((D_800CC428) && (temp_f10 > 0x16000000)) {
             gDrawEnvLayer = TRUE;
             gDrawBackground = TRUE;
-            D_800CC428 = 0;
+            D_800CC428 = FALSE;
             temp_f10 = (temp_f10 & 0x01FFFFFF) + 0x02000000;
             gScreenPosCurrentX.whole = (temp_f10 * 1.55) / 65536.0;
             gScreenPosTargetX.raw = gScreenPosCurrentX.raw + D_800BE73C;
@@ -802,23 +799,23 @@ void func_80025578(void) {
     }
 }
 
-void func_800255B4(u16 arg0) {
+void func_800255B4(u16 scene) {
     D_800D16C4[0] = 0;
     D_800BE6A8 = 0;
     D_800BE710 = 0;
     gScreenPosTargetX.raw = 0;
     gScreenPosCurrentX.raw = 0;
-    D_800BE568.whole = D_800CC6EC[arg0 * 8];
-    D_800BE56C.whole = D_800CC6EC[arg0 * 8 + 1];
-    D_800BE574.whole = D_800CC6EC[arg0 * 8 + 2];
-    D_800BE570.whole = D_800CC6EC[arg0 * 8 + 3];
-    gScreenPosCurrentX.whole = D_800CC6EC[arg0 * 8 + 4];
-    gActors->posX.whole = D_800CC6EC[arg0 * 8 + 5];
+    D_800BE568.whole = D_800CC6EC[scene * 8];
+    D_800BE56C.whole = D_800CC6EC[scene * 8 + 1];
+    D_800BE574.whole = D_800CC6EC[scene * 8 + 2];
+    D_800BE570.whole = D_800CC6EC[scene * 8 + 3];
+    gScreenPosCurrentX.whole = D_800CC6EC[scene * 8 + 4];
+    gActors->posX.whole = D_800CC6EC[scene * 8 + 5];
     gScreenPosNextX.whole = gScreenPosCurrentX.whole;
     gScreenPosTargetX.whole = gScreenPosCurrentX.whole;
     gPlayerPosX.whole = gScreenPosCurrentX.whole + gActors->posX.whole;
-    gScreenPosCurrentY.whole = D_800CC6EC[arg0 * 8 + 6];
-    gActors->posY.whole = D_800CC6EC[arg0 * 8 + 7];
+    gScreenPosCurrentY.whole = D_800CC6EC[scene * 8 + 6];
+    gActors->posY.whole = D_800CC6EC[scene * 8 + 7];
     gScreenPosNextY.whole = gScreenPosCurrentY.whole;
     gScreenPosTargetY.whole = gScreenPosCurrentY.whole;
     gPlayerPosY.whole = gScreenPosCurrentY.whole + gActors->posY.whole;
@@ -836,7 +833,7 @@ void func_800255B4(u16 arg0) {
     D_800BE734 = 0;
     D_800BE738 = 0;
     D_800BE73C = 0;
-    D_800BE654 = D_800CCC6C[arg0 * 5 + 0];
+    D_800BE654 = D_800CCC6C[scene * 5 + 0];
     D_800BE644 = 4 << D_800BE654;
     D_800BE648 = 0x4000 >> D_800BE654;
     D_800BE64C = 0x7FF >> (6 - D_800BE654);
@@ -846,10 +843,10 @@ void func_800255B4(u16 arg0) {
     D_800BE65C = 0xFFFF - D_800BE658;
     D_800BE6DC = 0;
     D_800BE6E0 = 0;
-    D_800BE664 = D_800CCC6C[arg0 * 5 + 1];
+    D_800BE664 = D_800CCC6C[scene * 5 + 1];
     gActorDepthFront = -8;
-    gActorDepthMiddle = D_800CCC6C[arg0 * 5 + 2];
-    gActorDepthBack = D_800CCC6C[arg0 * 5 + 3];
+    gActorDepthMiddle = D_800CCC6C[scene * 5 + 2];
+    gActorDepthBack = D_800CCC6C[scene * 5 + 3];
     D_801373DC = 0x10;
     D_801373DE = 0;
     func_8008BFB0();
@@ -866,7 +863,7 @@ void func_800255B4(u16 arg0) {
     gLetterboxMode = LETTERBOX_DEFAULT;
     D_800BE70C = 0;
 
-    switch (D_800CD034[arg0]) {
+    switch (D_800CD034[scene]) {
     case 0:
         D_8013769C = PALETTE_80380000;
         D_801376A0 = PALETTE_80380200;
@@ -944,8 +941,8 @@ void func_800255B4(u16 arg0) {
         break;
     }
     D_800BE634 = 0;
-    D_800CC42C[arg0]();
-    D_800CC58C[arg0]();
+    D_800CC42C[scene]();
+    D_800CC58C[scene]();
 }
 
 void func_80025B7C(void) {

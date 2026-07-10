@@ -5,35 +5,85 @@
 #include "inttypes.h"
 
 extern u16 D_800D28E4;
-extern u16 gStageCinemaState; // state for cinematics (intro/dialog/outro) for stages.
+extern u16 gStageState; // state for stages, determining cinematics, actor spawns, level logic, etc.
+extern u16 gStageTime; // time in current stage. does not count time during cutscenes.
+extern u16 gStageTimeBest;
 extern u16 D_800D28F0;
 extern u32 D_800D28FC;
 extern u16 gSkipStageIntro; // skip stage intros. set during "continue" and "attract" states.
 extern s32 D_800D2928;
 extern s32 D_800D2938;
 extern s16 D_800D294C;
-extern u16 D_800D8588[];
+extern u16 D_800D8588[]; // all-white palette
+extern s16 D_800E13FC[];
 extern u16 D_800E3580;
 extern u32 D_800E3584; // nearest actor facing
+extern s16 D_801370D0; //index for position/graphic arrays in unused after-image state
+extern s16 D_801370D2;
+extern u16 D_801370D4;
+extern u16 D_801370D8[]; // Marina graphic history. used for unused after-image state
+extern s16 D_801371D8[]; // Marina X-position history. used for unused after-image state
+extern s16 D_801372D8[]; // Marina Y-position history. used for unused after-image state
+extern u16 D_80137480[];
+extern u16 D_801374F0[]; // source of texture images
+extern u16 D_80137580[]; // source of texture images
+extern u16 D_80137610[]; // source of texture images
+extern u16* D_8013769C; // palette
+extern u16* D_801376A0; // palette
+extern u16* D_801376A4; // palette
+extern u8 D_801376A8[];
+extern u8 D_801376AC[];
+extern u8 D_801376B0[];
+extern u8 D_801376B4[];
+extern u8 D_801376B8[];
 extern u8 D_801376BC[];
+extern u32 D_801376D4;
+extern u32 D_80137714;
+extern u32 D_80137718;
 extern u64 D_80171B10;
 extern u64 D_801781F0;
+extern u16 D_801782B8;
 extern FestivalStruct gFestivalData; // data related mostly to Festival Games.
 extern u16 gAudioFadeMode;
 extern s32 D_800BE73C;
 extern u16 D_800CA230;
-extern u8 D_800CC428;
+extern u16 D_800CA254[]; // "d  h  m  s"
+extern u16 D_800CA26C[]; // "Continue"
+extern u16 D_800CBF40;
+extern u16 D_800CBF50;
+extern u8 D_800CC428; // boolean used in camera function for "Counterattack"
 extern u16 D_800D16C4[];
 extern u16 D_800D1A04[];
-extern u16 D_800D22BC[];
-extern u8 D_800D24D8[];
-extern u8 D_800D24F0;
+extern u16 D_800D2690[]; // LUT of digging spot items.
+extern s16 D_800D26F4[];
+extern u16 D_800D2714[];
+extern s16 D_800D271C[];
+extern u16 gClanpotItems[0xa0]; // clanpot storage. written backwards, starting from last 5 spaces. {index+flags, var_110, var_0D8, type, icon}
+
+// counts for items in clanpot. checked for mixing.
+// indecies of items counted:
+// 0x00: rocketeers needed for rideable rocketeer.
+// 0x10: round bomb
+// 0x11: elliptical bomb
+// 0x12: flower
+// 0x13: hat
+// 0x14: shuriken
+// 0x15: red gem
+// 0x16: blue gem
+// 0x17: yellow gem
+// 0x18: green gem
+extern u8 gClanpotItemCount[26];
 extern f32 D_800D2904;
+extern s16 D_800D2924;
 extern s32 D_800D292C;
 extern s32 D_800D2930;
 extern s32 D_800D2934;
 extern u16 D_800D2954;
 extern u16 D_800D2960;
+extern u16 D_800D5820;
+extern u16 D_800D5824;
+extern u16 D_800D5828;
+extern u16 D_800D582C;
 extern s16 D_800D5830;
 extern s16 D_800D5834;
 extern u16 D_800D88B8[]; // guess
@@ -42,6 +92,7 @@ extern u16 D_800D8C78[]; // guess
 extern u32 D_800E0648[];
 extern u8 D_800E1180[];
 extern s16 gGraphicListBlank[]; // default graphics list. contains {0,0}
+extern s16 gGraphicListGemIcon[];
 extern s16 D_800E1540[];
 extern s16 D_800E154C[]; // graphic index for "!" bubble
 extern s16 D_800E156C[];
@@ -68,6 +119,7 @@ extern s32 D_800F43A8;
 extern s16 D_800F43B0;
 extern s32 D_800F7510;
 extern u16 gLetterboxMode;
+extern u16 gRedGems;
 
 // func_8000147C
 extern s8 D_801373F0;

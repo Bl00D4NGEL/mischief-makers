@@ -4,10 +4,13 @@
 #include <PR/gbi.h>
 #include <PR/ultratypes.h>
 #include "graphicIndex.h"
+#include "actorTypes.h"
 #include "common_structs.h"
 
 typedef void (*ActorFunc)(u16 actor_index);
-typedef void (*Actor2Func2)(u16 actor_0, u16 actor_1);
+typedef void (*Actor2Func)(u16 actor_0, u16 actor_1);
+typedef void (*ClanpotTally)(u16 item_type,u16 actor_index);
+typedef s32 (*ClanpotCheck)(u16 actor_index);
 
 // the Actor struct has 3 "flag" fields,
 // the first relating to behavior, the second rendering, and the third more behavior.
@@ -34,12 +37,12 @@ enum ActorFlags {
     ACTOR_FLAG_UNK10 = (1U << 10U), 
     ACTOR_FLAG_UNK11 = (1U << 11U),
     ACTOR_FLAG_UNK12 = (1U << 12U),
-    ACTOR_FLAG_PLATFORM0 = (1U << 13U), // platform actor?
+    ACTOR_FLAG_PLATFORM0 = (1U << 13U), // actor's hitboxes are considered a "platform"
     ACTOR_FLAG_UNK14 = (1U << 14U),
     ACTOR_FLAG_UNK15 = (1U << 15U), // something with damage (instakill if set?)
     ACTOR_FLAG_UNK16 = (1U << 16U),
     ACTOR_FLAG_UNK17 = (1U << 17U),
-    ACTOR_FLAG_PLATFORM1 = (1U << 18U), // platfom actor?
+    ACTOR_FLAG_PLATFORM1 = (1U << 18U), // actor's hitboxes are considered a "platform"
     ACTOR_FLAG_UNK19 = (1U << 19U),
     ACTOR_FLAG_UNK20 = (1U << 20U),
     ACTOR_FLAG_UNK21 = (1U << 21U),
@@ -69,7 +72,7 @@ enum ActorGFlags {
     ACTOR_GFLAG_PALETTE = (1U << 9U), // use pointer at field 0x18C as a palette
     ACTOR_GFLAG_UNK10 = (1U << 10U), // effects animation
     ACTOR_GFLAG_UNK11 = (1U << 11U), // seems to effect translate mtx.
-    ACTOR_GFLAG_SCALEZ = (1U << 12U), // use feild 0x12C as z scale (if ACTOR_GFLAG_SCALE is also set)
+    ACTOR_GFLAG_SCALEZ = (1U << 12U), // use field 0x12C as z scale (if ACTOR_GFLAG_SCALE is also set)
     ACTOR_GFLAG_3DOBJ = (1U << 13U), // field at 0x17C treated as dlist for 3d model
     ACTOR_GFLAG_UNK14 = (1U << 14U), // used by portrait struct.
     ACTOR_GFLAG_UNK15 = (1U << 15U) // a change in blending?
@@ -77,16 +80,16 @@ enum ActorGFlags {
 
 // bits used by the "flags_098" field
 enum ActorFlags3 {
-    ACTOR_FLAG3_UNK0 = (1U << 0U),
+    ACTOR_FLAG3_UNK0 = (1U << 0U), //collision with an actor?
     ACTOR_FLAG3_UNK1 = (1U << 1U),
     ACTOR_FLAG3_UNK2 = (1U << 2U),
     ACTOR_FLAG3_UNK3 = (1U << 3U),
     ACTOR_FLAG3_UNK4 = (1U << 4U),
-    ACTOR_FLAG3_UNK5 = (1U << 5U),
+    ACTOR_FLAG3_UNK5 = (1U << 5U), // on the floor?
     ACTOR_FLAG3_UNK6 = (1U << 6U),
     ACTOR_FLAG3_UNK7 = (1U << 7U),
     ACTOR_FLAG3_UNK8 = (1U << 8U),
-    ACTOR_FLAG3_UNK9 = (1U << 9U),
+    ACTOR_FLAG3_UNK9 = (1U << 9U),  // grabbed?
     ACTOR_FLAG3_UNK10 = (1U << 10U),
     ACTOR_FLAG3_UNK11 = (1U << 11U),
     ACTOR_FLAG3_UNK12 = (1U << 12U),
@@ -94,11 +97,11 @@ enum ActorFlags3 {
     ACTOR_FLAG3_UNK14 = (1U << 14U),
     ACTOR_FLAG3_UNK15 = (1U << 15U),
     ACTOR_FLAG3_UNK16 = (1U << 16U),
-    ACTOR_FLAG3_UNK17 = (1U << 17U),
+    ACTOR_FLAG3_UNK17 = (1U << 17U), // being shake-shaken?
     ACTOR_FLAG3_UNK18 = (1U << 18U),
     ACTOR_FLAG3_UNK19 = (1U << 19U),
     ACTOR_FLAG3_UNK20 = (1U << 20U),
-    ACTOR_FLAG3_UNK21 = (1U << 21U),
+    ACTOR_FLAG3_UNK21 = (1U << 21U), // using warp gate
     ACTOR_FLAG3_UNK22 = (1U << 22U),
     ACTOR_FLAG3_UNK23 = (1U << 23U),
     ACTOR_FLAG3_UNK24 = (1U << 24U),
@@ -146,9 +149,9 @@ typedef struct {
     /* 0x0BC */ f32 rotateX; // used in guRotate if ACTOR_GFLAG_ROTX in graphicFlags is set
     /* 0x0C0 */ f32 rotateY; // used in guRotate if ACTOR_GFLAG_ROTY in graphicFlags is set
     /* 0x0C4 */ f32 rotateZ; // used in guRotate if ACTOR_GFLAG_ROTZ in graphicFlags is set
-    /* 0x0C8 */ s16 unk_0C8;
-    /* 0x0CA */ s16 unk_0CA;
-    /* 0x0CC */ u16 unk_0CC;
+    /* 0x0C8 */ s16 unk_0C8; // global x-position of actor collided?
+    /* 0x0CA */ s16 unk_0CA; // global y-position + hitboxBY0 of actor collided?
+    /* 0x0CC */ u16 unk_0CC; // index of actor collided?. bit 15 is also set when updated
     /* 0x0CE */ u16 unk_0CE;
     union {
         /* 0x0D0 */ u16 state; // >= 0x4000: normal u16 state
@@ -160,13 +163,13 @@ typedef struct {
     };
     /* 0x0D2 */ u16 actorType; // < 0x100: static actor type; >= 0x100: high byte selects bank, low byte indexes func_80016E70 table
     /* 0x0D4 */ u16 iFrames; // invulnerabily frames. 
-    /* 0x0D6 */ u16 unk_0D6; // index to "parent"/grab-ee actor?
-    /* 0x0D8 */ u16 unk_0D8;
+    /* 0x0D6 */ u16 parentIndex; // index to "parent"/grab-ee actor
+    /* 0x0D8 */ u16 var_0D8; // often used as second set of initial actor paramaters.
     /* 0x0DA */ u8 unk_0DA;
     /* 0x0DB */ u8 unk_0DB;
     /* 0x0DC */ u8 unk_0DC;
     /* 0x0DD */ u8 unk_0DD;
-    /* 0x0DE */ u8 unk_0DE;
+    /* 0x0DE */ u8 unk_0DE; // behavior when grabbed?
     /* 0x0DF */ u8 unk_0DF;
     /* 0x0E0 */ s16 health; // initialized from the actor type table and decremented/clamped by damage code
     /* 0x0E2 */ s16 pendingDamage; // damage taken in tick. used in knockback calculation.
@@ -188,13 +191,23 @@ typedef struct {
     /* 0x0EC */ FixedCoord velocityX; // applied to posX in func_80014af0
     /* 0x0F0 */ FixedCoord velocityY; // applied to posY in func_80014af0 
     /* 0x0F4 */ FixedCoord velocityZ; // applied to posZ in func_80014af0
+
+    // the following values are used by actors for purposes depending on their type
+    // examples: Clanbombs will use offset 0x150 for the fuse timer,
+    // or the crosshair actor will use it for the index of its "parent",
+    // or player-controlled Teran will count his jumps with it.
+    
+    // NOTE: trying to use unions for these variables for different datatypes (u8[4],u16[2])
+    // may cause mismatch due to "narrowing":
+    // when a wider data type is truncated to fit a smaller data type, ex: s32 -> s16
+
     /* 0x0F8 */ FixedCoord unk_0F8; // related to x-axis velocity. Usage varies.
     /* 0x0FC */ FixedCoord unk_0FC; // related to y-axis velocity. Usage varies.
-    /* 0x100 */ s32 unk_100; // cleared in func_8001E2D0, but otherwise (seemingly) unused. z-axis value?
+    /* 0x100 */ s32 unk_100; // cleared in Actor_Initialize, but otherwise (seemingly) unused. z-axis value?
     /* 0x104 */ s32 unk_104;
     /* 0x108 */ s32 unk_108;
     /* 0x10C */ s32 unk_10C;
-    /* 0x110 */ f32 timer_110; // often used as timer in "state machines", other times as "general purpose" field.
+    /* 0x110 */ f32 var_110; // often used as first set of initial actor paramaters.
     /* 0x114 */ f32 unk_114;
     /* 0x118 */ f32 unk_118;
     /* 0x11C */ f32 unk_11C;
@@ -227,15 +240,10 @@ typedef struct {
     /* 0x148 */ f32 unk_148;
     /* 0x14C */ f32 unk_14C;
 
-    // the following values are used by actors for purposes depending on their type
-    // examples: Clanbombs will use offset 0x150 for the fuse timer,
-    // or the crosshair actor will use it for the index of its "parent",
-    // or player-controlled Teran will count his jumps with it.
-    
-    // NOTE: trying to use unions for these variables for different datatypes (u8[4],u16[2])
-    //  may cause mismatch due to "narrowing"
-
-    /* 0x150 */ s32 var_150;
+    union {
+        /* 0x150 */ s32 var_150;
+        /* 0x150 */ s16 var_150_s16[2];
+    };
     /* 0x154 */ s32 var_154;
     /* 0x158 */ s32 var_158;
     /* 0x15C */ s32 var_15C;
@@ -244,8 +252,14 @@ typedef struct {
         /* 0x160 */ u8 var_160_u8;
     };
     /* 0x164 */ s32 unk_164;
-    /* 0x168 */ s32 unk_168;
-    /* 0x16C */ s32 unk_16C;
+    union{
+        /* 0x168 */ s32 unk_168;
+        /* 0x168 */ ClanpotTally clanpotTally; // used by clanpots when mixing to tally items
+    };
+    union{
+        /* 0x16C */ s32 unk_16C;
+        /* 0x16C */ ClanpotCheck clanpotCheck; // used by clanpots when mixing. returns true if requirements mat.
+    };
     union {
         /* 0x170 */ s32 unk_170;
         /* 0x170 */ u16 unk_170_u16[2];
@@ -255,12 +269,14 @@ typedef struct {
     /* 0x178 */ s32 unk_178; // assigned animation/frame table pointers(?) by matched overlays
     union{
         /* 0x17C */ s32 unk_17C;
+        /* 0x17C */ s16 unk_17C_s16[2];
         /* 0x17C */ s8 unk_17C_s8[4];
         /* 0x17C */ ActorFunc pfn_17C; // used by "particle" actors
         /* 0x17C */ Gfx* dlist_17C; // when ACTOR_GFLAG_3DOBJ is set in graphicFlags, field is treated as dlist pointer
     };
     union {
         /* 0x180 */ s32 unk_180;
+        /* 0x180 */ u16 unk_180_u16[2];
         /* 0x180 */ u8 unk_180_u8[4];
     };
     union {
@@ -278,12 +294,32 @@ typedef struct {
     union {
         /* 0x190 */ s32 unk_190;
         /* 0x190 */ void* unk_190_p;
+        /* 0x190 */ u16* warpgateCoords; // coordinates for a warp gate. {x,y,x-facing}
         /* 0x190 */ ActorFunc pfn_190;
     };
-    /* 0x194 */ u8 unk_194[0x4];
+    /* 0x194 */ u8 unk_194[0x4]; // unknown/unused
 } Actor; /* size = 0x198 */
 
 extern Actor gActors[];
+
+extern ActorFunc D_80192000[]; // "overlay 0" dispatch table.
+extern ActorFunc D_8019B000[]; // "overlay 1" dispatch table.
+extern ActorFunc D_801A6800[]; // "overlay 2" dispatch table.
+extern ActorFunc D_801B0800[]; // "overlay 3" dispatch table.
+
+
+#define PLAYER_INDEX 0
+
+// actor 0 is always the main character, Marina
+#define gPlayerActor gActors[PLAYER_INDEX]
+
+#define TERAN_PLAYER_INDEX 0x30
+
+// Teran when he is playable in "Rescue"
+#define gTeranPlayerActor gActors[TERAN_PLAYER_INDEX]
+
+// actor represtenting guest player actor by global var
+#define gGuestPlayerActor gActors[gGuestActorIndex]
 
 
 // the following two macros are based on common patterns in the code.
@@ -291,13 +327,13 @@ extern Actor gActors[];
 // despite being indentical on a human-readable level.
 // test for mismatches before fully utilizing.
 
-// a common macro for initalizing actors.
+// a common macro for initializing actors.
 // can cause mismatches.
 #define ACTOR_INIT(index, type)\
  gActors[index].actorType = type;\
- func_8001E2D0(index)
+ Actor_Initialize(index)
 
-// a common macro for initalizing graphic lists
+// a common macro for initializing graphic lists
 // can cause mismatches.
 #define ACTOR_GFX_INIT(index, graphicsP)\
  gActors[index].graphicList = (s16*)graphicsP;\

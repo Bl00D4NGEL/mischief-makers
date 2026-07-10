@@ -44,12 +44,14 @@
 #define GINDEX_RAILANGLELT     0x00B0
 #define GINDEX_RAILANGLETR     0x00B2
 #define GINDEX_RAILANGLEBR     0x00B4
-#define GINDEX_RAILSTOP        0x00B6 // rail with an (X) in it.
+
+#define GINDEX_BOMB_ELLIPSE    0x00B6 // elliptical bomb.
 
 #define GINDEX_GEM             0x00B8 // 6 animation frames
 
 #define GINDEX_MINEROUND       0x00C6
 
+#define GINDEX_CIRCLEEFFECT    0x00CA
 #define GINDEX_CLANBLOB        0x00CC
 #define GINDEX_PARTICLERING    0x00CE
 
@@ -111,7 +113,7 @@
 #define GINDEX_GROUNDFLAME     0x016C
 #define GINDEX_MUSHROOMCLOUD   0x016E // 8 animation frames
 
-#define GINDEX_WARPSTAR        0x01A8
+#define GINDEX_WARPGATE        0x01A8
 
 #define GINDEX_SPARKLESMALL    0x01AE // 2 animation frames
 #define GINDEX_DASHEFFECT      0x01B2 // 2 animation frames
@@ -183,6 +185,8 @@
 
 #define GINDEX_CLANCERGHOST    0x02A2 // 6 animation frames
 
+#define GINDEX_MOCHI           0x02c2
+
 #define GINDEX_CATHEAD         0x02CC // 6 animation frames
 #define GINDEX_TEXTBOX         0x02CE // index of the textbox 
 #define GINDEX_SOLIDSQARE      0x02D0 // used as a fill for transisions
@@ -219,6 +223,13 @@
 
 #define GINDEX_HATPIRATE         0X3014
 
+#define GINDEX_303E                 0x303E
+#define GINDEX_3040                 0x3040
+#define GINDEX_3042                 0x3042
+#define GINDEX_3044                 0x3044
+#define GINDEX_3046                 0x3046
+#define GINDEX_3048                 0x3048
+#define GINDEX_304A                 0x304A
 
 // indecies used by the world map graphics
 
@@ -230,7 +241,7 @@
 #define GINDEX_WM_PATHSECTIONLEFT   0X3010
 #define GINDEX_WM_PATHSECTIONMID    0X3012
 #define GINDEX_WM_PATHSECTIONRIGHT  0X3014
-#define GINDEX_WM_CLANCERMIC       0X3016 // 4 animation frames
+#define GINDEX_WM_CLANCERMIC        0X3016 // 4 animation frames
 #define GINDEX_WM_STAGEICONDESERT   0X301E
 #define GINDEX_WM_STAGEICONLAVA     0X3020
 #define GINDEX_WM_STAGEICONMIGEN    0X3022
@@ -255,6 +266,6 @@
 #define GINDEX_3048                 0x3048
 #define GINDEX_304A                 0x304A
 
-#define GINDEX_PAUSEBAR 0x8000
+#define GINDEX_BLACKBAR 0x8000
 
 #endif

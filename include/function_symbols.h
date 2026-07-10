@@ -14,26 +14,43 @@ extern void func_80012288(void);
 #endif
 extern u8 func_80012AB4(func_80012AB4_ARGS);
 extern u8 func_80012C04(s16, s16);
+extern u8 func_8001FA78(u16 actor_index, s16 x, s16 y);
 
+extern void func_80004FFC(s32);
+extern void func_800050B4(void);
+extern void func_800109B0(void);
+extern void func_80010A10(void);
 extern void func_80010C20(u16 arg0);
+extern void func_8001A584(void);
+extern void func_8001DC60(void);
+extern void func_800230B8(void);
+extern void func_80025B7C(void);
+extern void func_80025E6C(void);
 extern void func_800282F0(s16 arg0, s16 arg1);
 extern u16 func_8002877C(u16 actor_index);
 extern s32 Math_AbsS32(s32 val);
 extern s32 Math_Atan2(s32 x, s32 y);
+extern s32 Math_PlaneOctant(s32 x, s32 y);
 extern void func_8002AA20(u16 actor_index, s32 unused);
-extern void func_8002AC30(u16 actor_index, s16 val);
+extern void Actor_SetHitboxB(u16 actor_index, s16 val);
 extern u16 SpawnParticle_List_90C0_16(s16* graphic_list, s32 pos_x, s32 pos_y, s32 pos_z);
 extern u16 SpawnParticle_Image_90C0_16(u16 graphic_index, s32 pos_x, s32 pos_y, s32 pos_z);
+extern u16 SpawnParticle_RingWaveRed(f32 arg0, s16 x, s16 y, s16 z);
 extern void Actor_ClearRange_30To90(void);
-extern u16 func_8003D628(u16);
+extern u16 SpawnAreaClear(u16);
+extern void func_80042D84(u16 arg0);
 extern void func_80042DBC(void* arg0);
 extern u8 func_80048C28(s32);
 extern void func_80045D84(u32 arg0, u32 arg1);
+extern void func_80052C4C(u16 actor_0, u16 actor_1);
 extern s32 func_80057320(u16, s16);
 extern s32 func_8005739C(u16 arg0, s16 arg1);
 extern s32 func_800575C0(u16 actor_index);
+extern void func_80058924(u16);
+extern u16 func_800592A0(u16 actor_index, s32* arg1);
 extern u16 func_80059D88(u16 actor_index, s32* arg1, s32 unused_arg2, f32 scale);
 extern u16 func_80059F30(u16 actor_index, s32* arg1, f32 scale, s32 arg3);
+extern u16 func_8005A068(u16 actor_index, s32* arg1, s32 angle, f32 scale, s32 arg4);
 extern u16 func_8005A4B0(u16 actor_index, f32 scale);
 extern void func_8005C098(u16, s32);
 extern u16 func_8005C250(u16 actor_index);
@@ -42,16 +59,18 @@ extern s32 func_8005C550(u16 actor_index, s16 arg1);
 extern s32 func_8005C6D0(s32);
 extern s32 func_8005C708(s32);
 extern u16 func_8005C774(s32);
-extern void func_8005CA34(s32 mag, s32 time); // shake camera vertically.
-extern u8 func_8005D1B0(u16 actor_index);
+extern void CameraShake(s32 mag, s32 time); // shake camera vertically.
+extern u8 func_8005C870(u8);
 extern s32 func_8005D1E8(u16);
 extern u16 func_8005D338(u16 actor_index);
 extern s32 func_8005D370(u16 actor_index, u16 arg1);
 extern void func_8005D3D8(u16 actor_index);
 extern u16 func_8005D418(u16 actor_index);
+extern void func_8005D450(u16 actor_index);
 extern void func_8005DE30(void);
 extern s16 func_8005DEFC(void);
 extern s32 func_8005DF5C(s32 arg0);
+extern void func_80060F88(u16 actor_index);
 extern void func_80066BCC(u16 actor_index);
 extern void func_80067EF0(u16);
 extern void func_8006CC70(u16);
@@ -59,8 +78,10 @@ extern void func_8006CD5C(u16);
 extern void func_8008BFB0(void);
 
 extern void Actor_ClearRange_10To20(void);
+extern void func_80025578(void);
 extern void func_800255B4(u16 arg0);
 extern void func_80025BFC(void);
+extern void func_80025C38(void);
 extern void func_80025E00(void);
 extern void func_80025EC4(u16 index);
 extern void func_80025F70(u16 index);
@@ -96,38 +117,63 @@ extern u32 func_80029B00(s16 arg0, s16 arg1, s16 arg2);
 extern u32 func_80029B74(s16 arg0);
 extern s32 func_800298D0(s32 arg0, s32 arg1, s32 arg2);
 extern void func_8002ABE4(u16 actor_index, s16 val);
+extern void Actor_SetHitboxA(u16 actor_index, s16 val);
 extern void func_8002EBB8(u16 actor_index, s16 pos_x, s16 pos_y, s32 vel_x, s32 vel_y);
 extern void func_8002ED34(u16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
 extern s32 func_8002F154(u16 arg0, u16 arg1, u16 arg2);
 extern void SpawnGemRing(u16 arg0);
 extern void func_80030A24(u16 actor_index);
+extern u16 func_80032E60(u16 actor_index0, u16 arg1, u16 arg2, f32 arg3, s16 pos_z, f32 scale_x, f32 scale_y);
 extern void func_80033204(u16 arg0, u16 arg1, u16 arg2, f32 arg3, u16 arg4);
-extern void func_800369A0(u16 actor_index, u16 arg1, u16* arg2);
-extern void func_80039134(u16 actor_index);
+extern void Clanpot_SetMixedItem(u16 actor_index, u16 arg1, u16* arg2);
+extern void ActorUpdate_Spikeball_Static(u16 actor_index);
+extern void Spikeball_MoveX(u16 actor_index, s32 vel_target, s32 vel_step, s16 arg3, s16 arg4);
+extern void Spikeball_MoveY(u16 actor_index, s32 vel_target, s32 vel_step, s16 arg3, s16 arg4);
+extern void Spikeball_Jitter(u16 actor_index);
+extern void Spikeball_State1End(u16 actor_index, u16 arg1);
+extern void Spikeball_Update(u16 actor_index);
+extern void Spikeball_UpdateHitbox(u16 actor_index);
+extern void Spikeball_State0(u16 actor_index);
 extern void SpawnCrosshair(u16 arg0, u16 actor_index);
 extern u16 func_8003EEC0(f32, s16 x, s16 y, s16 z);
 extern void func_8003F138(f32 arg0, s16 arg1, s16 arg2, s16 arg3);
+extern u16 func_8003FF68(u16 actor_index, f32 scale);
 extern void func_80040858(u16 actor_index);
+extern u16 func_8004089C(u16 actor_index, u16* arg1);
+extern s32 func_80040A64(void);
 extern void func_80042E28(s32 arg0);
 extern void func_80042F2C(s32 arg0, s32 arg1, s32 arg2);
-extern void func_80043D04(ActorSpawnRecord* spawn);
+extern void func_80043478(void);
+extern void func_80043918(void);
+extern void func_80043D04(u16* spawn);
 extern s32 func_80043D6C(void* arg0);
 extern void func_80045500(void);
 extern s16 func_800456DC(void);
 extern void func_80045E58(void* arg0);
 extern s32 func_80045F08(u32 arg0);
 extern void* func_80045F14(void* arg0);
+extern void func_80046498(u16);
+extern void func_8004667C(void);
 extern void func_80046A9C(void);
+extern s32 func_80046EBC(void);
 extern void func_800472D4(void);
 extern s32 func_8004735C(s32 arg0, s32 arg1);
+extern void func_80047C98(void);
+extern void func_80047CCC(void);
 extern s32 func_800486F4(void);
 extern s32 func_80048CE4(void);
 extern s32 func_80048C94(s32);
 extern s32 func_80048F70(u16, u16);
 extern s32 func_800490BC(u16, s32, s32);
 extern s32 func_800491B8(u16, s32, s32);
+extern void func_8004A960(u16 actor_index);
 extern u16 func_8004F614(u16 actor_index, s32 arg1, s32 arg2, s16 arg3);
-extern void func_8005DF40(s32 arg0, s32 arg1);
+extern u8 func_8005D1B0(u16 actor_index);
+extern void func_8005DF40(s16 arg0, s16 arg1);
+extern void func_8005E09C(s32 arg0, s32 arg1);
+extern void func_80067E9C(u16 actor_index);
+extern void func_8007325C(u16 actor_index);
+extern s32 func_80073320(u16 actor_index); // return could be u16
 extern void func_8007CE24(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern void func_8007CEB8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8);
 
@@ -137,14 +183,19 @@ extern u16 SpawnTextBubble(u16, u16*, s16, s16, s32);
 extern void func_8007EA14(void*, u16, s16, s32, s32, void*, s32, s32, s32, s32, s32, f32);
 extern void func_8007F9E0(u16 actor_index);
 extern void func_80081720(u16 arg0, void* arg1, s32 arg2);
+extern void func_8008310C(void);
+extern void func_800831D0(s16, s16, s16, s16);
 extern void func_80083454(void);
+extern void func_800836A0(s16 arg0, s16 arg1, u16* arg2, s16 arg3);
 extern void func_80083BD8(s32 arg0, s16 arg1, s32 arg2);
+extern void func_8008C4E0(u16 actor_index);
 extern void func_8008C710(u16 arg0);
+extern void func_8002092C(void);
 extern void func_80022D10(void);
-#ifndef FUNC_8001E2D0_RET
-  #define FUNC_8001E2D0_RET DEFAULT_INT
+#ifndef Actor_Initialize_RET
+  #define Actor_Initialize_RET DEFAULT_INT
 #endif
-extern FUNC_8001E2D0_RET func_8001E2D0(u16 actor_index);
+extern Actor_Initialize_RET Actor_Initialize(u16 actor_index);
 extern void func_80026E60(u16 arg0);
 extern u16 Actor_RangeFindInactive(u16 actor_index, u16 end);
 extern u16 Actor_RangeFindInactive_90ToC0(void);
@@ -168,10 +219,10 @@ extern void func_80046148(void* arg0, u16* arg1);
 extern void func_80046188(void* arg0, void* arg1);
 extern void func_80046218(u16 arg0, u16 arg1);
 extern void Camera_UpdateViewBounds(void);
-extern s32 func_80046D5C(void);
+extern s32 func_80046D5C(void); // fade portraits out after stage loads. return true when complete.
 extern s32 Cutscene_CheckSkipInput(void);
 extern void func_80047714(s32 arg0, u16 arg1, u16 arg2, u16 arg3);
-extern void func_8005DFC8(s32 arg0);
+extern s32 func_8005DFC8(s32 arg0);
 extern void func_8008105C(u16 actor_index, void* arg1, void* arg2);
 extern void func_80081478(u16 actor_index, void* arg1, s32 arg2);
 extern void func_80081790(u16 actor_index, void* arg1);
@@ -207,5 +258,10 @@ extern void func_80083E74(void);
 
 void YellowGem_SetFlag(void);
 u64 YellowGem_GetFlag(u16 stage);
+
+extern void GameState_Gameplay(void);
+
+void OverlayABI_Slot2_fn32_void(void);
+
 
 #endif
