@@ -1,7 +1,7 @@
 #ifndef FILE_GAME_STATE_H
 #define FILE_GAME_STATE_H
 
-#include "common.h"
+#include <PR/ultratypes.h>
 
 void GameState_Loading(void);
 void GameState_SoftReset(void);

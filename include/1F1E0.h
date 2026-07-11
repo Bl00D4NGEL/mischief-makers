@@ -1,7 +1,7 @@
 #ifndef FILE_1F1E0_H
 #define FILE_1F1E0_H
 
-#include "common.h"
+#include <PR/ultratypes.h>
 
 extern u16 D_800CA230;
 extern u16 D_800CA26C[];
