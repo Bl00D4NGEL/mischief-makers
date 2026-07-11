@@ -43,8 +43,8 @@ DEFAULT_INT func_801B23EC_79A22C(u16 actor_index, u16 arg1) {
                   // required to match. equivalent: 
                   //FIXED_UNIT(COS(angle)*46.0),
                   //FIXED_UNIT(SIN(angle)*46.0));
-                  (s32)(gCosineLookup[angle & 0x3FF] * 188416.0f),
-                  (s32)(gCosineLookup[(angle - 0x100) & 0x3FF] * 188416.0f));
+                  (s32)(COS(angle) * 188416.0f),
+                  (s32)(SIN(angle) * 188416.0f));
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_3/overlay_7986D0/798740/func_801B24F0_79A330.s")
@@ -122,8 +122,8 @@ DEFAULT_INT func_801B4C5C_79CA9C(u16 actor_index, u16 arg1) {
                   // required to match. equivalent: 
                   //FIXED_UNIT(COS(angle)*46.0),
                   //FIXED_UNIT(SIN(angle)*46.0));
-                  (s32)(gCosineLookup[angle & 0x3FF] * 188416.0f),
-                  (s32)(gCosineLookup[(angle - 0x100) & 0x3FF] * 188416.0f));
+                  (s32)(COS(angle) * 188416.0f),
+                  (s32)(SIN(angle) * 188416.0f));
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/overlay_3/overlay_7986D0/798740/func_801B4D60_79CBA0.s")

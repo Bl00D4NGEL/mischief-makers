@@ -368,23 +368,23 @@ void func_8019654C_6C121C(u16 actor_index) {
 
     rand = Rand();\
     D_801A2190_6CCE60 = (Math_Atan2(gPlayerActor.posX.whole - gActors[actor_index + 8].posX.whole,
-                                       gPlayerActor.posY.whole - gActors[actor_index + 8].posY.whole) - (rand & 0x3F) - 0x310) & 0x3FF;
+                                       gPlayerActor.posY.whole - gActors[actor_index + 8].posY.whole) - (rand & 0x3F) - 0x310) & COS_MASK;
 }
 
 void func_801965D0_6C12A0(u16 actor_index, u16 angle) {
     s32 target;
 
-    target = gCosineLookup[angle & 0x3FF] * 393216.0f;
+    target = COS(angle) * 393216.0f;
     gActors[actor_index].velocityX.raw =
-        Math_ApproachS32(gActors[actor_index].velocityX.raw, target, Math_AbsS32(gCosineLookup[angle & 0x3FF] * 49152.0f));
+        Math_ApproachS32(gActors[actor_index].velocityX.raw, target, Math_AbsS32(COS(angle) * 49152.0f));
 }
 
 void func_801966B0_6C1380(u16 actor_index, u16 angle) {
     s32 target;
 
-    target = gCosineLookup[(angle - 0x100) & 0x3FF] * 393216.0f;
+    target = SIN(angle) * 393216.0f;
     gActors[actor_index].velocityY.raw = Math_ApproachS32(
-        gActors[actor_index].velocityY.raw, target, Math_AbsS32(gCosineLookup[(angle - 0x100) & 0x3FF] * 49152.0f));
+        gActors[actor_index].velocityY.raw, target, Math_AbsS32(SIN(angle) * 49152.0f));
 }
 
 void func_80196794_6C1464(u16 actor_index) {
