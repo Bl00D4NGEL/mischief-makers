@@ -118,7 +118,7 @@ segments:
       - [0x061B80, c]
       - [0x066250, c]
       - [0x07D8E0, asm]
-      - [0x0805E0, asm]
+      - [0x0805E0, c]
       - [0x080D90, c]
       - [0x082920, asm]
       - [0x082DB0, asm] # has to do with loading marina's graphics
@@ -326,7 +326,7 @@ segments:
       - [0x0E4920, data] # 84BB0?
       - [0x0E5160, data] # 8D0A0?
       - [0x0E66C0, .data, 17A70]
-      - [0x0E6700, data] # 8F080?
+      - [0x0E6700, .data, 8F080]
       - [0x0EA340, data, stage_end_screen]
       # libultra data
       - [0x0EA370, .data, ultralib/os/initialize]
@@ -372,7 +372,7 @@ segments:
       - [0x0EC220, .rodata, 241E0]
       - [0x0EC280, .rodata, 28EF0]
       - [0x0EC910, .rodata, 42E90]
-      - [0x0EC920, rodata] # 438E0?
+      - [0x0EC920, .rodata, 438E0]
       - [0x0EC960, rodata] # marina?
       - [0x0EC9D0, .rodata, 4FEB0]
       - [0x0ECAA0, .rodata, 57F20]
@@ -382,12 +382,12 @@ segments:
       - [0x0ECD80, .rodata, 61B80]
       - [0x0ED0E0, .rodata, 66250]
       - [0x0EDBC0, rodata] # 7D8E0?
-      - [0x0EDC10, rodata] # 805E0?
+      - [0x0EDC10, .rodata, 805E0]
       - [0x0EDC20, rodata] # 80D90?
       - [0x0EDC50, rodata] # 82920?
       - [0x0EDC70, rodata, osd_debug_text]
       - [0x0EDCE0, rodata] # 84BB0?
-      - [0x0EDEF0, rodata] # 8F080?
+      - [0x0EDEF0, .rodata, 8F080]
       - [0x0EE100, rodata, stage_end_screen]
       # libultra
       - [0x0EE200, .rodata, ultralib/io/viswapbuf]
@@ -444,6 +444,7 @@ segments:
       - { name: bss_801782B0, type: bss, vram: 0x801782B0 }
       - { name: 82F80, type: .bss, vram: 0x80178470 }
       - { name: bss_80180FD0, type: bss, vram: 0x80180FD0 } # osd_debug_text
+      - { name: 8F080, type: .bss, vram: 0x801826B0}
       - { name: ultralib/os/initialize, type: .bss, vram: 0x801826C0 }
       - { name: ultralib/io/vimgr, type: .bss, vram: 0x801826D0 }
       - { name: ultralib/io/pimgr, type: .bss, vram: 0x801838F0 }
@@ -1178,7 +1179,7 @@ segments:
     start: 0x7969D0
     subsegments:
       - [0x7969D0, c, overlay_3/overlay_7969B0/7969D0] # object segment 7969D0->7986D0 (0x1D00)
-      - [0x7984C0, data, overlay_7969B0/7969D0]
+      - [0x7984C0, .data, overlay_3/overlay_7969B0/7969D0]
       - [0x798550, .rodata, overlay_3/overlay_7969B0/7969D0]
 
   - name: overlay_7986D0_dispatch_table # blackgamma7: World2
@@ -1195,8 +1196,8 @@ segments:
     start: 0x798740
     subsegments:
       - [0x798740, c, overlay_3/overlay_7986D0/798740] # object segment 798740->7A13D0 (0x8C90)
-      - [0x79DC30, data, overlay_7986D0/798740]
-      - [0x7A1060, rodata, overlay_7986D0/798740]
+      - [0x79DC30, .data, overlay_3/overlay_7986D0/798740]
+      - [0x7A0FB0, .rodata, overlay_3/overlay_7986D0/798740]
 
   - name: overlay_7A13D0_dispatch_table # blackgamma7: World3
     exclusive_ram_id: overlay_7A13D0_dispatch_table
@@ -1213,9 +1214,9 @@ segments:
     bss_size: 0x10
     subsegments:
       - [0x7A1410, c, overlay_3/overlay_7A13D0/7A1410] # object segment 7A1410->7A6E60 (0x5A50)
-      - [0x7A69A0, data, overlay_7A13D0/7A1410]
-      - [0x7A6CE0, rodata, overlay_7A13D0/7A1410]
-      - { name: overlay_7A13D0/7A1410, type: bss, vram: 0x801B6350 }
+      - [0x7A69A0, .data, overlay_3/overlay_7A13D0/7A1410]
+      - [0x7A6CE0, .rodata, overlay_3/overlay_7A13D0/7A1410]
+      - { name: overlay_3/overlay_7A13D0/7A1410, type: .bss, vram: 0x801B6350 }
 
   - name: overlay_7A6E60_dispatch_table # blackgamma7: Festival
     exclusive_ram_id: overlay_7A6E60_dispatch_table
@@ -1231,7 +1232,7 @@ segments:
     start: 0x7A6E80
     subsegments:
       - [0x7A6E80, c, overlay_3/overlay_7A6E60/7A6E80] # object segment 7A6E80->7AC7F0 (0x5970)
-      - [0x7AB410, data, overlay_3/overlay_7A6E60/7A6E80]
+      - [0x7AB410, .data, overlay_3/overlay_7A6E60/7A6E80]
       - [0x7ABFE0, .rodata, overlay_3/overlay_7A6E60/7A6E80]
 
   - name: overlay_7AC7F0_dispatch_table # blackgamma7: Festival2
@@ -1302,9 +1303,9 @@ segments:
     bss_size: 0x20
     subsegments:
       - [0x7BC850, c, overlay_3/overlay_7BC840/7BC850] # object segment 7BC850->7C0AB0 (0x4260)
-      - [0x7C0640, data, overlay_3/overlay_7BC840/7BC850]
-      - [0x7C0680, rodata, overlay_3/overlay_7BC840/7BC850_rodata]
-      - { name: overlay_3/overlay_7BC840/7BC850, type: bss, vram: 0x801B4B60 }
+      - [0x7C0640, .data, overlay_3/overlay_7BC840/7BC850]
+      - [0x7C0680, .rodata, overlay_3/overlay_7BC840/7BC850]
+      - { name: overlay_3/overlay_7BC840/7BC850, type: .bss, vram: 0x801B4B60 }
 
   - name: overlay_7C0AB0_dispatch_table # blackgamma7: World5
     exclusive_ram_id: overlay_7C0AB0_dispatch_table

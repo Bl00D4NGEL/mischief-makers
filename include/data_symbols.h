@@ -9,15 +9,19 @@ extern u16 gStageState; // state for stages, determining cinematics, actor spawn
 extern u16 gStageTime; // time in current stage. does not count time during cutscenes.
 extern u16 gStageTimeBest;
 extern u16 D_800D28F0;
+extern s16 D_800D28F8;
 extern u32 D_800D28FC;
 extern u16 gSkipStageIntro; // skip stage intros. set during "continue" and "attract" states.
 extern s32 D_800D2928;
 extern s32 D_800D2938;
-extern s16 D_800D294C;
+extern u16 D_800D294C;
+extern u16 gGuestActorIndex;
+extern s16 gNoHit;
 extern u16 D_800D8588[]; // all-white palette
 extern s16 D_800E13FC[];
 extern u16 D_800E3580;
 extern u32 D_800E3584; // nearest actor facing
+extern s32 D_800E3630[]; // could be array of structs of length 0x28
 extern s16 D_801370D0; //index for position/graphic arrays in unused after-image state
 extern s16 D_801370D2;
 extern u16 D_801370D4;
@@ -43,13 +47,13 @@ extern u32 D_80137718;
 extern u64 D_80171B10;
 extern u64 D_801781F0;
 extern u16 D_801782B8;
-extern FestivalStruct gFestivalData; // data related mostly to Festival Games.
 extern u16 gAudioFadeMode;
 extern s32 D_800BE73C;
 extern u16 D_800CBF40;
 extern u16 D_800CBF50;
 extern u8 D_800CC428; // boolean used in camera function for "Counterattack"
 extern u16 D_800D16C4[];
+extern u16* D_800D1958[]; // palettes of gems
 extern u16 D_800D1A04[];
 extern u16 D_800D2690[]; // LUT of digging spot items.
 extern s16 D_800D26F4[];
@@ -77,6 +81,7 @@ extern s32 D_800D2930;
 extern s32 D_800D2934;
 extern u16 D_800D2954;
 extern u16 D_800D2960;
+extern u16 D_800D3B74;
 extern u16 D_800D5820;
 extern u16 D_800D5824;
 extern u16 D_800D5828;
@@ -111,10 +116,6 @@ extern s16 D_800E5910[];
 extern s16 D_800E5938[];
 extern s16 D_800E5970[];
 extern s16 D_800E59E0[];
-extern s16 D_800F4268;
-extern s32 D_800F43A8;
-extern s16 D_800F43B0;
-extern s32 D_800F7510;
 extern u16 gLetterboxMode;
 extern u16 gRedGems;
 
@@ -129,5 +130,21 @@ extern u16 gActorsTop[240]; // indecies of actors to draw at the "top" (either b
 extern UnkStruct_D_801373E0 D_801373E0;
 extern s8 D_801373F2;
 extern u32 D_80137458;
+
+// soft_reset.c bss
+extern u16 D_801781F8; // some control lock? read in func_80048740. always 0.
+extern u8 D_801781FA[2];
+extern u8 D_801781FC[4];
+extern u8 D_80178200[8];
+extern u8 D_80178208[8];
+extern u8 D_80178210[8];
+extern u8 D_80178218[8];
+extern u16 D_80178222;
+extern u8 D_8017822A[2];
+extern u8 D_8017822C[4];
+extern u16* D_80178288;
+extern u8 D_8017828D; // align byte?
+extern u8 D_80178292;
+extern u8 D_8017829C[4]; // unused?
 
 #endif
