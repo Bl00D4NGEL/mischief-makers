@@ -1,6 +1,7 @@
 #include "common.h"
 #include "actor.h"
 #include "function_symbols.h"
+#include "28EF0.h"
 
 extern f32 D_801B4720_7C0670;
 extern u8 D_801B4B60_7C0AB0;
