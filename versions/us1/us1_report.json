@@ -300,7 +300,7 @@
       }
     },
     {
-      "name": "gameState",
+      "name": "game_state",
       "measures": {
         "fuzzy_match_percent": 100.0,
         "total_code": "1248",
@@ -367,7 +367,7 @@
         "module_name": ".main",
         "module_id": 2,
         "progress_categories": [
-          "gameState"
+          "game_state"
         ]
       }
     },
@@ -49345,8 +49345,8 @@
       }
     },
     {
-      "id": "gameState",
-      "name": "gameState",
+      "id": "game_state",
+      "name": "game_state",
       "measures": {
         "fuzzy_match_percent": 100.0,
         "total_code": "1248",
