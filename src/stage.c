@@ -8,6 +8,7 @@
 #include "linker.h"
 #include "rle.h"
 #include "stage.h"
+#include "1F1E0.h"
 
 #define DEBUG_STAGE_SELECT_ROW_COUNT 22
 #define DEBUG_STAGE_SELECT_COLUMN_ROWS 11
