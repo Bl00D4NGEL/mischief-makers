@@ -177,7 +177,7 @@ s32 Worm_ApproachS32(s32 current, s32 target, s32 step) {
 void func_8019C120_73E0B0(u16 actor_index) {
     s32 temp_t0;
 
-    temp_t0 = (gActors[actor_index].unk_168/0x10000) & COS_MASK;
+    temp_t0 = FROM_FIXED(gActors[actor_index].unk_168) & COS_MASK;
     if ((temp_t0 > COS_DEG_90) && (temp_t0 < (COS_DEG_90*3))) {
         gActors[actor_index+1].rotateY = 0.0;
         gActors[actor_index+1].rotateZ = INDEX_TO_DEG(((COS_DEG_90*4) - ((temp_t0 + (COS_DEG_90*2)) & COS_MASK)));
