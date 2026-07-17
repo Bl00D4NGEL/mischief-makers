@@ -110,7 +110,7 @@ void func_801B0ABC_796B8C(u16 actor_index) {
             gActors[actor_index].unk_188 = -0x20;
             gActors[actor_index].posZ.whole = -528;
             gActors[actor_index].state = 0x10;
-            if (gCurrentScene == 0x36) {
+            if (gCurrentScene == SCENE_WESTERNWORLD) {
                 func_801B2018_7980E8(actor_index);
             }
             break;

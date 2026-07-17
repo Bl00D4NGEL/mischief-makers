@@ -7,5 +7,7 @@
 void func_80083A74(s32, s32, s32);
 // guessed signature
 void func_80083C54(s16, s32, s32);
+// guessed signature
+void func_80083A04(u32, s32, s32);
 
 #endif

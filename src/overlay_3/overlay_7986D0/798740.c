@@ -2266,7 +2266,7 @@ void func_801B2F2C_79AD6C(u16 actor_index) {
 
             if (gActors[actor_index].flags_098 & (ACTOR_FLAG3_UNK9 | ACTOR_FLAG3_UNK7)) {
                 if ((D_800D28E4 != 0xC) || (gStageState >= 4)) {
-                    if (gCurrentScene == 0x3E) {
+                    if (gCurrentScene == SCENE_MAGMARAFTS) {
                         gActors[actor_index].velocityX.raw = FIXED_UNIT(0.5);
                     }
                     gActors[actor_index].unk_164 = 0;
@@ -2286,7 +2286,7 @@ void func_801B2F2C_79AD6C(u16 actor_index) {
 
         case 0xB:
             if (gActors[actor_index].flags_098 & (ACTOR_FLAG3_UNK9 | ACTOR_FLAG3_UNK7)) {
-                if (gCurrentScene == 0x3E) {
+                if (gCurrentScene == SCENE_MAGMARAFTS) {
                     gActors[actor_index].velocityX.raw = FIXED_UNIT(0.5);
                 }
                 gActors[actor_index].unk_164 = 0;

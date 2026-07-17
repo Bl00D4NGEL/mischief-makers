@@ -2,6 +2,7 @@
 #include "game_state.h"
 #include "stage.h"
 #include "1F1E0.h"
+#include "5D120.h"
 
 extern s16 D_800C7D10;
 extern char D_800C7D1C[];
@@ -555,9 +556,9 @@ void GameState_ContinueScreen(void) {
             gAudioFadeMode = 0;
             if ((gCurrentScene >= 0xF) && (gCurrentScene < 0x13)) {
                 D_800D28F0 = 0x1F;
-                gCurrentScene = 0x10;
+                gCurrentScene = SCENE_DAYOF0;
             }
-            if (gCurrentScene != 0x38) {
+            if (gCurrentScene != SCENE_WORMINUP) {
                 func_80025578();
             }
             func_800255B4(gCurrentScene);
